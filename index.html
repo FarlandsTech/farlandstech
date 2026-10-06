@@ -8,20 +8,16 @@
   <meta name="description" content="FarlandsTech — smartphones, tech and photography.">
   <meta name="theme-color" content="#f4f7ff">
 
-  <!-- FarlandsTech tab icon -->
   <link rel="icon" type="image/png" href="profile.png">
   <link rel="apple-touch-icon" href="profile.png">
 
   <title>FarlandsTech</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
-
   <style>
+    /* =========================================================
+       RESET
+       ========================================================= */
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -32,18 +28,55 @@
       --text: #11131a;
       --muted: #656b78;
 
-      --glass: rgba(255, 255, 255, 0.48);
-      --glass-hover: rgba(255, 255, 255, 0.68);
+      --bg-1: #eef5ff;
+      --bg-2: #f8f8ff;
+      --bg-3: #eef8f6;
 
-      --border: rgba(255, 255, 255, 0.75);
+      --glass: rgba(255,255,255,0.62);
+      --glass-hover: rgba(255,255,255,0.82);
+
+      --border: rgba(255,255,255,0.85);
 
       --shadow:
-        0 20px 60px rgba(35, 55, 100, 0.12);
+        0 18px 45px rgba(35,55,100,0.11);
 
-      --glow-blue: rgba(90, 150, 255, 0.38);
-      --glow-purple: rgba(160, 110, 255, 0.28);
-      --glow-green: rgba(60, 210, 170, 0.22);
+      --button-bg: rgba(255,255,255,0.72);
+      --button-border: rgba(255,255,255,0.9);
+
+      --blue: #397eff;
+      --purple: #8067e9;
+      --green: #36bfa0;
     }
+
+
+    /* =========================================================
+       DARK MODE
+       ========================================================= */
+
+    html.dark {
+      --text: #f3f5fa;
+      --muted: #a5acba;
+
+      --bg-1: #080c16;
+      --bg-2: #10121d;
+      --bg-3: #091712;
+
+      --glass: rgba(24,29,42,0.78);
+      --glass-hover: rgba(34,40,56,0.9);
+
+      --border: rgba(255,255,255,0.13);
+
+      --shadow:
+        0 20px 50px rgba(0,0,0,0.3);
+
+      --button-bg: rgba(30,35,48,0.82);
+      --button-border: rgba(255,255,255,0.14);
+    }
+
+
+    /* =========================================================
+       PAGE
+       ========================================================= */
 
     html {
       scroll-behavior: smooth;
@@ -53,97 +86,132 @@
       min-height: 100vh;
       overflow-x: hidden;
 
-      font-family: "Inter", sans-serif;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
       color: var(--text);
 
       background:
         radial-gradient(
-          circle at 15% 15%,
-          rgba(92, 160, 255, 0.42),
-          transparent 28%
+          circle at 10% 10%,
+          rgba(92,160,255,0.35),
+          transparent 27%
         ),
         radial-gradient(
-          circle at 85% 25%,
-          rgba(168, 120, 255, 0.35),
+          circle at 90% 20%,
+          rgba(168,120,255,0.28),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 50% 85%,
+          rgba(66,211,175,0.20),
           transparent 30%
-        ),
-        radial-gradient(
-          circle at 50% 75%,
-          rgba(66, 211, 175, 0.25),
-          transparent 32%
         ),
         linear-gradient(
           135deg,
-          #eef5ff 0%,
-          #f8f8ff 45%,
-          #eef8f6 100%
+          var(--bg-1),
+          var(--bg-2) 48%,
+          var(--bg-3)
         );
+
+      transition:
+        background 0.35s ease,
+        color 0.25s ease;
     }
 
-    /*
-      Soft background light.
-      Kept static so it doesn't constantly consume GPU resources.
-    */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
 
-      pointer-events: none;
-
+    html.dark body {
       background:
         radial-gradient(
-          circle at 30% 40%,
-          rgba(255,255,255,0.7),
-          transparent 22%
+          circle at 12% 12%,
+          rgba(45,105,210,0.22),
+          transparent 27%
         ),
         radial-gradient(
-          circle at 75% 65%,
-          rgba(255,255,255,0.5),
-          transparent 25%
+          circle at 88% 22%,
+          rgba(125,70,200,0.18),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 50% 85%,
+          rgba(35,160,125,0.13),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          #080c16,
+          #10121d 48%,
+          #091712
         );
-
-      filter: blur(50px);
-      z-index: -1;
     }
 
-    /* Ambient background blobs */
 
-    .ambient {
+    /* =========================================================
+       TOP CONTROLS
+       ========================================================= */
+
+    .controls {
       position: fixed;
 
-      width: 420px;
-      height: 420px;
+      top: 18px;
+      right: 18px;
 
-      border-radius: 50%;
+      z-index: 100;
 
-      filter: blur(100px);
-
-      pointer-events: none;
-
-      z-index: -2;
-
-      opacity: 0.35;
-
-      will-change: transform;
+      display: flex;
+      gap: 8px;
     }
 
-    .ambient-a {
-      background: #5da4ff;
-      top: -180px;
-      left: -160px;
+    .control-button {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--button-border);
+
+      border-radius: 15px;
+
+      background: var(--button-bg);
+
+      color: var(--text);
+
+      font-size: 18px;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 10px 28px rgba(30,50,90,0.12);
+
+      transition:
+        transform 0.22s cubic-bezier(.2,.8,.2,1),
+        background 0.22s ease,
+        box-shadow 0.22s ease;
+
+      /*
+        No backdrop-filter here.
+        This keeps the buttons extremely cheap.
+      */
     }
 
-    .ambient-b {
-      background: #b77aff;
-      right: -180px;
-      top: 30%;
+    .control-button:hover {
+      transform:
+        translateY(-2px)
+        scale(1.04);
+
+      box-shadow:
+        0 14px 30px rgba(30,50,90,0.18);
     }
 
-    .ambient-c {
-      background: #42d9b0;
-      left: 20%;
-      bottom: -250px;
+    .control-button:active {
+      transform:
+        translateY(1px)
+        scale(0.96);
     }
 
 
@@ -167,25 +235,25 @@
 
       width: 150px;
       max-width: 13vw;
+
       height: auto;
 
       object-fit: contain;
 
-      filter:
-        drop-shadow(
-          0 25px 30px rgba(20, 35, 70, 0.18)
-        )
-        drop-shadow(
-          0 0 22px rgba(110, 160, 255, 0.13)
-        );
-
-      opacity: 0.88;
-
       /*
-        Transform is much cheaper than changing margin-top
-        during scrolling.
+        IMPORTANT:
+        No drop-shadow filter here.
+
+        CSS filters on 8 large transparent PNGs can be
+        surprisingly expensive.
       */
+
+      opacity: 0.82;
+
       will-change: transform;
+
+      transition:
+        opacity 0.3s ease;
     }
 
     .phone-1 {
@@ -249,13 +317,15 @@
 
       margin: 0 auto;
 
-      padding: 70px 0 45px;
+      padding: 78px 0 45px;
     }
 
     .hero {
       text-align: center;
 
-      padding: 10px 0 55px;
+      padding:
+        10px 0
+        55px;
     }
 
 
@@ -269,6 +339,8 @@
       display: inline-block;
 
       margin-bottom: 25px;
+
+      cursor: pointer;
     }
 
     .profile-photo {
@@ -281,11 +353,21 @@
 
       background: white;
 
-      border: 4px solid rgba(255,255,255,0.85);
+      border:
+        4px solid rgba(255,255,255,0.85);
 
       box-shadow:
-        0 18px 45px rgba(40, 60, 100, 0.18),
-        0 0 35px rgba(100, 150, 255, 0.15);
+        0 18px 45px rgba(40,60,100,0.18),
+        0 0 35px rgba(100,150,255,0.15);
+
+      transition:
+        transform 0.3s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .profile-wrap:hover .profile-photo {
+      transform:
+        rotate(-2deg)
+        scale(1.035);
     }
 
     .profile-photo img {
@@ -313,12 +395,12 @@
       border: 3px solid white;
 
       box-shadow:
-        0 0 16px rgba(70, 220, 150, 0.6);
+        0 0 16px rgba(70,220,150,0.6);
     }
 
 
     /* =========================================================
-       HERO TEXT
+       HERO
        ========================================================= */
 
     .eyebrow {
@@ -329,16 +411,12 @@
 
       margin-bottom: 14px;
 
-      color: #4d596b;
+      color: var(--muted);
     }
 
-    /*
-      The hero itself gets a tiny amount of physics.
-      It deliberately isn't as strong as the buttons.
-    */
-
     h1 {
-      font-size: clamp(35px, 8vw, 58px);
+      font-size:
+        clamp(35px, 8vw, 58px);
 
       line-height: 1.02;
 
@@ -346,15 +424,20 @@
 
       font-weight: 700;
 
+      /*
+        Lightweight cursor movement.
+        No constantly-running animation.
+      */
+
       transform:
-        perspective(800px)
-        rotateX(var(--hero-x, 0deg))
-        rotateY(var(--hero-y, 0deg))
         translate3d(
-          var(--hero-tx, 0px),
-          var(--hero-ty, 0px),
+          var(--hero-x, 0px),
+          var(--hero-y, 0px),
           0
         );
+
+      transition:
+        transform 0.18s cubic-bezier(.2,.8,.2,1);
 
       will-change: transform;
     }
@@ -363,9 +446,9 @@
       background:
         linear-gradient(
           90deg,
-          #397eff,
-          #8067e9,
-          #36bfa0
+          var(--blue),
+          var(--purple),
+          var(--green)
         );
 
       -webkit-background-clip: text;
@@ -418,24 +501,30 @@
 
       text-decoration: none;
 
-      background: var(--glass);
+      background:
+        linear-gradient(
+          135deg,
+          var(--glass),
+          rgba(255,255,255,0.35)
+        );
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
 
       /*
-        Keep blur, but slightly reduce its cost.
-        The visual difference is almost impossible to notice.
+        The biggest performance change:
+
+        NO backdrop-filter.
+
+        The translucent gradient still gives the glass
+        appearance, but the browser doesn't have to
+        continuously blur everything behind every card.
       */
-      backdrop-filter: blur(18px) saturate(145%);
-      -webkit-backdrop-filter: blur(18px) saturate(145%);
 
       box-shadow: var(--shadow);
 
-      /*
-        Physics is controlled by CSS variables.
-      */
       transform:
-        perspective(900px)
+        perspective(700px)
         rotateX(var(--rx, 0deg))
         rotateY(var(--ry, 0deg))
         translate3d(
@@ -446,22 +535,31 @@
         scale(var(--scale, 1));
 
       transition:
-        background 0.25s ease,
-        box-shadow 0.25s ease;
+        transform 0.18s cubic-bezier(.2,.8,.2,1),
+        background 0.22s ease,
+        box-shadow 0.22s ease;
 
       will-change: transform;
 
       overflow: hidden;
 
-      /*
-        Prevents accidental text selection while
-        rapidly moving over the card.
-      */
       user-select: none;
     }
 
 
-    /* Glowing ColorOS-style outline */
+    html.dark .link-card {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(30,36,52,0.88),
+          rgba(20,25,38,0.74)
+        );
+    }
+
+
+    /* =========================================================
+       GLOWING OUTLINE
+       ========================================================= */
 
     .link-card::after {
       content: "";
@@ -477,21 +575,20 @@
       background:
         linear-gradient(
           120deg,
-          rgba(90,150,255,0.55),
-          rgba(170,110,255,0.38),
-          rgba(70,210,180,0.42),
-          rgba(255,255,255,0.6)
+          rgba(90,150,255,0.65),
+          rgba(170,110,255,0.45),
+          rgba(70,210,180,0.48),
+          rgba(255,255,255,0.65)
         );
 
-      opacity: var(--outline-opacity, 0);
+      opacity:
+        var(--outline-opacity, 0);
 
-      filter: blur(0.5px);
+      /*
+        Mask creates only the outline.
+      */
 
-      mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-
-      mask-composite: exclude;
+      padding: 1px;
 
       -webkit-mask:
         linear-gradient(#000 0 0) content-box,
@@ -499,19 +596,28 @@
 
       -webkit-mask-composite: xor;
 
-      padding: 1px;
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+
+      mask-composite: exclude;
+
+      transition:
+        opacity 0.2s ease;
     }
 
 
-    /* Cursor-following light */
+    /* =========================================================
+       CURSOR LIGHT
+       ========================================================= */
 
     .link-card::before {
       content: "";
 
       position: absolute;
 
-      width: 190px;
-      height: 190px;
+      width: 160px;
+      height: 160px;
 
       left: var(--x, 50%);
       top: var(--y, 50%);
@@ -522,37 +628,47 @@
       background:
         radial-gradient(
           circle,
-          rgba(255,255,255,0.72),
-          rgba(120,170,255,0.18),
+          rgba(255,255,255,0.55),
+          rgba(110,165,255,0.13),
           transparent 70%
         );
 
-      opacity: var(--glow-opacity, 0);
+      opacity:
+        var(--glow-opacity, 0);
 
       pointer-events: none;
 
-      filter: blur(8px);
-
-      /*
-        The glow follows the mouse instantly,
-        without transition lag.
-      */
-      will-change: left, top, opacity;
+      transition:
+        opacity 0.18s ease;
     }
 
 
     .link-card:hover,
     .link-card:focus-visible {
-      background: var(--glass-hover);
+      background:
+        linear-gradient(
+          135deg,
+          var(--glass-hover),
+          rgba(255,255,255,0.52)
+        );
 
       box-shadow:
-        0 25px 60px rgba(40, 70, 120, 0.17),
-        0 0 30px rgba(110, 160, 255, 0.13);
+        0 22px 48px rgba(40,70,120,0.16);
 
       outline: none;
 
-      --outline-opacity: 0.9;
+      --outline-opacity: 0.95;
       --glow-opacity: 1;
+    }
+
+
+    html.dark .link-card:hover {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(40,47,65,0.95),
+          rgba(28,34,49,0.9)
+        );
     }
 
 
@@ -576,19 +692,31 @@
 
       border-radius: 15px;
 
-      background: rgba(255,255,255,0.7);
+      background:
+        rgba(255,255,255,0.72);
 
       border:
-        1px solid rgba(255,255,255,0.8);
+        1px solid rgba(255,255,255,0.82);
 
       font-size: 19px;
 
       transition:
-        transform 0.35s cubic-bezier(.2,.8,.2,1);
+        transform 0.22s
+        cubic-bezier(.2,.8,.2,1);
+    }
+
+    html.dark .icon {
+      background:
+        rgba(255,255,255,0.09);
+
+      border-color:
+        rgba(255,255,255,0.12);
     }
 
     .link-card:hover .icon {
-      transform: scale(1.04);
+      transform:
+        scale(1.04)
+        rotate(-2deg);
     }
 
     .link-text {
@@ -610,10 +738,11 @@
 
       font-size: 20px;
 
-      color: #8a919e;
+      color: var(--muted);
 
       transition:
-        transform 0.35s cubic-bezier(.2,.8,.2,1);
+        transform 0.22s
+        cubic-bezier(.2,.8,.2,1);
     }
 
     .link-card:hover .arrow {
@@ -624,7 +753,7 @@
 
 
     /* =========================================================
-       WORK SECTION
+       WORK
        ========================================================= */
 
     .work {
@@ -636,73 +765,27 @@
 
       border-radius: 26px;
 
-      background: rgba(255,255,255,0.42);
+      background:
+        rgba(255,255,255,0.46);
 
       border:
-        1px solid rgba(255,255,255,0.75);
-
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
+        1px solid var(--border);
 
       box-shadow: var(--shadow);
 
-      transform:
-        perspective(900px)
-        rotateX(var(--work-rx, 0deg))
-        rotateY(var(--work-ry, 0deg))
-        translate3d(
-          var(--work-tx, 0px),
-          var(--work-ty, 0px),
-          0
-        );
-
-      will-change: transform;
-
       transition:
-        box-shadow 0.25s ease;
+        background 0.25s ease,
+        transform 0.2s ease;
     }
 
-    .work::after {
-      content: "";
-
-      position: absolute;
-
-      inset: -1px;
-
-      border-radius: inherit;
-
-      pointer-events: none;
-
+    html.dark .work {
       background:
-        linear-gradient(
-          120deg,
-          rgba(90,150,255,0.45),
-          rgba(170,110,255,0.3),
-          rgba(70,210,180,0.35),
-          rgba(255,255,255,0.55)
-        );
-
-      opacity: 0;
-
-      padding: 1px;
-
-      mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-
-      mask-composite: exclude;
-
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-
-      -webkit-mask-composite: xor;
-
-      transition: opacity 0.25s ease;
+        rgba(24,30,43,0.76);
     }
 
-    .work:hover::after {
-      opacity: 0.8;
+    .work:hover {
+      transform:
+        translateY(-2px);
     }
 
     .work-title {
@@ -723,17 +806,50 @@
 
 
     /* =========================================================
+       EASTER EGG / INSPIRED BY
+       ========================================================= */
+
+    .easter-egg {
+      margin-top: 24px;
+
+      text-align: center;
+
+      font-size: 10px;
+
+      color: var(--muted);
+
+      opacity: 0.72;
+
+      user-select: none;
+
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .easter-egg:hover {
+      opacity: 1;
+    }
+
+    .easter-egg span {
+      cursor: pointer;
+    }
+
+
+    /* =========================================================
        FOOTER
        ========================================================= */
 
     .footer {
-      padding-top: 35px;
+      padding-top: 18px;
 
       text-align: center;
 
-      color: #858b96;
+      color: var(--muted);
 
       font-size: 11px;
+
+      opacity: 0.75;
     }
 
 
@@ -744,17 +860,63 @@
     .reveal {
       opacity: 0;
 
-      transform: translateY(18px);
+      transform:
+        translateY(14px);
 
       animation:
-        reveal 0.7s ease forwards;
+        reveal 0.55s ease forwards;
     }
 
     @keyframes reveal {
       to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+          translateY(0);
       }
+    }
+
+
+    /* =========================================================
+       FARLANDS EASTER EGG MODE
+       ========================================================= */
+
+    body.farlands-mode {
+      background:
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(255,70,130,0.28),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 85% 20%,
+          rgba(90,90,255,0.30),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 50% 85%,
+          rgba(50,220,170,0.26),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          #eef5ff,
+          #fff2fb 50%,
+          #eafff7
+        );
+    }
+
+    body.farlands-mode .profile-photo {
+      box-shadow:
+        0 18px 45px rgba(40,60,100,0.18),
+        0 0 45px rgba(120,100,255,0.55);
+    }
+
+    body.farlands-mode .easter-egg {
+      transform:
+        scale(1.08);
+
+      opacity: 1;
     }
 
 
@@ -769,7 +931,7 @@
 
         max-width: none;
 
-        opacity: 0.35;
+        opacity: 0.27;
       }
 
       .phone-1 {
@@ -796,11 +958,11 @@
       .phone-6,
       .phone-7,
       .phone-8 {
-        opacity: 0.22;
+        opacity: 0.16;
       }
 
       .page {
-        padding-top: 45px;
+        padding-top: 70px;
       }
 
       .hero {
@@ -808,14 +970,14 @@
       }
 
       /*
-        No heavy 3D interaction on smaller screens.
+        Disable mouse physics on mobile.
       */
+
       .link-card {
         transform: none !important;
       }
 
-      h1,
-      .work {
+      h1 {
         transform: none !important;
       }
     }
@@ -823,8 +985,24 @@
 
     @media (max-width: 500px) {
 
+      .controls {
+        top: 12px;
+        right: 12px;
+      }
+
+      .control-button {
+        width: 40px;
+        height: 40px;
+
+        border-radius: 13px;
+      }
+
       .page {
-        width: min(100% - 24px, 620px);
+        width:
+          min(
+            calc(100% - 24px),
+            620px
+          );
       }
 
       .profile-photo {
@@ -860,9 +1038,11 @@
       *::after {
         scroll-behavior: auto !important;
 
-        animation-duration: 0.01ms !important;
+        animation-duration:
+          0.01ms !important;
 
-        transition-duration: 0.01ms !important;
+        transition-duration:
+          0.01ms !important;
       }
 
       .link-card,
@@ -874,46 +1054,122 @@
   </style>
 </head>
 
+
 <body>
 
-  <div class="ambient ambient-a"></div>
-  <div class="ambient ambient-b"></div>
-  <div class="ambient ambient-c"></div>
-
-
   <!-- =========================================================
-       FLOATING PHONES
+       TOP CONTROLS
        ========================================================= -->
 
-  <div class="phone-field" aria-hidden="true">
+  <div class="controls">
 
-    <img class="phone phone-1" src="phone1.png" alt="">
-    <img class="phone phone-2" src="phone2.png" alt="">
-    <img class="phone phone-3" src="phone3.png" alt="">
-    <img class="phone phone-4" src="phone4.png" alt="">
-    <img class="phone phone-5" src="phone5.png" alt="">
-    <img class="phone phone-6" src="phone6.png" alt="">
-    <img class="phone phone-7" src="phone7.png" alt="">
-    <img class="phone phone-8" src="phone8.png" alt="">
+    <button
+      class="control-button"
+      id="themeButton"
+      type="button"
+      aria-label="Toggle dark mode"
+      title="Toggle dark mode"
+    >
+      ☾
+    </button>
+
+    <button
+      class="control-button"
+      id="shareButton"
+      type="button"
+      aria-label="Share FarlandsTech"
+      title="Share FarlandsTech"
+    >
+      ↗
+    </button>
 
   </div>
 
 
   <!-- =========================================================
-       MAIN CONTENT
+       PHONES
+       ========================================================= -->
+
+  <div
+    class="phone-field"
+    aria-hidden="true"
+  >
+
+    <img
+      class="phone phone-1"
+      src="phone1.png"
+      alt=""
+    >
+
+    <img
+      class="phone phone-2"
+      src="phone2.png"
+      alt=""
+    >
+
+    <img
+      class="phone phone-3"
+      src="phone3.png"
+      alt=""
+    >
+
+    <img
+      class="phone phone-4"
+      src="phone4.png"
+      alt=""
+    >
+
+    <img
+      class="phone phone-5"
+      src="phone5.png"
+      alt=""
+    >
+
+    <img
+      class="phone phone-6"
+      src="phone6.png"
+      alt=""
+    >
+
+    <img
+      class="phone phone-7"
+      src="phone7.png"
+      alt=""
+    >
+
+    <img
+      class="phone phone-8"
+      src="phone8.png"
+      alt=""
+    >
+
+  </div>
+
+
+  <!-- =========================================================
+       MAIN
        ========================================================= -->
 
   <main class="page">
 
+
+    <!-- HERO -->
+
     <section class="hero">
 
-      <div class="profile-wrap reveal">
+      <div
+        class="profile-wrap reveal"
+        id="profileEgg"
+        title="👀"
+      >
 
         <div class="profile-photo">
+
           <img
             src="profile.png"
             alt="FarlandsTech profile picture"
           >
+
         </div>
 
         <span class="status-dot"></span>
@@ -926,14 +1182,15 @@
       </div>
 
 
-      <h1 class="reveal" id="heroTitle">
-
+      <h1
+        class="reveal"
+        id="heroTitle"
+      >
         Smartphones.<br>
 
         <span>
           Tech. Photography.
         </span>
-
       </h1>
 
 
@@ -944,9 +1201,7 @@
     </section>
 
 
-    <!-- =======================================================
-         LINKS
-         ======================================================= -->
+    <!-- LINKS -->
 
     <section
       class="links-list"
@@ -1070,9 +1325,7 @@
     </section>
 
 
-    <!-- =======================================================
-         WORK WITH ME
-         ======================================================= -->
+    <!-- WORK -->
 
     <section class="work reveal">
 
@@ -1088,9 +1341,21 @@
     </section>
 
 
+    <!-- INSPIRED BY -->
+
+    <div class="easter-egg">
+      <span id="solarizedEgg">
+        Inspired by solarized.io :)
+      </span>
+    </div>
+
+
+    <!-- FOOTER -->
+
     <footer class="footer">
       © <span id="year"></span> FarlandsTech
     </footer>
+
 
   </main>
 
@@ -1098,11 +1363,125 @@
   <script>
 
     /* =========================================================
-       BASIC
+       YEAR
        ========================================================= */
 
     document.getElementById("year").textContent =
       new Date().getFullYear();
+
+
+    /* =========================================================
+       DARK MODE
+       ========================================================= */
+
+    const themeButton =
+      document.getElementById("themeButton");
+
+    const root =
+      document.documentElement;
+
+
+    /*
+      Load saved theme immediately.
+    */
+
+    const savedTheme =
+      localStorage.getItem("farlands-theme");
+
+    if (savedTheme === "dark") {
+      root.classList.add("dark");
+      themeButton.textContent = "☀";
+    }
+
+
+    themeButton.addEventListener("click", () => {
+
+      const dark =
+        root.classList.toggle("dark");
+
+      themeButton.textContent =
+        dark ? "☀" : "☾";
+
+      localStorage.setItem(
+        "farlands-theme",
+        dark ? "dark" : "light"
+      );
+
+    });
+
+
+    /* =========================================================
+       SHARE
+       ========================================================= */
+
+    const shareButton =
+      document.getElementById("shareButton");
+
+
+    shareButton.addEventListener("click", async () => {
+
+      const shareData = {
+        title: "FarlandsTech",
+        text: "Check out FarlandsTech!",
+        url: window.location.href
+      };
+
+
+      /*
+        Native share menu on supported devices.
+      */
+
+      if (navigator.share) {
+
+        try {
+
+          await navigator.share(shareData);
+
+          return;
+
+        } catch (error) {
+
+          /*
+            User cancelled the share sheet.
+            Nothing else needs to happen.
+          */
+
+          if (error.name === "AbortError") {
+            return;
+          }
+
+        }
+
+      }
+
+
+      /*
+        Desktop fallback:
+        copy the current website URL.
+      */
+
+      try {
+
+        await navigator.clipboard.writeText(
+          window.location.href
+        );
+
+        shareButton.textContent = "✓";
+
+        setTimeout(() => {
+          shareButton.textContent = "↗";
+        }, 1500);
+
+      } catch {
+
+        alert(
+          "Copy this website URL:\n\n" +
+          window.location.href
+        );
+
+      }
+
+    });
 
 
     /* =========================================================
@@ -1115,167 +1494,238 @@
     const copyText =
       document.getElementById("copyText");
 
-    emailButton.addEventListener("click", async () => {
 
-      const email =
-        "samsungs24ultragoat@gmail.com";
+    emailButton.addEventListener(
+      "click",
+      async () => {
 
-      try {
+        const email =
+          "samsungs24ultragoat@gmail.com";
 
-        await navigator.clipboard.writeText(email);
 
-      } catch {
+        try {
 
-        const input =
-          document.createElement("input");
+          await navigator.clipboard.writeText(email);
 
-        input.value = email;
+        } catch {
 
-        document.body.appendChild(input);
+          const input =
+            document.createElement("input");
 
-        input.select();
+          input.value = email;
 
-        document.execCommand("copy");
+          document.body.appendChild(input);
 
-        input.remove();
+          input.select();
+
+          document.execCommand("copy");
+
+          input.remove();
+
+        }
+
+
+        copyText.textContent = "✓";
+
+
+        setTimeout(() => {
+
+          copyText.textContent = "⧉";
+
+        }, 1500);
 
       }
-
-      copyText.textContent = "✓";
-
-      setTimeout(() => {
-        copyText.textContent = "⧉";
-      }, 1500);
-
-    });
+    );
 
 
     /* =========================================================
-       INTERACTIVE GLASS CARDS
+       LIGHTWEIGHT CARD TILT
        =========================================================
 
-       This uses requestAnimationFrame instead of directly
-       changing transforms dozens of times per frame.
+       IMPORTANT:
 
-       Result:
-       - smoother
-       - less CPU usage
-       - less laptop lag
-       - more natural movement
+       There is intentionally NO requestAnimationFrame loop here.
+
+       The browser only changes the transform when the mouse
+       actually moves over a card.
     */
 
     const cards =
       document.querySelectorAll(".link-card");
 
+
     const canHover =
-      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      window.matchMedia(
+        "(hover: hover) and (pointer: fine)"
+      ).matches;
+
 
     if (canHover) {
 
       cards.forEach(card => {
 
-        let targetRX = 0;
-        let targetRY = 0;
+        card.addEventListener(
+          "pointermove",
+          event => {
 
-        let currentRX = 0;
-        let currentRY = 0;
-
-        let targetX = 0;
-        let targetY = 0;
-
-        let currentX = 0;
-        let currentY = 0;
-
-        let targetScale = 1;
-        let currentScale = 1;
-
-        let active = false;
-
-        function animate() {
-
-          /*
-            Spring interpolation.
-
-            Higher number = snappier.
-            Lower number = softer.
-          */
-
-          currentRX +=
-            (targetRX - currentRX) * 0.14;
-
-          currentRY +=
-            (targetRY - currentRY) * 0.14;
-
-          currentX +=
-            (targetX - currentX) * 0.14;
-
-          currentY +=
-            (targetY - currentY) * 0.14;
-
-          currentScale +=
-            (targetScale - currentScale) * 0.14;
+            const rect =
+              card.getBoundingClientRect();
 
 
-          card.style.setProperty(
-            "--rx",
-            `${currentRX.toFixed(2)}deg`
-          );
+            const x =
+              event.clientX - rect.left;
 
-          card.style.setProperty(
-            "--ry",
-            `${currentRY.toFixed(2)}deg`
-          );
-
-          card.style.setProperty(
-            "--tx",
-            `${currentX.toFixed(2)}px`
-          );
-
-          card.style.setProperty(
-            "--ty",
-            `${currentY.toFixed(2)}px`
-          );
-
-          card.style.setProperty(
-            "--scale",
-            currentScale.toFixed(4)
-          );
+            const y =
+              event.clientY - rect.top;
 
 
-          /*
-            Keep running while the card is active,
-            or until the animation has basically settled.
-          */
+            const normalizedX =
+              (x / rect.width) * 2 - 1;
 
-          const moving =
-            Math.abs(targetRX - currentRX) > 0.01 ||
-            Math.abs(targetRY - currentRY) > 0.01 ||
-            Math.abs(targetX - currentX) > 0.01 ||
-            Math.abs(targetY - currentY) > 0.01 ||
-            Math.abs(targetScale - currentScale) > 0.001;
+            const normalizedY =
+              (y / rect.height) * 2 - 1;
 
-          if (active || moving) {
-            requestAnimationFrame(animate);
+
+            /*
+              Small tilt.
+
+              Right side → right tilt.
+              Left side → left tilt.
+            */
+
+            const rotateY =
+              normalizedX * 3.5;
+
+            const rotateX =
+              normalizedY * -2.6;
+
+
+            const moveX =
+              normalizedX * 1.8;
+
+            const moveY =
+              normalizedY * 1.2;
+
+
+            card.style.setProperty(
+              "--rx",
+              `${rotateX}deg`
+            );
+
+            card.style.setProperty(
+              "--ry",
+              `${rotateY}deg`
+            );
+
+            card.style.setProperty(
+              "--tx",
+              `${moveX}px`
+            );
+
+            card.style.setProperty(
+              "--ty",
+              `${moveY}px`
+            );
+
+            card.style.setProperty(
+              "--scale",
+              "1.008"
+            );
+
+
+            /*
+              Cursor glow.
+            */
+
+            card.style.setProperty(
+              "--x",
+              `${x}px`
+            );
+
+            card.style.setProperty(
+              "--y",
+              `${y}px`
+            );
+
+            card.style.setProperty(
+              "--glow-opacity",
+              "1"
+            );
+
+            card.style.setProperty(
+              "--outline-opacity",
+              "0.9"
+            );
+
+          },
+          { passive: true }
+        );
+
+
+        card.addEventListener(
+          "pointerleave",
+          () => {
+
+            card.style.setProperty(
+              "--rx",
+              "0deg"
+            );
+
+            card.style.setProperty(
+              "--ry",
+              "0deg"
+            );
+
+            card.style.setProperty(
+              "--tx",
+              "0px"
+            );
+
+            card.style.setProperty(
+              "--ty",
+              "0px"
+            );
+
+            card.style.setProperty(
+              "--scale",
+              "1"
+            );
+
+            card.style.setProperty(
+              "--glow-opacity",
+              "0"
+            );
+
+            card.style.setProperty(
+              "--outline-opacity",
+              "0"
+            );
+
           }
+        );
 
-        }
+      });
 
-
-        card.addEventListener("pointerenter", () => {
-
-          active = true;
-
-          targetScale = 1.012;
-
-          requestAnimationFrame(animate);
-
-        });
+    }
 
 
-        card.addEventListener("pointermove", event => {
+    /* =========================================================
+       HERO TEXT MOVEMENT
+       ========================================================= */
+
+    if (canHover) {
+
+      const hero =
+        document.getElementById("heroTitle");
+
+
+      hero.addEventListener(
+        "pointermove",
+        event => {
 
           const rect =
-            card.getBoundingClientRect();
+            hero.getBoundingClientRect();
+
 
           const x =
             event.clientX - rect.left;
@@ -1284,334 +1734,114 @@
             event.clientY - rect.top;
 
 
-          /*
-            Convert cursor position into -1 → +1.
-
-            Example:
-
-            left side  = -1
-            center     =  0
-            right side = +1
-          */
-
           const normalizedX =
-            (x / rect.width) * 2 - 1;
+            (x / rect.width) - 0.5;
 
           const normalizedY =
-            (y / rect.height) * 2 - 1;
+            (y / rect.height) - 0.5;
 
 
-          /*
-            Rotation.
-
-            Cursor on right:
-            card leans right.
-
-            Cursor on left:
-            card leans left.
-          */
-
-          targetRY =
-            normalizedX * 4.2;
-
-          targetRX =
-            normalizedY * -3.2;
-
-
-          /*
-            Tiny physical movement.
-          */
-
-          targetX =
-            normalizedX * 2.5;
-
-          targetY =
-            normalizedY * 1.8;
-
-
-          /*
-            Cursor-following glow position.
-          */
-
-          card.style.setProperty(
-            "--x",
-            `${x}px`
+          hero.style.setProperty(
+            "--hero-x",
+            `${normalizedX * 3}px`
           );
 
-          card.style.setProperty(
-            "--y",
-            `${y}px`
+          hero.style.setProperty(
+            "--hero-y",
+            `${normalizedY * 2}px`
           );
 
-          card.style.setProperty(
-            "--glow-opacity",
-            "1"
+        },
+        { passive: true }
+      );
+
+
+      hero.addEventListener(
+        "pointerleave",
+        () => {
+
+          hero.style.setProperty(
+            "--hero-x",
+            "0px"
           );
 
-          card.style.setProperty(
-            "--outline-opacity",
-            "0.9"
+          hero.style.setProperty(
+            "--hero-y",
+            "0px"
           );
 
-        });
-
-
-        card.addEventListener("pointerleave", () => {
-
-          active = false;
-
-          /*
-            Spring back to completely flat.
-          */
-
-          targetRX = 0;
-          targetRY = 0;
-
-          targetX = 0;
-          targetY = 0;
-
-          targetScale = 1;
-
-          card.style.setProperty(
-            "--glow-opacity",
-            "0"
-          );
-
-          card.style.setProperty(
-            "--outline-opacity",
-            "0"
-          );
-
-          requestAnimationFrame(animate);
-
-        });
-
-      });
-
-    }
-
-
-    /* =========================================================
-       HERO TEXT PHYSICS
-       ========================================================= */
-
-    const heroTitle =
-      document.getElementById("heroTitle");
-
-    if (canHover) {
-
-      let heroTargetX = 0;
-      let heroTargetY = 0;
-
-      let heroCurrentX = 0;
-      let heroCurrentY = 0;
-
-      let heroTargetTX = 0;
-      let heroTargetTY = 0;
-
-      let heroCurrentTX = 0;
-      let heroCurrentTY = 0;
-
-      let heroActive = false;
-
-
-      function animateHero() {
-
-        heroCurrentX +=
-          (heroTargetX - heroCurrentX) * 0.10;
-
-        heroCurrentY +=
-          (heroTargetY - heroCurrentY) * 0.10;
-
-        heroCurrentTX +=
-          (heroTargetTX - heroCurrentTX) * 0.10;
-
-        heroCurrentTY +=
-          (heroTargetTY - heroCurrentTY) * 0.10;
-
-
-        heroTitle.style.setProperty(
-          "--hero-x",
-          `${heroCurrentX.toFixed(2)}deg`
-        );
-
-        heroTitle.style.setProperty(
-          "--hero-y",
-          `${heroCurrentY.toFixed(2)}deg`
-        );
-
-        heroTitle.style.setProperty(
-          "--hero-tx",
-          `${heroCurrentTX.toFixed(2)}px`
-        );
-
-        heroTitle.style.setProperty(
-          "--hero-ty",
-          `${heroCurrentTY.toFixed(2)}px`
-        );
-
-
-        const moving =
-          Math.abs(heroTargetX - heroCurrentX) > 0.01 ||
-          Math.abs(heroTargetY - heroCurrentY) > 0.01 ||
-          Math.abs(heroTargetTX - heroCurrentTX) > 0.01 ||
-          Math.abs(heroTargetTY - heroCurrentTY) > 0.01;
-
-
-        if (heroActive || moving) {
-          requestAnimationFrame(animateHero);
         }
-
-      }
-
-
-      heroTitle.addEventListener("pointerenter", () => {
-
-        heroActive = true;
-
-        requestAnimationFrame(animateHero);
-
-      });
-
-
-      heroTitle.addEventListener("pointermove", event => {
-
-        const rect =
-          heroTitle.getBoundingClientRect();
-
-        const x =
-          (event.clientX - rect.left) /
-          rect.width;
-
-        const y =
-          (event.clientY - rect.top) /
-          rect.height;
-
-
-        heroTargetY =
-          (x - 0.5) * 2.2;
-
-        heroTargetX =
-          (y - 0.5) * -1.8;
-
-
-        heroTargetTX =
-          (x - 0.5) * 2;
-
-        heroTargetTY =
-          (y - 0.5) * 1.5;
-
-      });
-
-
-      heroTitle.addEventListener("pointerleave", () => {
-
-        heroActive = false;
-
-        heroTargetX = 0;
-        heroTargetY = 0;
-
-        heroTargetTX = 0;
-        heroTargetTY = 0;
-
-        requestAnimationFrame(animateHero);
-
-      });
+      );
 
     }
 
 
     /* =========================================================
-       PHONE PARALLAX
+       EASTER EGG
        =========================================================
 
-       Uses transform instead of margin-top.
+       Click the profile picture 5 times.
 
-       This is significantly friendlier to the browser's
-       rendering pipeline.
+       It's intentionally tiny and doesn't run any
+       continuous animation.
     */
 
-    const phones =
-      document.querySelectorAll(".phone");
+    const profileEgg =
+      document.getElementById("profileEgg");
 
-    let phoneScrollTarget = 0;
-    let phoneScrollCurrent = 0;
+    let eggClicks = 0;
 
-    let phoneFrame = false;
-
-
-    function updatePhones() {
-
-      phoneScrollCurrent +=
-        (phoneScrollTarget - phoneScrollCurrent) * 0.08;
+    let eggTimer;
 
 
-      phones.forEach((phone, index) => {
-
-        const direction =
-          index % 2 === 0 ? 1 : -1;
-
-        const movement =
-          phoneScrollCurrent *
-          (0.025 + index * 0.004) *
-          direction;
-
-
-        const rotations = [
-          -13, 13, 9, -11,
-          -17, 16, 8, -8
-        ];
-
-
-        phone.style.transform =
-          `translate3d(0, ${movement.toFixed(2)}px, 0)
-           rotate(${rotations[index]}deg)`;
-
-      });
-
-
-      if (
-        Math.abs(
-          phoneScrollTarget -
-          phoneScrollCurrent
-        ) > 0.1
-      ) {
-
-        requestAnimationFrame(updatePhones);
-
-      } else {
-
-        phoneFrame = false;
-
-      }
-
-    }
-
-
-    /*
-      Only listen to scrolling when the browser
-      actually reports a scroll.
-    */
-
-    window.addEventListener(
-      "scroll",
+    profileEgg.addEventListener(
+      "click",
       () => {
 
-        phoneScrollTarget =
-          window.scrollY;
+        eggClicks++;
 
-        if (!phoneFrame) {
+        clearTimeout(eggTimer);
 
-          phoneFrame = true;
 
-          requestAnimationFrame(updatePhones);
+        eggTimer = setTimeout(() => {
+
+          eggClicks = 0;
+
+        }, 1800);
+
+
+        if (eggClicks >= 5) {
+
+          document.body.classList.toggle(
+            "farlands-mode"
+          );
+
+          eggClicks = 0;
 
         }
 
-      },
-      { passive: true }
+      }
     );
 
+
+    /* =========================================================
+       SOLARIZED EASTER EGG
+       ========================================================= */
+
+    const solarizedEgg =
+      document.getElementById("solarizedEgg");
+
+
+    solarizedEgg.addEventListener(
+      "click",
+      () => {
+
+        document.body.classList.toggle(
+          "farlands-mode"
+        );
+
+      }
+    );
 
   </script>
 
