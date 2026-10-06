@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <meta name="theme-color" content="#f5f7fb">
   <meta name="description" content="FarlandsTech — Smartphones, tech and photography.">
 
@@ -93,6 +93,10 @@
       user-select: none;
     }
 
+    /* --------------------------------
+       NORMAL BACKGROUND
+    -------------------------------- */
+
     .ambient {
       position: fixed;
       inset: 0;
@@ -137,10 +141,64 @@
       from {
         transform: translate3d(0,0,0) scale(1);
       }
+
       to {
         transform: translate3d(25px,-20px,0) scale(1.08);
       }
     }
+
+    /* --------------------------------
+       STARry NIGHT EASTER EGG MODE
+    -------------------------------- */
+
+    body.starry-mode {
+      background:
+        linear-gradient(
+          rgba(4,8,28,.48),
+          rgba(3,7,22,.62)
+        ),
+        url("starry-night.webp") center center / cover fixed;
+      background-color: #05091d;
+    }
+
+    body.starry-mode::before {
+      content: "";
+      position: fixed;
+      inset: -20px;
+      z-index: -3;
+      pointer-events: none;
+
+      background:
+        url("starry-night.webp") center center / cover fixed;
+
+      filter: blur(9px);
+      transform: scale(1.04);
+      opacity: .72;
+    }
+
+    body.starry-mode::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          circle at 50% 35%,
+          rgba(60,110,255,.12),
+          transparent 45%
+        ),
+        rgba(3,7,25,.30);
+    }
+
+    body.starry-mode .ambient {
+      opacity: .12;
+    }
+
+    /* --------------------------------
+       FLOATING PHONES
+    -------------------------------- */
 
     .phones {
       position: fixed;
@@ -148,6 +206,7 @@
       pointer-events: none;
       z-index: -1;
       overflow: hidden;
+      transition: opacity .8s ease;
     }
 
     .phone {
@@ -156,26 +215,74 @@
       height: auto;
       opacity: .48;
       will-change: transform;
+
       transform:
         translate3d(var(--px,0),var(--py,0),0)
         rotate(var(--rotate))
-        scale(var(--scale,1));
+        scale(var(--phone-scale,1));
+
       transition: transform .18s linear;
     }
 
-    .phone1 { left: 2%; top: 8%; --rotate: -13deg; }
-    .phone2 { right: 2%; top: 15%; --rotate: 14deg; }
-    .phone3 { left: 6%; top: 42%; --rotate: -18deg; }
-    .phone4 { right: 5%; top: 48%; --rotate: 17deg; }
-    .phone5 { left: 0%; top: 70%; --rotate: -11deg; }
-    .phone6 { right: 0%; top: 74%; --rotate: 12deg; }
-    .phone7 { left: 12%; top: 87%; --rotate: -8deg; }
-    .phone8 { right: 12%; top: 91%; --rotate: 9deg; }
+    .phone1 {
+      left: 2%;
+      top: 8%;
+      --rotate: -13deg;
+    }
+
+    .phone2 {
+      right: 2%;
+      top: 15%;
+      --rotate: 14deg;
+    }
+
+    .phone3 {
+      left: 6%;
+      top: 42%;
+      --rotate: -18deg;
+    }
+
+    .phone4 {
+      right: 5%;
+      top: 48%;
+      --rotate: 17deg;
+    }
+
+    .phone5 {
+      left: 0%;
+      top: 70%;
+      --rotate: -11deg;
+    }
+
+    .phone6 {
+      right: 0%;
+      top: 74%;
+      --rotate: 12deg;
+    }
+
+    .phone7 {
+      left: 12%;
+      top: 87%;
+      --rotate: -8deg;
+    }
+
+    .phone8 {
+      right: 12%;
+      top: 91%;
+      --rotate: 9deg;
+    }
+
+    /* --------------------------------
+       PAGE
+    -------------------------------- */
 
     .page {
       width: min(620px, calc(100% - 32px));
       margin: 0 auto;
       padding: 72px 0 36px;
+      transition:
+        opacity .8s ease,
+        filter .8s ease;
     }
 
     .top-controls {
@@ -196,11 +303,14 @@
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 10px 30px rgba(30,40,70,.10);
+
       display: grid;
       place-items: center;
+
       cursor: pointer;
       color: var(--text);
       font-size: 18px;
+
       transition:
         transform .25s var(--ease),
         box-shadow .25s ease;
@@ -214,6 +324,10 @@
     .control:active {
       transform: scale(.92);
     }
+
+    /* --------------------------------
+       HERO
+    -------------------------------- */
 
     .hero {
       text-align: center;
@@ -241,10 +355,13 @@
       position: absolute;
       right: -3px;
       bottom: -3px;
+
       width: 21px;
       height: 21px;
+
       border: 4px solid var(--bg);
       border-radius: 50%;
+
       background: #31d56d;
       box-shadow: 0 0 16px rgba(49,213,109,.5);
     }
@@ -267,7 +384,15 @@
 
     h1 span {
       display: block;
-      background: linear-gradient(100deg,#4d7fff,#9c63ff,#f36bc9);
+
+      background:
+        linear-gradient(
+          100deg,
+          #4d7fff,
+          #9c63ff,
+          #f36bc9
+        );
+
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -276,10 +401,15 @@
     .intro {
       max-width: 480px;
       margin: 18px auto 0;
+
       color: var(--muted);
       font-size: 14px;
       line-height: 1.65;
     }
+
+    /* --------------------------------
+       LINKS
+    -------------------------------- */
 
     .links {
       display: grid;
@@ -288,35 +418,45 @@
 
     .link-card {
       position: relative;
+
       min-height: 72px;
+
       display: flex;
       align-items: center;
       gap: 15px;
+
       padding: 15px 17px;
+
       border: 1px solid var(--card-border);
       border-radius: 24px;
+
       background: var(--card);
+
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
+
       box-shadow: var(--shadow);
+
       color: var(--text);
       text-decoration: none;
+
       overflow: hidden;
 
-      --rx: 0deg;
-      --ry: 0deg;
+      /*
+        Stretch variables.
+      */
+      --stretch-x: 1;
+      --stretch-y: 1;
       --tx: 0px;
       --ty: 0px;
-      --scale: 1;
+
       --glow-x: 50%;
       --glow-y: 50%;
 
       transform:
-        perspective(700px)
-        rotateX(var(--rx))
-        rotateY(var(--ry))
         translate3d(var(--tx),var(--ty),0)
-        scale(var(--scale));
+        scaleX(var(--stretch-x))
+        scaleY(var(--stretch-y));
 
       transition:
         transform .22s var(--ease),
@@ -324,74 +464,115 @@
         border-color .25s ease;
     }
 
+    /*
+      IMPORTANT:
+      There is NO permanent glow anymore.
+      It starts at opacity 0.
+    */
+
     .link-card::before {
       content: "";
+
       position: absolute;
-      width: 180px;
-      height: 180px;
+
+      width: 210px;
+      height: 210px;
+
       left: var(--glow-x);
       top: var(--glow-y);
+
       transform: translate(-50%,-50%);
-      background: radial-gradient(
-        circle,
-        rgba(255,255,255,.42) 0%,
-        rgba(120,170,255,.17) 28%,
-        transparent 68%
-      );
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,255,255,.45) 0%,
+          rgba(120,170,255,.17) 25%,
+          transparent 68%
+        );
+
       pointer-events: none;
-      opacity: .72;
-      transition: opacity .2s ease;
+
+      opacity: 0;
+
+      transition:
+        opacity .18s ease;
+    }
+
+    .link-card:hover::before,
+    .link-card.touching::before {
+      opacity: 1;
     }
 
     .link-card::after {
       content: "";
+
       position: absolute;
       inset: 0;
+
       border-radius: inherit;
-      border: 1px solid rgba(120,165,255,.25);
+
+      border: 1px solid rgba(120,165,255,.20);
+
       box-shadow:
-        inset 0 0 25px rgba(120,165,255,.08),
-        0 0 25px rgba(100,145,255,.04);
+        inset 0 0 25px rgba(120,165,255,.06),
+        0 0 25px rgba(100,145,255,.03);
+
       pointer-events: none;
-      opacity: .8;
+
+      opacity: .75;
     }
 
     .link-card:hover {
-      --scale: 1.018;
       box-shadow:
         0 22px 60px rgba(40,70,130,.15),
         0 0 30px rgba(100,145,255,.07);
+
       border-color: rgba(120,165,255,.42);
     }
 
     .link-card:active {
-      --scale: .975;
+      transform:
+        translate3d(var(--tx),var(--ty),0)
+        scaleX(calc(var(--stretch-x) * .985))
+        scaleY(calc(var(--stretch-y) * .985));
     }
 
     .icon {
       position: relative;
       z-index: 2;
+
       width: 43px;
       height: 43px;
+
       flex: 0 0 43px;
+
       border-radius: 15px;
+
       display: grid;
       place-items: center;
+
       background: rgba(255,255,255,.58);
       color: #16191f;
+
       font-size: 19px;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
+
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.55);
     }
 
     body.dark .icon {
       background: rgba(255,255,255,.09);
       color: white;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.08);
     }
 
     .card-content {
       position: relative;
       z-index: 2;
+
       flex: 1;
       min-width: 0;
     }
@@ -405,6 +586,7 @@
     .card-subtitle {
       color: var(--muted);
       font-size: 12px;
+
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -413,11 +595,14 @@
     .arrow {
       position: relative;
       z-index: 2;
+
       color: var(--muted);
       font-size: 18px;
     }
 
-    /* Email card */
+    /* --------------------------------
+       EMAIL
+    -------------------------------- */
 
     .email-card {
       cursor: pointer;
@@ -426,18 +611,26 @@
     .copy-button {
       position: relative;
       z-index: 5;
+
       flex: 0 0 auto;
+
       min-width: 82px;
       min-height: 44px;
+
       padding: 0 13px;
+
       border: 0;
       border-radius: 14px;
+
       background: rgba(80,125,255,.12);
       color: var(--accent);
+
       font-family: inherit;
       font-size: 12px;
       font-weight: 700;
+
       cursor: pointer;
+
       transition:
         transform .2s var(--ease),
         background .2s ease;
@@ -452,43 +645,66 @@
       transform: scale(.92);
     }
 
+    /* --------------------------------
+       WORK
+    -------------------------------- */
+
     .work {
       margin-top: 30px;
+
       padding: 25px;
+
       border-radius: 28px;
+
       background: var(--card);
+
       border: 1px solid var(--card-border);
+
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
+
       box-shadow: var(--shadow);
     }
 
     .work h2 {
       margin: 0 0 8px;
+
       font-size: 19px;
       letter-spacing: -.02em;
     }
 
     .work p {
       margin: 0;
+
       color: var(--muted);
+
       font-size: 13px;
       line-height: 1.65;
     }
 
+    /* --------------------------------
+       FOOTER
+    -------------------------------- */
+
     footer {
       text-align: center;
+
       padding: 28px 0 0;
+
       color: var(--muted);
       font-size: 11px;
     }
 
     .easter-trigger {
       display: inline-block;
+
       margin-top: 9px;
+
       color: var(--muted);
       opacity: .45;
+
       cursor: pointer;
+
       transition: opacity .2s ease;
     }
 
@@ -496,24 +712,38 @@
       opacity: .85;
     }
 
-    /* Easter egg */
+    /* --------------------------------
+       FIREWORKS
+    -------------------------------- */
 
     #fireworks {
       position: fixed;
+
       inset: 0;
+
       width: 100%;
       height: 100%;
+
       z-index: 9999;
+
       pointer-events: none;
+
       opacity: 0;
+
       background:
-        radial-gradient(circle at 50% 100%, rgba(55,80,150,.18), transparent 45%),
+        radial-gradient(
+          circle at 50% 100%,
+          rgba(55,80,150,.18),
+          transparent 45%
+        ),
         linear-gradient(
           to bottom,
           rgba(3,7,20,.97),
           rgba(7,13,35,.94)
         );
-      transition: opacity .7s ease;
+
+      transition:
+        opacity .7s ease;
     }
 
     body.fireworks-mode #fireworks {
@@ -524,21 +754,35 @@
     body.fireworks-mode .phones,
     body.fireworks-mode .ambient,
     body.fireworks-mode .top-controls {
-      transition: opacity .7s ease, filter .7s ease;
       opacity: 0;
+
       filter: blur(7px);
+
+      transition:
+        opacity .7s ease,
+        filter .7s ease;
     }
 
     .egg-message {
       position: fixed;
+
       left: 50%;
       top: 50%;
+
       z-index: 10001;
-      transform: translate(-50%,-50%) scale(.65);
+
+      transform:
+        translate(-50%,-50%)
+        scale(.65);
+
       opacity: 0;
+
       pointer-events: none;
+
       text-align: center;
+
       color: white;
+
       transition:
         opacity .45s ease,
         transform .8s cubic-bezier(.17,.89,.32,1.35);
@@ -546,14 +790,24 @@
 
     body.fireworks-mode .egg-message {
       opacity: 1;
-      transform: translate(-50%,-50%) scale(1);
+
+      transform:
+        translate(-50%,-50%)
+        scale(1);
     }
 
     .egg-icon {
       font-size: 55px;
+
       margin-bottom: 14px;
-      filter: drop-shadow(0 0 20px rgba(130,170,255,.6));
-      animation: eggFloat 1.8s ease-in-out infinite;
+
+      filter:
+        drop-shadow(
+          0 0 20px rgba(130,170,255,.6)
+        );
+
+      animation:
+        eggFloat 1.8s ease-in-out infinite;
     }
 
     .egg-title {
@@ -564,18 +818,31 @@
 
     .egg-subtitle {
       margin-top: 8px;
+
       color: rgba(255,255,255,.68);
+
       font-size: 13px;
     }
 
     @keyframes eggFloat {
-      0%,100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-8px) scale(1.04); }
+      0%,100% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-8px) scale(1.04);
+      }
     }
+
+    /* --------------------------------
+       REVEAL
+    -------------------------------- */
 
     .reveal {
       opacity: 0;
+
       transform: translateY(18px);
+
       transition:
         opacity .7s ease,
         transform .7s var(--ease);
@@ -583,10 +850,16 @@
 
     .reveal.visible {
       opacity: 1;
+
       transform: translateY(0);
     }
 
+    /* --------------------------------
+       MOBILE
+    -------------------------------- */
+
     @media (max-width: 760px) {
+
       .phones {
         opacity: .55;
       }
@@ -598,11 +871,13 @@
 
       .page {
         width: min(620px, calc(100% - 22px));
+
         padding-top: 82px;
       }
 
       .link-card {
         min-height: 76px;
+
         border-radius: 22px;
       }
 
@@ -618,6 +893,7 @@
     }
 
     @media (hover: none), (pointer: coarse) {
+
       .link-card {
         transition:
           transform .12s var(--ease),
@@ -626,25 +902,29 @@
       }
 
       .link-card.touching {
-        --scale: 1.025;
         box-shadow:
           0 20px 50px rgba(50,80,150,.18),
           0 0 35px rgba(100,150,255,.12);
-        border-color: rgba(120,165,255,.5);
-      }
 
-      .link-card.touching::before {
-        opacity: 1;
+        border-color:
+          rgba(120,165,255,.5);
       }
     }
 
+    /* --------------------------------
+       REDUCED MOTION
+    -------------------------------- */
+
     @media (prefers-reduced-motion: reduce) {
+
       *,
       *::before,
       *::after {
         scroll-behavior: auto !important;
+
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
+
         transition-duration: .01ms !important;
       }
     }
@@ -654,34 +934,125 @@
 
 <body>
 
+  <!-- Ambient background -->
+
   <div class="ambient" aria-hidden="true">
     <div class="ambient-a"></div>
     <div class="ambient-b"></div>
     <div class="ambient-c"></div>
   </div>
 
+  <!-- Floating phones -->
+
   <div class="phones" aria-hidden="true">
-    <img class="phone phone1" src="phone1.png" alt="" fetchpriority="high" decoding="async">
-    <img class="phone phone2" src="phone2.png" alt="" fetchpriority="high" decoding="async">
-    <img class="phone phone3" src="phone3.png" alt="" loading="lazy" decoding="async">
-    <img class="phone phone4" src="phone4.png" alt="" loading="lazy" decoding="async">
-    <img class="phone phone5" src="phone5.png" alt="" loading="lazy" decoding="async">
-    <img class="phone phone6" src="phone6.png" alt="" loading="lazy" decoding="async">
-    <img class="phone phone7" src="phone7.png" alt="" loading="lazy" decoding="async">
-    <img class="phone phone8" src="phone8.png" alt="" loading="lazy" decoding="async">
+
+```
+<img
+  class="phone phone1"
+  src="phone1.png"
+  alt=""
+  fetchpriority="high"
+  decoding="async"
+>
+
+<img
+  class="phone phone2"
+  src="phone2.png"
+  alt=""
+  fetchpriority="high"
+  decoding="async"
+>
+
+<img
+  class="phone phone3"
+  src="phone3.png"
+  alt=""
+  loading="lazy"
+  decoding="async"
+>
+
+<img
+  class="phone phone4"
+  src="phone4.png"
+  alt=""
+  loading="lazy"
+  decoding="async"
+>
+
+<img
+  class="phone phone5"
+  src="phone5.png"
+  alt=""
+  loading="lazy"
+  decoding="async"
+>
+
+<img
+  class="phone phone6"
+  src="phone6.png"
+  alt=""
+  loading="lazy"
+  decoding="async"
+>
+
+<img
+  class="phone phone7"
+  src="phone7.png"
+  alt=""
+  loading="lazy"
+  decoding="async"
+>
+
+<img
+  class="phone phone8"
+  src="phone8.png"
+  alt=""
+  loading="lazy"
+  decoding="async"
+>
+```
+
   </div>
 
+  <!-- Controls -->
+
   <div class="top-controls">
-    <button class="control" id="shareButton" aria-label="Share">↗</button>
-    <button class="control" id="themeButton" aria-label="Toggle dark mode">☾</button>
+
+```
+<button
+  class="control"
+  id="shareButton"
+  aria-label="Share"
+  type="button"
+>
+  ↗
+</button>
+
+<button
+  class="control"
+  id="themeButton"
+  aria-label="Toggle dark mode"
+  type="button"
+>
+  ☾
+</button>
+```
+
   </div>
 
   <main class="page">
 
 ```
+<!-- Hero -->
+
 <section class="hero reveal">
 
-  <div class="profile-wrap" id="profileEgg" aria-label="Profile">
+  <div
+    class="profile-wrap"
+    id="profileEgg"
+    aria-label="Profile"
+  >
+
     <img
       class="profile"
       src="profile.png"
@@ -689,10 +1060,14 @@
       fetchpriority="high"
       decoding="async"
     >
+
     <div class="status"></div>
+
   </div>
 
-  <div class="eyebrow">FARLANDSTECH</div>
+  <div class="eyebrow">
+    FARLANDSTECH
+  </div>
 
   <h1>
     Smartphones.<br>
@@ -706,6 +1081,8 @@
 
 </section>
 
+<!-- Links -->
+
 <section class="links">
 
   <a
@@ -714,13 +1091,25 @@
     target="_blank"
     rel="noopener"
   >
+
     <div class="icon">♪</div>
+
     <div class="card-content">
-      <div class="card-title">TikTok</div>
-      <div class="card-subtitle">@farlandstech</div>
+
+      <div class="card-title">
+        TikTok
+      </div>
+
+      <div class="card-subtitle">
+        @farlandstech
+      </div>
+
     </div>
+
     <div class="arrow">›</div>
+
   </a>
+
 
   <a
     class="link-card reveal"
@@ -728,13 +1117,25 @@
     target="_blank"
     rel="noopener"
   >
+
     <div class="icon">▶</div>
+
     <div class="card-content">
-      <div class="card-title">YouTube</div>
-      <div class="card-subtitle">Videos & tech content</div>
+
+      <div class="card-title">
+        YouTube
+      </div>
+
+      <div class="card-subtitle">
+        Videos & tech content
+      </div>
+
     </div>
+
     <div class="arrow">›</div>
+
   </a>
+
 
   <a
     class="link-card reveal"
@@ -742,13 +1143,25 @@
     target="_blank"
     rel="noopener"
   >
+
     <div class="icon">☁</div>
+
     <div class="card-content">
-      <div class="card-title">Discord</div>
-      <div class="card-subtitle">Join the community</div>
+
+      <div class="card-title">
+        Discord
+      </div>
+
+      <div class="card-subtitle">
+        Join the community
+      </div>
+
     </div>
+
     <div class="arrow">›</div>
+
   </a>
+
 
   <a
     class="link-card reveal"
@@ -756,15 +1169,28 @@
     target="_blank"
     rel="noopener"
   >
+
     <div class="icon">V</div>
+
     <div class="card-content">
-      <div class="card-title">Vinted</div>
-      <div class="card-subtitle">Phones & tech for sale</div>
+
+      <div class="card-title">
+        Vinted
+      </div>
+
+      <div class="card-subtitle">
+        Phones & tech for sale
+      </div>
+
     </div>
+
     <div class="arrow">›</div>
+
   </a>
 
-  <!-- EMAIL -->
+
+  <!-- Email -->
+
   <div
     class="link-card email-card reveal"
     id="emailCard"
@@ -772,370 +1198,1010 @@
     tabindex="0"
     aria-label="Email FarlandsTech"
   >
-    <div class="icon">✉</div>
 
-    <div class="card-content">
-      <div class="card-title">Email</div>
-      <div class="card-subtitle">samsungs24ultragoat@gmail.com</div>
+    <div class="icon">
+      ✉
     </div>
 
-    <button class="copy-button" id="copyEmail" type="button">
+    <div class="card-content">
+
+      <div class="card-title">
+        Email
+      </div>
+
+      <div class="card-subtitle">
+        samsungs24ultragoat@gmail.com
+      </div>
+
+    </div>
+
+    <button
+      class="copy-button"
+      id="copyEmail"
+      type="button"
+    >
       Copy
     </button>
 
-    <div class="arrow">›</div>
+    <div class="arrow">
+      ›
+    </div>
+
   </div>
 
 </section>
 
+<!-- Work -->
+
 <section class="work reveal">
-  <h2>Work with me</h2>
+
+  <h2>
+    Work with me
+  </h2>
+
   <p>
     Interested in working together on smartphone, technology or
     photography content? Send me an email and let's talk.
   </p>
+
 </section>
 
+<!-- Footer -->
+
 <footer class="reveal">
+
   © <span id="year"></span> FarlandsTech
 
   <br>
 
-  <span class="easter-trigger" id="eggTrigger">
+  <span
+    class="easter-trigger"
+    id="eggTrigger"
+  >
     Inspired by solarized.io :)
   </span>
+
 </footer>
 ```
 
   </main>
 
-  <!-- FIREWORKS -->
+  <!-- Fireworks canvas -->
 
 <canvas id="fireworks"></canvas>
 
+  <!-- Easter egg message -->
+
   <div class="egg-message">
-    <div class="egg-icon">📱✨</div>
-    <div class="egg-title">You found it.</div>
-    <div class="egg-subtitle">FarlandsTech secret mode unlocked.</div>
+
+```
+<div class="egg-icon">
+  📱✨
+</div>
+
+<div class="egg-title">
+  You found it.
+</div>
+
+<div class="egg-subtitle">
+  FarlandsTech secret mode unlocked.
+</div>
+```
+
   </div>
 
   <script>
-    const EMAIL = "samsungs24ultragoat@gmail.com";
 
-    /* YEAR */
-    document.getElementById("year").textContent = new Date().getFullYear();
+    /* ==========================================
+       BASIC
+    ========================================== */
 
-    /* --------------------------------
+    const EMAIL =
+      "samsungs24ultragoat@gmail.com";
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+
+    /* ==========================================
        EMAIL
-    -------------------------------- */
+    ========================================== */
 
-    const emailCard = document.getElementById("emailCard");
-    const copyButton = document.getElementById("copyEmail");
+    const emailCard =
+      document.getElementById("emailCard");
+
+    const copyButton =
+      document.getElementById("copyEmail");
+
 
     function openEmail() {
+
       const gmailURL =
         "https://mail.google.com/mail/?view=cm&fs=1&to=" +
         encodeURIComponent(EMAIL);
 
-      window.open(gmailURL, "_blank", "noopener");
+      window.open(
+        gmailURL,
+        "_blank",
+        "noopener"
+      );
     }
 
+
     async function copyEmail() {
+
       try {
-        await navigator.clipboard.writeText(EMAIL);
+
+        await navigator.clipboard.writeText(
+          EMAIL
+        );
+
       } catch {
-        const input = document.createElement("input");
+
+        const input =
+          document.createElement("input");
+
         input.value = EMAIL;
+
         document.body.appendChild(input);
+
         input.select();
+
         document.execCommand("copy");
+
         input.remove();
       }
 
-      const original = copyButton.textContent;
-      copyButton.textContent = "Copied ✓";
+
+      const original =
+        copyButton.textContent;
+
+      copyButton.textContent =
+        "Copied ✓";
+
 
       setTimeout(() => {
-        copyButton.textContent = original;
+
+        copyButton.textContent =
+          original;
+
       }, 1400);
     }
 
-    /* Whole card opens Gmail */
-    emailCard.addEventListener("click", (event) => {
-      if (event.target.closest("#copyEmail")) return;
-      openEmail();
-    });
 
-    emailCard.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        openEmail();
-      }
-    });
+    emailCard.addEventListener(
+      "click",
+      event => {
 
-    /* Copy button stays a copy button */
-    copyButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      copyEmail();
-    });
-
-    /* --------------------------------
-       LINK CARD TOUCH GLOW + TILT
-    -------------------------------- */
-
-    const cards = document.querySelectorAll(".link-card");
-
-    function updateCardTouch(card, x, y) {
-      const rect = card.getBoundingClientRect();
-
-      const px = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
-      const py = Math.max(0, Math.min(1, (y - rect.top) / rect.height));
-
-      const rotateY = (px - .5) * 10;
-      const rotateX = (.5 - py) * 8;
-
-      card.style.setProperty("--glow-x", `${px * 100}%`);
-      card.style.setProperty("--glow-y", `${py * 100}%`);
-      card.style.setProperty("--ry", `${rotateY}deg`);
-      card.style.setProperty("--rx", `${rotateX}deg`);
-      card.style.setProperty("--tx", `${(px - .5) * 3}px`);
-      card.style.setProperty("--ty", `${(py - .5) * 2}px`);
-    }
-
-    /* Desktop mouse interaction */
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      cards.forEach(card => {
-        card.addEventListener("pointermove", event => {
-          updateCardTouch(card, event.clientX, event.clientY);
-        });
-
-        card.addEventListener("pointerleave", () => {
-          card.style.setProperty("--rx", "0deg");
-          card.style.setProperty("--ry", "0deg");
-          card.style.setProperty("--tx", "0px");
-          card.style.setProperty("--ty", "0px");
-          card.style.setProperty("--glow-x", "50%");
-          card.style.setProperty("--glow-y", "50%");
-        });
-      });
-    }
-
-    /* Mobile finger interaction */
-    cards.forEach(card => {
-      card.addEventListener("pointerdown", event => {
-        if (event.pointerType === "touch") {
-          card.classList.add("touching");
-          updateCardTouch(card, event.clientX, event.clientY);
-        }
-      });
-
-      card.addEventListener("pointermove", event => {
-        if (event.pointerType === "touch") {
-          updateCardTouch(card, event.clientX, event.clientY);
-        }
-      });
-
-      function endTouch() {
-        card.classList.remove("touching");
-
-        card.style.setProperty("--rx", "0deg");
-        card.style.setProperty("--ry", "0deg");
-        card.style.setProperty("--tx", "0px");
-        card.style.setProperty("--ty", "0px");
-      }
-
-      card.addEventListener("pointerup", endTouch);
-      card.addEventListener("pointercancel", endTouch);
-    });
-
-    /* --------------------------------
-       PROFILE / EASTER EGG
-    -------------------------------- */
-
-    let eggClicks = 0;
-    let eggResetTimer;
-
-    const profileEgg = document.getElementById("profileEgg");
-    const eggTrigger = document.getElementById("eggTrigger");
-
-    profileEgg.addEventListener("click", () => {
-      eggClicks++;
-
-      clearTimeout(eggResetTimer);
-
-      if (eggClicks >= 5) {
-        eggClicks = 0;
-        startFireworks();
-        return;
-      }
-
-      eggResetTimer = setTimeout(() => {
-        eggClicks = 0;
-      }, 1800);
-    });
-
-    eggTrigger.addEventListener("click", () => {
-      startFireworks();
-    });
-
-    /* --------------------------------
-       COLOROS-STYLE FIREWORKS
-    -------------------------------- */
-
-    const canvas = document.getElementById("fireworks");
-    const ctx = canvas.getContext("2d");
-
-    let fireworksRunning = false;
-    let fireworks = [];
-    let particles = [];
-    let fireworkFrame;
-
-    function resizeCanvas() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-
-      canvas.style.width = window.innerWidth + "px";
-      canvas.style.height = window.innerHeight + "px";
-
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    function random(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    function launchFirework(delay = 0) {
-      setTimeout(() => {
-        if (!fireworksRunning) return;
-
-        fireworks.push({
-          x: random(window.innerWidth * .15, window.innerWidth * .85),
-          y: window.innerHeight + 10,
-          targetY: random(window.innerHeight * .18, window.innerHeight * .55),
-          speed: random(7, 10),
-          trail: []
-        });
-      }, delay);
-    }
-
-    function explode(x, y) {
-      const amount = Math.floor(random(45, 72));
-      const hue = random(185, 330);
-
-      for (let i = 0; i < amount; i++) {
-        const angle = (Math.PI * 2 * i) / amount + random(-.08,.08);
-        const speed = random(2.2, 5.8);
-
-        particles.push({
-          x,
-          y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          gravity: .055,
-          friction: .985,
-          life: 1,
-          decay: random(.012,.022),
-          size: random(1.2,2.8),
-          hue: hue + random(-25,25)
-        });
-      }
-    }
-
-    function animateFireworks() {
-      if (!fireworksRunning) return;
-
-      ctx.fillStyle = "rgba(3,7,20,.19)";
-      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-      /* Rockets */
-
-      fireworks.forEach((rocket, index) => {
-        rocket.trail.push({
-          x: rocket.x,
-          y: rocket.y
-        });
-
-        if (rocket.trail.length > 8) {
-          rocket.trail.shift();
-        }
-
-        rocket.y -= rocket.speed;
-        rocket.speed *= .985;
-
-        ctx.beginPath();
-        ctx.moveTo(rocket.x, rocket.y);
-
-        for (let i = rocket.trail.length - 1; i >= 0; i--) {
-          ctx.lineTo(
-            rocket.trail[i].x,
-            rocket.trail[i].y
-          );
-        }
-
-        ctx.strokeStyle = "rgba(180,210,255,.75)";
-        ctx.lineWidth = 2;
-        ctx.stroke();
-
-        if (rocket.y <= rocket.targetY) {
-          explode(rocket.x, rocket.y);
-          fireworks.splice(index, 1);
-        }
-      });
-
-      /* Particles */
-
-      particles.forEach((particle, index) => {
-        particle.vx *= particle.friction;
-        particle.vy *= particle.friction;
-        particle.vy += particle.gravity;
-
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        particle.life -= particle.decay;
-
-        if (particle.life <= 0) {
-          particles.splice(index, 1);
+        if (
+          event.target.closest(
+            "#copyEmail"
+          )
+        ) {
           return;
         }
 
-        ctx.beginPath();
-        ctx.arc(
-          particle.x,
-          particle.y,
-          particle.size,
+        openEmail();
+
+      }
+    );
+
+
+    emailCard.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          openEmail();
+
+        }
+
+      }
+    );
+
+
+    copyButton.addEventListener(
+      "click",
+      event => {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+        copyEmail();
+
+      }
+    );
+
+
+    /* ==========================================
+       CARD INTERACTION
+       STRETCH + FOLLOWING LIGHT
+    ========================================== */
+
+    const cards =
+      document.querySelectorAll(
+        ".link-card"
+      );
+
+
+    function updateCardTouch(
+      card,
+      x,
+      y
+    ) {
+
+      const rect =
+        card.getBoundingClientRect();
+
+
+      const px =
+        Math.max(
           0,
-          Math.PI * 2
+          Math.min(
+            1,
+            (x - rect.left) /
+            rect.width
+          )
         );
 
-        ctx.fillStyle =
-          `hsla(${particle.hue}, 100%, 72%, ${particle.life})`;
 
-        ctx.shadowBlur = 12;
-        ctx.shadowColor =
-          `hsla(${particle.hue}, 100%, 70%, ${particle.life})`;
+      const py =
+        Math.max(
+          0,
+          Math.min(
+            1,
+            (y - rect.top) /
+            rect.height
+          )
+        );
 
-        ctx.fill();
 
-        ctx.shadowBlur = 0;
-      });
+      /*
+        Position of the light.
+      */
 
-      fireworkFrame = requestAnimationFrame(animateFireworks);
+      card.style.setProperty(
+        "--glow-x",
+        `${px * 100}%`
+      );
+
+      card.style.setProperty(
+        "--glow-y",
+        `${py * 100}%`
+      );
+
+
+      /*
+        Distance from the centre.
+        This determines the stretch.
+      */
+
+      const dx =
+        px - 0.5;
+
+      const dy =
+        py - 0.5;
+
+
+      /*
+        Maximum stretch is deliberately subtle.
+        This keeps the interface premium instead
+        of making the cards look distorted.
+      */
+
+      const stretchX =
+        1 +
+        Math.abs(dx) * 0.045;
+
+      const stretchY =
+        1 +
+        Math.abs(dy) * 0.045;
+
+
+      card.style.setProperty(
+        "--stretch-x",
+        stretchX
+      );
+
+      card.style.setProperty(
+        "--stretch-y",
+        stretchY
+      );
+
+
+      /*
+        Tiny movement toward the finger/cursor.
+      */
+
+      card.style.setProperty(
+        "--tx",
+        `${dx * 5}px`
+      );
+
+      card.style.setProperty(
+        "--ty",
+        `${dy * 4}px`
+      );
+
     }
 
-    function startFireworks() {
-      if (fireworksRunning) return;
 
-      fireworksRunning = true;
+    function resetCard(card) {
+
+      card.style.setProperty(
+        "--stretch-x",
+        "1"
+      );
+
+      card.style.setProperty(
+        "--stretch-y",
+        "1"
+      );
+
+      card.style.setProperty(
+        "--tx",
+        "0px"
+      );
+
+      card.style.setProperty(
+        "--ty",
+        "0px"
+      );
+
+      card.style.setProperty(
+        "--glow-x",
+        "50%"
+      );
+
+      card.style.setProperty(
+        "--glow-y",
+        "50%"
+      );
+
+      card.classList.remove(
+        "touching"
+      );
+    }
+
+
+    /*
+      Desktop mouse.
+    */
+
+    if (
+      window.matchMedia(
+        "(hover: hover) and (pointer: fine)"
+      ).matches
+    ) {
+
+      cards.forEach(card => {
+
+        card.addEventListener(
+          "pointerenter",
+          event => {
+
+            updateCardTouch(
+              card,
+              event.clientX,
+              event.clientY
+            );
+
+          }
+        );
+
+
+        card.addEventListener(
+          "pointermove",
+          event => {
+
+            updateCardTouch(
+              card,
+              event.clientX,
+              event.clientY
+            );
+
+          }
+        );
+
+
+        card.addEventListener(
+          "pointerleave",
+          () => {
+
+            resetCard(card);
+
+          }
+        );
+
+      });
+
+    }
+
+
+    /*
+      Mobile touch.
+      The glow follows the finger.
+    */
+
+    cards.forEach(card => {
+
+      card.addEventListener(
+        "pointerdown",
+        event => {
+
+          if (
+            event.pointerType !==
+            "touch"
+          ) {
+            return;
+          }
+
+
+          card.classList.add(
+            "touching"
+          );
+
+
+          updateCardTouch(
+            card,
+            event.clientX,
+            event.clientY
+          );
+
+        }
+      );
+
+
+      card.addEventListener(
+        "pointermove",
+        event => {
+
+          if (
+            event.pointerType !==
+            "touch"
+          ) {
+            return;
+          }
+
+
+          updateCardTouch(
+            card,
+            event.clientX,
+            event.clientY
+          );
+
+        }
+      );
+
+
+      card.addEventListener(
+        "pointerup",
+        () => {
+
+          resetCard(card);
+
+        }
+      );
+
+
+      card.addEventListener(
+        "pointercancel",
+        () => {
+
+          resetCard(card);
+
+        }
+      );
+
+    });
+
+
+    /* ==========================================
+       EASTER EGG
+    ========================================== */
+
+    let eggClicks = 0;
+
+    let eggResetTimer;
+
+
+    const profileEgg =
+      document.getElementById(
+        "profileEgg"
+      );
+
+    const eggTrigger =
+      document.getElementById(
+        "eggTrigger"
+      );
+
+
+    profileEgg.addEventListener(
+      "click",
+      () => {
+
+        eggClicks++;
+
+        clearTimeout(
+          eggResetTimer
+        );
+
+
+        if (
+          eggClicks >= 5
+        ) {
+
+          eggClicks = 0;
+
+          startFireworks();
+
+          return;
+        }
+
+
+        eggResetTimer =
+          setTimeout(() => {
+
+            eggClicks = 0;
+
+          }, 1800);
+
+      }
+    );
+
+
+    /*
+      Clicking the small text also
+      activates the Easter egg.
+    */
+
+    eggTrigger.addEventListener(
+      "click",
+      () => {
+
+        startFireworks();
+
+      }
+    );
+
+
+    /* ==========================================
+       FIREWORK ENGINE
+    ========================================== */
+
+    const canvas =
+      document.getElementById(
+        "fireworks"
+      );
+
+    const ctx =
+      canvas.getContext("2d");
+
+
+    let fireworksRunning =
+      false;
+
+    let fireworks = [];
+
+    let particles = [];
+
+    let fireworkFrame;
+
+
+    function resizeCanvas() {
+
+      const dpr =
+        Math.min(
+          window.devicePixelRatio || 1,
+          2
+        );
+
+
+      canvas.width =
+        window.innerWidth * dpr;
+
+      canvas.height =
+        window.innerHeight * dpr;
+
+
+      canvas.style.width =
+        window.innerWidth + "px";
+
+      canvas.style.height =
+        window.innerHeight + "px";
+
+
+      ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+      );
+    }
+
+
+    window.addEventListener(
+      "resize",
+      resizeCanvas
+    );
+
+    resizeCanvas();
+
+
+    function random(
+      min,
+      max
+    ) {
+
+      return (
+        Math.random() *
+        (max - min) +
+        min
+      );
+
+    }
+
+
+    function launchFirework(
+      delay = 0
+    ) {
+
+      setTimeout(
+        () => {
+
+          if (
+            !fireworksRunning
+          ) {
+            return;
+          }
+
+
+          fireworks.push({
+
+            x:
+              random(
+                window.innerWidth * .12,
+                window.innerWidth * .88
+              ),
+
+            y:
+              window.innerHeight + 10,
+
+            targetY:
+              random(
+                window.innerHeight * .16,
+                window.innerHeight * .56
+              ),
+
+            speed:
+              random(7,10),
+
+            trail: []
+
+          });
+
+        },
+
+        delay
+      );
+    }
+
+
+    function explode(
+      x,
+      y
+    ) {
+
+      const amount =
+        Math.floor(
+          random(48,76)
+        );
+
+
+      const hue =
+        random(
+          185,
+          330
+        );
+
+
+      for (
+        let i = 0;
+        i < amount;
+        i++
+      ) {
+
+        const angle =
+          (
+            Math.PI * 2 * i
+          ) / amount +
+          random(
+            -.08,
+            .08
+          );
+
+
+        const speed =
+          random(
+            2.2,
+            5.8
+          );
+
+
+        particles.push({
+
+          x,
+          y,
+
+          vx:
+            Math.cos(angle) *
+            speed,
+
+          vy:
+            Math.sin(angle) *
+            speed,
+
+          gravity:
+            .055,
+
+          friction:
+            .985,
+
+          life:
+            1,
+
+          decay:
+            random(
+              .012,
+              .022
+            ),
+
+          size:
+            random(
+              1.2,
+              2.8
+            ),
+
+          hue:
+            hue +
+            random(
+              -25,
+              25
+            )
+
+        });
+
+      }
+
+    }
+
+
+    function animateFireworks() {
+
+      if (
+        !fireworksRunning
+      ) {
+        return;
+      }
+
+
+      ctx.fillStyle =
+        "rgba(3,7,20,.19)";
+
+      ctx.fillRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+      );
+
+
+      /* Rockets */
+
+      fireworks.forEach(
+        (rocket,index) => {
+
+          rocket.trail.push({
+
+            x:
+              rocket.x,
+
+            y:
+              rocket.y
+
+          });
+
+
+          if (
+            rocket.trail.length > 8
+          ) {
+
+            rocket.trail.shift();
+
+          }
+
+
+          rocket.y -=
+            rocket.speed;
+
+          rocket.speed *=
+            .985;
+
+
+          ctx.beginPath();
+
+          ctx.moveTo(
+            rocket.x,
+            rocket.y
+          );
+
+
+          for (
+            let i =
+              rocket.trail.length - 1;
+            i >= 0;
+            i--
+          ) {
+
+            ctx.lineTo(
+              rocket.trail[i].x,
+              rocket.trail[i].y
+            );
+
+          }
+
+
+          ctx.strokeStyle =
+            "rgba(180,210,255,.75)";
+
+          ctx.lineWidth = 2;
+
+          ctx.stroke();
+
+
+          if (
+            rocket.y <=
+            rocket.targetY
+          ) {
+
+            explode(
+              rocket.x,
+              rocket.y
+            );
+
+            fireworks.splice(
+              index,
+              1
+            );
+
+          }
+
+        }
+      );
+
+
+      /* Particles */
+
+      particles.forEach(
+        (particle,index) => {
+
+          particle.vx *=
+            particle.friction;
+
+          particle.vy *=
+            particle.friction;
+
+          particle.vy +=
+            particle.gravity;
+
+
+          particle.x +=
+            particle.vx;
+
+          particle.y +=
+            particle.vy;
+
+
+          particle.life -=
+            particle.decay;
+
+
+          if (
+            particle.life <= 0
+          ) {
+
+            particles.splice(
+              index,
+              1
+            );
+
+            return;
+
+          }
+
+
+          ctx.beginPath();
+
+          ctx.arc(
+            particle.x,
+            particle.y,
+            particle.size,
+            0,
+            Math.PI * 2
+          );
+
+
+          ctx.fillStyle =
+            `hsla(
+              ${particle.hue},
+              100%,
+              72%,
+              ${particle.life}
+            )`;
+
+
+          ctx.shadowBlur =
+            12;
+
+          ctx.shadowColor =
+            `hsla(
+              ${particle.hue},
+              100%,
+              70%,
+              ${particle.life}
+            )`;
+
+
+          ctx.fill();
+
+          ctx.shadowBlur = 0;
+
+        }
+      );
+
+
+      fireworkFrame =
+        requestAnimationFrame(
+          animateFireworks
+        );
+
+    }
+
+
+    function startFireworks() {
+
+      if (
+        fireworksRunning
+      ) {
+        return;
+      }
+
+
+      fireworksRunning =
+        true;
+
       fireworks = [];
+
       particles = [];
 
-      document.body.classList.add("fireworks-mode");
+
+      /*
+        Dark ColorOS-style transition.
+      */
+
+      document.body.classList.add(
+        "fireworks-mode"
+      );
+
 
       ctx.clearRect(
         0,
@@ -1144,7 +2210,10 @@
         window.innerHeight
       );
 
-      /* ColorOS-style repeated launches */
+
+      /*
+        Repeated launches.
+      */
 
       launchFirework(150);
       launchFirework(650);
@@ -1155,144 +2224,336 @@
       launchFirework(3350);
       launchFirework(3900);
 
+
       animateFireworks();
 
-      setTimeout(() => {
-        fireworksRunning = false;
 
-        cancelAnimationFrame(fireworkFrame);
+      /*
+        After the fireworks:
+        Starry Night stays forever.
+      */
 
-        /* Fade the canvas before returning */
-        canvas.style.transition = "opacity 1s ease";
-        canvas.style.opacity = "0";
+      setTimeout(
+        () => {
 
-        setTimeout(() => {
-          document.body.classList.remove("fireworks-mode");
+          fireworksRunning =
+            false;
 
-          ctx.clearRect(
-            0,
-            0,
-            window.innerWidth,
-            window.innerHeight
+          cancelAnimationFrame(
+            fireworkFrame
           );
 
-          canvas.style.opacity = "";
-          canvas.style.transition = "";
-        }, 1000);
 
-      }, 6200);
+          canvas.style.transition =
+            "opacity 1s ease";
+
+          canvas.style.opacity =
+            "0";
+
+
+          setTimeout(
+            () => {
+
+              /*
+                IMPORTANT:
+                We do NOT return to the
+                normal background.
+
+                Starry Night becomes
+                the permanent background.
+              */
+
+              document.body.classList.remove(
+                "fireworks-mode"
+              );
+
+              document.body.classList.add(
+                "starry-mode"
+              );
+
+
+              ctx.clearRect(
+                0,
+                0,
+                window.innerWidth,
+                window.innerHeight
+              );
+
+
+              canvas.style.opacity =
+                "";
+
+              canvas.style.transition =
+                "";
+
+            },
+
+            1000
+          );
+
+
+        },
+
+        6200
+      );
+
     }
 
-    /* --------------------------------
-       DARK MODE
-    -------------------------------- */
 
-    const themeButton = document.getElementById("themeButton");
+    /* ==========================================
+       DARK MODE
+    ========================================== */
+
+    const themeButton =
+      document.getElementById(
+        "themeButton"
+      );
+
 
     function updateThemeIcon() {
+
       themeButton.textContent =
-        document.body.classList.contains("dark") ? "☀" : "☾";
+        document.body.classList.contains(
+          "dark"
+        )
+          ? "☀"
+          : "☾";
+
     }
 
-    if (localStorage.getItem("farlands-dark") === "1") {
-      document.body.classList.add("dark");
+
+    if (
+      localStorage.getItem(
+        "farlands-dark"
+      ) === "1"
+    ) {
+
+      document.body.classList.add(
+        "dark"
+      );
+
     }
+
 
     updateThemeIcon();
 
-    themeButton.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
 
-      localStorage.setItem(
-        "farlands-dark",
-        document.body.classList.contains("dark") ? "1" : "0"
-      );
+    themeButton.addEventListener(
+      "click",
+      () => {
 
-      updateThemeIcon();
-    });
-
-    /* --------------------------------
-       SHARE
-    -------------------------------- */
-
-    document.getElementById("shareButton").addEventListener("click", async () => {
-      const shareData = {
-        title: "FarlandsTech",
-        text: "Check out FarlandsTech.",
-        url: window.location.href
-      };
-
-      if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-        } catch {}
-      } else {
-        try {
-          await navigator.clipboard.writeText(window.location.href);
-
-          const button = document.getElementById("shareButton");
-          const original = button.textContent;
-
-          button.textContent = "✓";
-
-          setTimeout(() => {
-            button.textContent = original;
-          }, 1300);
-        } catch {}
-      }
-    });
-
-    /* --------------------------------
-       PHONE PARALLAX
-    -------------------------------- */
-
-    const phoneElements = document.querySelectorAll(".phone");
-
-    let ticking = false;
-
-    function updateParallax() {
-      const scroll = window.scrollY;
-
-      phoneElements.forEach((phone, index) => {
-        const amount = (index % 2 === 0 ? 1 : -1) * 0.035;
-
-        phone.style.setProperty(
-          "--py",
-          `${scroll * amount}px`
+        document.body.classList.toggle(
+          "dark"
         );
-      });
 
-      ticking = false;
-    }
 
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }, { passive: true });
+        localStorage.setItem(
+          "farlands-dark",
 
-    /* --------------------------------
-       REVEAL
-    -------------------------------- */
+          document.body.classList.contains(
+            "dark"
+          )
+            ? "1"
+            : "0"
+        );
 
-    const revealObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: .08
+
+        updateThemeIcon();
+
       }
     );
 
-    document.querySelectorAll(".reveal").forEach(element => {
-      revealObserver.observe(element);
-    });
+
+    /* ==========================================
+       SHARE
+    ========================================== */
+
+    document
+      .getElementById("shareButton")
+      .addEventListener(
+        "click",
+        async () => {
+
+          const shareData = {
+
+            title:
+              "FarlandsTech",
+
+            text:
+              "Check out FarlandsTech.",
+
+            url:
+              window.location.href
+
+          };
+
+
+          if (
+            navigator.share
+          ) {
+
+            try {
+
+              await navigator.share(
+                shareData
+              );
+
+            } catch {}
+
+          } else {
+
+            try {
+
+              await navigator.clipboard.writeText(
+                window.location.href
+              );
+
+
+              const button =
+                document.getElementById(
+                  "shareButton"
+                );
+
+
+              const original =
+                button.textContent;
+
+
+              button.textContent =
+                "✓";
+
+
+              setTimeout(
+                () => {
+
+                  button.textContent =
+                    original;
+
+                },
+
+                1300
+              );
+
+            } catch {}
+
+          }
+
+        }
+      );
+
+
+    /* ==========================================
+       PHONE PARALLAX
+    ========================================== */
+
+    const phoneElements =
+      document.querySelectorAll(
+        ".phone"
+      );
+
+
+    let ticking = false;
+
+
+    function updateParallax() {
+
+      const scroll =
+        window.scrollY;
+
+
+      phoneElements.forEach(
+        (phone,index) => {
+
+          const amount =
+            (
+              index % 2 === 0
+                ? 1
+                : -1
+            ) * .035;
+
+
+          phone.style.setProperty(
+            "--py",
+            `${scroll * amount}px`
+          );
+
+        }
+      );
+
+
+      ticking = false;
+
+    }
+
+
+    window.addEventListener(
+      "scroll",
+      () => {
+
+        if (!ticking) {
+
+          requestAnimationFrame(
+            updateParallax
+          );
+
+          ticking = true;
+
+        }
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    /* ==========================================
+       REVEAL ANIMATION
+    ========================================== */
+
+    const revealObserver =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "visible"
+                );
+
+                revealObserver.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: .08
+        }
+      );
+
+
+    document
+      .querySelectorAll(".reveal")
+      .forEach(
+        element => {
+
+          revealObserver.observe(
+            element
+          );
+
+        }
+      );
+
   </script>
 
 </body>
