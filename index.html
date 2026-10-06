@@ -50,7 +50,6 @@
 
     html {
       scroll-behavior: smooth;
-
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -158,10 +157,6 @@
       user-select: none;
     }
 
-    /* =========================
-       NORMAL AMBIENT BACKGROUND
-    ========================= */
-
     .ambient {
       position: fixed;
       inset: 0;
@@ -234,10 +229,6 @@
       }
     }
 
-    /* =========================
-       STARRY NIGHT MODE
-    ========================= */
-
     body.starry-mode {
       background:
         linear-gradient(
@@ -295,10 +286,6 @@
     body.starry-mode .ambient {
       opacity: .08;
     }
-
-    /* =========================
-       FLOATING PHONES
-    ========================= */
 
     .phones {
       position: fixed;
@@ -387,10 +374,6 @@
       top: 91%;
       --rotate: 9deg;
     }
-
-    /* =========================
-       PAGE
-    ========================= */
 
     .page {
       width:
@@ -493,10 +476,6 @@
       }
     }
 
-    /* =========================
-       THEME TRANSITION
-    ========================= */
-
     #themeTransition {
       position: fixed;
 
@@ -518,9 +497,8 @@
         );
 
       transition:
-        clip-path
-        .75s cubic-bezier(.76,0,.18,1),
-        opacity .15s ease;
+        clip-path .72s cubic-bezier(.76,0,.18,1),
+        opacity .18s ease;
     }
 
     #themeTransition.active {
@@ -528,10 +506,25 @@
 
       clip-path:
         circle(
-          150vmax at
+          160vmax at
           var(--theme-x, 50%)
           var(--theme-y, 50%)
         );
+    }
+
+    #themeTransition.exiting {
+      opacity: 0;
+
+      clip-path:
+        circle(
+          0px at
+          var(--theme-x, 50%)
+          var(--theme-y, 50%)
+        );
+
+      transition:
+        clip-path .68s cubic-bezier(.76,0,.18,1),
+        opacity .58s ease;
     }
 
     #themeTransition.light {
@@ -547,10 +540,6 @@
 
       filter: blur(1.5px);
     }
-
-    /* =========================
-       HERO
-    ========================= */
 
     .hero {
       text-align: center;
@@ -688,14 +677,12 @@
         rgba(70,110,180,.12);
     }
 
-    /* =========================
-       LINK CARDS
-    ========================= */
-
     .links {
       display: grid;
 
       gap: 13px;
+
+      perspective: 1200px;
     }
 
     .link-card {
@@ -737,6 +724,9 @@
       --move-x: 0px;
       --move-y: 0px;
 
+      --tilt-x: 0deg;
+      --tilt-y: 0deg;
+
       --origin-x: 50%;
       --origin-y: 50%;
 
@@ -748,20 +738,20 @@
         var(--origin-y);
 
       transform:
+        perspective(900px)
         translate3d(
           var(--move-x),
           var(--move-y),
           0
         )
+        rotateX(var(--tilt-x))
+        rotateY(var(--tilt-y))
         scaleX(var(--stretch-x))
         scaleY(var(--stretch-y));
 
       transition:
-        transform .32s
-          cubic-bezier(.16,1.45,.3,1),
-
+        transform .22s cubic-bezier(.16,1.3,.3,1),
         box-shadow .25s ease,
-
         border-color .25s ease;
     }
 
@@ -828,11 +818,11 @@
 
     .link-card:hover {
       box-shadow:
-        0 28px 70px
-        rgba(40,70,130,.19),
+        0 30px 75px
+        rgba(40,70,130,.22),
 
-        0 0 42px
-        rgba(100,145,255,.12);
+        0 0 48px
+        rgba(100,145,255,.15);
 
       border-color:
         rgba(120,165,255,.48);
@@ -870,6 +860,15 @@
         rgba(255,255,255,.55);
 
       overflow: hidden;
+
+      transform:
+        rotate(0deg)
+        scale(1)
+        translateY(0);
+
+      transition:
+        transform .32s cubic-bezier(.16,1.4,.3,1),
+        box-shadow .25s ease;
     }
 
     .icon svg {
@@ -877,6 +876,33 @@
       height: 22px;
 
       display: block;
+
+      transform:
+        rotate(0deg)
+        scale(1);
+
+      transition:
+        transform .3s cubic-bezier(.16,1.4,.3,1);
+    }
+
+    .icon.icon-active {
+      transform:
+        rotate(var(--icon-rotate, 0deg))
+        scale(1.12)
+        translateY(-2px);
+
+      box-shadow:
+        inset 0 0 0 1px
+        rgba(255,255,255,.75),
+
+        0 8px 22px
+        rgba(70,110,200,.18);
+    }
+
+    .icon.icon-active svg {
+      transform:
+        rotate(var(--logo-rotate, 0deg))
+        scale(1.08);
     }
 
     body.dark .icon {
@@ -940,11 +966,23 @@
       text-shadow:
         0 2px 10px
         rgba(70,100,180,.12);
+
+      transform:
+        translateX(0)
+        scale(1);
+
+      transition:
+        transform .3s cubic-bezier(.16,1.4,.3,1),
+        color .2s ease;
     }
 
-    /* =========================
-       EMAIL
-    ========================= */
+    .link-card:hover .arrow {
+      transform:
+        translateX(6px)
+        scale(1.16);
+
+      color: var(--text);
+    }
 
     .email-card {
       cursor: pointer;
@@ -996,10 +1034,6 @@
       transform: scale(.92);
     }
 
-    /* =========================
-       WORK
-    ========================= */
-
     .work {
       margin-top: 30px;
 
@@ -1046,10 +1080,6 @@
         rgba(70,100,180,.10);
     }
 
-    /* =========================
-       FOOTER
-    ========================= */
-
     footer {
       text-align: center;
 
@@ -1083,10 +1113,6 @@
     .easter-trigger:hover {
       opacity: .85;
     }
-
-    /* =========================
-       FIREWORKS
-    ========================= */
 
     #fireworks {
       position: fixed;
@@ -1222,10 +1248,6 @@
       }
     }
 
-    /* =========================
-       REVEAL
-    ========================= */
-
     .reveal {
       opacity: 0;
 
@@ -1243,10 +1265,6 @@
       transform:
         translateY(0);
     }
-
-    /* =========================
-       MOBILE
-    ========================= */
 
     @media (max-width: 760px) {
 
@@ -1358,10 +1376,6 @@
       }
     }
 
-    /* =========================
-       TOUCH DEVICES
-    ========================= */
-
     @media (hover:none), (pointer:coarse) {
 
       .link-card {
@@ -1374,9 +1388,7 @@
               .3,
               1
             ),
-
           box-shadow .2s ease,
-
           border-color .2s ease;
       }
 
@@ -1392,10 +1404,6 @@
           rgba(120,165,255,.55);
       }
     }
-
-    /* =========================
-       REDUCED MOTION
-    ========================= */
 
     @media (prefers-reduced-motion: reduce) {
 
@@ -1423,13 +1431,9 @@
 <body>
 
   <div class="ambient" aria-hidden="true">
-
-```
-<div class="ambient-a"></div>
-<div class="ambient-b"></div>
-<div class="ambient-c"></div>
-```
-
+    <div class="ambient-a"></div>
+    <div class="ambient-b"></div>
+    <div class="ambient-c"></div>
   </div>
 
   <div class="phones" aria-hidden="true">
@@ -1557,7 +1561,6 @@
 
   <h1>
     Smartphones.<br>
-
     <span>
       Tech. Photography.
     </span>
@@ -1839,10 +1842,6 @@
   </div>
 
   <script>
-    /* =========================
-       BASIC
-    ========================= */
-
     const EMAIL =
       "samsungs24ultragoat@gmail.com";
 
@@ -1850,10 +1849,6 @@
       "year"
     ).textContent =
       new Date().getFullYear();
-
-    /* =========================
-       EMAIL
-    ========================= */
 
     const emailCard =
       document.getElementById(
@@ -1969,10 +1964,6 @@
       }
     );
 
-    /* =========================
-       CARD INTERACTION
-    ========================= */
-
     const cards =
       document.querySelectorAll(
         ".link-card"
@@ -2007,6 +1998,12 @@
           )
         );
 
+      const dx =
+        px - .5;
+
+      const dy =
+        py - .5;
+
       card.style.setProperty(
         "--glow-x",
         (px * 100) + "%"
@@ -2017,31 +2014,35 @@
         (py * 100) + "%"
       );
 
-      const dx =
-        px - .5;
+      const tiltY =
+        dx * 16;
 
-      const dy =
-        py - .5;
-
-      const horizontalStrength =
-        Math.min(
-          Math.abs(dx) * 2,
-          1
-        );
-
-      const verticalStrength =
-        Math.min(
-          Math.abs(dy) * 2,
-          1
-        );
+      const tiltX =
+        dy * -12;
 
       const stretchX =
         1 +
-        horizontalStrength * .16;
+        Math.abs(dx) * .055;
 
       const stretchY =
         1 +
-        verticalStrength * .16;
+        Math.abs(dy) * .045;
+
+      const moveX =
+        dx * 15;
+
+      const moveY =
+        dy * 11;
+
+      card.style.setProperty(
+        "--tilt-x",
+        tiltX.toFixed(2) + "deg"
+      );
+
+      card.style.setProperty(
+        "--tilt-y",
+        tiltY.toFixed(2) + "deg"
+      );
 
       card.style.setProperty(
         "--stretch-x",
@@ -2055,12 +2056,12 @@
 
       card.style.setProperty(
         "--move-x",
-        (dx * 13) + "px"
+        moveX.toFixed(2) + "px"
       );
 
       card.style.setProperty(
         "--move-y",
-        (dy * 10) + "px"
+        moveY.toFixed(2) + "px"
       );
 
       card.style.setProperty(
@@ -2072,6 +2073,69 @@
         "--origin-y",
         (py * 100) + "%"
       );
+
+      const icon =
+        card.querySelector(
+          ".icon"
+        );
+
+      if (icon) {
+
+        const iconRect =
+          icon.getBoundingClientRect();
+
+        const extra =
+          28;
+
+        const nearIcon =
+          x >= iconRect.left - extra &&
+          x <= iconRect.right + extra &&
+          y >= iconRect.top - extra &&
+          y <= iconRect.bottom + extra;
+
+        if (nearIcon) {
+
+          const iconCenterX =
+            iconRect.left +
+            iconRect.width / 2;
+
+          const iconOffset =
+            Math.max(
+              -1,
+              Math.min(
+                1,
+                (x - iconCenterX) /
+                (iconRect.width / 2)
+              )
+            );
+
+          const iconRotation =
+            iconOffset * 9;
+
+          const logoRotation =
+            iconOffset * -5;
+
+          icon.style.setProperty(
+            "--icon-rotate",
+            iconRotation.toFixed(2) + "deg"
+          );
+
+          icon.style.setProperty(
+            "--logo-rotate",
+            logoRotation.toFixed(2) + "deg"
+          );
+
+          icon.classList.add(
+            "icon-active"
+          );
+
+        } else {
+
+          icon.classList.remove(
+            "icon-active"
+          );
+        }
+      }
     }
 
     function resetCard(
@@ -2099,6 +2163,16 @@
       );
 
       card.style.setProperty(
+        "--tilt-x",
+        "0deg"
+      );
+
+      card.style.setProperty(
+        "--tilt-y",
+        "0deg"
+      );
+
+      card.style.setProperty(
         "--origin-x",
         "50%"
       );
@@ -2117,6 +2191,28 @@
         "--glow-y",
         "50%"
       );
+
+      const icon =
+        card.querySelector(
+          ".icon"
+        );
+
+      if (icon) {
+
+        icon.classList.remove(
+          "icon-active"
+        );
+
+        icon.style.setProperty(
+          "--icon-rotate",
+          "0deg"
+        );
+
+        icon.style.setProperty(
+          "--logo-rotate",
+          "0deg"
+        );
+      }
 
       card.classList.remove(
         "touching"
@@ -2238,10 +2334,6 @@
       }
     );
 
-    /* =========================
-       EASTER EGG
-    ========================= */
-
     let eggClicks = 0;
     let eggResetTimer;
 
@@ -2325,10 +2417,6 @@
       }
     );
 
-    /* =========================
-       FIREWORKS
-    ========================= */
-
     const canvas =
       document.getElementById(
         "fireworks"
@@ -2402,8 +2490,14 @@
     }
 
     function launchFirework(
-      delay = 0
+      delay
     ) {
+
+      if (
+        delay === undefined
+      ) {
+        delay = 0;
+      }
 
       setTimeout(
         () => {
@@ -2772,10 +2866,6 @@
       );
     }
 
-    /* =========================
-       DARK MODE
-    ========================= */
-
     const themeButton =
       document.getElementById(
         "themeButton"
@@ -2785,6 +2875,9 @@
       document.getElementById(
         "themeTransition"
       );
+
+    let themeAnimating =
+      false;
 
     function updateThemeIcon() {
 
@@ -2811,6 +2904,15 @@
 
     function animateThemeChange() {
 
+      if (
+        themeAnimating
+      ) {
+        return;
+      }
+
+      themeAnimating =
+        true;
+
       const buttonRect =
         themeButton.getBoundingClientRect();
 
@@ -2826,6 +2928,11 @@
         !document.body.classList.contains(
           "dark"
         );
+
+      themeTransition.classList.remove(
+        "active",
+        "exiting"
+      );
 
       themeTransition.style.setProperty(
         "--theme-x",
@@ -2878,22 +2985,42 @@
           updateThemeIcon();
 
         },
-        280
+        360
+      );
+
+      setTimeout(
+        () => {
+
+          themeTransition.classList.add(
+            "exiting"
+          );
+
+        },
+        650
       );
 
       setTimeout(
         () => {
 
           themeTransition.classList.remove(
-            "active"
+            "active",
+            "exiting",
+            "light"
           );
 
           document.body.classList.remove(
             "theme-switching"
           );
 
+          themeButton.classList.remove(
+            "theme-animating"
+          );
+
+          themeAnimating =
+            false;
+
         },
-        800
+        1350
       );
     }
 
@@ -2901,10 +3028,6 @@
       "click",
       animateThemeChange
     );
-
-    /* =========================
-       SHARE
-    ========================= */
 
     document
       .getElementById(
@@ -2972,10 +3095,6 @@
         }
       );
 
-    /* =========================
-       PHONE PARALLAX
-    ========================= */
-
     const phoneElements =
       document.querySelectorAll(
         ".phone"
@@ -2992,11 +3111,6 @@
     }
 
     function updateParallax() {
-
-      /*
-        Mobile stays completely static.
-        This prevents jumping during fast scrolling.
-      */
 
       if (
         isMobile()
@@ -3070,10 +3184,6 @@
       "resize",
       updateParallax
     );
-
-    /* =========================
-       REVEAL
-    ========================= */
 
     const revealObserver =
       new IntersectionObserver(
