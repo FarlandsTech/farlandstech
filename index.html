@@ -18,10 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="preload" as="image" href="profile.png">
   <link rel="preload" as="image" href="phone1.png">
@@ -113,6 +110,20 @@
       display: none;
     }
 
+    body,
+    a,
+    button {
+      touch-action: manipulation;
+    }
+
+    a,
+    button,
+    .link-card,
+    .profile-wrap {
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
     body.dark {
       --bg: #0b0d12;
       --text: #f4f6fa;
@@ -121,8 +132,7 @@
       --card: rgba(28,31,40,.66);
       --card-border: rgba(255,255,255,.08);
 
-      --shadow:
-        0 20px 60px rgba(0,0,0,.28);
+      --shadow: 0 20px 60px rgba(0,0,0,.28);
 
       background:
         radial-gradient(
@@ -143,30 +153,12 @@
         var(--bg);
     }
 
-    body,
-    a,
-    button {
-      touch-action: manipulation;
-    }
-
-    a,
-    button,
-    .link-card,
-    .profile-wrap {
-      -webkit-user-select: none;
-      user-select: none;
-    }
-
     .ambient {
       position: fixed;
       inset: 0;
-
       pointer-events: none;
-
       overflow: hidden;
-
       z-index: -2;
-
       transition: opacity .8s ease;
     }
 
@@ -192,26 +184,21 @@
 
     .ambient-a {
       background: #5c8cff;
-
       top: -10%;
       left: -8%;
     }
 
     .ambient-b {
       background: #c35cff;
-
       right: -10%;
       top: 30%;
-
       animation-delay: -5s !important;
     }
 
     .ambient-c {
       background: #45d8bd;
-
       bottom: -15%;
       left: 30%;
-
       animation-delay: -9s !important;
     }
 
@@ -245,11 +232,9 @@
       content: "";
 
       position: fixed;
-
       inset: -20px;
 
       z-index: -3;
-
       pointer-events: none;
 
       background:
@@ -257,9 +242,7 @@
         center center / cover fixed;
 
       filter: blur(9px);
-
       transform: scale(1.04);
-
       opacity: .72;
     }
 
@@ -267,11 +250,9 @@
       content: "";
 
       position: fixed;
-
       inset: 0;
 
       z-index: -2;
-
       pointer-events: none;
 
       background:
@@ -292,25 +273,16 @@
       inset: 0;
 
       pointer-events: none;
-
       z-index: -1;
-
       overflow: hidden;
 
-      transition:
-        opacity .8s ease;
+      transition: opacity .8s ease;
     }
 
     .phone {
       position: absolute;
 
-      width:
-        clamp(
-          90px,
-          13vw,
-          180px
-        );
-
+      width: clamp(90px,13vw,180px);
       height: auto;
 
       opacity: .48;
@@ -376,16 +348,11 @@
     }
 
     .page {
-      width:
-        min(
-          620px,
-          calc(100% - 32px)
-        );
+      width: min(620px,calc(100% - 32px));
 
       margin: 0 auto;
 
-      padding:
-        72px 0 36px;
+      padding: 72px 0 36px;
 
       transition:
         opacity .8s ease,
@@ -399,7 +366,6 @@
       right: 18px;
 
       display: flex;
-
       gap: 9px;
 
       z-index: 50;
@@ -409,10 +375,7 @@
       width: 43px;
       height: 43px;
 
-      border:
-        1px solid
-        var(--card-border);
-
+      border: 1px solid var(--card-border);
       border-radius: 15px;
 
       background: var(--card);
@@ -428,14 +391,13 @@
       place-items: center;
 
       cursor: pointer;
-
       color: var(--text);
 
       font-size: 18px;
 
       transition:
-        transform .25s var(--ease),
-        box-shadow .25s ease;
+        transform .35s var(--ease),
+        box-shadow .35s ease;
     }
 
     .control:hover {
@@ -478,11 +440,9 @@
 
     #themeTransition {
       position: fixed;
-
       inset: 0;
 
       z-index: 9998;
-
       pointer-events: none;
 
       opacity: 0;
@@ -492,13 +452,13 @@
       clip-path:
         circle(
           0px at
-          var(--theme-x, 50%)
-          var(--theme-y, 50%)
+          var(--theme-x,50%)
+          var(--theme-y,50%)
         );
 
       transition:
-        clip-path .72s cubic-bezier(.76,0,.18,1),
-        opacity .18s ease;
+        clip-path .75s cubic-bezier(.76,0,.18,1),
+        opacity .65s ease;
     }
 
     #themeTransition.active {
@@ -506,44 +466,32 @@
 
       clip-path:
         circle(
-          160vmax at
-          var(--theme-x, 50%)
-          var(--theme-y, 50%)
+          150vmax at
+          var(--theme-x,50%)
+          var(--theme-y,50%)
         );
-    }
-
-    #themeTransition.exiting {
-      opacity: 0;
-
-      clip-path:
-        circle(
-          0px at
-          var(--theme-x, 50%)
-          var(--theme-y, 50%)
-        );
-
-      transition:
-        clip-path .68s cubic-bezier(.76,0,.18,1),
-        opacity .58s ease;
     }
 
     #themeTransition.light {
       background: #f5f7fb;
     }
 
+    #themeTransition.closing {
+      opacity: 0;
+    }
+
     body.theme-switching .page,
     body.theme-switching .phones,
     body.theme-switching .ambient {
+      filter: blur(1.5px);
+
       transition:
         opacity .45s ease,
         filter .45s ease;
-
-      filter: blur(1.5px);
     }
 
     .hero {
       text-align: center;
-
       margin-bottom: 30px;
     }
 
@@ -553,8 +501,7 @@
       width: 108px;
       height: 108px;
 
-      margin:
-        0 auto 19px;
+      margin: 0 auto 19px;
 
       cursor: pointer;
     }
@@ -564,7 +511,6 @@
       height: 100%;
 
       display: block;
-
       object-fit: cover;
 
       border-radius: 32px;
@@ -572,6 +518,21 @@
       box-shadow:
         0 18px 45px
         rgba(30,40,70,.16);
+
+      transition:
+        transform .45s var(--ease),
+        box-shadow .45s ease;
+    }
+
+    .profile-wrap:hover .profile {
+      transform:
+        translateY(-4px)
+        scale(1.035)
+        rotate(-1.5deg);
+
+      box-shadow:
+        0 24px 55px
+        rgba(30,40,70,.22);
     }
 
     .status {
@@ -583,10 +544,7 @@
       width: 21px;
       height: 21px;
 
-      border:
-        4px solid
-        var(--bg);
-
+      border: 4px solid var(--bg);
       border-radius: 50%;
 
       background: #31d56d;
@@ -594,15 +552,20 @@
       box-shadow:
         0 0 16px
         rgba(49,213,109,.5);
+
+      transition:
+        transform .35s var(--ease);
+    }
+
+    .profile-wrap:hover .status {
+      transform: scale(1.12);
     }
 
     .eyebrow {
       margin-bottom: 8px;
 
       font-size: 11px;
-
       font-weight: 800;
-
       letter-spacing: .18em;
 
       color: var(--muted);
@@ -614,20 +577,12 @@
 
     h1 {
       margin: 0;
-
       padding-bottom: 5px;
 
-      font-size:
-        clamp(
-          34px,
-          7vw,
-          55px
-        );
-
+      font-size: clamp(34px,7vw,55px);
       line-height: 1.06;
 
       letter-spacing: -.055em;
-
       font-weight: 800;
 
       text-shadow:
@@ -637,7 +592,6 @@
 
     h1 span {
       display: block;
-
       padding-bottom: 3px;
 
       background:
@@ -663,13 +617,11 @@
     .intro {
       max-width: 480px;
 
-      margin:
-        18px auto 0;
+      margin: 18px auto 0;
 
       color: var(--muted);
 
       font-size: 14px;
-
       line-height: 1.65;
 
       text-shadow:
@@ -679,10 +631,7 @@
 
     .links {
       display: grid;
-
       gap: 13px;
-
-      perspective: 1200px;
     }
 
     .link-card {
@@ -691,18 +640,12 @@
       min-height: 72px;
 
       display: flex;
-
       align-items: center;
-
       gap: 15px;
 
-      padding:
-        15px 17px;
+      padding: 15px 17px;
 
-      border:
-        1px solid
-        var(--card-border);
-
+      border: 1px solid var(--card-border);
       border-radius: 24px;
 
       background: var(--card);
@@ -713,7 +656,6 @@
       box-shadow: var(--shadow);
 
       color: var(--text);
-
       text-decoration: none;
 
       overflow: hidden;
@@ -727,15 +669,8 @@
       --tilt-x: 0deg;
       --tilt-y: 0deg;
 
-      --origin-x: 50%;
-      --origin-y: 50%;
-
       --glow-x: 50%;
       --glow-y: 50%;
-
-      transform-origin:
-        var(--origin-x)
-        var(--origin-y);
 
       transform:
         perspective(900px)
@@ -744,15 +679,16 @@
           var(--move-y),
           0
         )
-        rotateX(var(--tilt-x))
-        rotateY(var(--tilt-y))
+        rotateX(var(--tilt-y))
+        rotateY(var(--tilt-x))
         scaleX(var(--stretch-x))
         scaleY(var(--stretch-y));
 
       transition:
-        transform .22s cubic-bezier(.16,1.3,.3,1),
-        box-shadow .25s ease,
-        border-color .25s ease;
+        transform .48s cubic-bezier(.16,1.25,.3,1),
+        box-shadow .42s ease,
+        border-color .42s ease,
+        filter .42s ease;
     }
 
     .link-card::before {
@@ -760,8 +696,8 @@
 
       position: absolute;
 
-      width: 270px;
-      height: 270px;
+      width: 300px;
+      height: 300px;
 
       left: var(--glow-x);
       top: var(--glow-y);
@@ -772,9 +708,9 @@
       background:
         radial-gradient(
           circle,
-          rgba(255,255,255,.58) 0%,
-          rgba(120,170,255,.20) 23%,
-          rgba(120,150,255,.08) 42%,
+          rgba(255,255,255,.62) 0%,
+          rgba(120,170,255,.24) 23%,
+          rgba(120,150,255,.09) 42%,
           transparent 70%
         );
 
@@ -783,7 +719,7 @@
       opacity: 0;
 
       transition:
-        opacity .12s ease;
+        opacity .35s ease;
     }
 
     .link-card:hover::before,
@@ -795,7 +731,6 @@
       content: "";
 
       position: absolute;
-
       inset: 0;
 
       border-radius: inherit;
@@ -814,29 +749,33 @@
       pointer-events: none;
 
       opacity: .75;
+
+      transition:
+        opacity .4s ease;
     }
 
     .link-card:hover {
       box-shadow:
-        0 30px 75px
+        0 32px 75px
         rgba(40,70,130,.22),
 
         0 0 48px
         rgba(100,145,255,.15);
 
       border-color:
-        rgba(120,165,255,.48);
+        rgba(120,165,255,.55);
+
+      filter: brightness(1.025);
     }
 
     .link-card:active {
-      transition-duration: .08s;
+      transition-duration: .1s;
 
-      filter: brightness(1.04);
+      filter: brightness(1.06);
     }
 
     .icon {
       position: relative;
-
       z-index: 2;
 
       width: 43px;
@@ -847,7 +786,6 @@
       border-radius: 15px;
 
       display: grid;
-
       place-items: center;
 
       background:
@@ -861,14 +799,20 @@
 
       overflow: hidden;
 
+      --icon-rotate-x: 0deg;
+      --icon-rotate-y: 0deg;
+      --icon-scale: 1;
+      --icon-y: 0px;
+
       transform:
-        rotate(0deg)
-        scale(1)
-        translateY(0);
+        translateY(var(--icon-y))
+        rotateX(var(--icon-rotate-x))
+        rotateY(var(--icon-rotate-y))
+        scale(var(--icon-scale));
 
       transition:
-        transform .32s cubic-bezier(.16,1.4,.3,1),
-        box-shadow .25s ease;
+        transform .4s cubic-bezier(.16,1.35,.3,1),
+        box-shadow .35s ease;
     }
 
     .icon svg {
@@ -878,31 +822,11 @@
       display: block;
 
       transform:
-        rotate(0deg)
-        scale(1);
+        rotate(var(--svg-rotate,0deg))
+        scale(var(--svg-scale,1));
 
       transition:
-        transform .3s cubic-bezier(.16,1.4,.3,1);
-    }
-
-    .icon.icon-active {
-      transform:
-        rotate(var(--icon-rotate, 0deg))
-        scale(1.12)
-        translateY(-2px);
-
-      box-shadow:
-        inset 0 0 0 1px
-        rgba(255,255,255,.75),
-
-        0 8px 22px
-        rgba(70,110,200,.18);
-    }
-
-    .icon.icon-active svg {
-      transform:
-        rotate(var(--logo-rotate, 0deg))
-        scale(1.08);
+        transform .35s cubic-bezier(.16,1.4,.3,1);
     }
 
     body.dark .icon {
@@ -918,17 +842,14 @@
 
     .card-content {
       position: relative;
-
       z-index: 2;
 
       flex: 1;
-
       min-width: 0;
     }
 
     .card-title {
       font-size: 15px;
-
       font-weight: 700;
 
       margin-bottom: 3px;
@@ -944,9 +865,7 @@
       font-size: 12px;
 
       white-space: nowrap;
-
       overflow: hidden;
-
       text-overflow: ellipsis;
 
       text-shadow:
@@ -956,30 +875,24 @@
 
     .arrow {
       position: relative;
-
       z-index: 2;
 
       color: var(--muted);
-
       font-size: 18px;
 
       text-shadow:
         0 2px 10px
         rgba(70,100,180,.12);
 
-      transform:
-        translateX(0)
-        scale(1);
-
       transition:
-        transform .3s cubic-bezier(.16,1.4,.3,1),
-        color .2s ease;
+        transform .42s cubic-bezier(.16,1.3,.3,1),
+        color .3s ease;
     }
 
     .link-card:hover .arrow {
       transform:
-        translateX(6px)
-        scale(1.16);
+        translateX(5px)
+        scale(1.12);
 
       color: var(--text);
     }
@@ -990,7 +903,6 @@
 
     .copy-button {
       position: relative;
-
       z-index: 5;
 
       flex: 0 0 auto;
@@ -998,11 +910,9 @@
       min-width: 82px;
       min-height: 44px;
 
-      padding:
-        0 13px;
+      padding: 0 13px;
 
       border: 0;
-
       border-radius: 14px;
 
       background:
@@ -1011,20 +921,20 @@
       color: var(--accent);
 
       font-family: inherit;
-
       font-size: 12px;
-
       font-weight: 700;
 
       cursor: pointer;
 
       transition:
-        transform .2s var(--ease),
-        background .2s ease;
+        transform .3s var(--ease),
+        background .3s ease;
     }
 
     .copy-button:hover {
-      transform: scale(1.04);
+      transform:
+        scale(1.06)
+        translateY(-1px);
 
       background:
         rgba(80,125,255,.18);
@@ -1043,9 +953,7 @@
 
       background: var(--card);
 
-      border:
-        1px solid
-        var(--card-border);
+      border: 1px solid var(--card-border);
 
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
@@ -1054,11 +962,9 @@
     }
 
     .work h2 {
-      margin:
-        0 0 8px;
+      margin: 0 0 8px;
 
       font-size: 19px;
-
       letter-spacing: -.02em;
 
       text-shadow:
@@ -1072,7 +978,6 @@
       color: var(--muted);
 
       font-size: 13px;
-
       line-height: 1.65;
 
       text-shadow:
@@ -1083,8 +988,7 @@
     footer {
       text-align: center;
 
-      padding:
-        28px 0 0;
+      padding: 28px 0 0;
 
       color: var(--muted);
 
@@ -1095,7 +999,7 @@
         rgba(70,100,180,.12);
     }
 
-    .easter-trigger {
+    .solarized-link {
       display: inline-block;
 
       margin-top: 9px;
@@ -1104,19 +1008,24 @@
 
       opacity: .45;
 
+      text-decoration: none;
+
       cursor: pointer;
 
       transition:
-        opacity .2s ease;
+        opacity .3s ease,
+        transform .3s var(--ease);
     }
 
-    .easter-trigger:hover {
-      opacity: .85;
+    .solarized-link:hover {
+      opacity: .9;
+
+      transform:
+        translateY(-2px);
     }
 
     #fireworks {
       position: fixed;
-
       inset: 0;
 
       width: 100%;
@@ -1148,7 +1057,6 @@
     body.fireworks-mode .ambient,
     body.fireworks-mode .top-controls {
       opacity: 0;
-
       filter: blur(7px);
 
       transition:
@@ -1173,22 +1081,14 @@
       pointer-events: none;
 
       text-align: center;
-
       color: white;
 
       transition:
         opacity .45s ease,
-        transform
-          .8s cubic-bezier(
-            .17,
-            .89,
-            .32,
-            1.35
-          );
+        transform .8s cubic-bezier(.17,.89,.32,1.35);
     }
 
-    body.fireworks-mode
-    .egg-message {
+    body.fireworks-mode .egg-message {
       opacity: 1;
 
       transform:
@@ -1198,7 +1098,6 @@
 
     .egg-icon {
       font-size: 55px;
-
       margin-bottom: 14px;
 
       filter:
@@ -1214,7 +1113,6 @@
 
     .egg-title {
       font-size: 30px;
-
       font-weight: 800;
 
       letter-spacing: -.04em;
@@ -1267,7 +1165,6 @@
     }
 
     @media (max-width: 760px) {
-
       body {
         font-size: 14px;
       }
@@ -1278,7 +1175,6 @@
 
       .phone {
         width: 80px;
-
         opacity: .27;
 
         transform:
@@ -1288,22 +1184,13 @@
       }
 
       .page {
-        width:
-          min(
-            620px,
-            calc(100% - 22px)
-          );
-
+        width: min(620px,calc(100% - 22px));
         padding-top: 78px;
       }
 
       h1 {
         font-size:
-          clamp(
-            31px,
-            8vw,
-            44px
-          );
+          clamp(31px,8vw,44px);
 
         line-height: 1.08;
       }
@@ -1314,7 +1201,6 @@
         margin-top: 15px;
 
         font-size: 13px;
-
         line-height: 1.6;
       }
 
@@ -1323,8 +1209,7 @@
 
         border-radius: 22px;
 
-        padding:
-          14px 15px;
+        padding: 14px 15px;
       }
 
       .card-title {
@@ -1346,7 +1231,6 @@
 
       .copy-button {
         min-width: 84px;
-
         min-height: 46px;
 
         font-size: 11px;
@@ -1359,7 +1243,6 @@
 
       .work {
         padding: 22px;
-
         border-radius: 25px;
       }
 
@@ -1377,19 +1260,12 @@
     }
 
     @media (hover:none), (pointer:coarse) {
-
       .link-card {
         transition:
-          transform
-            .34s
-            cubic-bezier(
-              .16,
-              1.45,
-              .3,
-              1
-            ),
-          box-shadow .2s ease,
-          border-color .2s ease;
+          transform .48s cubic-bezier(.16,1.25,.3,1),
+          box-shadow .35s ease,
+          border-color .35s ease,
+          filter .35s ease;
       }
 
       .link-card.touching {
@@ -1406,13 +1282,10 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-
       *,
       *::before,
       *::after {
-
-        scroll-behavior:
-          auto !important;
+        scroll-behavior: auto !important;
 
         animation-duration:
           .01ms !important;
@@ -1437,71 +1310,16 @@
   </div>
 
   <div class="phones" aria-hidden="true">
+    <img class="phone phone1" src="phone1.png" alt="" fetchpriority="high" decoding="async">
+    <img class="phone phone2" src="phone2.png" alt="" fetchpriority="high" decoding="async">
 
 ```
-<img
-  class="phone phone1"
-  src="phone1.png"
-  alt=""
-  fetchpriority="high"
-  decoding="async"
->
-
-<img
-  class="phone phone2"
-  src="phone2.png"
-  alt=""
-  fetchpriority="high"
-  decoding="async"
->
-
-<img
-  class="phone phone3"
-  src="phone3.png"
-  alt=""
-  loading="lazy"
-  decoding="async"
->
-
-<img
-  class="phone phone4"
-  src="phone4.png"
-  alt=""
-  loading="lazy"
-  decoding="async"
->
-
-<img
-  class="phone phone5"
-  src="phone5.png"
-  alt=""
-  loading="lazy"
-  decoding="async"
->
-
-<img
-  class="phone phone6"
-  src="phone6.png"
-  alt=""
-  loading="lazy"
-  decoding="async"
->
-
-<img
-  class="phone phone7"
-  src="phone7.png"
-  alt=""
-  loading="lazy"
-  decoding="async"
->
-
-<img
-  class="phone phone8"
-  src="phone8.png"
-  alt=""
-  loading="lazy"
-  decoding="async"
->
+<img class="phone phone3" src="phone3.png" alt="" loading="lazy" decoding="async">
+<img class="phone phone4" src="phone4.png" alt="" loading="lazy" decoding="async">
+<img class="phone phone5" src="phone5.png" alt="" loading="lazy" decoding="async">
+<img class="phone phone6" src="phone6.png" alt="" loading="lazy" decoding="async">
+<img class="phone phone7" src="phone7.png" alt="" loading="lazy" decoding="async">
+<img class="phone phone8" src="phone8.png" alt="" loading="lazy" decoding="async">
 ```
 
   </div>
@@ -1530,7 +1348,7 @@
 
   </div>
 
-  <div id="themeTransition"></div>
+  <div id="themeTransition" aria-hidden="true"></div>
 
   <main class="page">
 
@@ -1561,9 +1379,7 @@
 
   <h1>
     Smartphones.<br>
-    <span>
-      Tech. Photography.
-    </span>
+    <span>Tech. Photography.</span>
   </h1>
 
   <p class="intro">
@@ -1584,10 +1400,7 @@
   >
 
     <div class="icon">
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <path
           fill="currentColor"
           d="M16.7 3c.4 2.5 1.8 4.2 4.3 4.4v3.1c-1.7.1-3.1-.4-4.3-1.3v6.1c0 4-2.8 6.7-6.7 6.7-3.6 0-6.2-2.6-6.2-5.9 0-3.6 2.9-6.2 6.8-6.2.4 0 .8 0 1.2.1v3.2c-.4-.1-.8-.2-1.2-.2-1.9 0-3.4 1.2-3.4 3 0 1.6 1.2 2.8 2.8 2.8 1.8 0 3.3-1.2 3.3-3.7V3h3.4z"
@@ -1596,20 +1409,11 @@
     </div>
 
     <div class="card-content">
-
-      <div class="card-title">
-        TikTok
-      </div>
-
-      <div class="card-subtitle">
-        @farlandstech
-      </div>
-
+      <div class="card-title">TikTok</div>
+      <div class="card-subtitle">@farlandstech</div>
     </div>
 
-    <div class="arrow">
-      ›
-    </div>
+    <div class="arrow">›</div>
 
   </a>
 
@@ -1621,10 +1425,7 @@
   >
 
     <div class="icon">
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <path
           fill="currentColor"
           d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.9V8.1l6.6 3.9-6.6 3.9z"
@@ -1633,20 +1434,11 @@
     </div>
 
     <div class="card-content">
-
-      <div class="card-title">
-        YouTube
-      </div>
-
-      <div class="card-subtitle">
-        Videos & tech content
-      </div>
-
+      <div class="card-title">YouTube</div>
+      <div class="card-subtitle">Videos &amp; tech content</div>
     </div>
 
-    <div class="arrow">
-      ›
-    </div>
+    <div class="arrow">›</div>
 
   </a>
 
@@ -1658,10 +1450,7 @@
   >
 
     <div class="icon">
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <path
           fill="currentColor"
           d="M19.5 4.5A16.7 16.7 0 0 0 15.4 3l-.5 1.1a15.4 15.4 0 0 0-5.8 0L8.6 3a16.7 16.7 0 0 0-4.1 1.5C1.9 8.4 1.2 12.2 1.5 15.9A16.6 16.6 0 0 0 6.6 18l1.2-1.7c-.7-.3-1.3-.6-1.9-1 .2-.2.4-.3.6-.5 3.7 1.7 7.7 1.7 11.4 0 .2.2.4.3.6.5-.6.4-1.2.7-1.9 1l1.2 1.7a16.6 16.6 0 0 0 5.1-2.1c.4-4.3-.7-8-3.4-11.4zM8.7 13.7c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z"
@@ -1670,20 +1459,11 @@
     </div>
 
     <div class="card-content">
-
-      <div class="card-title">
-        Discord
-      </div>
-
-      <div class="card-subtitle">
-        Join the community
-      </div>
-
+      <div class="card-title">Discord</div>
+      <div class="card-subtitle">Join the community</div>
     </div>
 
-    <div class="arrow">
-      ›
-    </div>
+    <div class="arrow">›</div>
 
   </a>
 
@@ -1695,10 +1475,7 @@
   >
 
     <div class="icon">
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <path
           fill="currentColor"
           d="M5 4h5.4c1.5 0 2.7.9 3.4 2.2L16 10.6l2.7-6.6H22l-4 9.2c-.8 1.9-2 3.4-3.6 4.8L12 20H8.5l2.8-3.1L5 4zm4.3 2.8h-1l3.2 7.1 1.2-1.4-3.4-5.7z"
@@ -1707,20 +1484,11 @@
     </div>
 
     <div class="card-content">
-
-      <div class="card-title">
-        Vinted
-      </div>
-
-      <div class="card-subtitle">
-        Phones & tech for sale
-      </div>
-
+      <div class="card-title">Vinted</div>
+      <div class="card-subtitle">Phones &amp; tech for sale</div>
     </div>
 
-    <div class="arrow">
-      ›
-    </div>
+    <div class="arrow">›</div>
 
   </a>
 
@@ -1733,10 +1501,7 @@
   >
 
     <div class="icon">
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <rect
           x="3"
           y="5"
@@ -1760,15 +1525,8 @@
     </div>
 
     <div class="card-content">
-
-      <div class="card-title">
-        Email
-      </div>
-
-      <div class="card-subtitle">
-        samsungs24ultragoat@gmail.com
-      </div>
-
+      <div class="card-title">Email</div>
+      <div class="card-subtitle">samsungs24ultragoat@gmail.com</div>
     </div>
 
     <button
@@ -1779,9 +1537,7 @@
       Copy
     </button>
 
-    <div class="arrow">
-      ›
-    </div>
+    <div class="arrow">›</div>
 
   </div>
 
@@ -1789,9 +1545,7 @@
 
 <section class="work reveal">
 
-  <h2>
-    Work with me
-  </h2>
+  <h2>Work with me</h2>
 
   <p>
     Interested in working together on
@@ -1809,12 +1563,14 @@
 
   <br>
 
-  <span
-    class="easter-trigger"
-    id="eggTrigger"
+  <a
+    class="solarized-link"
+    href="https://www.tiktok.com/@solarized.io"
+    target="_blank"
+    rel="noopener"
   >
     Inspired by solarized.io :)
-  </span>
+  </a>
 
 </footer>
 ```
@@ -1842,26 +1598,18 @@
   </div>
 
   <script>
-    const EMAIL =
-      "samsungs24ultragoat@gmail.com";
+    const EMAIL = "samsungs24ultragoat@gmail.com";
 
-    document.getElementById(
-      "year"
-    ).textContent =
+    document.getElementById("year").textContent =
       new Date().getFullYear();
 
     const emailCard =
-      document.getElementById(
-        "emailCard"
-      );
+      document.getElementById("emailCard");
 
     const copyButton =
-      document.getElementById(
-        "copyEmail"
-      );
+      document.getElementById("copyEmail");
 
     function openEmail() {
-
       const gmailURL =
         "https://mail.google.com/mail/?view=cm&fs=1&to=" +
         encodeURIComponent(EMAIL);
@@ -1874,32 +1622,18 @@
     }
 
     async function copyEmail() {
-
       try {
-
-        await navigator.clipboard.writeText(
-          EMAIL
-        );
-
+        await navigator.clipboard.writeText(EMAIL);
       } catch {
+        const input = document.createElement("input");
 
-        const input =
-          document.createElement(
-            "input"
-          );
+        input.value = EMAIL;
 
-        input.value =
-          EMAIL;
-
-        document.body.appendChild(
-          input
-        );
+        document.body.appendChild(input);
 
         input.select();
 
-        document.execCommand(
-          "copy"
-        );
+        document.execCommand("copy");
 
         input.remove();
       }
@@ -1907,15 +1641,11 @@
       const original =
         copyButton.textContent;
 
-      copyButton.textContent =
-        "Copied ✓";
+      copyButton.textContent = "Copied ✓";
 
       setTimeout(
-        () => {
-
-          copyButton.textContent =
-            original;
-
+        function() {
+          copyButton.textContent = original;
         },
         1400
       );
@@ -1923,12 +1653,9 @@
 
     emailCard.addEventListener(
       "click",
-      event => {
-
+      function(event) {
         if (
-          event.target.closest(
-            "#copyEmail"
-          )
+          event.target.closest("#copyEmail")
         ) {
           return;
         }
@@ -1939,15 +1666,12 @@
 
     emailCard.addEventListener(
       "keydown",
-      event => {
-
+      function(event) {
         if (
           event.key === "Enter" ||
           event.key === " "
         ) {
-
           event.preventDefault();
-
           openEmail();
         }
       }
@@ -1955,8 +1679,7 @@
 
     copyButton.addEventListener(
       "click",
-      event => {
-
+      function(event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -1965,16 +1688,115 @@
     );
 
     const cards =
-      document.querySelectorAll(
-        ".link-card"
+      document.querySelectorAll(".link-card");
+
+    function updateIcon(card, x, y) {
+      const icon =
+        card.querySelector(".icon");
+
+      if (!icon) {
+        return;
+      }
+
+      const rect =
+        icon.getBoundingClientRect();
+
+      const centerX =
+        rect.left + rect.width / 2;
+
+      const centerY =
+        rect.top + rect.height / 2;
+
+      const distanceX =
+        x - centerX;
+
+      const distanceY =
+        y - centerY;
+
+      const distance =
+        Math.sqrt(
+          distanceX * distanceX +
+          distanceY * distanceY
+        );
+
+      const influence =
+        Math.max(
+          0,
+          Math.min(
+            1,
+            1 - distance / 105
+          )
+        );
+
+      const rotateY =
+        Math.max(
+          -10,
+          Math.min(
+            10,
+            distanceX / 6
+          )
+        ) * influence;
+
+      const rotateX =
+        Math.max(
+          -10,
+          Math.min(
+            10,
+            -distanceY / 6
+          )
+        ) * influence;
+
+      icon.style.setProperty(
+        "--icon-rotate-x",
+        rotateX + "deg"
       );
 
-    function updateCard(
-      card,
-      x,
-      y
-    ) {
+      icon.style.setProperty(
+        "--icon-rotate-y",
+        rotateY + "deg"
+      );
 
+      icon.style.setProperty(
+        "--icon-scale",
+        (1 + influence * .14).toFixed(3)
+      );
+
+      icon.style.setProperty(
+        "--icon-y",
+        (-influence * 3) + "px"
+      );
+    }
+
+    function resetIcon(card) {
+      const icon =
+        card.querySelector(".icon");
+
+      if (!icon) {
+        return;
+      }
+
+      icon.style.setProperty(
+        "--icon-rotate-x",
+        "0deg"
+      );
+
+      icon.style.setProperty(
+        "--icon-rotate-y",
+        "0deg"
+      );
+
+      icon.style.setProperty(
+        "--icon-scale",
+        "1"
+      );
+
+      icon.style.setProperty(
+        "--icon-y",
+        "0px"
+      );
+    }
+
+    function updateCard(card, x, y) {
       const rect =
         card.getBoundingClientRect();
 
@@ -1983,8 +1805,7 @@
           0,
           Math.min(
             1,
-            (x - rect.left) /
-            rect.width
+            (x - rect.left) / rect.width
           )
         );
 
@@ -1993,8 +1814,7 @@
           0,
           Math.min(
             1,
-            (y - rect.top) /
-            rect.height
+            (y - rect.top) / rect.height
           )
         );
 
@@ -2014,25 +1834,17 @@
         (py * 100) + "%"
       );
 
-      const tiltY =
-        dx * 16;
-
       const tiltX =
-        dy * -12;
+        dx * 18;
+
+      const tiltY =
+        dy * -18;
 
       const stretchX =
-        1 +
-        Math.abs(dx) * .055;
+        1 + Math.abs(dx) * .10;
 
       const stretchY =
-        1 +
-        Math.abs(dy) * .045;
-
-      const moveX =
-        dx * 15;
-
-      const moveY =
-        dy * 11;
+        1 + Math.abs(dy) * .10;
 
       card.style.setProperty(
         "--tilt-x",
@@ -2056,91 +1868,31 @@
 
       card.style.setProperty(
         "--move-x",
-        moveX.toFixed(2) + "px"
+        (dx * 10) + "px"
       );
 
       card.style.setProperty(
         "--move-y",
-        moveY.toFixed(2) + "px"
+        (dy * 8) + "px"
       );
 
-      card.style.setProperty(
-        "--origin-x",
-        (px * 100) + "%"
+      updateIcon(
+        card,
+        x,
+        y
       );
-
-      card.style.setProperty(
-        "--origin-y",
-        (py * 100) + "%"
-      );
-
-      const icon =
-        card.querySelector(
-          ".icon"
-        );
-
-      if (icon) {
-
-        const iconRect =
-          icon.getBoundingClientRect();
-
-        const extra =
-          28;
-
-        const nearIcon =
-          x >= iconRect.left - extra &&
-          x <= iconRect.right + extra &&
-          y >= iconRect.top - extra &&
-          y <= iconRect.bottom + extra;
-
-        if (nearIcon) {
-
-          const iconCenterX =
-            iconRect.left +
-            iconRect.width / 2;
-
-          const iconOffset =
-            Math.max(
-              -1,
-              Math.min(
-                1,
-                (x - iconCenterX) /
-                (iconRect.width / 2)
-              )
-            );
-
-          const iconRotation =
-            iconOffset * 9;
-
-          const logoRotation =
-            iconOffset * -5;
-
-          icon.style.setProperty(
-            "--icon-rotate",
-            iconRotation.toFixed(2) + "deg"
-          );
-
-          icon.style.setProperty(
-            "--logo-rotate",
-            logoRotation.toFixed(2) + "deg"
-          );
-
-          icon.classList.add(
-            "icon-active"
-          );
-
-        } else {
-
-          icon.classList.remove(
-            "icon-active"
-          );
-        }
-      }
     }
 
-    function resetCard(
-      card
-    ) {
+    function resetCard(card) {
+      card.style.setProperty(
+        "--tilt-x",
+        "0deg"
+      );
+
+      card.style.setProperty(
+        "--tilt-y",
+        "0deg"
+      );
 
       card.style.setProperty(
         "--stretch-x",
@@ -2163,26 +1915,6 @@
       );
 
       card.style.setProperty(
-        "--tilt-x",
-        "0deg"
-      );
-
-      card.style.setProperty(
-        "--tilt-y",
-        "0deg"
-      );
-
-      card.style.setProperty(
-        "--origin-x",
-        "50%"
-      );
-
-      card.style.setProperty(
-        "--origin-y",
-        "50%"
-      );
-
-      card.style.setProperty(
         "--glow-x",
         "50%"
       );
@@ -2192,43 +1924,19 @@
         "50%"
       );
 
-      const icon =
-        card.querySelector(
-          ".icon"
-        );
+      card.classList.remove("touching");
 
-      if (icon) {
-
-        icon.classList.remove(
-          "icon-active"
-        );
-
-        icon.style.setProperty(
-          "--icon-rotate",
-          "0deg"
-        );
-
-        icon.style.setProperty(
-          "--logo-rotate",
-          "0deg"
-        );
-      }
-
-      card.classList.remove(
-        "touching"
-      );
+      resetIcon(card);
     }
 
     cards.forEach(
-      card => {
+      function(card) {
 
         card.addEventListener(
           "pointerenter",
-          event => {
-
+          function(event) {
             if (
-              event.pointerType ===
-              "touch"
+              event.pointerType === "touch"
             ) {
               return;
             }
@@ -2243,11 +1951,9 @@
 
         card.addEventListener(
           "pointermove",
-          event => {
-
+          function(event) {
             if (
-              event.pointerType ===
-              "touch"
+              event.pointerType === "touch"
             ) {
               return;
             }
@@ -2262,28 +1968,21 @@
 
         card.addEventListener(
           "pointerleave",
-          () => {
-
-            resetCard(
-              card
-            );
+          function() {
+            resetCard(card);
           }
         );
 
         card.addEventListener(
           "pointerdown",
-          event => {
-
+          function(event) {
             if (
-              event.pointerType !==
-              "touch"
+              event.pointerType !== "touch"
             ) {
               return;
             }
 
-            card.classList.add(
-              "touching"
-            );
+            card.classList.add("touching");
 
             updateCard(
               card,
@@ -2295,11 +1994,9 @@
 
         card.addEventListener(
           "pointermove",
-          event => {
-
+          function(event) {
             if (
-              event.pointerType !==
-              "touch"
+              event.pointerType !== "touch"
             ) {
               return;
             }
@@ -2314,21 +2011,15 @@
 
         card.addEventListener(
           "pointerup",
-          () => {
-
-            resetCard(
-              card
-            );
+          function() {
+            resetCard(card);
           }
         );
 
         card.addEventListener(
           "pointercancel",
-          () => {
-
-            resetCard(
-              card
-            );
+          function() {
+            resetCard(card);
           }
         );
       }
@@ -2338,27 +2029,14 @@
     let eggResetTimer;
 
     const profileEgg =
-      document.getElementById(
-        "profileEgg"
-      );
-
-    const eggTrigger =
-      document.getElementById(
-        "eggTrigger"
-      );
+      document.getElementById("profileEgg");
 
     function handleEggClick() {
-
       eggClicks++;
 
-      clearTimeout(
-        eggResetTimer
-      );
+      clearTimeout(eggResetTimer);
 
-      if (
-        eggClicks >= 5
-      ) {
-
+      if (eggClicks >= 5) {
         eggClicks = 0;
 
         if (
@@ -2366,7 +2044,6 @@
             "starry-mode"
           )
         ) {
-
           document.body.classList.remove(
             "starry-mode"
           );
@@ -2381,10 +2058,8 @@
 
       eggResetTimer =
         setTimeout(
-          () => {
-
+          function() {
             eggClicks = 0;
-
           },
           1800
         );
@@ -2395,49 +2070,18 @@
       handleEggClick
     );
 
-    eggTrigger.addEventListener(
-      "click",
-      () => {
-
-        if (
-          document.body.classList.contains(
-            "starry-mode"
-          )
-        ) {
-
-          document.body.classList.remove(
-            "starry-mode"
-          );
-
-        } else {
-
-          startFireworks();
-
-        }
-      }
-    );
-
     const canvas =
-      document.getElementById(
-        "fireworks"
-      );
+      document.getElementById("fireworks");
 
     const ctx =
-      canvas.getContext(
-        "2d"
-      );
+      canvas.getContext("2d");
 
-    let fireworksRunning =
-      false;
-
+    let fireworksRunning = false;
     let fireworks = [];
-
     let particles = [];
-
     let fireworkFrame;
 
     function resizeCanvas() {
-
       const dpr =
         Math.min(
           window.devicePixelRatio || 1,
@@ -2445,20 +2089,16 @@
         );
 
       canvas.width =
-        window.innerWidth *
-        dpr;
+        window.innerWidth * dpr;
 
       canvas.height =
-        window.innerHeight *
-        dpr;
+        window.innerHeight * dpr;
 
       canvas.style.width =
-        window.innerWidth +
-        "px";
+        window.innerWidth + "px";
 
       canvas.style.height =
-        window.innerHeight +
-        "px";
+        window.innerHeight + "px";
 
       ctx.setTransform(
         dpr,
@@ -2477,11 +2117,7 @@
 
     resizeCanvas();
 
-    function random(
-      min,
-      max
-    ) {
-
+    function random(min, max) {
       return (
         Math.random() *
         (max - min) +
@@ -2489,27 +2125,14 @@
       );
     }
 
-    function launchFirework(
-      delay
-    ) {
-
-      if (
-        delay === undefined
-      ) {
-        delay = 0;
-      }
-
+    function launchFirework(delay) {
       setTimeout(
-        () => {
-
-          if (
-            !fireworksRunning
-          ) {
+        function() {
+          if (!fireworksRunning) {
             return;
           }
 
           fireworks.push({
-
             x:
               random(
                 window.innerWidth * .12,
@@ -2530,57 +2153,38 @@
 
             trail: []
           });
-
         },
         delay
       );
     }
 
-    function explode(
-      x,
-      y
-    ) {
-
+    function explode(x, y) {
       const amount =
         Math.floor(
-          random(
-            48,
-            76
-          )
+          random(48,76)
         );
 
       const hue =
-        random(
-          185,
-          330
-        );
+        random(185,330);
 
       for (
         let i = 0;
         i < amount;
         i++
       ) {
-
         const angle =
           (
             Math.PI * 2 * i
           ) /
           amount +
-          random(
-            -.08,
-            .08
-          );
+          random(-.08,.08);
 
         const speed =
-          random(
-            2.2,
-            5.8
-          );
+          random(2.2,5.8);
 
         particles.push({
-
-          x,
-          y,
+          x: x,
+          y: y,
 
           vx:
             Math.cos(angle) *
@@ -2590,42 +2194,25 @@
             Math.sin(angle) *
             speed,
 
-          gravity:
-            .055,
-
-          friction:
-            .985,
-
-          life:
-            1,
+          gravity: .055,
+          friction: .985,
+          life: 1,
 
           decay:
-            random(
-              .012,
-              .022
-            ),
+            random(.012,.022),
 
           size:
-            random(
-              1.2,
-              2.8
-            ),
+            random(1.2,2.8),
 
           hue:
             hue +
-            random(
-              -25,
-              25
-            )
+            random(-25,25)
         });
       }
     }
 
     function animateFireworks() {
-
-      if (
-        !fireworksRunning
-      ) {
+      if (!fireworksRunning) {
         return;
       }
 
@@ -2640,7 +2227,7 @@
       );
 
       fireworks.forEach(
-        (rocket,index) => {
+        function(rocket,index) {
 
           rocket.trail.push({
             x: rocket.x,
@@ -2648,19 +2235,14 @@
           });
 
           if (
-            rocket.trail.length >
-            8
+            rocket.trail.length > 8
           ) {
-
             rocket.trail.shift();
-
           }
 
-          rocket.y -=
-            rocket.speed;
+          rocket.y -= rocket.speed;
 
-          rocket.speed *=
-            .985;
+          rocket.speed *= .985;
 
           ctx.beginPath();
 
@@ -2675,7 +2257,6 @@
             i >= 0;
             i--
           ) {
-
             ctx.lineTo(
               rocket.trail[i].x,
               rocket.trail[i].y
@@ -2693,7 +2274,6 @@
             rocket.y <=
             rocket.targetY
           ) {
-
             explode(
               rocket.x,
               rocket.y
@@ -2708,7 +2288,7 @@
       );
 
       particles.forEach(
-        (particle,index) => {
+        function(particle,index) {
 
           particle.vx *=
             particle.friction;
@@ -2731,7 +2311,6 @@
           if (
             particle.life <= 0
           ) {
-
             particles.splice(
               index,
               1
@@ -2757,8 +2336,7 @@
             particle.life +
             ")";
 
-          ctx.shadowBlur =
-            12;
+          ctx.shadowBlur = 12;
 
           ctx.shadowColor =
             "hsla(" +
@@ -2769,8 +2347,7 @@
 
           ctx.fill();
 
-          ctx.shadowBlur =
-            0;
+          ctx.shadowBlur = 0;
         }
       );
 
@@ -2781,18 +2358,13 @@
     }
 
     function startFireworks() {
-
-      if (
-        fireworksRunning
-      ) {
+      if (fireworksRunning) {
         return;
       }
 
-      fireworksRunning =
-        true;
+      fireworksRunning = true;
 
       fireworks = [];
-
       particles = [];
 
       document.body.classList.add(
@@ -2818,10 +2390,9 @@
       animateFireworks();
 
       setTimeout(
-        () => {
+        function() {
 
-          fireworksRunning =
-            false;
+          fireworksRunning = false;
 
           cancelAnimationFrame(
             fireworkFrame
@@ -2830,11 +2401,10 @@
           canvas.style.transition =
             "opacity 1s ease";
 
-          canvas.style.opacity =
-            "0";
+          canvas.style.opacity = "0";
 
           setTimeout(
-            () => {
+            function() {
 
               document.body.classList.remove(
                 "fireworks-mode"
@@ -2851,11 +2421,8 @@
                 window.innerHeight
               );
 
-              canvas.style.opacity =
-                "";
-
-              canvas.style.transition =
-                "";
+              canvas.style.opacity = "";
+              canvas.style.transition = "";
 
             },
             1000
@@ -2876,11 +2443,9 @@
         "themeTransition"
       );
 
-    let themeAnimating =
-      false;
+    let themeAnimating = false;
 
     function updateThemeIcon() {
-
       themeButton.textContent =
         document.body.classList.contains(
           "dark"
@@ -2894,24 +2459,17 @@
         "farlands-dark"
       ) === "1"
     ) {
-
-      document.body.classList.add(
-        "dark"
-      );
+      document.body.classList.add("dark");
     }
 
     updateThemeIcon();
 
     function animateThemeChange() {
-
-      if (
-        themeAnimating
-      ) {
+      if (themeAnimating) {
         return;
       }
 
-      themeAnimating =
-        true;
+      themeAnimating = true;
 
       const buttonRect =
         themeButton.getBoundingClientRect();
@@ -2929,11 +2487,6 @@
           "dark"
         );
 
-      themeTransition.classList.remove(
-        "active",
-        "exiting"
-      );
-
       themeTransition.style.setProperty(
         "--theme-x",
         x + "px"
@@ -2942,6 +2495,10 @@
       themeTransition.style.setProperty(
         "--theme-y",
         y + "px"
+      );
+
+      themeTransition.classList.remove(
+        "closing"
       );
 
       themeTransition.classList.toggle(
@@ -2968,7 +2525,7 @@
       );
 
       setTimeout(
-        () => {
+        function() {
 
           document.body.classList.toggle(
             "dark",
@@ -2985,42 +2542,36 @@
           updateThemeIcon();
 
         },
-        360
+        280
       );
 
       setTimeout(
-        () => {
+        function() {
 
           themeTransition.classList.add(
-            "exiting"
-          );
-
-        },
-        650
-      );
-
-      setTimeout(
-        () => {
-
-          themeTransition.classList.remove(
-            "active",
-            "exiting",
-            "light"
+            "closing"
           );
 
           document.body.classList.remove(
             "theme-switching"
           );
 
-          themeButton.classList.remove(
-            "theme-animating"
+        },
+        780
+      );
+
+      setTimeout(
+        function() {
+
+          themeTransition.classList.remove(
+            "active",
+            "closing"
           );
 
-          themeAnimating =
-            false;
+          themeAnimating = false;
 
         },
-        1350
+        1450
       );
     }
 
@@ -3029,96 +2580,65 @@
       animateThemeChange
     );
 
-    document
-      .getElementById(
+    const shareButton =
+      document.getElementById(
         "shareButton"
-      )
-      .addEventListener(
-        "click",
-        async () => {
-
-          const shareData = {
-
-            title:
-              "FarlandsTech",
-
-            text:
-              "Check out FarlandsTech.",
-
-            url:
-              window.location.href
-          };
-
-          if (
-            navigator.share
-          ) {
-
-            try {
-
-              await navigator.share(
-                shareData
-              );
-
-            } catch {}
-
-          } else {
-
-            try {
-
-              await navigator.clipboard.writeText(
-                window.location.href
-              );
-
-              const button =
-                document.getElementById(
-                  "shareButton"
-                );
-
-              const original =
-                button.textContent;
-
-              button.textContent =
-                "✓";
-
-              setTimeout(
-                () => {
-
-                  button.textContent =
-                    original;
-
-                },
-                1300
-              );
-
-            } catch {}
-          }
-        }
       );
+
+    shareButton.addEventListener(
+      "click",
+      async function() {
+
+        const shareData = {
+          title: "FarlandsTech",
+          text: "Check out FarlandsTech.",
+          url: window.location.href
+        };
+
+        if (navigator.share) {
+          try {
+            await navigator.share(
+              shareData
+            );
+          } catch {}
+        } else {
+          try {
+            await navigator.clipboard.writeText(
+              window.location.href
+            );
+
+            const original =
+              shareButton.textContent;
+
+            shareButton.textContent = "✓";
+
+            setTimeout(
+              function() {
+                shareButton.textContent =
+                  original;
+              },
+              1300
+            );
+          } catch {}
+        }
+      }
+    );
 
     const phoneElements =
-      document.querySelectorAll(
-        ".phone"
-      );
+      document.querySelectorAll(".phone");
 
-    let parallaxTicking =
-      false;
+    let parallaxTicking = false;
 
     function isMobile() {
-
       return window.matchMedia(
         "(max-width:760px), (pointer:coarse)"
       ).matches;
     }
 
     function updateParallax() {
-
-      if (
-        isMobile()
-      ) {
-
+      if (isMobile()) {
         phoneElements.forEach(
-          phone => {
-
+          function(phone) {
             phone.style.setProperty(
               "--py",
               "0px"
@@ -3126,8 +2646,7 @@
           }
         );
 
-        parallaxTicking =
-          false;
+        parallaxTicking = false;
 
         return;
       }
@@ -3136,42 +2655,35 @@
         window.scrollY;
 
       phoneElements.forEach(
-        (phone,index) => {
+        function(phone,index) {
 
           const amount =
             (
               index % 2 === 0
                 ? 1
                 : -1
-            ) *
-            .018;
+            ) * .018;
 
           phone.style.setProperty(
             "--py",
-            (scroll * amount) +
-            "px"
+            (scroll * amount) + "px"
           );
         }
       );
 
-      parallaxTicking =
-        false;
+      parallaxTicking = false;
     }
 
     window.addEventListener(
       "scroll",
-      () => {
+      function() {
 
-        if (
-          !parallaxTicking
-        ) {
-
+        if (!parallaxTicking) {
           requestAnimationFrame(
             updateParallax
           );
 
-          parallaxTicking =
-            true;
+          parallaxTicking = true;
         }
 
       },
@@ -3187,10 +2699,10 @@
 
     const revealObserver =
       new IntersectionObserver(
-        entries => {
+        function(entries) {
 
           entries.forEach(
-            entry => {
+            function(entry) {
 
               if (
                 entry.isIntersecting
@@ -3206,6 +2718,7 @@
               }
             }
           );
+
         },
         {
           threshold: .08
@@ -3213,12 +2726,9 @@
       );
 
     document
-      .querySelectorAll(
-        ".reveal"
-      )
+      .querySelectorAll(".reveal")
       .forEach(
-        element => {
-
+        function(element) {
           revealObserver.observe(
             element
           );
