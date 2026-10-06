@@ -636,6 +636,7 @@
 
     .link-card {
       position: relative;
+      isolation: isolate;
 
       min-height: 72px;
 
@@ -658,7 +659,7 @@
       color: var(--text);
       text-decoration: none;
 
-      overflow: hidden;
+      overflow: visible;
 
       --stretch-x: 1;
       --stretch-y: 1;
@@ -671,6 +672,9 @@
 
       --glow-x: 50%;
       --glow-y: 50%;
+
+      --brand-border: rgba(120,165,255,.95);
+      --brand-glow: rgba(100,145,255,.50);
 
       transform:
         perspective(900px)
@@ -685,7 +689,7 @@
         scaleY(var(--stretch-y));
 
       transition:
-        transform .48s cubic-bezier(.16,1.25,.3,1),
+        transform .52s cubic-bezier(.16,1.35,.3,1),
         box-shadow .42s ease,
         border-color .42s ease,
         filter .42s ease;
@@ -722,36 +726,59 @@
         opacity .35s ease;
     }
 
+    .link-card::after {
+      content: "";
+
+      position: absolute;
+
+      inset: -2px;
+
+      border-radius: inherit;
+
+      padding: 2px;
+
+      background: var(--brand-border);
+
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+      -webkit-mask-composite: xor;
+
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+      mask-composite: exclude;
+
+      opacity: .88;
+
+      filter:
+        drop-shadow(0 0 5px var(--brand-glow))
+        drop-shadow(0 0 12px var(--brand-glow));
+
+      pointer-events: none;
+
+      z-index: 5;
+
+      transition:
+        opacity .4s ease,
+        filter .4s ease;
+    }
+
     .link-card:hover::before,
     .link-card.touching::before {
       opacity: 1;
     }
 
-    .link-card::after {
-      content: "";
+    .link-card:hover::after,
+    .link-card.touching::after {
+      opacity: 1;
 
-      position: absolute;
-      inset: 0;
-
-      border-radius: inherit;
-
-      border:
-        1px solid
-        rgba(120,165,255,.20);
-
-      box-shadow:
-        inset 0 0 25px
-        rgba(120,165,255,.06),
-
-        0 0 25px
-        rgba(100,145,255,.03);
-
-      pointer-events: none;
-
-      opacity: .75;
-
-      transition:
-        opacity .4s ease;
+      filter:
+        drop-shadow(0 0 6px var(--brand-glow))
+        drop-shadow(0 0 15px var(--brand-glow))
+        drop-shadow(0 0 28px var(--brand-glow));
     }
 
     .link-card:hover {
@@ -760,10 +787,10 @@
         rgba(40,70,130,.22),
 
         0 0 48px
-        rgba(100,145,255,.15);
+        var(--brand-glow);
 
       border-color:
-        rgba(120,165,255,.55);
+        var(--brand-border);
 
       filter: brightness(1.025);
     }
@@ -774,9 +801,113 @@
       filter: brightness(1.06);
     }
 
+    .link-card[href*="tiktok.com"] {
+      --brand-border:
+        linear-gradient(
+          115deg,
+          #00f2ea 0%,
+          #00f2ea 35%,
+          #ff0050 65%,
+          #ff375f 100%
+        );
+
+      --brand-glow:
+        rgba(0,242,234,.42);
+    }
+
+    .link-card[href*="tiktok.com"]::after {
+      filter:
+        drop-shadow(0 0 5px rgba(0,242,234,.55))
+        drop-shadow(0 0 11px rgba(255,0,80,.48))
+        drop-shadow(0 0 22px rgba(255,0,80,.28));
+    }
+
+    .link-card[href*="youtube.com"] {
+      --brand-border:
+        linear-gradient(
+          110deg,
+          #ff1f1f 0%,
+          #ff3030 50%,
+          #ffffff 100%
+        );
+
+      --brand-glow:
+        rgba(255,45,45,.42);
+    }
+
+    .link-card[href*="youtube.com"]::after {
+      filter:
+        drop-shadow(0 0 5px rgba(255,35,35,.62))
+        drop-shadow(0 0 13px rgba(255,45,45,.45))
+        drop-shadow(0 0 24px rgba(255,255,255,.22));
+    }
+
+    .link-card[href*="discord.gg"] {
+      --brand-border:
+        linear-gradient(
+          120deg,
+          #5865f2 0%,
+          #7289da 50%,
+          #9b6cff 100%
+        );
+
+      --brand-glow:
+        rgba(88,101,242,.52);
+    }
+
+    .link-card[href*="discord.gg"]::after {
+      filter:
+        drop-shadow(0 0 5px rgba(88,101,242,.72))
+        drop-shadow(0 0 14px rgba(114,137,218,.55))
+        drop-shadow(0 0 27px rgba(155,108,255,.38));
+    }
+
+    .link-card[href*="vinted.com"] {
+      --brand-border:
+        linear-gradient(
+          120deg,
+          #00a88f 0%,
+          #19c7a8 50%,
+          #61e6c8 100%
+        );
+
+      --brand-glow:
+        rgba(25,199,168,.46);
+    }
+
+    .link-card[href*="vinted.com"]::after {
+      filter:
+        drop-shadow(0 0 5px rgba(25,199,168,.62))
+        drop-shadow(0 0 14px rgba(0,168,143,.48))
+        drop-shadow(0 0 26px rgba(97,230,200,.32));
+    }
+
+    .brand-gmail {
+      --brand-border:
+        conic-gradient(
+          from 220deg,
+          #4285f4,
+          #34a853,
+          #fbbc05,
+          #ea4335,
+          #4285f4
+        );
+
+      --brand-glow:
+        rgba(66,133,244,.42);
+    }
+
+    .brand-gmail::after {
+      filter:
+        drop-shadow(0 0 5px rgba(66,133,244,.55))
+        drop-shadow(0 0 11px rgba(234,67,53,.48))
+        drop-shadow(0 0 20px rgba(52,168,83,.32))
+        drop-shadow(0 0 28px rgba(251,188,5,.24));
+    }
+
     .icon {
       position: relative;
-      z-index: 2;
+      z-index: 6;
 
       width: 43px;
       height: 43px;
@@ -842,7 +973,7 @@
 
     .card-content {
       position: relative;
-      z-index: 2;
+      z-index: 6;
 
       flex: 1;
       min-width: 0;
@@ -875,7 +1006,7 @@
 
     .arrow {
       position: relative;
-      z-index: 2;
+      z-index: 6;
 
       color: var(--muted);
       font-size: 18px;
@@ -903,7 +1034,7 @@
 
     .copy-button {
       position: relative;
-      z-index: 5;
+      z-index: 8;
 
       flex: 0 0 auto;
 
@@ -945,6 +1076,9 @@
     }
 
     .work {
+      position: relative;
+      isolation: isolate;
+
       margin-top: 30px;
 
       padding: 25px;
@@ -959,6 +1093,75 @@
       -webkit-backdrop-filter: blur(24px);
 
       box-shadow: var(--shadow);
+    }
+
+    .work::before {
+      content: "";
+
+      position: absolute;
+      inset: -2px;
+
+      border-radius: inherit;
+
+      padding: 2px;
+
+      background:
+        linear-gradient(
+          120deg,
+          rgba(61,124,255,.72),
+          rgba(156,99,255,.62),
+          rgba(243,107,201,.58),
+          rgba(61,124,255,.72)
+        );
+
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+      -webkit-mask-composite: xor;
+
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+      mask-composite: exclude;
+
+      opacity: .68;
+
+      filter:
+        drop-shadow(0 0 5px rgba(100,120,255,.30))
+        drop-shadow(0 0 14px rgba(150,100,255,.20));
+
+      pointer-events: none;
+      z-index: 5;
+
+      transition:
+        opacity .4s ease,
+        filter .4s ease;
+    }
+
+    .work:hover {
+      box-shadow:
+        0 32px 75px
+        rgba(40,70,130,.20),
+
+        0 0 42px
+        rgba(100,120,255,.12);
+    }
+
+    .work:hover::before {
+      opacity: .95;
+
+      filter:
+        drop-shadow(0 0 6px rgba(100,120,255,.46))
+        drop-shadow(0 0 16px rgba(150,100,255,.32))
+        drop-shadow(0 0 27px rgba(243,107,201,.20));
+    }
+
+    .work h2,
+    .work p {
+      position: relative;
+      z-index: 6;
     }
 
     .work h2 {
@@ -1262,7 +1465,7 @@
     @media (hover:none), (pointer:coarse) {
       .link-card {
         transition:
-          transform .48s cubic-bezier(.16,1.25,.3,1),
+          transform .48s cubic-bezier(.16,1.35,.3,1),
           box-shadow .35s ease,
           border-color .35s ease,
           filter .35s ease;
@@ -1274,10 +1477,16 @@
           rgba(50,80,150,.22),
 
           0 0 45px
-          rgba(100,150,255,.17);
+          var(--brand-glow);
+      }
 
-        border-color:
-          rgba(120,165,255,.55);
+      .link-card.touching::after {
+        opacity: 1;
+
+        filter:
+          drop-shadow(0 0 6px var(--brand-glow))
+          drop-shadow(0 0 15px var(--brand-glow))
+          drop-shadow(0 0 26px var(--brand-glow));
       }
     }
 
@@ -1312,30 +1521,25 @@
   <div class="phones" aria-hidden="true">
     <img class="phone phone1" src="phone1.png" alt="" fetchpriority="high" decoding="async">
     <img class="phone phone2" src="phone2.png" alt="" fetchpriority="high" decoding="async">
-
-```
-<img class="phone phone3" src="phone3.png" alt="" loading="lazy" decoding="async">
-<img class="phone phone4" src="phone4.png" alt="" loading="lazy" decoding="async">
-<img class="phone phone5" src="phone5.png" alt="" loading="lazy" decoding="async">
-<img class="phone phone6" src="phone6.png" alt="" loading="lazy" decoding="async">
-<img class="phone phone7" src="phone7.png" alt="" loading="lazy" decoding="async">
-<img class="phone phone8" src="phone8.png" alt="" loading="lazy" decoding="async">
-```
-
+    <img class="phone phone3" src="phone3.png" alt="" loading="lazy" decoding="async">
+    <img class="phone phone4" src="phone4.png" alt="" loading="lazy" decoding="async">
+    <img class="phone phone5" src="phone5.png" alt="" loading="lazy" decoding="async">
+    <img class="phone phone6" src="phone6.png" alt="" loading="lazy" decoding="async">
+    <img class="phone phone7" src="phone7.png" alt="" loading="lazy" decoding="async">
+    <img class="phone phone8" src="phone8.png" alt="" loading="lazy" decoding="async">
   </div>
 
   <div class="top-controls">
+    <button
+      class="control"
+      id="shareButton"
+      aria-label="Share"
+      type="button"
+    >
+      ↗
+    </button>
 
 ```
-<button
-  class="control"
-  id="shareButton"
-  aria-label="Share"
-  type="button"
->
-  ↗
-</button>
-
 <button
   class="control"
   id="themeButton"
@@ -1493,7 +1697,7 @@
   </a>
 
   <div
-    class="link-card email-card reveal"
+    class="link-card email-card reveal brand-gmail"
     id="emailCard"
     role="button"
     tabindex="0"
@@ -1624,7 +1828,7 @@
     async function copyEmail() {
       try {
         await navigator.clipboard.writeText(EMAIL);
-      } catch {
+      } catch (error) {
         const input = document.createElement("input");
 
         input.value = EMAIL;
@@ -1835,10 +2039,10 @@
       );
 
       const tiltX =
-        dx * 18;
+        dx * 22;
 
       const tiltY =
-        dy * -18;
+        dy * -22;
 
       const stretchX =
         1 + Math.abs(dx) * .10;
@@ -2600,7 +2804,8 @@
             await navigator.share(
               shareData
             );
-          } catch {}
+          } catch (error) {
+          }
         } else {
           try {
             await navigator.clipboard.writeText(
@@ -2619,7 +2824,8 @@
               },
               1300
             );
-          } catch {}
+          } catch (error) {
+          }
         }
       }
     );
@@ -2736,6 +2942,75 @@
       );
 
     updateParallax();
+
+    function removeStrayCharacters(root) {
+      const walker =
+        document.createTreeWalker(
+          root,
+          NodeFilter.SHOW_TEXT
+        );
+
+      const nodes = [];
+
+      let node;
+
+      while (
+        (node = walker.nextNode())
+      ) {
+        nodes.push(node);
+      }
+
+      nodes.forEach(
+        function(textNode) {
+          const cleaned =
+            textNode.nodeValue
+              .split(String.fromCharCode(96))
+              .join("");
+
+          if (
+            cleaned !== textNode.nodeValue
+          ) {
+            textNode.nodeValue = cleaned;
+          }
+        }
+      );
+    }
+
+    removeStrayCharacters(document.body);
+
+    const cleanupObserver =
+      new MutationObserver(
+        function(mutations) {
+          mutations.forEach(
+            function(mutation) {
+              mutation.addedNodes.forEach(
+                function(node) {
+                  if (
+                    node.nodeType === Node.TEXT_NODE
+                  ) {
+                    node.nodeValue =
+                      node.nodeValue
+                        .split(String.fromCharCode(96))
+                        .join("");
+                  } else if (
+                    node.nodeType === Node.ELEMENT_NODE
+                  ) {
+                    removeStrayCharacters(node);
+                  }
+                }
+              );
+            }
+          );
+        }
+      );
+
+    cleanupObserver.observe(
+      document.body,
+      {
+        childList: true,
+        subtree: true
+      }
+    );
   </script>
 
 </body>
