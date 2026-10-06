@@ -49,7 +49,6 @@
       scroll-behavior: smooth;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      overscroll-behavior-y: none;
     }
 
     html::-webkit-scrollbar {
@@ -103,8 +102,6 @@
 
       scrollbar-width: none;
       -ms-overflow-style: none;
-
-      overscroll-behavior-y: none;
     }
 
     body::-webkit-scrollbar {
@@ -279,13 +276,7 @@
       z-index: -1;
       overflow: hidden;
 
-      transition:
-        opacity .8s ease,
-        transform .8s ease;
-
-      transform: translate3d(0,0,0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
+      transition: opacity .8s ease;
     }
 
     .phone {
@@ -305,9 +296,7 @@
         rotate(var(--rotate))
         scale(var(--phone-scale,1));
 
-      will-change: transform;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
+      will-change: auto;
     }
 
     .phone1 {
@@ -491,60 +480,6 @@
       opacity: 0;
     }
 
-    .light-message {
-      position: fixed;
-
-      left: 50%;
-      top: 50%;
-
-      z-index: 10000;
-
-      transform:
-        translate(-50%,-50%)
-        scale(.72)
-        translateY(12px);
-
-      opacity: 0;
-
-      pointer-events: none;
-
-      color: #111318;
-
-      font-size: clamp(22px,5vw,38px);
-      font-weight: 800;
-
-      letter-spacing: -.045em;
-
-      white-space: nowrap;
-
-      text-shadow:
-        0 0 12px rgba(255,255,255,.95),
-        0 0 35px rgba(255,255,255,.9),
-        0 0 75px rgba(255,245,190,.72);
-
-      transition:
-        opacity .5s ease,
-        transform .75s cubic-bezier(.16,1.3,.3,1);
-    }
-
-    .light-message.show {
-      opacity: 1;
-
-      transform:
-        translate(-50%,-50%)
-        scale(1)
-        translateY(0);
-    }
-
-    .light-message.fade {
-      opacity: 0;
-
-      transform:
-        translate(-50%,-50%)
-        scale(1.06)
-        translateY(-8px);
-    }
-
     body.theme-switching .page,
     body.theme-switching .phones,
     body.theme-switching .ambient {
@@ -701,6 +636,7 @@
 
     .link-card {
       position: relative;
+      isolation: isolate;
 
       min-height: 72px;
 
@@ -725,8 +661,6 @@
 
       overflow: visible;
 
-      isolation: isolate;
-
       --stretch-x: 1;
       --stretch-y: 1;
 
@@ -739,15 +673,8 @@
       --glow-x: 50%;
       --glow-y: 50%;
 
-      --brand-border:
-        linear-gradient(
-          135deg,
-          rgba(120,165,255,.65),
-          rgba(160,120,255,.55)
-        );
-
-      --brand-glow:
-        rgba(100,145,255,.35);
+      --brand-border: rgba(120,165,255,.95);
+      --brand-glow: rgba(100,145,255,.50);
 
       transform:
         perspective(900px)
@@ -762,7 +689,7 @@
         scaleY(var(--stretch-y));
 
       transition:
-        transform .48s cubic-bezier(.16,1.25,.3,1),
+        transform .52s cubic-bezier(.16,1.35,.3,1),
         box-shadow .42s ease,
         border-color .42s ease,
         filter .42s ease;
@@ -824,19 +751,15 @@
 
       mask-composite: exclude;
 
-      pointer-events: none;
-
-      opacity: .72;
+      opacity: .88;
 
       filter:
-        drop-shadow(
-          0 0 5px
-          var(--brand-glow)
-        )
-        drop-shadow(
-          0 0 13px
-          var(--brand-glow)
-        );
+        drop-shadow(0 0 5px var(--brand-glow))
+        drop-shadow(0 0 12px var(--brand-glow));
+
+      pointer-events: none;
+
+      z-index: 5;
 
       transition:
         opacity .4s ease,
@@ -853,18 +776,9 @@
       opacity: 1;
 
       filter:
-        drop-shadow(
-          0 0 7px
-          var(--brand-glow)
-        )
-        drop-shadow(
-          0 0 18px
-          var(--brand-glow)
-        )
-        drop-shadow(
-          0 0 30px
-          var(--brand-glow)
-        );
+        drop-shadow(0 0 6px var(--brand-glow))
+        drop-shadow(0 0 15px var(--brand-glow))
+        drop-shadow(0 0 28px var(--brand-glow));
     }
 
     .link-card:hover {
@@ -876,7 +790,7 @@
         var(--brand-glow);
 
       border-color:
-        rgba(255,255,255,.32);
+        var(--brand-border);
 
       filter: brightness(1.025);
     }
@@ -890,62 +804,88 @@
     .link-card[href*="tiktok.com"] {
       --brand-border:
         linear-gradient(
-          110deg,
-          #25f4ee,
-          #25f4ee 42%,
-          #fe2c55 58%,
-          #fe2c55
+          115deg,
+          #00f2ea 0%,
+          #00f2ea 35%,
+          #ff0050 65%,
+          #ff375f 100%
         );
 
       --brand-glow:
-        rgba(37,244,238,.28);
+        rgba(0,242,234,.42);
+    }
+
+    .link-card[href*="tiktok.com"]::after {
+      filter:
+        drop-shadow(0 0 5px rgba(0,242,234,.55))
+        drop-shadow(0 0 11px rgba(255,0,80,.48))
+        drop-shadow(0 0 22px rgba(255,0,80,.28));
     }
 
     .link-card[href*="youtube.com"] {
       --brand-border:
         linear-gradient(
           110deg,
-          #ff1f35,
-          #ff3347 50%,
-          #ffffff
+          #ff1f1f 0%,
+          #ff3030 50%,
+          #ffffff 100%
         );
 
       --brand-glow:
-        rgba(255,35,55,.38);
+        rgba(255,45,45,.42);
+    }
+
+    .link-card[href*="youtube.com"]::after {
+      filter:
+        drop-shadow(0 0 5px rgba(255,35,35,.62))
+        drop-shadow(0 0 13px rgba(255,45,45,.45))
+        drop-shadow(0 0 24px rgba(255,255,255,.22));
     }
 
     .link-card[href*="discord.gg"] {
       --brand-border:
         linear-gradient(
-          110deg,
-          #5865f2,
-          #7289ff,
-          #8b7cff
+          120deg,
+          #5865f2 0%,
+          #7289da 50%,
+          #9b6cff 100%
         );
 
       --brand-glow:
-        rgba(88,101,242,.42);
+        rgba(88,101,242,.52);
+    }
+
+    .link-card[href*="discord.gg"]::after {
+      filter:
+        drop-shadow(0 0 5px rgba(88,101,242,.72))
+        drop-shadow(0 0 14px rgba(114,137,218,.55))
+        drop-shadow(0 0 27px rgba(155,108,255,.38));
     }
 
     .link-card[href*="vinted.com"] {
       --brand-border:
         linear-gradient(
-          110deg,
-          #00c4a7,
-          #19d6b8,
-          #63e6c9
+          120deg,
+          #00a88f 0%,
+          #19c7a8 50%,
+          #61e6c8 100%
         );
 
       --brand-glow:
-        rgba(0,196,167,.34);
+        rgba(25,199,168,.46);
     }
 
-    .email-card {
-      cursor: pointer;
+    .link-card[href*="vinted.com"]::after {
+      filter:
+        drop-shadow(0 0 5px rgba(25,199,168,.62))
+        drop-shadow(0 0 14px rgba(0,168,143,.48))
+        drop-shadow(0 0 26px rgba(97,230,200,.32));
+    }
 
+    .brand-gmail {
       --brand-border:
         conic-gradient(
-          from 20deg,
+          from 220deg,
           #4285f4,
           #34a853,
           #fbbc05,
@@ -954,12 +894,20 @@
         );
 
       --brand-glow:
-        rgba(66,133,244,.28);
+        rgba(66,133,244,.42);
+    }
+
+    .brand-gmail::after {
+      filter:
+        drop-shadow(0 0 5px rgba(66,133,244,.55))
+        drop-shadow(0 0 11px rgba(234,67,53,.48))
+        drop-shadow(0 0 20px rgba(52,168,83,.32))
+        drop-shadow(0 0 28px rgba(251,188,5,.24));
     }
 
     .icon {
       position: relative;
-      z-index: 2;
+      z-index: 6;
 
       width: 43px;
       height: 43px;
@@ -1025,7 +973,7 @@
 
     .card-content {
       position: relative;
-      z-index: 2;
+      z-index: 6;
 
       flex: 1;
       min-width: 0;
@@ -1058,7 +1006,7 @@
 
     .arrow {
       position: relative;
-      z-index: 2;
+      z-index: 6;
 
       color: var(--muted);
       font-size: 18px;
@@ -1080,9 +1028,13 @@
       color: var(--text);
     }
 
+    .email-card {
+      cursor: pointer;
+    }
+
     .copy-button {
       position: relative;
-      z-index: 5;
+      z-index: 8;
 
       flex: 0 0 auto;
 
@@ -1125,6 +1077,7 @@
 
     .work {
       position: relative;
+      isolation: isolate;
 
       margin-top: 30px;
 
@@ -1140,35 +1093,26 @@
       -webkit-backdrop-filter: blur(24px);
 
       box-shadow: var(--shadow);
-
-      isolation: isolate;
-
-      overflow: visible;
-
-      --brand-border:
-        linear-gradient(
-          110deg,
-          #4d7fff,
-          #9c63ff,
-          #f36bc9
-        );
-
-      --brand-glow:
-        rgba(100,110,255,.28);
     }
 
-    .work::after {
+    .work::before {
       content: "";
 
       position: absolute;
-
       inset: -2px;
 
       border-radius: inherit;
 
       padding: 2px;
 
-      background: var(--brand-border);
+      background:
+        linear-gradient(
+          120deg,
+          rgba(61,124,255,.72),
+          rgba(156,99,255,.62),
+          rgba(243,107,201,.58),
+          rgba(61,124,255,.72)
+        );
 
       -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
@@ -1182,33 +1126,42 @@
 
       mask-composite: exclude;
 
-      pointer-events: none;
-
-      opacity: .48;
+      opacity: .68;
 
       filter:
-        drop-shadow(
-          0 0 6px
-          var(--brand-glow)
-        );
+        drop-shadow(0 0 5px rgba(100,120,255,.30))
+        drop-shadow(0 0 14px rgba(150,100,255,.20));
+
+      pointer-events: none;
+      z-index: 5;
 
       transition:
         opacity .4s ease,
         filter .4s ease;
     }
 
-    .work:hover::after {
-      opacity: .9;
+    .work:hover {
+      box-shadow:
+        0 32px 75px
+        rgba(40,70,130,.20),
+
+        0 0 42px
+        rgba(100,120,255,.12);
+    }
+
+    .work:hover::before {
+      opacity: .95;
 
       filter:
-        drop-shadow(
-          0 0 8px
-          var(--brand-glow)
-        )
-        drop-shadow(
-          0 0 18px
-          var(--brand-glow)
-        );
+        drop-shadow(0 0 6px rgba(100,120,255,.46))
+        drop-shadow(0 0 16px rgba(150,100,255,.32))
+        drop-shadow(0 0 27px rgba(243,107,201,.20));
+    }
+
+    .work h2,
+    .work p {
+      position: relative;
+      z-index: 6;
     }
 
     .work h2 {
@@ -1400,55 +1353,18 @@
       opacity: 0;
 
       transform:
-        translateY(32px)
-        scale(.965);
-
-      filter:
-        blur(5px);
+        translateY(18px);
 
       transition:
         opacity .7s ease,
-        transform .85s cubic-bezier(.16,1.3,.3,1),
-        filter .7s ease;
+        transform .7s var(--ease);
     }
 
     .reveal.visible {
       opacity: 1;
 
       transform:
-        translateY(0)
-        scale(1);
-
-      filter:
-        blur(0);
-    }
-
-    .links .reveal:nth-child(1) {
-      transition-delay: .02s;
-    }
-
-    .links .reveal:nth-child(2) {
-      transition-delay: .07s;
-    }
-
-    .links .reveal:nth-child(3) {
-      transition-delay: .12s;
-    }
-
-    .links .reveal:nth-child(4) {
-      transition-delay: .17s;
-    }
-
-    .links .reveal:nth-child(5) {
-      transition-delay: .22s;
-    }
-
-    .work.reveal {
-      transition-delay: .08s;
-    }
-
-    footer.reveal {
-      transition-delay: .13s;
+        translateY(0);
     }
 
     @media (max-width: 760px) {
@@ -1457,28 +1373,17 @@
       }
 
       .phones {
-        opacity: .13;
-
-        transform:
-          translate3d(0,0,0);
-
-        will-change: auto;
+        opacity: .42;
       }
 
       .phone {
         width: 80px;
-        opacity: .16;
+        opacity: .27;
 
         transform:
           translate3d(0,0,0)
           rotate(var(--rotate))
           scale(var(--phone-scale,1));
-
-        will-change: auto;
-
-        filter:
-          saturate(.72)
-          brightness(.92);
       }
 
       .page {
@@ -1555,16 +1460,12 @@
       footer {
         font-size: 10px;
       }
-
-      .light-message {
-        font-size: 24px;
-      }
     }
 
     @media (hover:none), (pointer:coarse) {
       .link-card {
         transition:
-          transform .48s cubic-bezier(.16,1.25,.3,1),
+          transform .48s cubic-bezier(.16,1.35,.3,1),
           box-shadow .35s ease,
           border-color .35s ease,
           filter .35s ease;
@@ -1577,23 +1478,15 @@
 
           0 0 45px
           var(--brand-glow);
-
-        border-color:
-          rgba(255,255,255,.35);
       }
 
       .link-card.touching::after {
         opacity: 1;
 
         filter:
-          drop-shadow(
-            0 0 7px
-            var(--brand-glow)
-          )
-          drop-shadow(
-            0 0 18px
-            var(--brand-glow)
-          );
+          drop-shadow(0 0 6px var(--brand-glow))
+          drop-shadow(0 0 15px var(--brand-glow))
+          drop-shadow(0 0 26px var(--brand-glow));
       }
     }
 
@@ -1637,17 +1530,16 @@
   </div>
 
   <div class="top-controls">
+    <button
+      class="control"
+      id="shareButton"
+      aria-label="Share"
+      type="button"
+    >
+      ↗
+    </button>
 
 ```
-<button
-  class="control"
-  id="shareButton"
-  aria-label="Share"
-  type="button"
->
-  ↗
-</button>
-
 <button
   class="control"
   id="themeButton"
@@ -1661,14 +1553,6 @@
   </div>
 
   <div id="themeTransition" aria-hidden="true"></div>
-
-  <div
-    class="light-message"
-    id="lightMessage"
-    aria-hidden="true"
-  >
-    Let there be light.
-  </div>
 
   <main class="page">
 
@@ -1813,7 +1697,7 @@
   </a>
 
   <div
-    class="link-card email-card reveal"
+    class="link-card email-card reveal brand-gmail"
     id="emailCard"
     role="button"
     tabindex="0"
@@ -2155,10 +2039,10 @@
       );
 
       const tiltX =
-        dx * 18;
+        dx * 22;
 
       const tiltY =
-        dy * -18;
+        dy * -22;
 
       const stretchX =
         1 + Math.abs(dx) * .10;
@@ -2763,11 +2647,6 @@
         "themeTransition"
       );
 
-    const lightMessage =
-      document.getElementById(
-        "lightMessage"
-      );
-
     let themeAnimating = false;
 
     function updateThemeIcon() {
@@ -2831,11 +2710,6 @@
         !switchingToDark
       );
 
-      lightMessage.classList.remove(
-        "show",
-        "fade"
-      );
-
       document.body.classList.add(
         "theme-switching"
       );
@@ -2871,12 +2745,6 @@
 
           updateThemeIcon();
 
-          if (!switchingToDark) {
-            lightMessage.classList.add(
-              "show"
-            );
-          }
-
         },
         280
       );
@@ -2892,12 +2760,6 @@
             "theme-switching"
           );
 
-          if (!switchingToDark) {
-            lightMessage.classList.add(
-              "fade"
-            );
-          }
-
         },
         780
       );
@@ -2908,11 +2770,6 @@
           themeTransition.classList.remove(
             "active",
             "closing"
-          );
-
-          lightMessage.classList.remove(
-            "show",
-            "fade"
           );
 
           themeAnimating = false;
@@ -2947,7 +2804,8 @@
             await navigator.share(
               shareData
             );
-          } catch (error) {}
+          } catch (error) {
+          }
         } else {
           try {
             await navigator.clipboard.writeText(
@@ -2966,7 +2824,8 @@
               },
               1300
             );
-          } catch (error) {}
+          } catch (error) {
+          }
         }
       }
     );
@@ -2990,11 +2849,6 @@
               "--py",
               "0px"
             );
-
-            phone.style.setProperty(
-              "--px",
-              "0px"
-            );
           }
         );
 
@@ -3014,7 +2868,7 @@
               index % 2 === 0
                 ? 1
                 : -1
-            ) * .008;
+            ) * .018;
 
           phone.style.setProperty(
             "--py",
@@ -3073,8 +2927,7 @@
 
         },
         {
-          threshold: .08,
-          rootMargin: "0px 0px -4% 0px"
+          threshold: .08
         }
       );
 
@@ -3088,119 +2941,76 @@
         }
       );
 
-    let smoothScrollEnabled = false;
-    let smoothTarget = window.scrollY;
-    let smoothCurrent = window.scrollY;
-    let smoothFrame = null;
+    updateParallax();
 
-    function runScrollDamping() {
-      if (!smoothScrollEnabled) {
-        return;
-      }
-
-      smoothCurrent +=
-        (smoothTarget - smoothCurrent) * .14;
-
-      if (
-        Math.abs(
-          smoothTarget - smoothCurrent
-        ) < .4
-      ) {
-        smoothCurrent = smoothTarget;
-      }
-
-      window.scrollTo(
-        0,
-        smoothCurrent
-      );
-
-      if (
-        Math.abs(
-          smoothTarget - smoothCurrent
-        ) > .4
-      ) {
-        smoothFrame =
-          requestAnimationFrame(
-            runScrollDamping
-          );
-      } else {
-        smoothFrame = null;
-      }
-    }
-
-    function enableScrollDamping() {
-      if (
-        isMobile() ||
-        window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
-        ).matches
-      ) {
-        smoothScrollEnabled = false;
-        return;
-      }
-
-      smoothScrollEnabled = true;
-      smoothCurrent = window.scrollY;
-      smoothTarget = window.scrollY;
-    }
-
-    function handleWheel(event) {
-      if (
-        !smoothScrollEnabled ||
-        event.ctrlKey ||
-        event.metaKey
-      ) {
-        return;
-      }
-
-      const maxScroll =
-        document.documentElement.scrollHeight -
-        window.innerHeight;
-
-      if (maxScroll <= 0) {
-        return;
-      }
-
-      event.preventDefault();
-
-      smoothTarget +=
-        event.deltaY;
-
-      smoothTarget =
-        Math.max(
-          0,
-          Math.min(
-            maxScroll,
-            smoothTarget
-          )
+    function removeStrayCharacters(root) {
+      const walker =
+        document.createTreeWalker(
+          root,
+          NodeFilter.SHOW_TEXT
         );
 
-      if (!smoothFrame) {
-        smoothFrame =
-          requestAnimationFrame(
-            runScrollDamping
-          );
+      const nodes = [];
+
+      let node;
+
+      while (
+        (node = walker.nextNode())
+      ) {
+        nodes.push(node);
       }
+
+      nodes.forEach(
+        function(textNode) {
+          const cleaned =
+            textNode.nodeValue
+              .split(String.fromCharCode(96))
+              .join("");
+
+          if (
+            cleaned !== textNode.nodeValue
+          ) {
+            textNode.nodeValue = cleaned;
+          }
+        }
+      );
     }
 
-    window.addEventListener(
-      "wheel",
-      handleWheel,
+    removeStrayCharacters(document.body);
+
+    const cleanupObserver =
+      new MutationObserver(
+        function(mutations) {
+          mutations.forEach(
+            function(mutation) {
+              mutation.addedNodes.forEach(
+                function(node) {
+                  if (
+                    node.nodeType === Node.TEXT_NODE
+                  ) {
+                    node.nodeValue =
+                      node.nodeValue
+                        .split(String.fromCharCode(96))
+                        .join("");
+                  } else if (
+                    node.nodeType === Node.ELEMENT_NODE
+                  ) {
+                    removeStrayCharacters(node);
+                  }
+                }
+              );
+            }
+          );
+        }
+      );
+
+    cleanupObserver.observe(
+      document.body,
       {
-        passive: false
+        childList: true,
+        subtree: true
       }
     );
-
-    enableScrollDamping();
-
-    window.addEventListener(
-      "resize",
-      function() {
-        enableScrollDamping();
-      }
-    );
-
-    updateParallax();
   </script>
 
 </body>
