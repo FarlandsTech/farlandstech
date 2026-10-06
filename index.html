@@ -8,11 +8,18 @@
   <meta name="description" content="FarlandsTech — smartphones, tech and photography.">
   <meta name="theme-color" content="#f4f7ff">
 
+  <!-- FarlandsTech tab icon -->
+  <link rel="icon" type="image/png" href="profile.png">
+  <link rel="apple-touch-icon" href="profile.png">
+
   <title>FarlandsTech</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
     * {
@@ -24,10 +31,18 @@
     :root {
       --text: #11131a;
       --muted: #656b78;
+
       --glass: rgba(255, 255, 255, 0.48);
       --glass-hover: rgba(255, 255, 255, 0.68);
+
       --border: rgba(255, 255, 255, 0.75);
-      --shadow: 0 20px 60px rgba(35, 55, 100, 0.12);
+
+      --shadow:
+        0 20px 60px rgba(35, 55, 100, 0.12);
+
+      --glow-blue: rgba(90, 150, 255, 0.38);
+      --glow-purple: rgba(160, 110, 255, 0.28);
+      --glow-green: rgba(60, 210, 170, 0.22);
     }
 
     html {
@@ -37,36 +52,80 @@
     body {
       min-height: 100vh;
       overflow-x: hidden;
+
       font-family: "Inter", sans-serif;
       color: var(--text);
+
       background:
-        radial-gradient(circle at 15% 15%, rgba(92, 160, 255, 0.42), transparent 28%),
-        radial-gradient(circle at 85% 25%, rgba(168, 120, 255, 0.35), transparent 30%),
-        radial-gradient(circle at 50% 75%, rgba(66, 211, 175, 0.25), transparent 32%),
-        linear-gradient(135deg, #eef5ff 0%, #f8f8ff 45%, #eef8f6 100%);
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(92, 160, 255, 0.42),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 85% 25%,
+          rgba(168, 120, 255, 0.35),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 75%,
+          rgba(66, 211, 175, 0.25),
+          transparent 32%
+        ),
+        linear-gradient(
+          135deg,
+          #eef5ff 0%,
+          #f8f8ff 45%,
+          #eef8f6 100%
+        );
     }
 
+    /*
+      Soft background light.
+      Kept static so it doesn't constantly consume GPU resources.
+    */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
+
       pointer-events: none;
+
       background:
-        radial-gradient(circle at 30% 40%, rgba(255,255,255,0.7), transparent 22%),
-        radial-gradient(circle at 75% 65%, rgba(255,255,255,0.5), transparent 25%);
+        radial-gradient(
+          circle at 30% 40%,
+          rgba(255,255,255,0.7),
+          transparent 22%
+        ),
+        radial-gradient(
+          circle at 75% 65%,
+          rgba(255,255,255,0.5),
+          transparent 25%
+        );
+
       filter: blur(50px);
       z-index: -1;
     }
 
+    /* Ambient background blobs */
+
     .ambient {
       position: fixed;
+
       width: 420px;
       height: 420px;
+
       border-radius: 50%;
+
       filter: blur(100px);
+
       pointer-events: none;
+
       z-index: -2;
+
       opacity: 0.35;
+
+      will-change: transform;
     }
 
     .ambient-a {
@@ -87,26 +146,45 @@
       bottom: -250px;
     }
 
-    /* Floating phones */
+
+    /* =========================================================
+       FLOATING PHONES
+       ========================================================= */
+
     .phone-field {
       position: fixed;
       inset: 0;
+
       pointer-events: none;
+
       z-index: 0;
+
       overflow: hidden;
     }
 
     .phone {
       position: absolute;
+
       width: 150px;
       max-width: 13vw;
       height: auto;
+
       object-fit: contain;
+
       filter:
-        drop-shadow(0 25px 30px rgba(20, 35, 70, 0.18))
-        drop-shadow(0 0 22px rgba(110, 160, 255, 0.13));
+        drop-shadow(
+          0 25px 30px rgba(20, 35, 70, 0.18)
+        )
+        drop-shadow(
+          0 0 22px rgba(110, 160, 255, 0.13)
+        );
+
       opacity: 0.88;
-      transition: transform 0.3s ease;
+
+      /*
+        Transform is much cheaper than changing margin-top
+        during scrolling.
+      */
       will-change: transform;
     }
 
@@ -158,33 +236,53 @@
       transform: rotate(-8deg);
     }
 
-    /* Main content */
+
+    /* =========================================================
+       MAIN CONTENT
+       ========================================================= */
+
     .page {
       position: relative;
       z-index: 2;
+
       width: min(620px, calc(100% - 32px));
+
       margin: 0 auto;
+
       padding: 70px 0 45px;
     }
 
     .hero {
       text-align: center;
+
       padding: 10px 0 55px;
     }
 
+
+    /* =========================================================
+       PROFILE
+       ========================================================= */
+
     .profile-wrap {
       position: relative;
+
       display: inline-block;
+
       margin-bottom: 25px;
     }
 
     .profile-photo {
       width: 112px;
       height: 112px;
+
       border-radius: 34px;
+
       overflow: hidden;
+
       background: white;
+
       border: 4px solid rgba(255,255,255,0.85);
+
       box-shadow:
         0 18px 45px rgba(40, 60, 100, 0.18),
         0 0 35px rgba(100, 150, 255, 0.15);
@@ -193,192 +291,463 @@
     .profile-photo img {
       width: 100%;
       height: 100%;
+
       display: block;
+
       object-fit: cover;
     }
 
     .status-dot {
       position: absolute;
+
       width: 17px;
       height: 17px;
+
       right: 2px;
       bottom: 2px;
+
       border-radius: 50%;
+
       background: #55d69c;
+
       border: 3px solid white;
-      box-shadow: 0 0 16px rgba(70, 220, 150, 0.6);
+
+      box-shadow:
+        0 0 16px rgba(70, 220, 150, 0.6);
     }
+
+
+    /* =========================================================
+       HERO TEXT
+       ========================================================= */
 
     .eyebrow {
       font-size: 13px;
       font-weight: 700;
+
       letter-spacing: 0.16em;
+
       margin-bottom: 14px;
+
       color: #4d596b;
     }
 
+    /*
+      The hero itself gets a tiny amount of physics.
+      It deliberately isn't as strong as the buttons.
+    */
+
     h1 {
       font-size: clamp(35px, 8vw, 58px);
+
       line-height: 1.02;
+
       letter-spacing: -0.055em;
+
       font-weight: 700;
+
+      transform:
+        perspective(800px)
+        rotateX(var(--hero-x, 0deg))
+        rotateY(var(--hero-y, 0deg))
+        translate3d(
+          var(--hero-tx, 0px),
+          var(--hero-ty, 0px),
+          0
+        );
+
+      will-change: transform;
     }
 
     h1 span {
-      background: linear-gradient(90deg, #397eff, #8067e9, #36bfa0);
+      background:
+        linear-gradient(
+          90deg,
+          #397eff,
+          #8067e9,
+          #36bfa0
+        );
+
       -webkit-background-clip: text;
       background-clip: text;
+
       color: transparent;
     }
 
     .intro {
       max-width: 430px;
+
       margin: 20px auto 0;
+
       color: var(--muted);
+
       font-size: 15px;
+
       line-height: 1.6;
     }
 
-    /* Links */
+
+    /* =========================================================
+       LINKS
+       ========================================================= */
+
     .links-list {
       display: flex;
+
       flex-direction: column;
+
       gap: 13px;
     }
 
     .link-card {
       position: relative;
+
       display: flex;
       align-items: center;
+
       gap: 15px;
+
       width: 100%;
       min-height: 68px;
+
       padding: 12px 18px;
+
       border-radius: 24px;
+
       color: var(--text);
+
       text-decoration: none;
 
       background: var(--glass);
+
       border: 1px solid var(--border);
 
-      backdrop-filter: blur(24px) saturate(150%);
-      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      /*
+        Keep blur, but slightly reduce its cost.
+        The visual difference is almost impossible to notice.
+      */
+      backdrop-filter: blur(18px) saturate(145%);
+      -webkit-backdrop-filter: blur(18px) saturate(145%);
 
       box-shadow: var(--shadow);
 
+      /*
+        Physics is controlled by CSS variables.
+      */
+      transform:
+        perspective(900px)
+        rotateX(var(--rx, 0deg))
+        rotateY(var(--ry, 0deg))
+        translate3d(
+          var(--tx, 0px),
+          var(--ty, 0px),
+          0
+        )
+        scale(var(--scale, 1));
+
       transition:
-        transform 0.25s ease,
         background 0.25s ease,
         box-shadow 0.25s ease;
 
+      will-change: transform;
+
       overflow: hidden;
+
+      /*
+        Prevents accidental text selection while
+        rapidly moving over the card.
+      */
+      user-select: none;
     }
+
+
+    /* Glowing ColorOS-style outline */
+
+    .link-card::after {
+      content: "";
+
+      position: absolute;
+
+      inset: -1px;
+
+      border-radius: inherit;
+
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          120deg,
+          rgba(90,150,255,0.55),
+          rgba(170,110,255,0.38),
+          rgba(70,210,180,0.42),
+          rgba(255,255,255,0.6)
+        );
+
+      opacity: var(--outline-opacity, 0);
+
+      filter: blur(0.5px);
+
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+
+      mask-composite: exclude;
+
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+
+      -webkit-mask-composite: xor;
+
+      padding: 1px;
+    }
+
+
+    /* Cursor-following light */
 
     .link-card::before {
       content: "";
+
       position: absolute;
-      width: 180px;
-      height: 180px;
+
+      width: 190px;
+      height: 190px;
+
       left: var(--x, 50%);
       top: var(--y, 50%);
-      transform: translate(-50%, -50%);
-      background: radial-gradient(
-        circle,
-        rgba(255,255,255,0.7),
-        rgba(120,170,255,0.18),
-        transparent 70%
-      );
-      opacity: 0;
+
+      transform:
+        translate(-50%, -50%);
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,255,255,0.72),
+          rgba(120,170,255,0.18),
+          transparent 70%
+        );
+
+      opacity: var(--glow-opacity, 0);
+
       pointer-events: none;
-      transition: opacity 0.25s ease;
+
       filter: blur(8px);
+
+      /*
+        The glow follows the mouse instantly,
+        without transition lag.
+      */
+      will-change: left, top, opacity;
     }
+
 
     .link-card:hover,
     .link-card:focus-visible {
-      transform: translateY(-3px) scale(1.012);
       background: var(--glass-hover);
+
       box-shadow:
-        0 22px 55px rgba(40, 70, 120, 0.16),
-        0 0 30px rgba(110, 160, 255, 0.12);
+        0 25px 60px rgba(40, 70, 120, 0.17),
+        0 0 30px rgba(110, 160, 255, 0.13);
+
       outline: none;
+
+      --outline-opacity: 0.9;
+      --glow-opacity: 1;
     }
 
-    .link-card:hover::before,
-    .link-card:focus-visible::before {
-      opacity: 1;
-    }
+
+    /* =========================================================
+       CARD CONTENT
+       ========================================================= */
 
     .icon {
       position: relative;
+
       z-index: 1;
+
       width: 43px;
       height: 43px;
+
       flex-shrink: 0;
+
       display: grid;
+
       place-items: center;
+
       border-radius: 15px;
+
       background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(255,255,255,0.8);
+
+      border:
+        1px solid rgba(255,255,255,0.8);
+
       font-size: 19px;
+
+      transition:
+        transform 0.35s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .link-card:hover .icon {
+      transform: scale(1.04);
     }
 
     .link-text {
       position: relative;
+
       z-index: 1;
+
       flex: 1;
+
       font-size: 15px;
+
       font-weight: 600;
     }
 
     .arrow {
       position: relative;
+
       z-index: 1;
+
       font-size: 20px;
+
       color: #8a919e;
-      transition: transform 0.2s ease;
+
+      transition:
+        transform 0.35s cubic-bezier(.2,.8,.2,1);
     }
 
     .link-card:hover .arrow {
-      transform: translateX(3px);
+      transform:
+        translateX(4px)
+        scale(1.08);
     }
 
-    /* Work section */
+
+    /* =========================================================
+       WORK SECTION
+       ========================================================= */
+
     .work {
+      position: relative;
+
       margin-top: 35px;
+
       padding: 22px;
+
       border-radius: 26px;
+
       background: rgba(255,255,255,0.42);
-      border: 1px solid rgba(255,255,255,0.75);
-      backdrop-filter: blur(25px) saturate(145%);
-      -webkit-backdrop-filter: blur(25px) saturate(145%);
+
+      border:
+        1px solid rgba(255,255,255,0.75);
+
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+
       box-shadow: var(--shadow);
+
+      transform:
+        perspective(900px)
+        rotateX(var(--work-rx, 0deg))
+        rotateY(var(--work-ry, 0deg))
+        translate3d(
+          var(--work-tx, 0px),
+          var(--work-ty, 0px),
+          0
+        );
+
+      will-change: transform;
+
+      transition:
+        box-shadow 0.25s ease;
+    }
+
+    .work::after {
+      content: "";
+
+      position: absolute;
+
+      inset: -1px;
+
+      border-radius: inherit;
+
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          120deg,
+          rgba(90,150,255,0.45),
+          rgba(170,110,255,0.3),
+          rgba(70,210,180,0.35),
+          rgba(255,255,255,0.55)
+        );
+
+      opacity: 0;
+
+      padding: 1px;
+
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+
+      mask-composite: exclude;
+
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+
+      -webkit-mask-composite: xor;
+
+      transition: opacity 0.25s ease;
+    }
+
+    .work:hover::after {
+      opacity: 0.8;
     }
 
     .work-title {
       font-size: 14px;
+
       font-weight: 700;
+
       margin-bottom: 7px;
     }
 
     .work-text {
       color: var(--muted);
+
       font-size: 13px;
+
       line-height: 1.55;
     }
 
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+
     .footer {
       padding-top: 35px;
+
       text-align: center;
+
       color: #858b96;
+
       font-size: 11px;
     }
 
-    /* Reveal animation */
+
+    /* =========================================================
+       REVEAL
+       ========================================================= */
+
     .reveal {
       opacity: 0;
+
       transform: translateY(18px);
-      animation: reveal 0.7s ease forwards;
+
+      animation:
+        reveal 0.7s ease forwards;
     }
 
     @keyframes reveal {
@@ -388,11 +757,18 @@
       }
     }
 
-    /* Mobile */
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
     @media (max-width: 800px) {
+
       .phone {
         width: 105px;
+
         max-width: none;
+
         opacity: 0.35;
       }
 
@@ -430,9 +806,23 @@
       .hero {
         padding-bottom: 40px;
       }
+
+      /*
+        No heavy 3D interaction on smaller screens.
+      */
+      .link-card {
+        transform: none !important;
+      }
+
+      h1,
+      .work {
+        transform: none !important;
+      }
     }
 
+
     @media (max-width: 500px) {
+
       .page {
         width: min(100% - 24px, 620px);
       }
@@ -440,11 +830,13 @@
       .profile-photo {
         width: 100px;
         height: 100px;
+
         border-radius: 30px;
       }
 
       .link-card {
         min-height: 64px;
+
         border-radius: 21px;
       }
 
@@ -456,13 +848,27 @@
       }
     }
 
+
+    /* =========================================================
+       REDUCED MOTION
+       ========================================================= */
+
     @media (prefers-reduced-motion: reduce) {
+
       *,
       *::before,
       *::after {
         scroll-behavior: auto !important;
+
         animation-duration: 0.01ms !important;
+
         transition-duration: 0.01ms !important;
+      }
+
+      .link-card,
+      h1,
+      .work {
+        transform: none !important;
       }
     }
   </style>
@@ -474,7 +880,11 @@
   <div class="ambient ambient-b"></div>
   <div class="ambient ambient-c"></div>
 
-  <!-- Your phone images -->
+
+  <!-- =========================================================
+       FLOATING PHONES
+       ========================================================= -->
+
   <div class="phone-field" aria-hidden="true">
 
     <img class="phone phone-1" src="phone1.png" alt="">
@@ -488,27 +898,44 @@
 
   </div>
 
+
+  <!-- =========================================================
+       MAIN CONTENT
+       ========================================================= -->
+
   <main class="page">
 
-    <!-- Main profile -->
     <section class="hero">
 
       <div class="profile-wrap reveal">
 
         <div class="profile-photo">
-          <img src="profile.png" alt="FarlandsTech profile picture">
+          <img
+            src="profile.png"
+            alt="FarlandsTech profile picture"
+          >
         </div>
 
         <span class="status-dot"></span>
 
       </div>
 
-      <div class="eyebrow reveal">FARLANDSTECH</div>
 
-      <h1 class="reveal">
+      <div class="eyebrow reveal">
+        FARLANDSTECH
+      </div>
+
+
+      <h1 class="reveal" id="heroTitle">
+
         Smartphones.<br>
-        <span>Tech. Photography.</span>
+
+        <span>
+          Tech. Photography.
+        </span>
+
       </h1>
+
 
       <p class="intro reveal">
         Phone content, tech finds and the stuff worth talking about.
@@ -516,8 +943,15 @@
 
     </section>
 
-    <!-- Actual links -->
-    <section class="links-list" aria-label="Links">
+
+    <!-- =======================================================
+         LINKS
+         ======================================================= -->
+
+    <section
+      class="links-list"
+      aria-label="Links"
+    >
 
       <a
         class="link-card"
@@ -525,10 +959,21 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="icon">♪</span>
-        <span class="link-text">TikTok</span>
-        <span class="arrow">›</span>
+
+        <span class="icon">
+          ♪
+        </span>
+
+        <span class="link-text">
+          TikTok
+        </span>
+
+        <span class="arrow">
+          ›
+        </span>
+
       </a>
+
 
       <a
         class="link-card"
@@ -536,10 +981,21 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="icon">▶</span>
-        <span class="link-text">YouTube</span>
-        <span class="arrow">›</span>
+
+        <span class="icon">
+          ▶
+        </span>
+
+        <span class="link-text">
+          YouTube
+        </span>
+
+        <span class="arrow">
+          ›
+        </span>
+
       </a>
+
 
       <a
         class="link-card"
@@ -547,10 +1003,21 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="icon">☁</span>
-        <span class="link-text">Discord</span>
-        <span class="arrow">›</span>
+
+        <span class="icon">
+          ☁
+        </span>
+
+        <span class="link-text">
+          Discord
+        </span>
+
+        <span class="arrow">
+          ›
+        </span>
+
       </a>
+
 
       <a
         class="link-card"
@@ -558,29 +1025,60 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="icon">V</span>
-        <span class="link-text">Vinted</span>
-        <span class="arrow">›</span>
+
+        <span class="icon">
+          V
+        </span>
+
+        <span class="link-text">
+          Vinted
+        </span>
+
+        <span class="arrow">
+          ›
+        </span>
+
       </a>
+
 
       <button
         class="link-card"
         id="emailButton"
         type="button"
       >
-        <span class="icon">✉</span>
-        <span class="link-text" id="emailText">
+
+        <span class="icon">
+          ✉
+        </span>
+
+        <span
+          class="link-text"
+          id="emailText"
+        >
           samsungs24ultragoat@gmail.com
         </span>
-        <span class="arrow" id="copyText">⧉</span>
+
+        <span
+          class="arrow"
+          id="copyText"
+        >
+          ⧉
+        </span>
+
       </button>
 
     </section>
 
-    <!-- Work with me -->
+
+    <!-- =======================================================
+         WORK WITH ME
+         ======================================================= -->
+
     <section class="work reveal">
 
-      <div class="work-title">Work with me</div>
+      <div class="work-title">
+        Work with me
+      </div>
 
       <p class="work-text">
         For collaborations, sponsorships or other tech-related opportunities,
@@ -589,95 +1087,531 @@
 
     </section>
 
+
     <footer class="footer">
       © <span id="year"></span> FarlandsTech
     </footer>
 
   </main>
 
+
   <script>
 
-    // Current year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    /* =========================================================
+       BASIC
+       ========================================================= */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
 
 
-    // Copy email
-    const emailButton = document.getElementById("emailButton");
-    const emailText = document.getElementById("emailText");
-    const copyText = document.getElementById("copyText");
+    /* =========================================================
+       COPY EMAIL
+       ========================================================= */
+
+    const emailButton =
+      document.getElementById("emailButton");
+
+    const copyText =
+      document.getElementById("copyText");
 
     emailButton.addEventListener("click", async () => {
 
-      const email = "samsungs24ultragoat@gmail.com";
+      const email =
+        "samsungs24ultragoat@gmail.com";
 
       try {
 
         await navigator.clipboard.writeText(email);
 
-        copyText.textContent = "✓";
-
-        setTimeout(() => {
-          copyText.textContent = "⧉";
-        }, 1500);
-
       } catch {
 
-        const input = document.createElement("input");
+        const input =
+          document.createElement("input");
 
         input.value = email;
+
         document.body.appendChild(input);
 
         input.select();
+
         document.execCommand("copy");
 
         input.remove();
 
-        copyText.textContent = "✓";
+      }
 
-        setTimeout(() => {
-          copyText.textContent = "⧉";
-        }, 1500);
+      copyText.textContent = "✓";
+
+      setTimeout(() => {
+        copyText.textContent = "⧉";
+      }, 1500);
+
+    });
+
+
+    /* =========================================================
+       INTERACTIVE GLASS CARDS
+       =========================================================
+
+       This uses requestAnimationFrame instead of directly
+       changing transforms dozens of times per frame.
+
+       Result:
+       - smoother
+       - less CPU usage
+       - less laptop lag
+       - more natural movement
+    */
+
+    const cards =
+      document.querySelectorAll(".link-card");
+
+    const canHover =
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (canHover) {
+
+      cards.forEach(card => {
+
+        let targetRX = 0;
+        let targetRY = 0;
+
+        let currentRX = 0;
+        let currentRY = 0;
+
+        let targetX = 0;
+        let targetY = 0;
+
+        let currentX = 0;
+        let currentY = 0;
+
+        let targetScale = 1;
+        let currentScale = 1;
+
+        let active = false;
+
+        function animate() {
+
+          /*
+            Spring interpolation.
+
+            Higher number = snappier.
+            Lower number = softer.
+          */
+
+          currentRX +=
+            (targetRX - currentRX) * 0.14;
+
+          currentRY +=
+            (targetRY - currentRY) * 0.14;
+
+          currentX +=
+            (targetX - currentX) * 0.14;
+
+          currentY +=
+            (targetY - currentY) * 0.14;
+
+          currentScale +=
+            (targetScale - currentScale) * 0.14;
+
+
+          card.style.setProperty(
+            "--rx",
+            `${currentRX.toFixed(2)}deg`
+          );
+
+          card.style.setProperty(
+            "--ry",
+            `${currentRY.toFixed(2)}deg`
+          );
+
+          card.style.setProperty(
+            "--tx",
+            `${currentX.toFixed(2)}px`
+          );
+
+          card.style.setProperty(
+            "--ty",
+            `${currentY.toFixed(2)}px`
+          );
+
+          card.style.setProperty(
+            "--scale",
+            currentScale.toFixed(4)
+          );
+
+
+          /*
+            Keep running while the card is active,
+            or until the animation has basically settled.
+          */
+
+          const moving =
+            Math.abs(targetRX - currentRX) > 0.01 ||
+            Math.abs(targetRY - currentRY) > 0.01 ||
+            Math.abs(targetX - currentX) > 0.01 ||
+            Math.abs(targetY - currentY) > 0.01 ||
+            Math.abs(targetScale - currentScale) > 0.001;
+
+          if (active || moving) {
+            requestAnimationFrame(animate);
+          }
+
+        }
+
+
+        card.addEventListener("pointerenter", () => {
+
+          active = true;
+
+          targetScale = 1.012;
+
+          requestAnimationFrame(animate);
+
+        });
+
+
+        card.addEventListener("pointermove", event => {
+
+          const rect =
+            card.getBoundingClientRect();
+
+          const x =
+            event.clientX - rect.left;
+
+          const y =
+            event.clientY - rect.top;
+
+
+          /*
+            Convert cursor position into -1 → +1.
+
+            Example:
+
+            left side  = -1
+            center     =  0
+            right side = +1
+          */
+
+          const normalizedX =
+            (x / rect.width) * 2 - 1;
+
+          const normalizedY =
+            (y / rect.height) * 2 - 1;
+
+
+          /*
+            Rotation.
+
+            Cursor on right:
+            card leans right.
+
+            Cursor on left:
+            card leans left.
+          */
+
+          targetRY =
+            normalizedX * 4.2;
+
+          targetRX =
+            normalizedY * -3.2;
+
+
+          /*
+            Tiny physical movement.
+          */
+
+          targetX =
+            normalizedX * 2.5;
+
+          targetY =
+            normalizedY * 1.8;
+
+
+          /*
+            Cursor-following glow position.
+          */
+
+          card.style.setProperty(
+            "--x",
+            `${x}px`
+          );
+
+          card.style.setProperty(
+            "--y",
+            `${y}px`
+          );
+
+          card.style.setProperty(
+            "--glow-opacity",
+            "1"
+          );
+
+          card.style.setProperty(
+            "--outline-opacity",
+            "0.9"
+          );
+
+        });
+
+
+        card.addEventListener("pointerleave", () => {
+
+          active = false;
+
+          /*
+            Spring back to completely flat.
+          */
+
+          targetRX = 0;
+          targetRY = 0;
+
+          targetX = 0;
+          targetY = 0;
+
+          targetScale = 1;
+
+          card.style.setProperty(
+            "--glow-opacity",
+            "0"
+          );
+
+          card.style.setProperty(
+            "--outline-opacity",
+            "0"
+          );
+
+          requestAnimationFrame(animate);
+
+        });
+
+      });
+
+    }
+
+
+    /* =========================================================
+       HERO TEXT PHYSICS
+       ========================================================= */
+
+    const heroTitle =
+      document.getElementById("heroTitle");
+
+    if (canHover) {
+
+      let heroTargetX = 0;
+      let heroTargetY = 0;
+
+      let heroCurrentX = 0;
+      let heroCurrentY = 0;
+
+      let heroTargetTX = 0;
+      let heroTargetTY = 0;
+
+      let heroCurrentTX = 0;
+      let heroCurrentTY = 0;
+
+      let heroActive = false;
+
+
+      function animateHero() {
+
+        heroCurrentX +=
+          (heroTargetX - heroCurrentX) * 0.10;
+
+        heroCurrentY +=
+          (heroTargetY - heroCurrentY) * 0.10;
+
+        heroCurrentTX +=
+          (heroTargetTX - heroCurrentTX) * 0.10;
+
+        heroCurrentTY +=
+          (heroTargetTY - heroCurrentTY) * 0.10;
+
+
+        heroTitle.style.setProperty(
+          "--hero-x",
+          `${heroCurrentX.toFixed(2)}deg`
+        );
+
+        heroTitle.style.setProperty(
+          "--hero-y",
+          `${heroCurrentY.toFixed(2)}deg`
+        );
+
+        heroTitle.style.setProperty(
+          "--hero-tx",
+          `${heroCurrentTX.toFixed(2)}px`
+        );
+
+        heroTitle.style.setProperty(
+          "--hero-ty",
+          `${heroCurrentTY.toFixed(2)}px`
+        );
+
+
+        const moving =
+          Math.abs(heroTargetX - heroCurrentX) > 0.01 ||
+          Math.abs(heroTargetY - heroCurrentY) > 0.01 ||
+          Math.abs(heroTargetTX - heroCurrentTX) > 0.01 ||
+          Math.abs(heroTargetTY - heroCurrentTY) > 0.01;
+
+
+        if (heroActive || moving) {
+          requestAnimationFrame(animateHero);
+        }
 
       }
 
-    });
 
+      heroTitle.addEventListener("pointerenter", () => {
 
-    // Soft pointer glow on the glass buttons
-    document.querySelectorAll(".link-card").forEach(card => {
+        heroActive = true;
 
-      card.addEventListener("pointermove", event => {
-
-        const rect = card.getBoundingClientRect();
-
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-
-        card.style.setProperty("--x", `${x}px`);
-        card.style.setProperty("--y", `${y}px`);
+        requestAnimationFrame(animateHero);
 
       });
 
-    });
+
+      heroTitle.addEventListener("pointermove", event => {
+
+        const rect =
+          heroTitle.getBoundingClientRect();
+
+        const x =
+          (event.clientX - rect.left) /
+          rect.width;
+
+        const y =
+          (event.clientY - rect.top) /
+          rect.height;
 
 
-    // Very subtle phone parallax
-    const phones = document.querySelectorAll(".phone");
+        heroTargetY =
+          (x - 0.5) * 2.2;
 
-    window.addEventListener("scroll", () => {
+        heroTargetX =
+          (y - 0.5) * -1.8;
 
-      const scroll = window.scrollY;
+
+        heroTargetTX =
+          (x - 0.5) * 2;
+
+        heroTargetTY =
+          (y - 0.5) * 1.5;
+
+      });
+
+
+      heroTitle.addEventListener("pointerleave", () => {
+
+        heroActive = false;
+
+        heroTargetX = 0;
+        heroTargetY = 0;
+
+        heroTargetTX = 0;
+        heroTargetTY = 0;
+
+        requestAnimationFrame(animateHero);
+
+      });
+
+    }
+
+
+    /* =========================================================
+       PHONE PARALLAX
+       =========================================================
+
+       Uses transform instead of margin-top.
+
+       This is significantly friendlier to the browser's
+       rendering pipeline.
+    */
+
+    const phones =
+      document.querySelectorAll(".phone");
+
+    let phoneScrollTarget = 0;
+    let phoneScrollCurrent = 0;
+
+    let phoneFrame = false;
+
+
+    function updatePhones() {
+
+      phoneScrollCurrent +=
+        (phoneScrollTarget - phoneScrollCurrent) * 0.08;
+
 
       phones.forEach((phone, index) => {
 
-        const direction = index % 2 === 0 ? 1 : -1;
-        const movement = scroll * (0.025 + index * 0.004) * direction;
+        const direction =
+          index % 2 === 0 ? 1 : -1;
 
-        phone.style.marginTop = `${movement}px`;
+        const movement =
+          phoneScrollCurrent *
+          (0.025 + index * 0.004) *
+          direction;
+
+
+        const rotations = [
+          -13, 13, 9, -11,
+          -17, 16, 8, -8
+        ];
+
+
+        phone.style.transform =
+          `translate3d(0, ${movement.toFixed(2)}px, 0)
+           rotate(${rotations[index]}deg)`;
 
       });
 
-    }, { passive: true });
+
+      if (
+        Math.abs(
+          phoneScrollTarget -
+          phoneScrollCurrent
+        ) > 0.1
+      ) {
+
+        requestAnimationFrame(updatePhones);
+
+      } else {
+
+        phoneFrame = false;
+
+      }
+
+    }
+
+
+    /*
+      Only listen to scrolling when the browser
+      actually reports a scroll.
+    */
+
+    window.addEventListener(
+      "scroll",
+      () => {
+
+        phoneScrollTarget =
+          window.scrollY;
+
+        if (!phoneFrame) {
+
+          phoneFrame = true;
+
+          requestAnimationFrame(updatePhones);
+
+        }
+
+      },
+      { passive: true }
+    );
+
 
   </script>
 
