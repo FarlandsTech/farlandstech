@@ -32,10 +32,14 @@
       --bg: #f5f7fb;
       --text: #111318;
       --muted: #737985;
+
       --card: rgba(255,255,255,.66);
       --card-border: rgba(255,255,255,.78);
+
       --shadow: 0 20px 60px rgba(50,60,90,.10);
+
       --accent: #3d7cff;
+
       --ease: cubic-bezier(.22,.8,.22,1);
     }
 
@@ -46,18 +50,47 @@
 
     html {
       scroll-behavior: smooth;
+
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    html::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
       color: var(--text);
 
       background:
-        radial-gradient(circle at 20% 15%,rgba(110,160,255,.16),transparent 30%),
-        radial-gradient(circle at 80% 25%,rgba(180,120,255,.13),transparent 30%),
-        radial-gradient(circle at 50% 90%,rgba(70,210,180,.10),transparent 32%),
+        radial-gradient(
+          circle at 20% 15%,
+          rgba(110,160,255,.16),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 25%,
+          rgba(180,120,255,.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 90%,
+          rgba(70,210,180,.10),
+          transparent 32%
+        ),
         var(--bg);
 
       overflow-x: hidden;
@@ -68,21 +101,46 @@
 
       -webkit-user-select: none;
       user-select: none;
+
       -webkit-touch-callout: none;
+
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
     }
 
     body.dark {
       --bg: #0b0d12;
       --text: #f4f6fa;
       --muted: #9da4b2;
+
       --card: rgba(28,31,40,.66);
       --card-border: rgba(255,255,255,.08);
-      --shadow: 0 20px 60px rgba(0,0,0,.28);
+
+      --shadow:
+        0 20px 60px rgba(0,0,0,.28);
 
       background:
-        radial-gradient(circle at 20% 15%,rgba(60,110,255,.16),transparent 30%),
-        radial-gradient(circle at 80% 25%,rgba(170,80,255,.12),transparent 30%),
-        radial-gradient(circle at 50% 90%,rgba(40,190,160,.08),transparent 32%),
+        radial-gradient(
+          circle at 20% 15%,
+          rgba(60,110,255,.16),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 25%,
+          rgba(170,80,255,.12),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 90%,
+          rgba(40,190,160,.08),
+          transparent 32%
+        ),
         var(--bg);
     }
 
@@ -107,56 +165,77 @@
     .ambient {
       position: fixed;
       inset: 0;
+
       pointer-events: none;
+
       overflow: hidden;
+
       z-index: -2;
+
       transition: opacity .8s ease;
     }
 
     .ambient div {
       position: absolute;
+
       width: 35vw;
       height: 35vw;
+
       max-width: 420px;
       max-height: 420px;
+
       border-radius: 50%;
+
       filter: blur(70px);
+
       opacity: .15;
-      animation: ambientMove 16s ease-in-out infinite alternate;
+
+      animation:
+        ambientMove
+        16s ease-in-out infinite alternate;
     }
 
     .ambient-a {
       background: #5c8cff;
+
       top: -10%;
       left: -8%;
     }
 
     .ambient-b {
       background: #c35cff;
+
       right: -10%;
       top: 30%;
+
       animation-delay: -5s !important;
     }
 
     .ambient-c {
       background: #45d8bd;
+
       bottom: -15%;
       left: 30%;
+
       animation-delay: -9s !important;
     }
 
     @keyframes ambientMove {
       from {
-        transform: translate3d(0,0,0) scale(1);
+        transform:
+          translate3d(0,0,0)
+          scale(1);
       }
 
       to {
-        transform: translate3d(25px,-20px,0) scale(1.08);
+        transform:
+          translate3d(25px,-20px,0)
+          scale(1.08);
       }
     }
 
     /* =========================
-       STARRY NIGHT
+       STARRY NIGHT MODE
     ========================= */
 
     body.starry-mode {
@@ -165,31 +244,43 @@
           rgba(4,8,28,.48),
           rgba(3,7,22,.62)
         ),
-        url("starry-night.webp") center center / cover fixed;
+        url("starry-night.webp")
+        center center / cover fixed;
 
       background-color: #05091d;
     }
 
     body.starry-mode::before {
       content: "";
+
       position: fixed;
+
       inset: -20px;
+
       z-index: -3;
+
       pointer-events: none;
 
       background:
-        url("starry-night.webp") center center / cover fixed;
+        url("starry-night.webp")
+        center center / cover fixed;
 
       filter: blur(9px);
+
       transform: scale(1.04);
+
       opacity: .72;
     }
 
     body.starry-mode::after {
       content: "";
+
       position: fixed;
+
       inset: 0;
+
       z-index: -2;
+
       pointer-events: none;
 
       background:
@@ -212,20 +303,37 @@
     .phones {
       position: fixed;
       inset: 0;
+
       pointer-events: none;
+
       z-index: -1;
+
       overflow: hidden;
-      transition: opacity .8s ease;
+
+      transition:
+        opacity .8s ease;
     }
 
     .phone {
       position: absolute;
-      width: clamp(90px,13vw,180px);
+
+      width:
+        clamp(
+          90px,
+          13vw,
+          180px
+        );
+
       height: auto;
+
       opacity: .48;
 
       transform:
-        translate3d(var(--px,0),var(--py,0),0)
+        translate3d(
+          var(--px,0),
+          var(--py,0),
+          0
+        )
         rotate(var(--rotate))
         scale(var(--phone-scale,1));
 
@@ -285,9 +393,16 @@
     ========================= */
 
     .page {
-      width: min(620px,calc(100% - 32px));
+      width:
+        min(
+          620px,
+          calc(100% - 32px)
+        );
+
       margin: 0 auto;
-      padding: 72px 0 36px;
+
+      padding:
+        72px 0 36px;
 
       transition:
         opacity .8s ease,
@@ -296,10 +411,14 @@
 
     .top-controls {
       position: fixed;
+
       top: 18px;
       right: 18px;
+
       display: flex;
+
       gap: 9px;
+
       z-index: 50;
     }
 
@@ -307,20 +426,28 @@
       width: 43px;
       height: 43px;
 
-      border: 1px solid var(--card-border);
+      border:
+        1px solid
+        var(--card-border);
+
       border-radius: 15px;
+
       background: var(--card);
 
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
 
-      box-shadow: 0 10px 30px rgba(30,40,70,.10);
+      box-shadow:
+        0 10px 30px
+        rgba(30,40,70,.10);
 
       display: grid;
       place-items: center;
 
       cursor: pointer;
+
       color: var(--text);
+
       font-size: 18px;
 
       transition:
@@ -329,12 +456,96 @@
     }
 
     .control:hover {
-      transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 14px 35px rgba(50,70,120,.16);
+      transform:
+        translateY(-3px)
+        scale(1.04);
+
+      box-shadow:
+        0 14px 35px
+        rgba(50,70,120,.16);
     }
 
     .control:active {
       transform: scale(.92);
+    }
+
+    .control.theme-animating {
+      animation:
+        themeButtonPop
+        .55s cubic-bezier(.16,1.4,.3,1);
+    }
+
+    @keyframes themeButtonPop {
+      0% {
+        transform: scale(1);
+      }
+
+      35% {
+        transform: scale(.82) rotate(-8deg);
+      }
+
+      70% {
+        transform: scale(1.12) rotate(5deg);
+      }
+
+      100% {
+        transform: scale(1) rotate(0);
+      }
+    }
+
+    /* =========================
+       THEME TRANSITION
+    ========================= */
+
+    #themeTransition {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 9998;
+
+      pointer-events: none;
+
+      opacity: 0;
+
+      background: #0b0d12;
+
+      clip-path:
+        circle(
+          0px at
+          var(--theme-x, 50%)
+          var(--theme-y, 50%)
+        );
+
+      transition:
+        clip-path
+        .75s cubic-bezier(.76,0,.18,1),
+        opacity .15s ease;
+    }
+
+    #themeTransition.active {
+      opacity: 1;
+
+      clip-path:
+        circle(
+          150vmax at
+          var(--theme-x, 50%)
+          var(--theme-y, 50%)
+        );
+    }
+
+    #themeTransition.light {
+      background: #f5f7fb;
+    }
+
+    body.theme-switching .page,
+    body.theme-switching .phones,
+    body.theme-switching .ambient {
+      transition:
+        opacity .45s ease,
+        filter .45s ease;
+
+      filter: blur(1.5px);
     }
 
     /* =========================
@@ -343,69 +554,101 @@
 
     .hero {
       text-align: center;
+
       margin-bottom: 30px;
     }
 
     .profile-wrap {
       position: relative;
+
       width: 108px;
       height: 108px;
-      margin: 0 auto 19px;
+
+      margin:
+        0 auto 19px;
+
       cursor: pointer;
     }
 
     .profile {
       width: 100%;
       height: 100%;
+
       display: block;
+
       object-fit: cover;
+
       border-radius: 32px;
 
       box-shadow:
-        0 18px 45px rgba(30,40,70,.16);
+        0 18px 45px
+        rgba(30,40,70,.16);
     }
 
     .status {
       position: absolute;
+
       right: -3px;
       bottom: -3px;
+
       width: 21px;
       height: 21px;
 
-      border: 4px solid var(--bg);
+      border:
+        4px solid
+        var(--bg);
+
       border-radius: 50%;
+
       background: #31d56d;
 
       box-shadow:
-        0 0 16px rgba(49,213,109,.5);
+        0 0 16px
+        rgba(49,213,109,.5);
     }
 
     .eyebrow {
       margin-bottom: 8px;
+
       font-size: 11px;
+
       font-weight: 800;
+
       letter-spacing: .18em;
+
       color: var(--muted);
 
       text-shadow:
-        0 2px 14px rgba(70,120,255,.16);
+        0 2px 14px
+        rgba(70,120,255,.16);
     }
 
     h1 {
       margin: 0;
+
       padding-bottom: 5px;
 
-      font-size: clamp(34px,7vw,55px);
+      font-size:
+        clamp(
+          34px,
+          7vw,
+          55px
+        );
+
       line-height: 1.06;
+
       letter-spacing: -.055em;
+
       font-weight: 800;
 
       text-shadow:
-        0 4px 22px rgba(60,100,255,.12);
+        0 4px 22px
+        rgba(60,100,255,.12);
     }
 
     h1 span {
       display: block;
+
       padding-bottom: 3px;
 
       background:
@@ -418,21 +661,31 @@
 
       -webkit-background-clip: text;
       background-clip: text;
+
       color: transparent;
 
       filter:
-        drop-shadow(0 4px 14px rgba(100,110,255,.18));
+        drop-shadow(
+          0 4px 14px
+          rgba(100,110,255,.18)
+        );
     }
 
     .intro {
       max-width: 480px;
-      margin: 18px auto 0;
+
+      margin:
+        18px auto 0;
+
       color: var(--muted);
+
       font-size: 14px;
+
       line-height: 1.65;
 
       text-shadow:
-        0 2px 14px rgba(70,110,180,.12);
+        0 2px 14px
+        rgba(70,110,180,.12);
     }
 
     /* =========================
@@ -441,6 +694,7 @@
 
     .links {
       display: grid;
+
       gap: 13px;
     }
 
@@ -450,12 +704,18 @@
       min-height: 72px;
 
       display: flex;
+
       align-items: center;
+
       gap: 15px;
 
-      padding: 15px 17px;
+      padding:
+        15px 17px;
 
-      border: 1px solid var(--card-border);
+      border:
+        1px solid
+        var(--card-border);
+
       border-radius: 24px;
 
       background: var(--card);
@@ -466,6 +726,7 @@
       box-shadow: var(--shadow);
 
       color: var(--text);
+
       text-decoration: none;
 
       overflow: hidden;
@@ -496,8 +757,11 @@
         scaleY(var(--stretch-y));
 
       transition:
-        transform .32s cubic-bezier(.16,1.45,.3,1),
+        transform .32s
+          cubic-bezier(.16,1.45,.3,1),
+
         box-shadow .25s ease,
+
         border-color .25s ease;
     }
 
@@ -512,7 +776,8 @@
       left: var(--glow-x);
       top: var(--glow-y);
 
-      transform: translate(-50%,-50%);
+      transform:
+        translate(-50%,-50%);
 
       background:
         radial-gradient(
@@ -524,9 +789,11 @@
         );
 
       pointer-events: none;
+
       opacity: 0;
 
-      transition: opacity .12s ease;
+      transition:
+        opacity .12s ease;
     }
 
     .link-card:hover::before,
@@ -538,24 +805,34 @@
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       border-radius: inherit;
 
-      border: 1px solid rgba(120,165,255,.20);
+      border:
+        1px solid
+        rgba(120,165,255,.20);
 
       box-shadow:
-        inset 0 0 25px rgba(120,165,255,.06),
-        0 0 25px rgba(100,145,255,.03);
+        inset 0 0 25px
+        rgba(120,165,255,.06),
+
+        0 0 25px
+        rgba(100,145,255,.03);
 
       pointer-events: none;
+
       opacity: .75;
     }
 
     .link-card:hover {
       box-shadow:
-        0 28px 70px rgba(40,70,130,.19),
-        0 0 42px rgba(100,145,255,.12);
+        0 28px 70px
+        rgba(40,70,130,.19),
+
+        0 0 42px
+        rgba(100,145,255,.12);
 
       border-color:
         rgba(120,165,255,.48);
@@ -563,27 +840,34 @@
 
     .link-card:active {
       transition-duration: .08s;
+
       filter: brightness(1.04);
     }
 
     .icon {
       position: relative;
+
       z-index: 2;
 
       width: 43px;
       height: 43px;
+
       flex: 0 0 43px;
 
       border-radius: 15px;
 
       display: grid;
+
       place-items: center;
 
-      background: rgba(255,255,255,.58);
+      background:
+        rgba(255,255,255,.58);
+
       color: #16191f;
 
       box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,.55);
+        inset 0 0 0 1px
+        rgba(255,255,255,.55);
 
       overflow: hidden;
     }
@@ -591,54 +875,71 @@
     .icon svg {
       width: 22px;
       height: 22px;
+
       display: block;
     }
 
     body.dark .icon {
-      background: rgba(255,255,255,.09);
+      background:
+        rgba(255,255,255,.09);
+
       color: white;
 
       box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,.08);
+        inset 0 0 0 1px
+        rgba(255,255,255,.08);
     }
 
     .card-content {
       position: relative;
+
       z-index: 2;
+
       flex: 1;
+
       min-width: 0;
     }
 
     .card-title {
       font-size: 15px;
+
       font-weight: 700;
+
       margin-bottom: 3px;
 
       text-shadow:
-        0 2px 12px rgba(70,100,180,.16);
+        0 2px 12px
+        rgba(70,100,180,.16);
     }
 
     .card-subtitle {
       color: var(--muted);
+
       font-size: 12px;
 
       white-space: nowrap;
+
       overflow: hidden;
+
       text-overflow: ellipsis;
 
       text-shadow:
-        0 2px 10px rgba(70,100,180,.10);
+        0 2px 10px
+        rgba(70,100,180,.10);
     }
 
     .arrow {
       position: relative;
+
       z-index: 2;
 
       color: var(--muted);
+
       font-size: 18px;
 
       text-shadow:
-        0 2px 10px rgba(70,100,180,.12);
+        0 2px 10px
+        rgba(70,100,180,.12);
     }
 
     /* =========================
@@ -651,6 +952,7 @@
 
     .copy-button {
       position: relative;
+
       z-index: 5;
 
       flex: 0 0 auto;
@@ -658,16 +960,22 @@
       min-width: 82px;
       min-height: 44px;
 
-      padding: 0 13px;
+      padding:
+        0 13px;
 
       border: 0;
+
       border-radius: 14px;
 
-      background: rgba(80,125,255,.12);
+      background:
+        rgba(80,125,255,.12);
+
       color: var(--accent);
 
       font-family: inherit;
+
       font-size: 12px;
+
       font-weight: 700;
 
       cursor: pointer;
@@ -679,7 +987,9 @@
 
     .copy-button:hover {
       transform: scale(1.04);
-      background: rgba(80,125,255,.18);
+
+      background:
+        rgba(80,125,255,.18);
     }
 
     .copy-button:active {
@@ -692,12 +1002,16 @@
 
     .work {
       margin-top: 30px;
+
       padding: 25px;
 
       border-radius: 28px;
+
       background: var(--card);
 
-      border: 1px solid var(--card-border);
+      border:
+        1px solid
+        var(--card-border);
 
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
@@ -706,24 +1020,30 @@
     }
 
     .work h2 {
-      margin: 0 0 8px;
+      margin:
+        0 0 8px;
 
       font-size: 19px;
+
       letter-spacing: -.02em;
 
       text-shadow:
-        0 3px 16px rgba(70,110,220,.16);
+        0 3px 16px
+        rgba(70,110,220,.16);
     }
 
     .work p {
       margin: 0;
 
       color: var(--muted);
+
       font-size: 13px;
+
       line-height: 1.65;
 
       text-shadow:
-        0 2px 12px rgba(70,100,180,.10);
+        0 2px 12px
+        rgba(70,100,180,.10);
     }
 
     /* =========================
@@ -732,25 +1052,32 @@
 
     footer {
       text-align: center;
-      padding: 28px 0 0;
+
+      padding:
+        28px 0 0;
 
       color: var(--muted);
+
       font-size: 11px;
 
       text-shadow:
-        0 2px 12px rgba(70,100,180,.12);
+        0 2px 12px
+        rgba(70,100,180,.12);
     }
 
     .easter-trigger {
       display: inline-block;
+
       margin-top: 9px;
 
       color: var(--muted);
+
       opacity: .45;
 
       cursor: pointer;
 
-      transition: opacity .2s ease;
+      transition:
+        opacity .2s ease;
     }
 
     .easter-trigger:hover {
@@ -763,12 +1090,14 @@
 
     #fireworks {
       position: fixed;
+
       inset: 0;
 
       width: 100%;
       height: 100%;
 
       z-index: 9999;
+
       pointer-events: none;
 
       opacity: 0;
@@ -780,7 +1109,8 @@
           rgba(7,13,35,.96)
         );
 
-      transition: opacity .7s ease;
+      transition:
+        opacity .7s ease;
     }
 
     body.fireworks-mode #fireworks {
@@ -792,6 +1122,7 @@
     body.fireworks-mode .ambient,
     body.fireworks-mode .top-controls {
       opacity: 0;
+
       filter: blur(7px);
 
       transition:
@@ -801,6 +1132,7 @@
 
     .egg-message {
       position: fixed;
+
       left: 50%;
       top: 50%;
 
@@ -811,17 +1143,26 @@
         scale(.65);
 
       opacity: 0;
+
       pointer-events: none;
 
       text-align: center;
+
       color: white;
 
       transition:
         opacity .45s ease,
-        transform .8s cubic-bezier(.17,.89,.32,1.35);
+        transform
+          .8s cubic-bezier(
+            .17,
+            .89,
+            .32,
+            1.35
+          );
     }
 
-    body.fireworks-mode .egg-message {
+    body.fireworks-mode
+    .egg-message {
       opacity: 1;
 
       transform:
@@ -831,6 +1172,7 @@
 
     .egg-icon {
       font-size: 55px;
+
       margin-bottom: 14px;
 
       filter:
@@ -840,31 +1182,43 @@
         );
 
       animation:
-        eggFloat 1.8s ease-in-out infinite;
+        eggFloat
+        1.8s ease-in-out infinite;
     }
 
     .egg-title {
       font-size: 30px;
+
       font-weight: 800;
+
       letter-spacing: -.04em;
 
       text-shadow:
-        0 0 25px rgba(120,160,255,.45);
+        0 0 25px
+        rgba(120,160,255,.45);
     }
 
     .egg-subtitle {
       margin-top: 8px;
-      color: rgba(255,255,255,.68);
+
+      color:
+        rgba(255,255,255,.68);
+
       font-size: 13px;
     }
 
     @keyframes eggFloat {
-      0%,100% {
-        transform: translateY(0) scale(1);
+      0%,
+      100% {
+        transform:
+          translateY(0)
+          scale(1);
       }
 
       50% {
-        transform: translateY(-8px) scale(1.04);
+        transform:
+          translateY(-8px)
+          scale(1.04);
       }
     }
 
@@ -874,7 +1228,9 @@
 
     .reveal {
       opacity: 0;
-      transform: translateY(18px);
+
+      transform:
+        translateY(18px);
 
       transition:
         opacity .7s ease,
@@ -883,7 +1239,9 @@
 
     .reveal.visible {
       opacity: 1;
-      transform: translateY(0);
+
+      transform:
+        translateY(0);
     }
 
     /* =========================
@@ -891,15 +1249,20 @@
     ========================= */
 
     @media (max-width: 760px) {
+
+      body {
+        font-size: 14px;
+      }
+
       .phones {
         opacity: .42;
       }
 
       .phone {
         width: 80px;
+
         opacity: .27;
 
-        /* Almost completely static on phones. */
         transform:
           translate3d(0,0,0)
           rotate(var(--rotate))
@@ -907,18 +1270,68 @@
       }
 
       .page {
-        width: min(620px,calc(100% - 22px));
-        padding-top: 82px;
+        width:
+          min(
+            620px,
+            calc(100% - 22px)
+          );
+
+        padding-top: 78px;
+      }
+
+      h1 {
+        font-size:
+          clamp(
+            31px,
+            8vw,
+            44px
+          );
+
+        line-height: 1.08;
+      }
+
+      .intro {
+        max-width: 430px;
+
+        margin-top: 15px;
+
+        font-size: 13px;
+
+        line-height: 1.6;
       }
 
       .link-card {
-        min-height: 76px;
+        min-height: 73px;
+
         border-radius: 22px;
+
+        padding:
+          14px 15px;
+      }
+
+      .card-title {
+        font-size: 14px;
+      }
+
+      .card-subtitle {
+        font-size: 11px;
+      }
+
+      .icon {
+        width: 41px;
+        height: 41px;
+
+        flex-basis: 41px;
+
+        border-radius: 14px;
       }
 
       .copy-button {
-        min-width: 88px;
-        min-height: 48px;
+        min-width: 84px;
+
+        min-height: 46px;
+
+        font-size: 11px;
       }
 
       .control {
@@ -926,8 +1339,22 @@
         height: 41px;
       }
 
-      h1 {
-        line-height: 1.08;
+      .work {
+        padding: 22px;
+
+        border-radius: 25px;
+      }
+
+      .work h2 {
+        font-size: 18px;
+      }
+
+      .work p {
+        font-size: 12px;
+      }
+
+      footer {
+        font-size: 10px;
       }
     }
 
@@ -936,17 +1363,30 @@
     ========================= */
 
     @media (hover:none), (pointer:coarse) {
+
       .link-card {
         transition:
-          transform .34s cubic-bezier(.16,1.45,.3,1),
+          transform
+            .34s
+            cubic-bezier(
+              .16,
+              1.45,
+              .3,
+              1
+            ),
+
           box-shadow .2s ease,
+
           border-color .2s ease;
       }
 
       .link-card.touching {
         box-shadow:
-          0 28px 65px rgba(50,80,150,.22),
-          0 0 45px rgba(100,150,255,.17);
+          0 28px 65px
+          rgba(50,80,150,.22),
+
+          0 0 45px
+          rgba(100,150,255,.17);
 
         border-color:
           rgba(120,165,255,.55);
@@ -958,13 +1398,22 @@
     ========================= */
 
     @media (prefers-reduced-motion: reduce) {
+
       *,
       *::before,
       *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
+
+        scroll-behavior:
+          auto !important;
+
+        animation-duration:
+          .01ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          .01ms !important;
       }
     }
   </style>
@@ -974,9 +1423,13 @@
 <body>
 
   <div class="ambient" aria-hidden="true">
-    <div class="ambient-a"></div>
-    <div class="ambient-b"></div>
-    <div class="ambient-c"></div>
+
+```
+<div class="ambient-a"></div>
+<div class="ambient-b"></div>
+<div class="ambient-c"></div>
+```
+
   </div>
 
   <div class="phones" aria-hidden="true">
@@ -1073,6 +1526,8 @@
 
   </div>
 
+  <div id="themeTransition"></div>
+
   <main class="page">
 
 ```
@@ -1102,7 +1557,10 @@
 
   <h1>
     Smartphones.<br>
-    <span>Tech. Photography.</span>
+
+    <span>
+      Tech. Photography.
+    </span>
   </h1>
 
   <p class="intro">
@@ -1123,7 +1581,10 @@
   >
 
     <div class="icon">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
         <path
           fill="currentColor"
           d="M16.7 3c.4 2.5 1.8 4.2 4.3 4.4v3.1c-1.7.1-3.1-.4-4.3-1.3v6.1c0 4-2.8 6.7-6.7 6.7-3.6 0-6.2-2.6-6.2-5.9 0-3.6 2.9-6.2 6.8-6.2.4 0 .8 0 1.2.1v3.2c-.4-.1-.8-.2-1.2-.2-1.9 0-3.4 1.2-3.4 3 0 1.6 1.2 2.8 2.8 2.8 1.8 0 3.3-1.2 3.3-3.7V3h3.4z"
@@ -1132,11 +1593,20 @@
     </div>
 
     <div class="card-content">
-      <div class="card-title">TikTok</div>
-      <div class="card-subtitle">@farlandstech</div>
+
+      <div class="card-title">
+        TikTok
+      </div>
+
+      <div class="card-subtitle">
+        @farlandstech
+      </div>
+
     </div>
 
-    <div class="arrow">›</div>
+    <div class="arrow">
+      ›
+    </div>
 
   </a>
 
@@ -1148,7 +1618,10 @@
   >
 
     <div class="icon">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
         <path
           fill="currentColor"
           d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.9V8.1l6.6 3.9-6.6 3.9z"
@@ -1157,11 +1630,20 @@
     </div>
 
     <div class="card-content">
-      <div class="card-title">YouTube</div>
-      <div class="card-subtitle">Videos & tech content</div>
+
+      <div class="card-title">
+        YouTube
+      </div>
+
+      <div class="card-subtitle">
+        Videos & tech content
+      </div>
+
     </div>
 
-    <div class="arrow">›</div>
+    <div class="arrow">
+      ›
+    </div>
 
   </a>
 
@@ -1173,7 +1655,10 @@
   >
 
     <div class="icon">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
         <path
           fill="currentColor"
           d="M19.5 4.5A16.7 16.7 0 0 0 15.4 3l-.5 1.1a15.4 15.4 0 0 0-5.8 0L8.6 3a16.7 16.7 0 0 0-4.1 1.5C1.9 8.4 1.2 12.2 1.5 15.9A16.6 16.6 0 0 0 6.6 18l1.2-1.7c-.7-.3-1.3-.6-1.9-1 .2-.2.4-.3.6-.5 3.7 1.7 7.7 1.7 11.4 0 .2.2.4.3.6.5-.6.4-1.2.7-1.9 1l1.2 1.7a16.6 16.6 0 0 0 5.1-2.1c.4-4.3-.7-8-3.4-11.4zM8.7 13.7c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z"
@@ -1182,11 +1667,20 @@
     </div>
 
     <div class="card-content">
-      <div class="card-title">Discord</div>
-      <div class="card-subtitle">Join the community</div>
+
+      <div class="card-title">
+        Discord
+      </div>
+
+      <div class="card-subtitle">
+        Join the community
+      </div>
+
     </div>
 
-    <div class="arrow">›</div>
+    <div class="arrow">
+      ›
+    </div>
 
   </a>
 
@@ -1198,7 +1692,10 @@
   >
 
     <div class="icon">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
         <path
           fill="currentColor"
           d="M5 4h5.4c1.5 0 2.7.9 3.4 2.2L16 10.6l2.7-6.6H22l-4 9.2c-.8 1.9-2 3.4-3.6 4.8L12 20H8.5l2.8-3.1L5 4zm4.3 2.8h-1l3.2 7.1 1.2-1.4-3.4-5.7z"
@@ -1207,11 +1704,20 @@
     </div>
 
     <div class="card-content">
-      <div class="card-title">Vinted</div>
-      <div class="card-subtitle">Phones & tech for sale</div>
+
+      <div class="card-title">
+        Vinted
+      </div>
+
+      <div class="card-subtitle">
+        Phones & tech for sale
+      </div>
+
     </div>
 
-    <div class="arrow">›</div>
+    <div class="arrow">
+      ›
+    </div>
 
   </a>
 
@@ -1224,7 +1730,10 @@
   >
 
     <div class="icon">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
         <rect
           x="3"
           y="5"
@@ -1235,6 +1744,7 @@
           stroke="currentColor"
           stroke-width="1.8"
         />
+
         <path
           d="M4.5 7l7.5 6 7.5-6"
           fill="none"
@@ -1247,10 +1757,15 @@
     </div>
 
     <div class="card-content">
-      <div class="card-title">Email</div>
+
+      <div class="card-title">
+        Email
+      </div>
+
       <div class="card-subtitle">
         samsungs24ultragoat@gmail.com
       </div>
+
     </div>
 
     <button
@@ -1261,7 +1776,9 @@
       Copy
     </button>
 
-    <div class="arrow">›</div>
+    <div class="arrow">
+      ›
+    </div>
 
   </div>
 
@@ -1269,7 +1786,9 @@
 
 <section class="work reveal">
 
-  <h2>Work with me</h2>
+  <h2>
+    Work with me
+  </h2>
 
   <p>
     Interested in working together on
@@ -1324,19 +1843,30 @@
        BASIC
     ========================= */
 
-    const EMAIL = "samsungs24ultragoat@gmail.com";
+    const EMAIL =
+      "samsungs24ultragoat@gmail.com";
 
-    document.getElementById("year").textContent =
+    document.getElementById(
+      "year"
+    ).textContent =
       new Date().getFullYear();
 
     /* =========================
        EMAIL
     ========================= */
 
-    const emailCard = document.getElementById("emailCard");
-    const copyButton = document.getElementById("copyEmail");
+    const emailCard =
+      document.getElementById(
+        "emailCard"
+      );
+
+    const copyButton =
+      document.getElementById(
+        "copyEmail"
+      );
 
     function openEmail() {
+
       const gmailURL =
         "https://mail.google.com/mail/?view=cm&fs=1&to=" +
         encodeURIComponent(EMAIL);
@@ -1349,112 +1879,161 @@
     }
 
     async function copyEmail() {
+
       try {
-        await navigator.clipboard.writeText(EMAIL);
+
+        await navigator.clipboard.writeText(
+          EMAIL
+        );
+
       } catch {
-        const input = document.createElement("input");
 
-        input.value = EMAIL;
+        const input =
+          document.createElement(
+            "input"
+          );
 
-        document.body.appendChild(input);
+        input.value =
+          EMAIL;
+
+        document.body.appendChild(
+          input
+        );
+
         input.select();
 
-        document.execCommand("copy");
+        document.execCommand(
+          "copy"
+        );
 
         input.remove();
       }
 
-      const original = copyButton.textContent;
+      const original =
+        copyButton.textContent;
 
-      copyButton.textContent = "Copied ✓";
+      copyButton.textContent =
+        "Copied ✓";
 
-      setTimeout(() => {
-        copyButton.textContent = original;
-      }, 1400);
+      setTimeout(
+        () => {
+
+          copyButton.textContent =
+            original;
+
+        },
+        1400
+      );
     }
 
-    emailCard.addEventListener("click", event => {
-      if (event.target.closest("#copyEmail")) {
-        return;
-      }
+    emailCard.addEventListener(
+      "click",
+      event => {
 
-      openEmail();
-    });
+        if (
+          event.target.closest(
+            "#copyEmail"
+          )
+        ) {
+          return;
+        }
 
-    emailCard.addEventListener("keydown", event => {
-      if (
-        event.key === "Enter" ||
-        event.key === " "
-      ) {
-        event.preventDefault();
         openEmail();
       }
-    });
+    );
 
-    copyButton.addEventListener("click", event => {
-      event.preventDefault();
-      event.stopPropagation();
-      copyEmail();
-    });
+    emailCard.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          openEmail();
+        }
+      }
+    );
+
+    copyButton.addEventListener(
+      "click",
+      event => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        copyEmail();
+      }
+    );
 
     /* =========================
        CARD INTERACTION
     ========================= */
 
     const cards =
-      document.querySelectorAll(".link-card");
-
-    function updateCard(card, x, y) {
-      const rect = card.getBoundingClientRect();
-
-      const px = Math.max(
-        0,
-        Math.min(
-          1,
-          (x - rect.left) / rect.width
-        )
+      document.querySelectorAll(
+        ".link-card"
       );
 
-      const py = Math.max(
-        0,
-        Math.min(
-          1,
-          (y - rect.top) / rect.height
-        )
-      );
+    function updateCard(
+      card,
+      x,
+      y
+    ) {
 
-      /* Light follows the pointer. */
+      const rect =
+        card.getBoundingClientRect();
+
+      const px =
+        Math.max(
+          0,
+          Math.min(
+            1,
+            (x - rect.left) /
+            rect.width
+          )
+        );
+
+      const py =
+        Math.max(
+          0,
+          Math.min(
+            1,
+            (y - rect.top) /
+            rect.height
+          )
+        );
 
       card.style.setProperty(
         "--glow-x",
-        `${px * 100}%`
+        (px * 100) + "%"
       );
 
       card.style.setProperty(
         "--glow-y",
-        `${py * 100}%`
+        (py * 100) + "%"
       );
 
-      const dx = px - .5;
-      const dy = py - .5;
+      const dx =
+        px - .5;
 
-      /*
-        Directional stretching.
-
-        Left:
-        card stretches toward left.
-
-        Right:
-        card stretches toward right.
-
-        Same principle vertically.
-      */
+      const dy =
+        py - .5;
 
       const horizontalStrength =
-        Math.min(Math.abs(dx) * 2, 1);
+        Math.min(
+          Math.abs(dx) * 2,
+          1
+        );
 
       const verticalStrength =
-        Math.min(Math.abs(dy) * 2, 1);
+        Math.min(
+          Math.abs(dy) * 2,
+          1
+        );
 
       const stretchX =
         1 +
@@ -1474,121 +2053,190 @@
         stretchY.toFixed(3)
       );
 
-      /*
-        Move slightly toward the pointer,
-        while stretching from the pointer.
-      */
-
       card.style.setProperty(
         "--move-x",
-        `${dx * 13}px`
+        (dx * 13) + "px"
       );
 
       card.style.setProperty(
         "--move-y",
-        `${dy * 10}px`
+        (dy * 10) + "px"
       );
-
-      /*
-        The pointer becomes the origin,
-        creating the rubber-like effect.
-      */
 
       card.style.setProperty(
         "--origin-x",
-        `${px * 100}%`
+        (px * 100) + "%"
       );
 
       card.style.setProperty(
         "--origin-y",
-        `${py * 100}%`
+        (py * 100) + "%"
       );
     }
 
-    function resetCard(card) {
-      card.style.setProperty("--stretch-x","1");
-      card.style.setProperty("--stretch-y","1");
+    function resetCard(
+      card
+    ) {
 
-      card.style.setProperty("--move-x","0px");
-      card.style.setProperty("--move-y","0px");
+      card.style.setProperty(
+        "--stretch-x",
+        "1"
+      );
 
-      card.style.setProperty("--origin-x","50%");
-      card.style.setProperty("--origin-y","50%");
+      card.style.setProperty(
+        "--stretch-y",
+        "1"
+      );
 
-      card.style.setProperty("--glow-x","50%");
-      card.style.setProperty("--glow-y","50%");
+      card.style.setProperty(
+        "--move-x",
+        "0px"
+      );
 
-      card.classList.remove("touching");
+      card.style.setProperty(
+        "--move-y",
+        "0px"
+      );
+
+      card.style.setProperty(
+        "--origin-x",
+        "50%"
+      );
+
+      card.style.setProperty(
+        "--origin-y",
+        "50%"
+      );
+
+      card.style.setProperty(
+        "--glow-x",
+        "50%"
+      );
+
+      card.style.setProperty(
+        "--glow-y",
+        "50%"
+      );
+
+      card.classList.remove(
+        "touching"
+      );
     }
 
-    cards.forEach(card => {
+    cards.forEach(
+      card => {
 
-      /* Desktop pointer. */
+        card.addEventListener(
+          "pointerenter",
+          event => {
 
-      card.addEventListener("pointerenter", event => {
-        if (event.pointerType === "touch") {
-          return;
-        }
+            if (
+              event.pointerType ===
+              "touch"
+            ) {
+              return;
+            }
 
-        updateCard(
-          card,
-          event.clientX,
-          event.clientY
+            updateCard(
+              card,
+              event.clientX,
+              event.clientY
+            );
+          }
         );
-      });
 
-      card.addEventListener("pointermove", event => {
-        if (event.pointerType === "touch") {
-          return;
-        }
+        card.addEventListener(
+          "pointermove",
+          event => {
 
-        updateCard(
-          card,
-          event.clientX,
-          event.clientY
+            if (
+              event.pointerType ===
+              "touch"
+            ) {
+              return;
+            }
+
+            updateCard(
+              card,
+              event.clientX,
+              event.clientY
+            );
+          }
         );
-      });
 
-      card.addEventListener("pointerleave", () => {
-        resetCard(card);
-      });
+        card.addEventListener(
+          "pointerleave",
+          () => {
 
-      /* Touch. */
-
-      card.addEventListener("pointerdown", event => {
-        if (event.pointerType !== "touch") {
-          return;
-        }
-
-        card.classList.add("touching");
-
-        updateCard(
-          card,
-          event.clientX,
-          event.clientY
+            resetCard(
+              card
+            );
+          }
         );
-      });
 
-      card.addEventListener("pointermove", event => {
-        if (event.pointerType !== "touch") {
-          return;
-        }
+        card.addEventListener(
+          "pointerdown",
+          event => {
 
-        updateCard(
-          card,
-          event.clientX,
-          event.clientY
+            if (
+              event.pointerType !==
+              "touch"
+            ) {
+              return;
+            }
+
+            card.classList.add(
+              "touching"
+            );
+
+            updateCard(
+              card,
+              event.clientX,
+              event.clientY
+            );
+          }
         );
-      });
 
-      card.addEventListener("pointerup", () => {
-        resetCard(card);
-      });
+        card.addEventListener(
+          "pointermove",
+          event => {
 
-      card.addEventListener("pointercancel", () => {
-        resetCard(card);
-      });
-    });
+            if (
+              event.pointerType !==
+              "touch"
+            ) {
+              return;
+            }
+
+            updateCard(
+              card,
+              event.clientX,
+              event.clientY
+            );
+          }
+        );
+
+        card.addEventListener(
+          "pointerup",
+          () => {
+
+            resetCard(
+              card
+            );
+          }
+        );
+
+        card.addEventListener(
+          "pointercancel",
+          () => {
+
+            resetCard(
+              card
+            );
+          }
+        );
+      }
+    );
 
     /* =========================
        EASTER EGG
@@ -1598,29 +2246,35 @@
     let eggResetTimer;
 
     const profileEgg =
-      document.getElementById("profileEgg");
+      document.getElementById(
+        "profileEgg"
+      );
 
     const eggTrigger =
-      document.getElementById("eggTrigger");
+      document.getElementById(
+        "eggTrigger"
+      );
 
     function handleEggClick() {
+
       eggClicks++;
 
-      clearTimeout(eggResetTimer);
+      clearTimeout(
+        eggResetTimer
+      );
 
-      if (eggClicks >= 5) {
+      if (
+        eggClicks >= 5
+      ) {
+
         eggClicks = 0;
-
-        /*
-          If Starry Night is already active,
-          five more clicks return to normal.
-        */
 
         if (
           document.body.classList.contains(
             "starry-mode"
           )
         ) {
+
           document.body.classList.remove(
             "starry-mode"
           );
@@ -1634,9 +2288,14 @@
       }
 
       eggResetTimer =
-        setTimeout(() => {
-          eggClicks = 0;
-        }, 1800);
+        setTimeout(
+          () => {
+
+            eggClicks = 0;
+
+          },
+          1800
+        );
     }
 
     profileEgg.addEventListener(
@@ -1644,24 +2303,24 @@
       handleEggClick
     );
 
-    /*
-      Footer easter egg also participates
-      in the same toggle system.
-    */
-
     eggTrigger.addEventListener(
       "click",
       () => {
+
         if (
           document.body.classList.contains(
             "starry-mode"
           )
         ) {
+
           document.body.classList.remove(
             "starry-mode"
           );
+
         } else {
+
           startFireworks();
+
         }
       }
     );
@@ -1671,17 +2330,26 @@
     ========================= */
 
     const canvas =
-      document.getElementById("fireworks");
+      document.getElementById(
+        "fireworks"
+      );
 
     const ctx =
-      canvas.getContext("2d");
+      canvas.getContext(
+        "2d"
+      );
 
-    let fireworksRunning = false;
+    let fireworksRunning =
+      false;
+
     let fireworks = [];
+
     let particles = [];
+
     let fireworkFrame;
 
     function resizeCanvas() {
+
       const dpr =
         Math.min(
           window.devicePixelRatio || 1,
@@ -1689,16 +2357,20 @@
         );
 
       canvas.width =
-        window.innerWidth * dpr;
+        window.innerWidth *
+        dpr;
 
       canvas.height =
-        window.innerHeight * dpr;
+        window.innerHeight *
+        dpr;
 
       canvas.style.width =
-        window.innerWidth + "px";
+        window.innerWidth +
+        "px";
 
       canvas.style.height =
-        window.innerHeight + "px";
+        window.innerHeight +
+        "px";
 
       ctx.setTransform(
         dpr,
@@ -1717,7 +2389,11 @@
 
     resizeCanvas();
 
-    function random(min,max) {
+    function random(
+      min,
+      max
+    ) {
+
       return (
         Math.random() *
         (max - min) +
@@ -1725,45 +2401,65 @@
       );
     }
 
-    function launchFirework(delay = 0) {
-      setTimeout(() => {
+    function launchFirework(
+      delay = 0
+    ) {
 
-        if (!fireworksRunning) {
-          return;
-        }
+      setTimeout(
+        () => {
 
-        fireworks.push({
-          x: random(
-            window.innerWidth * .12,
-            window.innerWidth * .88
-          ),
+          if (
+            !fireworksRunning
+          ) {
+            return;
+          }
 
-          y:
-            window.innerHeight + 10,
+          fireworks.push({
 
-          targetY:
-            random(
-              window.innerHeight * .16,
-              window.innerHeight * .56
-            ),
+            x:
+              random(
+                window.innerWidth * .12,
+                window.innerWidth * .88
+              ),
 
-          speed:
-            random(7,10),
+            y:
+              window.innerHeight + 10,
 
-          trail: []
-        });
+            targetY:
+              random(
+                window.innerHeight * .16,
+                window.innerHeight * .56
+              ),
 
-      },delay);
+            speed:
+              random(7,10),
+
+            trail: []
+          });
+
+        },
+        delay
+      );
     }
 
-    function explode(x,y) {
+    function explode(
+      x,
+      y
+    ) {
+
       const amount =
         Math.floor(
-          random(48,76)
+          random(
+            48,
+            76
+          )
         );
 
       const hue =
-        random(185,330);
+        random(
+          185,
+          330
+        );
 
       for (
         let i = 0;
@@ -1776,12 +2472,19 @@
             Math.PI * 2 * i
           ) /
           amount +
-          random(-.08,.08);
+          random(
+            -.08,
+            .08
+          );
 
         const speed =
-          random(2.2,5.8);
+          random(
+            2.2,
+            5.8
+          );
 
         particles.push({
+
           x,
           y,
 
@@ -1793,25 +2496,42 @@
             Math.sin(angle) *
             speed,
 
-          gravity: .055,
-          friction: .985,
-          life: 1,
+          gravity:
+            .055,
+
+          friction:
+            .985,
+
+          life:
+            1,
 
           decay:
-            random(.012,.022),
+            random(
+              .012,
+              .022
+            ),
 
           size:
-            random(1.2,2.8),
+            random(
+              1.2,
+              2.8
+            ),
 
           hue:
             hue +
-            random(-25,25)
+            random(
+              -25,
+              25
+            )
         });
       }
     }
 
     function animateFireworks() {
-      if (!fireworksRunning) {
+
+      if (
+        !fireworksRunning
+      ) {
         return;
       }
 
@@ -1834,13 +2554,19 @@
           });
 
           if (
-            rocket.trail.length > 8
+            rocket.trail.length >
+            8
           ) {
+
             rocket.trail.shift();
+
           }
 
-          rocket.y -= rocket.speed;
-          rocket.speed *= .985;
+          rocket.y -=
+            rocket.speed;
+
+          rocket.speed *=
+            .985;
 
           ctx.beginPath();
 
@@ -1855,6 +2581,7 @@
             i >= 0;
             i--
           ) {
+
             ctx.lineTo(
               rocket.trail[i].x,
               rocket.trail[i].y
@@ -1865,6 +2592,7 @@
             "rgba(180,210,255,.75)";
 
           ctx.lineWidth = 2;
+
           ctx.stroke();
 
           if (
@@ -1909,6 +2637,7 @@
           if (
             particle.life <= 0
           ) {
+
             particles.splice(
               index,
               1
@@ -1928,26 +2657,26 @@
           );
 
           ctx.fillStyle =
-            `hsla(
-              ${particle.hue},
-              100%,
-              72%,
-              ${particle.life}
-            )`;
+            "hsla(" +
+            particle.hue +
+            ",100%,72%," +
+            particle.life +
+            ")";
 
-          ctx.shadowBlur = 12;
+          ctx.shadowBlur =
+            12;
 
           ctx.shadowColor =
-            `hsla(
-              ${particle.hue},
-              100%,
-              70%,
-              ${particle.life}
-            )`;
+            "hsla(" +
+            particle.hue +
+            ",100%,70%," +
+            particle.life +
+            ")";
 
           ctx.fill();
 
-          ctx.shadowBlur = 0;
+          ctx.shadowBlur =
+            0;
         }
       );
 
@@ -1958,13 +2687,18 @@
     }
 
     function startFireworks() {
-      if (fireworksRunning) {
+
+      if (
+        fireworksRunning
+      ) {
         return;
       }
 
-      fireworksRunning = true;
+      fireworksRunning =
+        true;
 
       fireworks = [];
+
       particles = [];
 
       document.body.classList.add(
@@ -1989,42 +2723,53 @@
 
       animateFireworks();
 
-      setTimeout(() => {
+      setTimeout(
+        () => {
 
-        fireworksRunning = false;
+          fireworksRunning =
+            false;
 
-        cancelAnimationFrame(
-          fireworkFrame
-        );
-
-        canvas.style.transition =
-          "opacity 1s ease";
-
-        canvas.style.opacity = "0";
-
-        setTimeout(() => {
-
-          document.body.classList.remove(
-            "fireworks-mode"
+          cancelAnimationFrame(
+            fireworkFrame
           );
 
-          document.body.classList.add(
-            "starry-mode"
+          canvas.style.transition =
+            "opacity 1s ease";
+
+          canvas.style.opacity =
+            "0";
+
+          setTimeout(
+            () => {
+
+              document.body.classList.remove(
+                "fireworks-mode"
+              );
+
+              document.body.classList.add(
+                "starry-mode"
+              );
+
+              ctx.clearRect(
+                0,
+                0,
+                window.innerWidth,
+                window.innerHeight
+              );
+
+              canvas.style.opacity =
+                "";
+
+              canvas.style.transition =
+                "";
+
+            },
+            1000
           );
 
-          ctx.clearRect(
-            0,
-            0,
-            window.innerWidth,
-            window.innerHeight
-          );
-
-          canvas.style.opacity = "";
-          canvas.style.transition = "";
-
-        },1000);
-
-      },6200);
+        },
+        6200
+      );
     }
 
     /* =========================
@@ -2036,7 +2781,13 @@
         "themeButton"
       );
 
+    const themeTransition =
+      document.getElementById(
+        "themeTransition"
+      );
+
     function updateThemeIcon() {
+
       themeButton.textContent =
         document.body.classList.contains(
           "dark"
@@ -2050,6 +2801,7 @@
         "farlands-dark"
       ) === "1"
     ) {
+
       document.body.classList.add(
         "dark"
       );
@@ -2057,26 +2809,97 @@
 
     updateThemeIcon();
 
-    themeButton.addEventListener(
-      "click",
-      () => {
+    function animateThemeChange() {
 
-        document.body.classList.toggle(
+      const buttonRect =
+        themeButton.getBoundingClientRect();
+
+      const x =
+        buttonRect.left +
+        buttonRect.width / 2;
+
+      const y =
+        buttonRect.top +
+        buttonRect.height / 2;
+
+      const switchingToDark =
+        !document.body.classList.contains(
           "dark"
         );
 
-        localStorage.setItem(
-          "farlands-dark",
+      themeTransition.style.setProperty(
+        "--theme-x",
+        x + "px"
+      );
 
-          document.body.classList.contains(
-            "dark"
-          )
-            ? "1"
-            : "0"
-        );
+      themeTransition.style.setProperty(
+        "--theme-y",
+        y + "px"
+      );
 
-        updateThemeIcon();
-      }
+      themeTransition.classList.toggle(
+        "light",
+        !switchingToDark
+      );
+
+      document.body.classList.add(
+        "theme-switching"
+      );
+
+      themeButton.classList.remove(
+        "theme-animating"
+      );
+
+      void themeButton.offsetWidth;
+
+      themeButton.classList.add(
+        "theme-animating"
+      );
+
+      themeTransition.classList.add(
+        "active"
+      );
+
+      setTimeout(
+        () => {
+
+          document.body.classList.toggle(
+            "dark",
+            switchingToDark
+          );
+
+          localStorage.setItem(
+            "farlands-dark",
+            switchingToDark
+              ? "1"
+              : "0"
+          );
+
+          updateThemeIcon();
+
+        },
+        280
+      );
+
+      setTimeout(
+        () => {
+
+          themeTransition.classList.remove(
+            "active"
+          );
+
+          document.body.classList.remove(
+            "theme-switching"
+          );
+
+        },
+        800
+      );
+    }
+
+    themeButton.addEventListener(
+      "click",
+      animateThemeChange
     );
 
     /* =========================
@@ -2084,23 +2907,35 @@
     ========================= */
 
     document
-      .getElementById("shareButton")
+      .getElementById(
+        "shareButton"
+      )
       .addEventListener(
         "click",
         async () => {
 
           const shareData = {
-            title: "FarlandsTech",
-            text: "Check out FarlandsTech.",
-            url: window.location.href
+
+            title:
+              "FarlandsTech",
+
+            text:
+              "Check out FarlandsTech.",
+
+            url:
+              window.location.href
           };
 
-          if (navigator.share) {
+          if (
+            navigator.share
+          ) {
 
             try {
+
               await navigator.share(
                 shareData
               );
+
             } catch {}
 
           } else {
@@ -2119,12 +2954,18 @@
               const original =
                 button.textContent;
 
-              button.textContent = "✓";
+              button.textContent =
+                "✓";
 
-              setTimeout(() => {
-                button.textContent =
-                  original;
-              },1300);
+              setTimeout(
+                () => {
+
+                  button.textContent =
+                    original;
+
+                },
+                1300
+              );
 
             } catch {}
           }
@@ -2140,32 +2981,40 @@
         ".phone"
       );
 
-    let parallaxTicking = false;
+    let parallaxTicking =
+      false;
 
-    const isMobile =
-      () =>
-        window.matchMedia(
-          "(max-width: 760px), (pointer: coarse)"
-        ).matches;
+    function isMobile() {
+
+      return window.matchMedia(
+        "(max-width:760px), (pointer:coarse)"
+      ).matches;
+    }
 
     function updateParallax() {
 
       /*
-        Mobile deliberately does nothing.
-        This prevents the phones from jumping
-        while rapidly scrolling.
+        Mobile stays completely static.
+        This prevents jumping during fast scrolling.
       */
 
-      if (isMobile()) {
+      if (
+        isMobile()
+      ) {
 
-        phoneElements.forEach(phone => {
-          phone.style.setProperty(
-            "--py",
-            "0px"
-          );
-        });
+        phoneElements.forEach(
+          phone => {
 
-        parallaxTicking = false;
+            phone.style.setProperty(
+              "--py",
+              "0px"
+            );
+          }
+        );
+
+        parallaxTicking =
+          false;
+
         return;
       }
 
@@ -2180,29 +3029,35 @@
               index % 2 === 0
                 ? 1
                 : -1
-            ) * .018;
+            ) *
+            .018;
 
           phone.style.setProperty(
             "--py",
-            `${scroll * amount}px`
+            (scroll * amount) +
+            "px"
           );
         }
       );
 
-      parallaxTicking = false;
+      parallaxTicking =
+        false;
     }
 
     window.addEventListener(
       "scroll",
       () => {
 
-        if (!parallaxTicking) {
+        if (
+          !parallaxTicking
+        ) {
 
           requestAnimationFrame(
             updateParallax
           );
 
-          parallaxTicking = true;
+          parallaxTicking =
+            true;
         }
 
       },
@@ -2210,9 +3065,6 @@
         passive: true
       }
     );
-
-    /* Reset correctly if resizing
-       between desktop and mobile. */
 
     window.addEventListener(
       "resize",
@@ -2251,16 +3103,17 @@
       );
 
     document
-      .querySelectorAll(".reveal")
+      .querySelectorAll(
+        ".reveal"
+      )
       .forEach(
         element => {
+
           revealObserver.observe(
             element
           );
         }
       );
-
-    /* Initial phone state. */
 
     updateParallax();
   </script>
