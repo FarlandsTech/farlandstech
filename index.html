@@ -10,11 +10,15 @@
 
   <title>FarlandsTech</title>
 
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <!-- Profile image used directly as favicon -->
+
+  <link rel="icon" type="image/png" href="profile.png?v=3">
+  <link rel="shortcut icon" type="image/png" href="profile.png?v=3">
   <link rel="apple-touch-icon" href="profile.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
@@ -29,55 +33,104 @@
       --bg: #f5f7fb;
       --text: #111318;
       --muted: #737985;
+
       --card: rgba(255,255,255,.66);
       --card-border: rgba(255,255,255,.78);
+
       --shadow: 0 20px 60px rgba(50,60,90,.10);
+
       --accent: #3d7cff;
+
       --ease: cubic-bezier(.22,.8,.22,1);
     }
+
 
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
 
+
     html {
       scroll-behavior: smooth;
     }
 
+
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Inter, system-ui, sans-serif;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
       color: var(--text);
+
       background:
-        radial-gradient(circle at 20% 15%, rgba(110,160,255,.16), transparent 30%),
-        radial-gradient(circle at 80% 25%, rgba(180,120,255,.13), transparent 30%),
-        radial-gradient(circle at 50% 90%, rgba(70,210,180,.10), transparent 32%),
+        radial-gradient(
+          circle at 20% 15%,
+          rgba(110,160,255,.16),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 25%,
+          rgba(180,120,255,.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 90%,
+          rgba(70,210,180,.10),
+          transparent 32%
+        ),
         var(--bg);
+
       overflow-x: hidden;
+
       transition:
         background .8s ease,
         color .5s ease;
+
       -webkit-user-select: none;
       user-select: none;
+
       -webkit-touch-callout: none;
     }
+
 
     body.dark {
       --bg: #0b0d12;
       --text: #f4f6fa;
       --muted: #9da4b2;
+
       --card: rgba(28,31,40,.66);
       --card-border: rgba(255,255,255,.08);
-      --shadow: 0 20px 60px rgba(0,0,0,.28);
+
+      --shadow:
+        0 20px 60px rgba(0,0,0,.28);
 
       background:
-        radial-gradient(circle at 20% 15%, rgba(60,110,255,.16), transparent 30%),
-        radial-gradient(circle at 80% 25%, rgba(170,80,255,.12), transparent 30%),
-        radial-gradient(circle at 50% 90%, rgba(40,190,160,.08), transparent 32%),
+        radial-gradient(
+          circle at 20% 15%,
+          rgba(60,110,255,.16),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 25%,
+          rgba(170,80,255,.12),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 90%,
+          rgba(40,190,160,.08),
+          transparent 32%
+        ),
         var(--bg);
     }
+
 
     body,
     a,
@@ -85,71 +138,103 @@
       touch-action: manipulation;
     }
 
-    button,
+
     a,
+    button,
     .link-card,
     .profile-wrap {
       -webkit-user-select: none;
       user-select: none;
     }
 
-    /* --------------------------------
-       NORMAL BACKGROUND
-    -------------------------------- */
+
+    /* ==========================================
+       NORMAL AMBIENT BACKGROUND
+    ========================================== */
 
     .ambient {
       position: fixed;
       inset: 0;
+
       pointer-events: none;
+
       overflow: hidden;
+
       z-index: -2;
+
+      transition: opacity .8s ease;
     }
+
 
     .ambient div {
       position: absolute;
+
       width: 35vw;
       height: 35vw;
+
       max-width: 420px;
       max-height: 420px;
+
       border-radius: 50%;
+
       filter: blur(70px);
+
       opacity: .15;
-      animation: ambientMove 16s ease-in-out infinite alternate;
+
+      animation:
+        ambientMove
+        16s ease-in-out infinite alternate;
     }
+
 
     .ambient-a {
       background: #5c8cff;
+
       top: -10%;
       left: -8%;
     }
 
+
     .ambient-b {
       background: #c35cff;
+
       right: -10%;
       top: 30%;
+
       animation-delay: -5s !important;
     }
 
+
     .ambient-c {
       background: #45d8bd;
+
       bottom: -15%;
       left: 30%;
+
       animation-delay: -9s !important;
     }
 
+
     @keyframes ambientMove {
+
       from {
-        transform: translate3d(0,0,0) scale(1);
+        transform:
+          translate3d(0,0,0)
+          scale(1);
       }
 
       to {
-        transform: translate3d(25px,-20px,0) scale(1.08);
+        transform:
+          translate3d(25px,-20px,0)
+          scale(1.08);
       }
+
     }
 
-    /* --------------------------------
-       STARry NIGHT EASTER EGG MODE
-    -------------------------------- */
+
+    /* ==========================================
+       STARRY NIGHT MODE
+    ========================================== */
 
     body.starry-mode {
       background:
@@ -157,30 +242,45 @@
           rgba(4,8,28,.48),
           rgba(3,7,22,.62)
         ),
-        url("starry-night.webp") center center / cover fixed;
+        url("starry-night.webp")
+        center center / cover fixed;
+
       background-color: #05091d;
     }
 
+
     body.starry-mode::before {
       content: "";
+
       position: fixed;
+
       inset: -20px;
+
       z-index: -3;
+
       pointer-events: none;
 
       background:
-        url("starry-night.webp") center center / cover fixed;
+        url("starry-night.webp")
+        center center / cover fixed;
 
       filter: blur(9px);
+
       transform: scale(1.04);
+
       opacity: .72;
     }
 
+
     body.starry-mode::after {
       content: "";
+
       position: fixed;
+
       inset: 0;
+
       z-index: -2;
+
       pointer-events: none;
 
       background:
@@ -192,37 +292,60 @@
         rgba(3,7,25,.30);
     }
 
+
     body.starry-mode .ambient {
-      opacity: .12;
+      opacity: .08;
     }
 
-    /* --------------------------------
+
+    /* ==========================================
        FLOATING PHONES
-    -------------------------------- */
+    ========================================== */
 
     .phones {
       position: fixed;
       inset: 0;
+
       pointer-events: none;
+
       z-index: -1;
+
       overflow: hidden;
-      transition: opacity .8s ease;
+
+      transition:
+        opacity .8s ease;
     }
+
 
     .phone {
       position: absolute;
-      width: clamp(90px, 13vw, 180px);
+
+      width:
+        clamp(
+          90px,
+          13vw,
+          180px
+        );
+
       height: auto;
+
       opacity: .48;
+
       will-change: transform;
 
       transform:
-        translate3d(var(--px,0),var(--py,0),0)
+        translate3d(
+          var(--px,0),
+          var(--py,0),
+          0
+        )
         rotate(var(--rotate))
         scale(var(--phone-scale,1));
 
-      transition: transform .18s linear;
+      transition:
+        transform .18s linear;
     }
+
 
     .phone1 {
       left: 2%;
@@ -230,11 +353,13 @@
       --rotate: -13deg;
     }
 
+
     .phone2 {
       right: 2%;
       top: 15%;
       --rotate: 14deg;
     }
+
 
     .phone3 {
       left: 6%;
@@ -242,11 +367,13 @@
       --rotate: -18deg;
     }
 
+
     .phone4 {
       right: 5%;
       top: 48%;
       --rotate: 17deg;
     }
+
 
     .phone5 {
       left: 0%;
@@ -254,11 +381,13 @@
       --rotate: -11deg;
     }
 
+
     .phone6 {
       right: 0%;
       top: 74%;
       --rotate: 12deg;
     }
+
 
     .phone7 {
       left: 12%;
@@ -266,49 +395,76 @@
       --rotate: -8deg;
     }
 
+
     .phone8 {
       right: 12%;
       top: 91%;
       --rotate: 9deg;
     }
 
-    /* --------------------------------
+
+    /* ==========================================
        PAGE
-    -------------------------------- */
+    ========================================== */
 
     .page {
-      width: min(620px, calc(100% - 32px));
+      width:
+        min(
+          620px,
+          calc(100% - 32px)
+        );
+
       margin: 0 auto;
-      padding: 72px 0 36px;
+
+      padding:
+        72px 0 36px;
+
       transition:
         opacity .8s ease,
         filter .8s ease;
     }
 
+
     .top-controls {
       position: fixed;
+
       top: 18px;
       right: 18px;
+
       display: flex;
+
       gap: 9px;
+
       z-index: 50;
     }
+
 
     .control {
       width: 43px;
       height: 43px;
-      border: 1px solid var(--card-border);
+
+      border:
+        1px solid
+        var(--card-border);
+
       border-radius: 15px;
+
       background: var(--card);
+
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 10px 30px rgba(30,40,70,.10);
+
+      box-shadow:
+        0 10px 30px
+        rgba(30,40,70,.10);
 
       display: grid;
       place-items: center;
 
       cursor: pointer;
+
       color: var(--text);
+
       font-size: 18px;
 
       transition:
@@ -316,71 +472,116 @@
         box-shadow .25s ease;
     }
 
+
     .control:hover {
-      transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 14px 35px rgba(50,70,120,.16);
+      transform:
+        translateY(-3px)
+        scale(1.04);
+
+      box-shadow:
+        0 14px 35px
+        rgba(50,70,120,.16);
     }
+
 
     .control:active {
       transform: scale(.92);
     }
 
-    /* --------------------------------
+
+    /* ==========================================
        HERO
-    -------------------------------- */
+    ========================================== */
 
     .hero {
       text-align: center;
+
       margin-bottom: 30px;
     }
 
+
     .profile-wrap {
       position: relative;
+
       width: 108px;
       height: 108px;
-      margin: 0 auto 19px;
+
+      margin:
+        0 auto 19px;
+
       cursor: pointer;
     }
+
 
     .profile {
       width: 100%;
       height: 100%;
+
       display: block;
+
       object-fit: cover;
+
       border-radius: 32px;
-      box-shadow: 0 18px 45px rgba(30,40,70,.16);
+
+      box-shadow:
+        0 18px 45px
+        rgba(30,40,70,.16);
     }
+
 
     .status {
       position: absolute;
+
       right: -3px;
       bottom: -3px;
 
       width: 21px;
       height: 21px;
 
-      border: 4px solid var(--bg);
+      border:
+        4px solid
+        var(--bg);
+
       border-radius: 50%;
 
       background: #31d56d;
-      box-shadow: 0 0 16px rgba(49,213,109,.5);
+
+      box-shadow:
+        0 0 16px
+        rgba(49,213,109,.5);
     }
+
 
     .eyebrow {
       margin-bottom: 8px;
+
       font-size: 11px;
+
       font-weight: 800;
+
       letter-spacing: .18em;
+
       color: var(--muted);
     }
 
+
     h1 {
       margin: 0;
-      font-size: clamp(34px, 7vw, 55px);
+
+      font-size:
+        clamp(
+          34px,
+          7vw,
+          55px
+        );
+
       line-height: .98;
+
       letter-spacing: -.055em;
+
       font-weight: 800;
     }
+
 
     h1 span {
       display: block;
@@ -395,26 +596,35 @@
 
       -webkit-background-clip: text;
       background-clip: text;
+
       color: transparent;
     }
 
+
     .intro {
       max-width: 480px;
-      margin: 18px auto 0;
+
+      margin:
+        18px auto 0;
 
       color: var(--muted);
+
       font-size: 14px;
+
       line-height: 1.65;
     }
 
-    /* --------------------------------
-       LINKS
-    -------------------------------- */
+
+    /* ==========================================
+       LINK CARDS
+    ========================================== */
 
     .links {
       display: grid;
+
       gap: 13px;
     }
+
 
     .link-card {
       position: relative;
@@ -422,12 +632,18 @@
       min-height: 72px;
 
       display: flex;
+
       align-items: center;
+
       gap: 15px;
 
-      padding: 15px 17px;
+      padding:
+        15px 17px;
 
-      border: 1px solid var(--card-border);
+      border:
+        1px solid
+        var(--card-border);
+
       border-radius: 24px;
 
       background: var(--card);
@@ -438,36 +654,53 @@
       box-shadow: var(--shadow);
 
       color: var(--text);
+
       text-decoration: none;
 
       overflow: hidden;
 
       /*
-        Stretch variables.
+        Interaction variables.
       */
+
       --stretch-x: 1;
       --stretch-y: 1;
-      --tx: 0px;
-      --ty: 0px;
+
+      --move-x: 0px;
+      --move-y: 0px;
+
+      --origin-x: 50%;
+      --origin-y: 50%;
 
       --glow-x: 50%;
       --glow-y: 50%;
 
+      transform-origin:
+        var(--origin-x)
+        var(--origin-y);
+
       transform:
-        translate3d(var(--tx),var(--ty),0)
+        translate3d(
+          var(--move-x),
+          var(--move-y),
+          0
+        )
         scaleX(var(--stretch-x))
         scaleY(var(--stretch-y));
 
       transition:
-        transform .22s var(--ease),
+        transform .28s
+          cubic-bezier(.16,1.3,.3,1),
+
         box-shadow .25s ease,
+
         border-color .25s ease;
     }
 
+
     /*
-      IMPORTANT:
-      There is NO permanent glow anymore.
-      It starts at opacity 0.
+      NO STATIC LIGHT.
+      Completely invisible until interaction.
     */
 
     .link-card::before {
@@ -475,19 +708,20 @@
 
       position: absolute;
 
-      width: 210px;
-      height: 210px;
+      width: 230px;
+      height: 230px;
 
       left: var(--glow-x);
       top: var(--glow-y);
 
-      transform: translate(-50%,-50%);
+      transform:
+        translate(-50%,-50%);
 
       background:
         radial-gradient(
           circle,
-          rgba(255,255,255,.45) 0%,
-          rgba(120,170,255,.17) 25%,
+          rgba(255,255,255,.48) 0%,
+          rgba(120,170,255,.18) 24%,
           transparent 68%
         );
 
@@ -496,50 +730,65 @@
       opacity: 0;
 
       transition:
-        opacity .18s ease;
+        opacity .15s ease;
     }
+
 
     .link-card:hover::before,
     .link-card.touching::before {
       opacity: 1;
     }
 
+
     .link-card::after {
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       border-radius: inherit;
 
-      border: 1px solid rgba(120,165,255,.20);
+      border:
+        1px solid
+        rgba(120,165,255,.20);
 
       box-shadow:
-        inset 0 0 25px rgba(120,165,255,.06),
-        0 0 25px rgba(100,145,255,.03);
+        inset 0 0 25px
+        rgba(120,165,255,.06),
+
+        0 0 25px
+        rgba(100,145,255,.03);
 
       pointer-events: none;
 
       opacity: .75;
     }
 
+
     .link-card:hover {
       box-shadow:
-        0 22px 60px rgba(40,70,130,.15),
-        0 0 30px rgba(100,145,255,.07);
+        0 24px 65px
+        rgba(40,70,130,.17),
 
-      border-color: rgba(120,165,255,.42);
+        0 0 35px
+        rgba(100,145,255,.10);
+
+      border-color:
+        rgba(120,165,255,.45);
     }
+
 
     .link-card:active {
-      transform:
-        translate3d(var(--tx),var(--ty),0)
-        scaleX(calc(var(--stretch-x) * .985))
-        scaleY(calc(var(--stretch-y) * .985));
+      transition-duration: .08s;
+
+      filter: brightness(1.04);
     }
+
 
     .icon {
       position: relative;
+
       z-index: 2;
 
       width: 43px;
@@ -550,66 +799,90 @@
       border-radius: 15px;
 
       display: grid;
+
       place-items: center;
 
-      background: rgba(255,255,255,.58);
+      background:
+        rgba(255,255,255,.58);
+
       color: #16191f;
 
       font-size: 19px;
 
       box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,.55);
+        inset 0 0 0 1px
+        rgba(255,255,255,.55);
     }
 
+
     body.dark .icon {
-      background: rgba(255,255,255,.09);
+      background:
+        rgba(255,255,255,.09);
+
       color: white;
 
       box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,.08);
+        inset 0 0 0 1px
+        rgba(255,255,255,.08);
     }
+
 
     .card-content {
       position: relative;
+
       z-index: 2;
 
       flex: 1;
+
       min-width: 0;
     }
 
+
     .card-title {
       font-size: 15px;
+
       font-weight: 700;
+
       margin-bottom: 3px;
     }
 
+
     .card-subtitle {
       color: var(--muted);
+
       font-size: 12px;
 
       white-space: nowrap;
+
       overflow: hidden;
+
       text-overflow: ellipsis;
     }
 
+
     .arrow {
       position: relative;
+
       z-index: 2;
 
       color: var(--muted);
+
       font-size: 18px;
     }
 
-    /* --------------------------------
+
+    /* ==========================================
        EMAIL
-    -------------------------------- */
+    ========================================== */
 
     .email-card {
       cursor: pointer;
     }
 
+
     .copy-button {
       position: relative;
+
       z-index: 5;
 
       flex: 0 0 auto;
@@ -617,16 +890,22 @@
       min-width: 82px;
       min-height: 44px;
 
-      padding: 0 13px;
+      padding:
+        0 13px;
 
       border: 0;
+
       border-radius: 14px;
 
-      background: rgba(80,125,255,.12);
+      background:
+        rgba(80,125,255,.12);
+
       color: var(--accent);
 
       font-family: inherit;
+
       font-size: 12px;
+
       font-weight: 700;
 
       cursor: pointer;
@@ -636,18 +915,23 @@
         background .2s ease;
     }
 
+
     .copy-button:hover {
       transform: scale(1.04);
-      background: rgba(80,125,255,.18);
+
+      background:
+        rgba(80,125,255,.18);
     }
+
 
     .copy-button:active {
       transform: scale(.92);
     }
 
-    /* --------------------------------
+
+    /* ==========================================
        WORK
-    -------------------------------- */
+    ========================================== */
 
     .work {
       margin-top: 30px;
@@ -658,7 +942,9 @@
 
       background: var(--card);
 
-      border: 1px solid var(--card-border);
+      border:
+        1px solid
+        var(--card-border);
 
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
@@ -666,12 +952,16 @@
       box-shadow: var(--shadow);
     }
 
+
     .work h2 {
-      margin: 0 0 8px;
+      margin:
+        0 0 8px;
 
       font-size: 19px;
+
       letter-spacing: -.02em;
     }
+
 
     .work p {
       margin: 0;
@@ -679,21 +969,26 @@
       color: var(--muted);
 
       font-size: 13px;
+
       line-height: 1.65;
     }
 
-    /* --------------------------------
+
+    /* ==========================================
        FOOTER
-    -------------------------------- */
+    ========================================== */
 
     footer {
       text-align: center;
 
-      padding: 28px 0 0;
+      padding:
+        28px 0 0;
 
       color: var(--muted);
+
       font-size: 11px;
     }
+
 
     .easter-trigger {
       display: inline-block;
@@ -701,20 +996,24 @@
       margin-top: 9px;
 
       color: var(--muted);
+
       opacity: .45;
 
       cursor: pointer;
 
-      transition: opacity .2s ease;
+      transition:
+        opacity .2s ease;
     }
+
 
     .easter-trigger:hover {
       opacity: .85;
     }
 
-    /* --------------------------------
+
+    /* ==========================================
        FIREWORKS
-    -------------------------------- */
+    ========================================== */
 
     #fireworks {
       position: fixed;
@@ -731,29 +1030,27 @@
       opacity: 0;
 
       background:
-        radial-gradient(
-          circle at 50% 100%,
-          rgba(55,80,150,.18),
-          transparent 45%
-        ),
         linear-gradient(
           to bottom,
-          rgba(3,7,20,.97),
-          rgba(7,13,35,.94)
+          rgba(3,7,20,.98),
+          rgba(7,13,35,.96)
         );
 
       transition:
         opacity .7s ease;
     }
 
+
     body.fireworks-mode #fireworks {
       opacity: 1;
     }
+
 
     body.fireworks-mode .page,
     body.fireworks-mode .phones,
     body.fireworks-mode .ambient,
     body.fireworks-mode .top-controls {
+
       opacity: 0;
 
       filter: blur(7px);
@@ -762,6 +1059,7 @@
         opacity .7s ease,
         filter .7s ease;
     }
+
 
     .egg-message {
       position: fixed;
@@ -785,16 +1083,26 @@
 
       transition:
         opacity .45s ease,
-        transform .8s cubic-bezier(.17,.89,.32,1.35);
+        transform
+          .8s cubic-bezier(
+            .17,
+            .89,
+            .32,
+            1.35
+          );
     }
 
-    body.fireworks-mode .egg-message {
+
+    body.fireworks-mode
+    .egg-message {
+
       opacity: 1;
 
       transform:
         translate(-50%,-50%)
         scale(1);
     }
+
 
     .egg-icon {
       font-size: 55px;
@@ -803,60 +1111,80 @@
 
       filter:
         drop-shadow(
-          0 0 20px rgba(130,170,255,.6)
+          0 0 20px
+          rgba(130,170,255,.6)
         );
 
       animation:
-        eggFloat 1.8s ease-in-out infinite;
+        eggFloat
+        1.8s ease-in-out infinite;
     }
+
 
     .egg-title {
       font-size: 30px;
+
       font-weight: 800;
+
       letter-spacing: -.04em;
     }
+
 
     .egg-subtitle {
       margin-top: 8px;
 
-      color: rgba(255,255,255,.68);
+      color:
+        rgba(255,255,255,.68);
 
       font-size: 13px;
     }
 
+
     @keyframes eggFloat {
-      0%,100% {
-        transform: translateY(0) scale(1);
+
+      0%,
+      100% {
+        transform:
+          translateY(0)
+          scale(1);
       }
 
       50% {
-        transform: translateY(-8px) scale(1.04);
+        transform:
+          translateY(-8px)
+          scale(1.04);
       }
+
     }
 
-    /* --------------------------------
+
+    /* ==========================================
        REVEAL
-    -------------------------------- */
+    ========================================== */
 
     .reveal {
       opacity: 0;
 
-      transform: translateY(18px);
+      transform:
+        translateY(18px);
 
       transition:
         opacity .7s ease,
         transform .7s var(--ease);
     }
 
+
     .reveal.visible {
       opacity: 1;
 
-      transform: translateY(0);
+      transform:
+        translateY(0);
     }
 
-    /* --------------------------------
+
+    /* ==========================================
        MOBILE
-    -------------------------------- */
+    ========================================== */
 
     @media (max-width: 760px) {
 
@@ -864,16 +1192,24 @@
         opacity: .55;
       }
 
+
       .phone {
         width: 80px;
+
         opacity: .32;
       }
 
+
       .page {
-        width: min(620px, calc(100% - 22px));
+        width:
+          min(
+            620px,
+            calc(100% - 22px)
+          );
 
         padding-top: 82px;
       }
+
 
       .link-card {
         min-height: 76px;
@@ -881,68 +1217,97 @@
         border-radius: 22px;
       }
 
+
       .copy-button {
         min-width: 88px;
+
         min-height: 48px;
       }
+
 
       .control {
         width: 41px;
         height: 41px;
       }
+
     }
+
 
     @media (hover: none), (pointer: coarse) {
 
       .link-card {
         transition:
-          transform .12s var(--ease),
+          transform
+            .22s
+            cubic-bezier(
+              .16,
+              1.35,
+              .3,
+              1
+            ),
+
           box-shadow .18s ease,
+
           border-color .18s ease;
       }
 
+
       .link-card.touching {
+
         box-shadow:
-          0 20px 50px rgba(50,80,150,.18),
-          0 0 35px rgba(100,150,255,.12);
+          0 24px 60px
+          rgba(50,80,150,.20),
+
+          0 0 40px
+          rgba(100,150,255,.15);
 
         border-color:
-          rgba(120,165,255,.5);
+          rgba(120,165,255,.52);
       }
+
     }
 
-    /* --------------------------------
+
+    /* ==========================================
        REDUCED MOTION
-    -------------------------------- */
+    ========================================== */
 
     @media (prefers-reduced-motion: reduce) {
 
       *,
       *::before,
       *::after {
-        scroll-behavior: auto !important;
 
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
+        scroll-behavior:
+          auto !important;
 
-        transition-duration: .01ms !important;
+        animation-duration:
+          .01ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          .01ms !important;
       }
+
     }
+
   </style>
 
 </head>
 
 <body>
 
-  <!-- Ambient background -->
-
   <div class="ambient" aria-hidden="true">
-    <div class="ambient-a"></div>
-    <div class="ambient-b"></div>
-    <div class="ambient-c"></div>
-  </div>
 
-  <!-- Floating phones -->
+```
+<div class="ambient-a"></div>
+<div class="ambient-b"></div>
+<div class="ambient-c"></div>
+```
+
+  </div>
 
   <div class="phones" aria-hidden="true">
 
@@ -1014,8 +1379,6 @@
 
   </div>
 
-  <!-- Controls -->
-
   <div class="top-controls">
 
 ```
@@ -1027,6 +1390,7 @@
 >
   ↗
 </button>
+
 
 <button
   class="control"
@@ -1043,8 +1407,6 @@
   <main class="page">
 
 ```
-<!-- Hero -->
-
 <section class="hero reveal">
 
   <div
@@ -1065,25 +1427,32 @@
 
   </div>
 
+
   <div class="eyebrow">
     FARLANDSTECH
   </div>
 
+
   <h1>
     Smartphones.<br>
-    <span>Tech. Photography.</span>
+
+    <span>
+      Tech. Photography.
+    </span>
   </h1>
 
+
   <p class="intro">
-    Phone content, tech experiments, photography and whatever device
+    Phone content, tech experiments,
+    photography and whatever device
     I'm currently obsessed with.
   </p>
 
 </section>
 
-<!-- Links -->
 
 <section class="links">
+
 
   <a
     class="link-card reveal"
@@ -1092,7 +1461,9 @@
     rel="noopener"
   >
 
-    <div class="icon">♪</div>
+    <div class="icon">
+      ♪
+    </div>
 
     <div class="card-content">
 
@@ -1106,7 +1477,9 @@
 
     </div>
 
-    <div class="arrow">›</div>
+    <div class="arrow">
+      ›
+    </div>
 
   </a>
 
@@ -1118,7 +1491,9 @@
     rel="noopener"
   >
 
-    <div class="icon">▶</div>
+    <div class="icon">
+      ▶
+    </div>
 
     <div class="card-content">
 
@@ -1132,7 +1507,9 @@
 
     </div>
 
-    <div class="arrow">›</div>
+    <div class="arrow">
+      ›
+    </div>
 
   </a>
 
@@ -1144,7 +1521,9 @@
     rel="noopener"
   >
 
-    <div class="icon">☁</div>
+    <div class="icon">
+      ☁
+    </div>
 
     <div class="card-content">
 
@@ -1158,7 +1537,9 @@
 
     </div>
 
-    <div class="arrow">›</div>
+    <div class="arrow">
+      ›
+    </div>
 
   </a>
 
@@ -1170,7 +1551,9 @@
     rel="noopener"
   >
 
-    <div class="icon">V</div>
+    <div class="icon">
+      V
+    </div>
 
     <div class="card-content">
 
@@ -1184,12 +1567,12 @@
 
     </div>
 
-    <div class="arrow">›</div>
+    <div class="arrow">
+      ›
+    </div>
 
   </a>
 
-
-  <!-- Email -->
 
   <div
     class="link-card email-card reveal"
@@ -1203,6 +1586,7 @@
       ✉
     </div>
 
+
     <div class="card-content">
 
       <div class="card-title">
@@ -1215,6 +1599,7 @@
 
     </div>
 
+
     <button
       class="copy-button"
       id="copyEmail"
@@ -1222,6 +1607,7 @@
     >
       Copy
     </button>
+
 
     <div class="arrow">
       ›
@@ -1231,7 +1617,6 @@
 
 </section>
 
-<!-- Work -->
 
 <section class="work reveal">
 
@@ -1240,17 +1625,19 @@
   </h2>
 
   <p>
-    Interested in working together on smartphone, technology or
-    photography content? Send me an email and let's talk.
+    Interested in working together on
+    smartphone, technology or photography
+    content? Send me an email and let's talk.
   </p>
 
 </section>
 
-<!-- Footer -->
 
 <footer class="reveal">
 
-  © <span id="year"></span> FarlandsTech
+  ©
+  <span id="year"></span>
+  FarlandsTech
 
   <br>
 
@@ -1266,11 +1653,7 @@
 
   </main>
 
-  <!-- Fireworks canvas -->
-
 <canvas id="fireworks"></canvas>
-
-  <!-- Easter egg message -->
 
   <div class="egg-message">
 
@@ -1299,7 +1682,10 @@
     const EMAIL =
       "samsungs24ultragoat@gmail.com";
 
-    document.getElementById("year").textContent =
+
+    document.getElementById(
+      "year"
+    ).textContent =
       new Date().getFullYear();
 
 
@@ -1308,10 +1694,15 @@
     ========================================== */
 
     const emailCard =
-      document.getElementById("emailCard");
+      document.getElementById(
+        "emailCard"
+      );
+
 
     const copyButton =
-      document.getElementById("copyEmail");
+      document.getElementById(
+        "copyEmail"
+      );
 
 
     function openEmail() {
@@ -1320,11 +1711,13 @@
         "https://mail.google.com/mail/?view=cm&fs=1&to=" +
         encodeURIComponent(EMAIL);
 
+
       window.open(
         gmailURL,
         "_blank",
         "noopener"
       );
+
     }
 
 
@@ -1339,33 +1732,46 @@
       } catch {
 
         const input =
-          document.createElement("input");
+          document.createElement(
+            "input"
+          );
 
-        input.value = EMAIL;
+        input.value =
+          EMAIL;
 
-        document.body.appendChild(input);
+        document.body.appendChild(
+          input
+        );
 
         input.select();
 
-        document.execCommand("copy");
+        document.execCommand(
+          "copy"
+        );
 
         input.remove();
+
       }
 
 
       const original =
         copyButton.textContent;
 
+
       copyButton.textContent =
         "Copied ✓";
 
 
-      setTimeout(() => {
+      setTimeout(
+        () => {
 
-        copyButton.textContent =
-          original;
+          copyButton.textContent =
+            original;
 
-      }, 1400);
+        },
+        1400
+      );
+
     }
 
 
@@ -1380,6 +1786,7 @@
         ) {
           return;
         }
+
 
         openEmail();
 
@@ -1421,8 +1828,7 @@
 
 
     /* ==========================================
-       CARD INTERACTION
-       STRETCH + FOLLOWING LIGHT
+       CARD STRETCH
     ========================================== */
 
     const cards =
@@ -1431,7 +1837,7 @@
       );
 
 
-    function updateCardTouch(
+    function updateCard(
       card,
       x,
       y
@@ -1464,13 +1870,15 @@
 
 
       /*
-        Position of the light.
+        Light follows the exact
+        pointer position.
       */
 
       card.style.setProperty(
         "--glow-x",
         `${px * 100}%`
       );
+
 
       card.style.setProperty(
         "--glow-y",
@@ -1479,115 +1887,157 @@
 
 
       /*
-        Distance from the centre.
-        This determines the stretch.
+        Pointer becomes the stretch origin.
+
+        This is what makes the card
+        stretch AWAY from the pointer.
       */
 
+      card.style.setProperty(
+        "--origin-x",
+        `${px * 100}%`
+      );
+
+
+      card.style.setProperty(
+        "--origin-y",
+        `${py * 100}%`
+      );
+
+
       const dx =
-        px - 0.5;
+        px - .5;
+
 
       const dy =
-        py - 0.5;
+        py - .5;
 
 
       /*
-        Maximum stretch is deliberately subtle.
-        This keeps the interface premium instead
-        of making the cards look distorted.
+        MUCH stronger stretch.
+
+        Maximum is approximately 11%.
       */
 
       const stretchX =
         1 +
-        Math.abs(dx) * 0.045;
+        Math.abs(dx) * .22;
+
 
       const stretchY =
         1 +
-        Math.abs(dy) * 0.045;
+        Math.abs(dy) * .22;
 
 
       card.style.setProperty(
         "--stretch-x",
-        stretchX
+        stretchX.toFixed(3)
       );
+
 
       card.style.setProperty(
         "--stretch-y",
-        stretchY
+        stretchY.toFixed(3)
       );
 
 
       /*
-        Tiny movement toward the finger/cursor.
+        Slight elastic movement.
       */
 
       card.style.setProperty(
-        "--tx",
-        `${dx * 5}px`
+        "--move-x",
+        `${dx * 9}px`
       );
 
+
       card.style.setProperty(
-        "--ty",
-        `${dy * 4}px`
+        "--move-y",
+        `${dy * 7}px`
       );
 
     }
 
 
-    function resetCard(card) {
+    function resetCard(
+      card
+    ) {
 
       card.style.setProperty(
         "--stretch-x",
         "1"
       );
 
+
       card.style.setProperty(
         "--stretch-y",
         "1"
       );
 
+
       card.style.setProperty(
-        "--tx",
+        "--move-x",
         "0px"
       );
 
+
       card.style.setProperty(
-        "--ty",
+        "--move-y",
         "0px"
       );
+
+
+      card.style.setProperty(
+        "--origin-x",
+        "50%"
+      );
+
+
+      card.style.setProperty(
+        "--origin-y",
+        "50%"
+      );
+
 
       card.style.setProperty(
         "--glow-x",
         "50%"
       );
 
+
       card.style.setProperty(
         "--glow-y",
         "50%"
       );
 
+
       card.classList.remove(
         "touching"
       );
+
     }
 
 
     /*
-      Desktop mouse.
+      Desktop.
     */
 
-    if (
-      window.matchMedia(
-        "(hover: hover) and (pointer: fine)"
-      ).matches
-    ) {
-
-      cards.forEach(card => {
+    cards.forEach(
+      card => {
 
         card.addEventListener(
           "pointerenter",
           event => {
 
-            updateCardTouch(
+            if (
+              event.pointerType ===
+              "touch"
+            ) {
+              return;
+            }
+
+
+            updateCard(
               card,
               event.clientX,
               event.clientY
@@ -1601,7 +2051,15 @@
           "pointermove",
           event => {
 
-            updateCardTouch(
+            if (
+              event.pointerType ===
+              "touch"
+            ) {
+              return;
+            }
+
+
+            updateCard(
               card,
               event.clientX,
               event.clientY
@@ -1615,92 +2073,92 @@
           "pointerleave",
           () => {
 
-            resetCard(card);
+            resetCard(
+              card
+            );
 
           }
         );
 
-      });
 
-    }
+        /*
+          Mobile.
+        */
+
+        card.addEventListener(
+          "pointerdown",
+          event => {
+
+            if (
+              event.pointerType !==
+              "touch"
+            ) {
+              return;
+            }
 
 
-    /*
-      Mobile touch.
-      The glow follows the finger.
-    */
+            card.classList.add(
+              "touching"
+            );
 
-    cards.forEach(card => {
 
-      card.addEventListener(
-        "pointerdown",
-        event => {
+            updateCard(
+              card,
+              event.clientX,
+              event.clientY
+            );
 
-          if (
-            event.pointerType !==
-            "touch"
-          ) {
-            return;
           }
+        );
 
 
-          card.classList.add(
-            "touching"
-          );
+        card.addEventListener(
+          "pointermove",
+          event => {
+
+            if (
+              event.pointerType !==
+              "touch"
+            ) {
+              return;
+            }
 
 
-          updateCardTouch(
-            card,
-            event.clientX,
-            event.clientY
-          );
+            updateCard(
+              card,
+              event.clientX,
+              event.clientY
+            );
 
-        }
-      );
-
-
-      card.addEventListener(
-        "pointermove",
-        event => {
-
-          if (
-            event.pointerType !==
-            "touch"
-          ) {
-            return;
           }
+        );
 
 
-          updateCardTouch(
-            card,
-            event.clientX,
-            event.clientY
-          );
+        card.addEventListener(
+          "pointerup",
+          () => {
 
-        }
-      );
+            resetCard(
+              card
+            );
 
-
-      card.addEventListener(
-        "pointerup",
-        () => {
-
-          resetCard(card);
-
-        }
-      );
+          }
+        );
 
 
-      card.addEventListener(
-        "pointercancel",
-        () => {
+        card.addEventListener(
+          "pointercancel",
+          () => {
 
-          resetCard(card);
+            resetCard(
+              card
+            );
 
-        }
-      );
+          }
+        );
 
-    });
+      }
+    );
 
 
     /* ==========================================
@@ -1717,6 +2175,7 @@
         "profileEgg"
       );
 
+
     const eggTrigger =
       document.getElementById(
         "eggTrigger"
@@ -1728,6 +2187,7 @@
       () => {
 
         eggClicks++;
+
 
         clearTimeout(
           eggResetTimer
@@ -1743,24 +2203,23 @@
           startFireworks();
 
           return;
+
         }
 
 
         eggResetTimer =
-          setTimeout(() => {
+          setTimeout(
+            () => {
 
-            eggClicks = 0;
+              eggClicks = 0;
 
-          }, 1800);
+            },
+            1800
+          );
 
       }
     );
 
-
-    /*
-      Clicking the small text also
-      activates the Easter egg.
-    */
 
     eggTrigger.addEventListener(
       "click",
@@ -1773,7 +2232,7 @@
 
 
     /* ==========================================
-       FIREWORK ENGINE
+       FIREWORKS
     ========================================== */
 
     const canvas =
@@ -1781,16 +2240,22 @@
         "fireworks"
       );
 
+
     const ctx =
-      canvas.getContext("2d");
+      canvas.getContext(
+        "2d"
+      );
 
 
     let fireworksRunning =
       false;
 
+
     let fireworks = [];
 
+
     let particles = [];
+
 
     let fireworkFrame;
 
@@ -1805,17 +2270,23 @@
 
 
       canvas.width =
-        window.innerWidth * dpr;
+        window.innerWidth *
+        dpr;
+
 
       canvas.height =
-        window.innerHeight * dpr;
+        window.innerHeight *
+        dpr;
 
 
       canvas.style.width =
-        window.innerWidth + "px";
+        window.innerWidth +
+        "px";
+
 
       canvas.style.height =
-        window.innerHeight + "px";
+        window.innerHeight +
+        "px";
 
 
       ctx.setTransform(
@@ -1826,6 +2297,7 @@
         0,
         0
       );
+
     }
 
 
@@ -1833,6 +2305,7 @@
       "resize",
       resizeCanvas
     );
+
 
     resizeCanvas();
 
@@ -1890,9 +2363,9 @@
           });
 
         },
-
         delay
       );
+
     }
 
 
@@ -1903,7 +2376,10 @@
 
       const amount =
         Math.floor(
-          random(48,76)
+          random(
+            48,
+            76
+          )
         );
 
 
@@ -1923,7 +2399,8 @@
         const angle =
           (
             Math.PI * 2 * i
-          ) / amount +
+          ) /
+          amount +
           random(
             -.08,
             .08
@@ -1997,6 +2474,7 @@
       ctx.fillStyle =
         "rgba(3,7,20,.19)";
 
+
       ctx.fillRect(
         0,
         0,
@@ -2005,24 +2483,18 @@
       );
 
 
-      /* Rockets */
-
       fireworks.forEach(
         (rocket,index) => {
 
           rocket.trail.push({
-
-            x:
-              rocket.x,
-
-            y:
-              rocket.y
-
+            x: rocket.x,
+            y: rocket.y
           });
 
 
           if (
-            rocket.trail.length > 8
+            rocket.trail.length >
+            8
           ) {
 
             rocket.trail.shift();
@@ -2033,11 +2505,13 @@
           rocket.y -=
             rocket.speed;
 
+
           rocket.speed *=
             .985;
 
 
           ctx.beginPath();
+
 
           ctx.moveTo(
             rocket.x,
@@ -2063,7 +2537,9 @@
           ctx.strokeStyle =
             "rgba(180,210,255,.75)";
 
+
           ctx.lineWidth = 2;
+
 
           ctx.stroke();
 
@@ -2078,6 +2554,7 @@
               rocket.y
             );
 
+
             fireworks.splice(
               index,
               1
@@ -2089,16 +2566,16 @@
       );
 
 
-      /* Particles */
-
       particles.forEach(
         (particle,index) => {
 
           particle.vx *=
             particle.friction;
 
+
           particle.vy *=
             particle.friction;
+
 
           particle.vy +=
             particle.gravity;
@@ -2106,6 +2583,7 @@
 
           particle.x +=
             particle.vx;
+
 
           particle.y +=
             particle.vy;
@@ -2131,6 +2609,7 @@
 
           ctx.beginPath();
 
+
           ctx.arc(
             particle.x,
             particle.y,
@@ -2152,6 +2631,7 @@
           ctx.shadowBlur =
             12;
 
+
           ctx.shadowColor =
             `hsla(
               ${particle.hue},
@@ -2163,7 +2643,9 @@
 
           ctx.fill();
 
-          ctx.shadowBlur = 0;
+
+          ctx.shadowBlur =
+            0;
 
         }
       );
@@ -2189,14 +2671,12 @@
       fireworksRunning =
         true;
 
+
       fireworks = [];
+
 
       particles = [];
 
-
-      /*
-        Dark ColorOS-style transition.
-      */
 
       document.body.classList.add(
         "fireworks-mode"
@@ -2211,10 +2691,6 @@
       );
 
 
-      /*
-        Repeated launches.
-      */
-
       launchFirework(150);
       launchFirework(650);
       launchFirework(1150);
@@ -2228,16 +2704,12 @@
       animateFireworks();
 
 
-      /*
-        After the fireworks:
-        Starry Night stays forever.
-      */
-
       setTimeout(
         () => {
 
           fireworksRunning =
             false;
+
 
           cancelAnimationFrame(
             fireworkFrame
@@ -2247,6 +2719,7 @@
           canvas.style.transition =
             "opacity 1s ease";
 
+
           canvas.style.opacity =
             "0";
 
@@ -2254,18 +2727,14 @@
           setTimeout(
             () => {
 
-              /*
-                IMPORTANT:
-                We do NOT return to the
-                normal background.
-
-                Starry Night becomes
-                the permanent background.
-              */
-
               document.body.classList.remove(
                 "fireworks-mode"
               );
+
+
+              /*
+                Starry Night stays.
+              */
 
               document.body.classList.add(
                 "starry-mode"
@@ -2283,17 +2752,15 @@
               canvas.style.opacity =
                 "";
 
+
               canvas.style.transition =
                 "";
 
             },
-
             1000
           );
 
-
         },
-
         6200
       );
 
@@ -2369,7 +2836,9 @@
     ========================================== */
 
     document
-      .getElementById("shareButton")
+      .getElementById(
+        "shareButton"
+      )
       .addEventListener(
         "click",
         async () => {
@@ -2430,7 +2899,6 @@
                     original;
 
                 },
-
                 1300
               );
 
@@ -2469,7 +2937,8 @@
               index % 2 === 0
                 ? 1
                 : -1
-            ) * .035;
+            ) *
+            .035;
 
 
           phone.style.setProperty(
@@ -2508,7 +2977,7 @@
 
 
     /* ==========================================
-       REVEAL ANIMATION
+       REVEAL
     ========================================== */
 
     const revealObserver =
@@ -2525,6 +2994,7 @@
                 entry.target.classList.add(
                   "visible"
                 );
+
 
                 revealObserver.unobserve(
                   entry.target
@@ -2543,7 +3013,9 @@
 
 
     document
-      .querySelectorAll(".reveal")
+      .querySelectorAll(
+        ".reveal"
+      )
       .forEach(
         element => {
 
