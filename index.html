@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -58,7 +58,6 @@
       z-index: -1;
     }
 
-    /* Soft background light */
     .ambient {
       position: fixed;
       width: 420px;
@@ -271,6 +270,7 @@
         transform 0.25s ease,
         background 0.25s ease,
         box-shadow 0.25s ease;
+
       overflow: hidden;
     }
 
@@ -466,184 +466,137 @@
       }
     }
   </style>
-
 </head>
 
 <body>
-
-  <!-- Soft background -->
 
   <div class="ambient ambient-a"></div>
   <div class="ambient ambient-b"></div>
   <div class="ambient ambient-c"></div>
 
-  <!-- Real phone images.
-       Put your actual transparent phone PNGs in:
-       /images/phones/phone1.png
-       /images/phones/phone2.png
-       etc. -->
-
+  <!-- Your phone images -->
   <div class="phone-field" aria-hidden="true">
 
-```
-<img class="phone phone-1"
-     src="images/phones/phone1.png"
-     alt="">
-
-<img class="phone phone-2"
-     src="images/phones/phone2.png"
-     alt="">
-
-<img class="phone phone-3"
-     src="images/phones/phone3.png"
-     alt="">
-
-<img class="phone phone-4"
-     src="images/phones/phone4.png"
-     alt="">
-
-<img class="phone phone-5"
-     src="images/phones/phone5.png"
-     alt="">
-
-<img class="phone phone-6"
-     src="images/phones/phone6.png"
-     alt="">
-
-<img class="phone phone-7"
-     src="images/phones/phone7.png"
-     alt="">
-
-<img class="phone phone-8"
-     src="images/phones/phone8.png"
-     alt="">
-```
+    <img class="phone phone-1" src="phone1.png" alt="">
+    <img class="phone phone-2" src="phone2.png" alt="">
+    <img class="phone phone-3" src="phone3.png" alt="">
+    <img class="phone phone-4" src="phone4.png" alt="">
+    <img class="phone phone-5" src="phone5.png" alt="">
+    <img class="phone phone-6" src="phone6.png" alt="">
+    <img class="phone phone-7" src="phone7.png" alt="">
+    <img class="phone phone-8" src="phone8.png" alt="">
 
   </div>
 
   <main class="page">
 
-```
-<!-- Main profile -->
-<section class="hero">
+    <!-- Main profile -->
+    <section class="hero">
 
-  <div class="profile-wrap reveal">
+      <div class="profile-wrap reveal">
 
-    <div class="profile-photo">
-      <!-- PUT YOUR PICSART PROFILE IMAGE HERE -->
-      <img src="images/profile.png" alt="FarlandsTech profile picture">
-    </div>
+        <div class="profile-photo">
+          <img src="profile.png" alt="FarlandsTech profile picture">
+        </div>
 
-    <span class="status-dot"></span>
+        <span class="status-dot"></span>
 
-  </div>
+      </div>
 
-  <div class="eyebrow reveal">FARLANDSTECH</div>
+      <div class="eyebrow reveal">FARLANDSTECH</div>
 
-  <h1 class="reveal">
-    Smartphones.<br>
-    <span>Tech. Photography.</span>
-  </h1>
+      <h1 class="reveal">
+        Smartphones.<br>
+        <span>Tech. Photography.</span>
+      </h1>
 
-  <p class="intro reveal">
-    Phone content, tech finds and the stuff worth talking about.
-  </p>
+      <p class="intro reveal">
+        Phone content, tech finds and the stuff worth talking about.
+      </p>
 
-</section>
+    </section>
 
+    <!-- Actual links -->
+    <section class="links-list" aria-label="Links">
 
-<!-- Actual links -->
-<section class="links-list" aria-label="Links">
+      <a
+        class="link-card"
+        href="https://www.tiktok.com/@farlandstech"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="icon">♪</span>
+        <span class="link-text">TikTok</span>
+        <span class="arrow">›</span>
+      </a>
 
-  <!-- TikTok -->
-  <a
-    class="link-card"
-    href="https://www.tiktok.com/@farlandstech"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <span class="icon">♪</span>
-    <span class="link-text">TikTok</span>
-    <span class="arrow">›</span>
-  </a>
+      <a
+        class="link-card"
+        href="https://www.youtube.com/channel/UCwQjS4ojSVepIKLWliLctRw"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="icon">▶</span>
+        <span class="link-text">YouTube</span>
+        <span class="arrow">›</span>
+      </a>
 
+      <a
+        class="link-card"
+        href="https://discord.gg/farcord"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="icon">☁</span>
+        <span class="link-text">Discord</span>
+        <span class="arrow">›</span>
+      </a>
 
-  <!-- YouTube -->
-  <a
-    class="link-card"
-    href="https://www.youtube.com/channel/UCwQjS4ojSVepIKLWliLctRw"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <span class="icon">▶</span>
-    <span class="link-text">YouTube</span>
-    <span class="arrow">›</span>
-  </a>
+      <a
+        class="link-card"
+        href="https://www.vinted.com/member/266298289"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="icon">V</span>
+        <span class="link-text">Vinted</span>
+        <span class="arrow">›</span>
+      </a>
 
+      <button
+        class="link-card"
+        id="emailButton"
+        type="button"
+      >
+        <span class="icon">✉</span>
+        <span class="link-text" id="emailText">
+          samsungs24ultragoat@gmail.com
+        </span>
+        <span class="arrow" id="copyText">⧉</span>
+      </button>
 
-  <!-- Discord -->
-  <a
-    class="link-card"
-    href="https://discord.gg/farcord"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <span class="icon">☁</span>
-    <span class="link-text">Discord</span>
-    <span class="arrow">›</span>
-  </a>
+    </section>
 
+    <!-- Work with me -->
+    <section class="work reveal">
 
-  <!-- Vinted -->
-  <a
-    class="link-card"
-    href="https://www.vinted.com/member/266298289"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <span class="icon">V</span>
-    <span class="link-text">Vinted</span>
-    <span class="arrow">›</span>
-  </a>
+      <div class="work-title">Work with me</div>
 
+      <p class="work-text">
+        For collaborations, sponsorships or other tech-related opportunities,
+        reach me through email.
+      </p>
 
-  <!-- Gmail -->
-  <button
-    class="link-card"
-    id="emailButton"
-    type="button"
-  >
-    <span class="icon">✉</span>
-    <span class="link-text" id="emailText">
-      samsungs24ultragoat@gmail.com
-    </span>
-    <span class="arrow" id="copyText">⧉</span>
-  </button>
+    </section>
 
-</section>
-
-
-<!-- Work with me -->
-<section class="work reveal">
-
-  <div class="work-title">Work with me</div>
-
-  <p class="work-text">
-    For collaborations, sponsorships or other tech-related opportunities,
-    reach me through email.
-  </p>
-
-</section>
-
-
-<footer class="footer">
-  © <span id="year"></span> FarlandsTech
-</footer>
-```
+    <footer class="footer">
+      © <span id="year"></span> FarlandsTech
+    </footer>
 
   </main>
 
   <script>
+
     // Current year
     document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -658,6 +611,7 @@
       const email = "samsungs24ultragoat@gmail.com";
 
       try {
+
         await navigator.clipboard.writeText(email);
 
         copyText.textContent = "✓";
@@ -667,13 +621,15 @@
         }, 1500);
 
       } catch {
-        // Fallback for browsers that don't allow clipboard access
+
         const input = document.createElement("input");
 
         input.value = email;
         document.body.appendChild(input);
+
         input.select();
         document.execCommand("copy");
+
         input.remove();
 
         copyText.textContent = "✓";
@@ -681,6 +637,7 @@
         setTimeout(() => {
           copyText.textContent = "⧉";
         }, 1500);
+
       }
 
     });
@@ -721,8 +678,9 @@
       });
 
     }, { passive: true });
+
   </script>
 
 </body>
 </html>
-
+```
