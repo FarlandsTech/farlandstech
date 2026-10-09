@@ -1,8 +1,13 @@
 {
-  "followers": null,
-  "following": null,
-  "likes": null,
-  "videos": null,
-  "updated": null,
-  "history": []
+  "followers": 21500,
+  "following": 332,
+  "likes": 997000,
+  "videos": 248,
+  "updated": "2026-10-09T19:05:42.963Z",
+  "history": [
+    {
+      "d": "2026-10-09",
+      "f": 21500
+    }
+  ]
 }
