@@ -147,9 +147,9 @@ footer{text-align:center;padding:30px 0 0;color:var(--muted);font-size:11px}
 .solarized-link{display:inline-block;margin-top:9px;color:var(--muted);opacity:.5;text-decoration:none;transition:opacity .3s,transform .4s var(--spring)}
 .solarized-link:hover{opacity:.95;transform:translateY(-2px)}
 
-.dock{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));translate:-50% 0;z-index:60;width:min(360px,calc(100% - 28px));
-  display:grid;grid-template-columns:repeat(3,1fr);padding:6px;border-radius:999px;--i:0;animation:dockIn 1s var(--spring) .35s backwards}
-.ind{position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/3);border-radius:999px;transform:translateX(calc(var(--i)*100%));
+.dock{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));translate:-50% 0;z-index:60;width:min(420px,calc(100% - 28px));
+  display:grid;grid-template-columns:repeat(4,1fr);padding:6px;border-radius:999px;--i:0;animation:dockIn 1s var(--spring) .35s backwards}
+.ind{position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/4);border-radius:999px;transform:translateX(calc(var(--i)*100%));
   transition:transform .6s var(--spring);background:linear-gradient(145deg,rgba(255,255,255,.85),rgba(255,255,255,.35));box-shadow:0 6px 18px rgba(40,60,120,.18),inset 0 1px 1px #fff}
 body.dark .ind{background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.07));box-shadow:0 6px 18px rgba(0,0,0,.35),inset 0 1px 1px rgba(255,255,255,.3)}
 .ind::after{content:"";position:absolute;left:50%;top:5px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red)}
@@ -211,6 +211,69 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
 }
 @media(pointer:coarse){.phones{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ===== v2: mute, specs, museum, stats, mascot ===== */
+:root{--mb1:#8fa8ff;--mb2:#c3a6ff}
+body.starry-mode{--mb1:#f2c744;--mb2:#5b9be8}
+.control svg{width:19px;height:19px;display:block}
+.view[hidden]{display:none}
+
+/* expandable spec cards */
+.xcard{flex-wrap:wrap;row-gap:0;cursor:pointer}
+.xcard .arrow{transition:transform .5s var(--spring),color .3s}
+.xcard.open .arrow{transform:rotate(90deg)}
+.xcard.open.live .arrow{transform:rotate(90deg) scale(1.12)}
+.specs{position:relative;z-index:3;flex:1 0 100%;display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease);cursor:default}
+.xcard.open .specs{grid-template-rows:1fr}
+.specs>div{overflow:hidden;min-height:0}
+.spec-grid{display:grid;grid-template-columns:minmax(74px,92px) minmax(0,1fr);gap:7px 12px;margin-top:14px;padding:14px 2px 4px;border-top:1px solid color-mix(in srgb,var(--muted) 28%,transparent);font-size:12px;line-height:1.45;opacity:0;transition:opacity .35s}
+.xcard.open .spec-grid{opacity:1;transition:opacity .45s .12s}
+.spec-k{color:var(--muted);font-weight:600}
+.spec-v{color:var(--text);overflow-wrap:anywhere}
+.spec-note{margin:22px 6px 0;color:var(--muted);font-size:11px;text-align:center;line-height:1.5}
+body.starry-mode .spec-grid{font-size:14px}
+body.starry-mode .spec-note{font-size:13px}
+
+/* devices sub-switch */
+.seg{position:relative;display:grid;grid-template-columns:1fr 1fr;padding:5px;border-radius:999px;margin:0 0 24px;--si:0}
+.seg-ind{position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 10px)/2);border-radius:999px;transform:translateX(calc(var(--si)*100%));transition:transform .6s var(--spring);
+  background:linear-gradient(145deg,rgba(255,255,255,.85),rgba(255,255,255,.35));box-shadow:0 6px 18px rgba(40,60,120,.18),inset 0 1px 1px #fff}
+body.dark .seg-ind{background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.07));box-shadow:0 6px 18px rgba(0,0,0,.35),inset 0 1px 1px rgba(255,255,255,.3)}
+body.starry-mode .seg-ind{background:linear-gradient(145deg,rgba(242,199,68,.38),rgba(79,134,216,.28));box-shadow:0 6px 18px rgba(0,0,20,.45),inset 0 1px 1px rgba(247,233,168,.5);outline:1.5px solid #5b8fd8;outline-offset:-1.5px}
+.seg button{position:relative;z-index:2;min-height:44px;border:0;border-radius:999px;background:none;color:var(--muted);font:700 13px Inter,sans-serif;cursor:pointer;transition:color .3s,transform .4s var(--spring)}
+.seg button.on{color:var(--text)}.seg button:active{transform:scale(.95)}
+body.starry-mode .seg button{font-family:Kalam,cursive;font-size:16px}
+
+/* creator stats */
+.stat-hero{display:block;padding:22px 22px 18px;border-radius:32px;cursor:default}
+.stat-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.stat-label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em}
+.stat-big{font-family:var(--dm);font-weight:900;font-size:clamp(42px,13vw,68px);letter-spacing:.02em;line-height:1.05;margin:8px 0 0;font-variant-numeric:tabular-nums}
+.stat-delta{font:700 12px Inter,sans-serif;color:var(--muted)}
+.stat-delta.up{color:var(--green)}.stat-delta.down{color:var(--red)}
+body.starry-mode .stat-delta{font-family:Kalam,cursive;font-size:15px}
+.spark{display:block;width:100%;height:84px;margin-top:14px;color:var(--accent)}
+.spark .ln{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.stat-note{margin-top:8px;color:var(--muted);font-size:11px}
+.stat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.stat-chip{min-height:96px;flex-direction:column;justify-content:center;align-items:flex-start;gap:5px;padding:16px;border-radius:26px;cursor:default}
+.stat-num{font-family:var(--dm);font-weight:900;font-size:clamp(22px,6.4vw,30px);line-height:1.1;font-variant-numeric:tabular-nums}
+body.starry-mode .stat-note{font-size:13px}
+
+/* mascot: Dot, an original little phone-sprite that peeks over card edges */
+.has-dot{margin-top:38px!important}
+.dot{position:absolute;bottom:calc(100% - 7px);width:58px;z-index:5;cursor:pointer;--ex:0;--ey:0}
+.dot-l{left:26px}.dot-r{right:30px}.dot-c{left:calc(50% - 29px)}
+.dot svg{display:block;width:100%;height:auto;overflow:visible}
+.dot .head{transition:transform .55s var(--spring)}
+.dot.shy .head{transform:translateY(60px)}
+.dot .bob{animation:dotbob 3.4s ease-in-out infinite}
+.dot .eyes{transform:translate(calc(var(--ex)*1px),calc(var(--ey)*1px));transition:transform .18s ease-out}
+.dot .eye{transform-box:fill-box;transform-origin:center;animation:dblink 5.6s infinite;animation-delay:var(--bd,0s)}
+.dot .led-top{animation:dotled 2.2s ease-in-out infinite}
+@keyframes dotbob{50%{transform:translateY(-1.6px)}}
+@keyframes dblink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+@keyframes dotled{50%{opacity:.4}}
 </style>
 </head>
 <body>
@@ -230,6 +293,7 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
 
 <div class="top-controls">
   <button class="control glass" id="shareButton" aria-label="Share" type="button">↗</button>
+  <button class="control glass" id="muteButton" aria-label="Mute sounds" aria-pressed="false" type="button"></button>
   <button class="control glass" id="themeButton" aria-label="Toggle dark mode" type="button">☾</button>
 </div>
 <div id="themeTransition" aria-hidden="true"></div>
@@ -277,7 +341,7 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
         <button class="copy-button" id="copyEmail" type="button">Copy</button>
         <div class="arrow">›</div>
       </div>
-      <div class="card glass work stg" style="--b:#9c63ff">
+      <div class="card glass work stg" style="--b:#9c63ff" data-dot="r">
         <h2>Work with me</h2>
         <p>Interested in working together on smartphone, technology or photography content? Send me an email and let's talk.</p>
       </div>
@@ -286,37 +350,22 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
 
   <!-- DEVICES -->
   <div class="tab" id="t-devices">
-    <div class="sec dm stg"><span class="led"></span>Daily carry<small>What I use right now</small></div>
-    <section class="links">
-      <div class="card glass stg" style="--b:#ff6a3d">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3.2"/><circle cx="12" cy="7.5" r="2.3"/><path d="M10.5 18.5h3"/></svg></div>
-        <div class="card-content"><div class="card-title">OPPO Find X9 Ultra</div><div class="card-subtitle">Main phone</div></div>
-        <div class="tag"><span class="led"></span>MAIN</div>
-      </div>
-      <div class="card glass stg" style="--b:#7aa5ff">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3.2"/><circle cx="12" cy="5.8" r="0.9" fill="currentColor"/><path d="M10.5 18.5h3"/></svg></div>
-        <div class="card-content"><div class="card-title">Samsung Galaxy S21 FE</div><div class="card-subtitle">Secondary phone</div></div>
-        <div class="tag"><span class="led off"></span>2ND</div>
-      </div>
-      <div class="card glass stg" style="--b:#c58bff">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.2 3.5a3.2 3.2 0 0 0-3.2 3.2v2.1a3.3 3.3 0 0 0 2 3v6.7a1.5 1.5 0 0 0 3 0v-6.7a3.3 3.3 0 0 0 2-3V6.7a3.2 3.2 0 0 0-3.8-3.2z"/><path d="M15.8 3.5a3.2 3.2 0 0 1 3.2 3.2v2.1a3.3 3.3 0 0 1-2 3v6.7a1.5 1.5 0 0 1-3 0"/></svg></div>
-        <div class="card-content"><div class="card-title">Galaxy Buds 3 Pro</div><div class="card-subtitle">Earbuds</div></div>
-        <div class="tag"><span class="led"></span>BUDS</div>
-      </div>
-      <div class="card glass stg" style="--b:#19c7a8">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2 19h20"/></svg></div>
-        <div class="card-content"><div class="card-title">Lenovo ThinkPad T490</div><div class="card-subtitle">Computer</div></div>
-        <div class="tag"><span class="led"></span>PC</div>
-      </div>
-    </section>
-    <div class="sec dm stg" style="margin-top:28px"><span class="led a"></span>Ordered tech<small>On the way</small></div>
-    <section class="links">
-      <div class="card glass stg" style="--b:#ffb020">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="9" width="10" height="13" rx="2.4"/><rect x="3.5" y="2.5" width="17" height="9" rx="2.4" transform="rotate(-18 12 7)"/></svg></div>
-        <div class="card-content"><div class="card-title">LG Wing</div><div class="card-subtitle">Ordered, waiting for it to arrive</div></div>
-        <div class="tag"><span class="led a"></span>ORDERED</div>
-      </div>
-    </section>
+    <div class="seg glass stg" id="devSeg"><span class="seg-ind"></span>
+      <button class="on" data-v="carry" type="button">My devices</button>
+      <button data-v="museum" type="button">Phone museum</button>
+    </div>
+    <div class="view" id="v-carry">
+      <div class="sec dm stg"><span class="led"></span>Daily carry<small>Tap a device for specs</small></div>
+      <section class="links" id="carryList"></section>
+      <div class="sec dm stg" style="margin-top:28px"><span class="led a"></span>Ordered tech<small>On the way</small></div>
+      <section class="links" id="orderedList"></section>
+      <p class="spec-note stg">Specs via GSMArena and manufacturer pages. Exact configs can vary by region.</p>
+    </div>
+    <div class="view" id="v-museum" hidden>
+      <div class="sec dm stg"><span class="led"></span>Phone museum<small id="musCount"></small></div>
+      <p class="about-p stg">Every phone I've owned, sorted by brand. Tap one for the story and the spec sheet.</p>
+      <div id="musList"></div>
+    </div>
   </div>
 
   <!-- ABOUT -->
@@ -346,10 +395,38 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
       <div class="card glass chip dm stg" style="--b:#9c63ff"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l3.5-1 12-12-2.5-2.5-12 12z"/><path d="M14.5 5.5L17 8"/></svg></div>Design</div>
     </section>
     <section class="links" style="margin-top:14px">
-      <div class="card glass work stg" style="--b:#ff3b30">
+      <div class="card glass work stg" style="--b:#ff3b30" data-dot="l">
         <h2>Let's make something</h2>
         <p>Got an idea or a product to feature? Get in touch by email from the Links tab.</p>
       </div>
+    </section>
+  </div>
+
+  <!-- STATS -->
+  <div class="tab" id="t-stats">
+    <div class="sec dm stg"><span class="led off" id="stLed"></span>Creator stats<small id="stUpdated">Waiting for first update</small></div>
+    <section class="links">
+      <div class="card glass stat-hero stg" style="--b:#ff2d6f" data-dot="r">
+        <div class="stat-top"><div class="stat-label">TIKTOK FOLLOWERS</div><div class="stat-delta" id="stDelta"></div></div>
+        <div class="stat-big" id="stFollowers">—</div>
+        <svg class="spark" id="stSpark" viewBox="0 0 300 84" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="stat-note" id="stSparkNote">The growth chart appears after two daily updates.</div>
+      </div>
+      <div class="stat-grid">
+        <div class="card glass stat-chip stg" style="--b:#ff3b30"><div class="stat-label">LIKES</div><div class="stat-num" id="stLikes">—</div></div>
+        <div class="card glass stat-chip stg" style="--b:#3d7cff"><div class="stat-label">FOLLOWING</div><div class="stat-num" id="stFollowing">—</div></div>
+        <div class="card glass stat-chip stg" style="--b:#19c7a8"><div class="stat-label">VIDEOS</div><div class="stat-num" id="stVideos">—</div></div>
+      </div>
+      <div class="card glass stg" style="--b:#f2a03d;cursor:default">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.8a4.3 4.3 0 0 1 7.5 2.7c0 5.4-7.5 10-7.5 10z"/></svg></div>
+        <div class="card-content"><div class="card-title">Average likes per video</div><div class="card-subtitle">Total likes divided by videos</div></div>
+        <div class="tag" id="stRatio">—</div>
+      </div>
+      <a class="card glass stg" style="--b:#ff2d6f" href="https://www.tiktok.com/@farlandstech" target="_blank" rel="noopener">
+        <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.7 3c.4 2.5 1.8 4.2 4.3 4.4v3.1c-1.7.1-3.1-.4-4.3-1.3v6.1c0 4-2.8 6.7-6.7 6.7-3.6 0-6.2-2.6-6.2-5.9 0-3.6 2.9-6.2 6.8-6.2.4 0 .8 0 1.2.1v3.2c-.4-.1-.8-.2-1.2-.2-1.9 0-3.4 1.2-3.4 3 0 1.6 1.2 2.8 2.8 2.8 1.8 0 3.3-1.2 3.3-3.7V3h3.4z"/></svg></div>
+        <div class="card-content"><div class="card-title">Open @farlandstech</div><div class="card-subtitle">Numbers refresh every 24 hours</div></div>
+        <div class="arrow">›</div>
+      </a>
     </section>
   </div>
 
@@ -364,6 +441,7 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
   <button class="on" data-tab="links" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Links</button>
   <button data-tab="devices" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3.2"/><path d="M10.5 18.5h3"/></svg>Devices</button>
   <button data-tab="about" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.6-3.6 3.5-5.5 7-5.5s6.4 1.9 7 5.5"/></svg>About</button>
+  <button data-tab="stats" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-9M12 20V5M19 20v-6"/></svg>Stats</button>
 </nav>
 
 <canvas id="fireworks"></canvas>
@@ -458,10 +536,430 @@ addEventListener("touchmove",e=>{ // fires during scrolling too, so it follows y
   draw();addEventListener("resize",draw);
 })();
 
+/* ======================= v2 additions ======================= */
+
+/* ---------- Sound engine (Web Audio, everything synthesized, no files) ---------- */
+const SFX=(()=>{
+  let ctx=null,master=null,noiseBuf=null,muted=false;
+  try{muted=localStorage.getItem("farlands-muted")==="1"}catch(e){}
+  const AC=window.AudioContext||window.webkitAudioContext;
+  function init(){
+    if(!AC)return null;
+    if(!ctx){
+      ctx=new AC();
+      const comp=ctx.createDynamicsCompressor();
+      master=ctx.createGain();master.gain.value=.55;
+      master.connect(comp);comp.connect(ctx.destination);
+      noiseBuf=ctx.createBuffer(1,Math.floor(ctx.sampleRate*1.5),ctx.sampleRate);
+      const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+    }
+    if(ctx.state==="suspended")ctx.resume();
+    return ctx;
+  }
+  const ok=()=>muted?null:init();
+  function tone(f,dur,o){
+    o=o||{};const c=ok();if(!c)return;
+    const t=c.currentTime+(o.at||0),osc=c.createOscillator(),g=c.createGain();
+    osc.type=o.type||"sine";osc.frequency.setValueAtTime(f,t);
+    if(o.to)osc.frequency.exponentialRampToValueAtTime(o.to,t+dur);
+    const v=o.vol==null?.25:o.vol,a=o.attack||.006;
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    osc.connect(g);g.connect(master);osc.start(t);osc.stop(t+dur+.05);
+  }
+  function noise(dur,o){
+    o=o||{};const c=ok();if(!c)return;
+    const t=c.currentTime+(o.at||0),src=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();
+    src.buffer=noiseBuf;src.loop=true;
+    f.type=o.type||"bandpass";f.Q.value=o.q==null?1:o.q;
+    f.frequency.setValueAtTime(o.f0||1500,t);
+    if(o.f1)f.frequency.exponentialRampToValueAtTime(o.f1,t+dur);
+    const v=o.vol==null?.2:o.vol,a=o.attack||.01,rel=o.release||Math.min(.15,dur*.5);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+a);
+    g.gain.setValueAtTime(v,t+Math.max(a,dur-rel));g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    src.connect(f);f.connect(g);g.connect(master);src.start(t,Math.random()*.5);src.stop(t+dur+.05);
+  }
+  const api={
+    get muted(){return muted},
+    unlock(){if(!muted)init()},
+    setMuted(m){
+      muted=m;try{localStorage.setItem("farlands-muted",m?"1":"0")}catch(e){}
+      if(ctx&&master)master.gain.setTargetAtTime(m?0:.55,ctx.currentTime,.02);
+      if(!m){init();setTimeout(()=>api.blip(),40)}
+    },
+    // dock tap: soft thump plus a tiny click, pitched per tab
+    tab(i){const f=200+(i||0)*28;noise(.035,{type:"bandpass",f0:3400,q:.9,vol:.16});tone(f,.09,{to:f*.55,vol:.32})},
+    link(){tone(620,.08,{to:930,type:"triangle",vol:.2});noise(.025,{f0:3000,vol:.08})},
+    pop(n){n=n||0;tone(380+n*70,.12,{to:760+n*140,vol:.26})},
+    blip(){tone(740,.09,{type:"triangle",vol:.2})},
+    ding(){tone(880,.26,{vol:.2});tone(1318.5,.38,{at:.09,vol:.2})},
+    share(){tone(520,.12,{to:780,vol:.2});tone(780,.2,{at:.1,to:1040,vol:.17})},
+    theme(dark){
+      noise(.6,{type:"lowpass",f0:dark?2600:260,f1:dark?260:2600,q:.8,vol:.22,attack:.08,release:.3});
+      tone(dark?330:392,.4,{to:dark?196:659,type:"triangle",vol:.12});
+    },
+    flip(){noise(.15,{f0:1200,f1:3800,q:.6,vol:.16,attack:.03});tone(300,.07,{to:200,vol:.12})},
+    expand(open){tone(open?420:520,.11,{to:open?660:330,vol:.2});noise(.04,{f0:2600,vol:.07})},
+    squeak(){tone(900,.15,{to:1550,vol:.2});tone(1250,.13,{at:.13,to:1800,vol:.15});tone(1700,.1,{at:.24,to:1300,vol:.08})},
+    // easter egg: brush strokes, bristle hiss and twinkling "stars"
+    paint(){
+      if(!ok())return;
+      for(let i=0;i<18;i++){
+        const at=i*.117,len=.55+Math.random()*.35,sw=i%2===0;
+        noise(len,{at:at,type:"bandpass",f0:sw?900:1500,f1:sw?2600:900,q:.7,vol:.11,attack:.12,release:.22});
+        noise(len*.9,{at:at+.03,type:"highpass",f0:4200,q:.5,vol:.035,attack:.1,release:.2});
+      }
+      const N=[659.25,783.99,880,1046.5,1318.5,1568];
+      for(let k=0;k<12;k++){
+        const f=N[Math.random()*N.length|0],at=.2+k*.28+Math.random()*.1;
+        tone(f,1.1,{at:at,vol:.07});tone(f*2,.5,{at:at,vol:.02});
+      }
+    },
+    reveal(on){
+      const seq=on?[523.25,659.25,783.99,1046.5,1318.5]:[1046.5,783.99,659.25,523.25];
+      seq.forEach((f,i)=>tone(f,.9,{at:i*.09,vol:.14,type:"triangle"}));
+    }
+  };
+  return api;
+})();
+["pointerdown","touchend","click","keydown"].forEach(t=>addEventListener(t,()=>SFX.unlock(),{passive:true,capture:true}));
+
+const muteButton=$("muteButton");
+const ICO_ON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
+const ICO_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>';
+function paintMute(){
+  muteButton.innerHTML=SFX.muted?ICO_OFF:ICO_ON;
+  muteButton.setAttribute("aria-pressed",String(SFX.muted));
+  muteButton.setAttribute("aria-label",SFX.muted?"Unmute sounds":"Mute sounds");
+}
+paintMute();
+muteButton.addEventListener("click",()=>{
+  SFX.setMuted(!SFX.muted);paintMute();
+  muteButton.classList.remove("pop");void muteButton.offsetWidth;muteButton.classList.add("pop");haptic(10);
+});
+document.addEventListener("click",e=>{if(e.target.closest("a.card"))SFX.link()});
+
+/* ---------- Device data ---------- */
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const si=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
+const IC={
+  main:si('<rect x="6" y="2" width="12" height="20" rx="3.2"/><circle cx="12" cy="7.5" r="2.3"/><path d="M10.5 18.5h3"/>'),
+  fe:si('<rect x="6" y="2" width="12" height="20" rx="3.2"/><circle cx="12" cy="5.8" r="0.9" fill="currentColor"/><path d="M10.5 18.5h3"/>'),
+  buds:si('<path d="M8.2 3.5a3.2 3.2 0 0 0-3.2 3.2v2.1a3.3 3.3 0 0 0 2 3v6.7a1.5 1.5 0 0 0 3 0v-6.7a3.3 3.3 0 0 0 2-3V6.7a3.2 3.2 0 0 0-3.8-3.2z"/><path d="M15.8 3.5a3.2 3.2 0 0 1 3.2 3.2v2.1a3.3 3.3 0 0 1-2 3v6.7a1.5 1.5 0 0 1-3 0"/>'),
+  pc:si('<rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2 19h20"/>'),
+  wing:si('<rect x="7" y="9" width="10" height="13" rx="2.4"/><rect x="3.5" y="2.5" width="17" height="9" rx="2.4" transform="rotate(-18 12 7)"/>')
+};
+// small phone icons that hint at each era / shape
+const PH={
+  home:si('<rect x="6" y="2" width="12" height="20" rx="2.4"/><path d="M10.5 4.7h3"/><circle cx="12" cy="19" r="1.2"/>'),
+  notch:si('<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M9.6 2.2v.9a1 1 0 0 0 1 1h2.8a1 1 0 0 0 1-1v-.9"/>'),
+  punch:si('<rect x="6" y="2" width="12" height="20" rx="3"/><circle cx="12" cy="5.4" r=".9" fill="currentColor"/>'),
+  pill:si('<rect x="6" y="2" width="12" height="20" rx="3"/><rect x="13" y="4.1" width="2.6" height="1.5" rx=".75" fill="currentColor" stroke="none"/>'),
+  flat:si('<rect x="6" y="2" width="12" height="20" rx="2.2"/><circle cx="12" cy="5.4" r=".9" fill="currentColor"/>'),
+  ultra:si('<rect x="6" y="2" width="12" height="20" rx="1.6"/><circle cx="12" cy="5.4" r=".9" fill="currentColor"/><path d="M15.5 22.4v1"/>'),
+  edge:si('<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M5.2 5.5v13M18.8 5.5v13"/><path d="M10.5 4.7h3"/>'),
+  inf:si('<rect x="6.5" y="1.5" width="11" height="21" rx="4.2"/><path d="M10.6 3.9h2.8"/>'),
+  fold:si('<rect x="3" y="4" width="18" height="16" rx="2.4"/><path d="M12 4v16"/><circle cx="7.4" cy="7.2" r=".8" fill="currentColor"/>')
+};
+
+const CARRY=[
+  {b:"#ff6a3d",ic:IC.main,t:"OPPO Find X9 Ultra",s:"Main phone",tag:["MAIN",""],sp:[
+    ["Display","6.82-inch LTPO AMOLED · 3168 × 1440 · up to 144 Hz · 3,600 nits peak"],
+    ["Chip","Snapdragon 8 Elite Gen 5 (3 nm)"],
+    ["Memory","12 GB LPDDR5X + 512 GB UFS 4.1 · no card slot"],
+    ["Cameras","200 MP main · 50 MP ultrawide · 200 MP 3× periscope · 50 MP 10× periscope · Hasselblad tuning"],
+    ["Selfie","50 MP"],
+    ["Battery","7,050 mAh · 100 W wired · 50 W wireless"],
+    ["Software","Android 16 · ColorOS · 5 OS and 6 security update years"],
+    ["Size","163.2 × 77.0 × 8.65–9.10 mm · 235–236 g (depends on finish)"],
+    ["Launched","Spring 2026"]]},
+  {b:"#7aa5ff",ic:IC.fe,t:"Samsung Galaxy S21 FE",s:"Secondary phone",tag:["2ND","off"],sp:[
+    ["Display","6.4-inch Dynamic AMOLED 2X · 2340 × 1080 · 120 Hz"],
+    ["Chip","Snapdragon 888 or Exynos 2100 (depends on region)"],
+    ["Memory","6/8 GB RAM · 128/256 GB · no card slot"],
+    ["Cameras","12 MP main (OIS) · 12 MP ultrawide · 8 MP 3× telephoto"],
+    ["Selfie","32 MP"],
+    ["Battery","4,500 mAh · 25 W wired · 15 W wireless"],
+    ["Software","Android 11 at launch · updated up to Android 15"],
+    ["Size","155.7 × 74.5 × 7.9 mm · 177 g · IP68"],
+    ["Launched","January 2022"]]},
+  {b:"#c58bff",ic:IC.buds,t:"Galaxy Buds 3 Pro",s:"Earbuds",tag:["BUDS",""],sp:[
+    ["Drivers","10.5 mm dynamic + 6.1 mm planar tweeter · dual amp"],
+    ["Noise control","Adaptive ANC · ambient sound"],
+    ["Battery","53 mAh per bud · 515 mAh case · up to 26 h with ANC on, 30 h off (with case)"],
+    ["Connection","Bluetooth 5.4 · USB-C · wireless charging case"],
+    ["Mics","3 mics + voice pickup unit"],
+    ["Durability","IP57"],
+    ["Weight","5.4 g per bud · 46.5 g case"],
+    ["Launched","July 2024"]]},
+  {b:"#19c7a8",ic:IC.pc,t:"Lenovo ThinkPad T490",s:"Computer",tag:["PC",""],dot:"",sp:[
+    ["Display","14-inch FHD (1920 × 1080) IPS · 250–400 nits depending on config"],
+    ["Processor","Intel Core i5 / i7, 8th–10th gen U-series (for example i5-8265U, i7-8665U)"],
+    ["Graphics","Intel UHD 620 · optional NVIDIA MX250"],
+    ["Memory","DDR4 · amount depends on your config"],
+    ["Storage","M.2 2280 PCIe NVMe SSD"],
+    ["Wireless","Intel Wi-Fi 5 (9560) · Bluetooth 5.0"],
+    ["Webcam","720p with ThinkShutter privacy cover"],
+    ["Launched","2019"]]}
+];
+const ORDERED=[
+  {b:"#ffb020",ic:IC.wing,t:"LG Wing",s:"Ordered, waiting for it to arrive",tag:["ORDERED","a"],dot:"c",sp:[
+    ["Display","6.8-inch rotating P-OLED · 2460 × 1080 + 3.9-inch G-OLED second screen"],
+    ["Chip","Snapdragon 765G 5G (7 nm)"],
+    ["Memory","8 GB RAM · 128/256 GB · microSD (shared SIM slot)"],
+    ["Cameras","64 MP main · 13 MP ultrawide · 12 MP gimbal ultrawide"],
+    ["Selfie","32 MP motorized pop-up"],
+    ["Battery","4,000 mAh · 25 W (Quick Charge 4+) · wireless charging"],
+    ["Software","Android 10 at launch · updated to Android 13"],
+    ["Size","169.5 × 74.5 × 10.9 mm · 260 g · IP54 · Gorilla Glass 5"],
+    ["Launched","October 2020"]]}
+];
+
+/* Phone museum. d = release month (used for sorting), st = status, lab = tag text */
+const MUSEUM=[
+  // Samsung
+  {br:"Samsung",t:"Galaxy S24 Ultra",d:"2024-01",rel:"Jan 2024",st:"past",lab:"PAST MAIN",ico:"ultra",
+   note:"My main from June 26, kept for 11 months. I didn't really like it.",
+   sp:[["Display","6.8-inch Dynamic LTPO AMOLED 2X · 3120 × 1440 · 1–120 Hz"],["Chip","Snapdragon 8 Gen 3 for Galaxy"],["Memory","12 GB + 256/512 GB or 1 TB"],["Cameras","200 MP main · 12 MP ultrawide · 10 MP 3× · 50 MP 5× · 12 MP selfie"],["Battery","5,000 mAh · 45 W wired"],["Size","162.3 × 79.0 × 8.6 mm · 232 g · titanium frame · S Pen"]]},
+  {br:"Samsung",t:"Galaxy S24",d:"2024-01",rel:"Jan 2024",st:"traded",lab:"TRADED",ico:"flat",
+   note:"My secondary in winter 2025. Quite comfy to hold, but I traded it.",
+   sp:[["Display","6.2-inch Dynamic LTPO AMOLED 2X · 2340 × 1080 · 1–120 Hz"],["Chip","Exynos 2400 (Europe) or Snapdragon 8 Gen 3"],["Memory","8 GB + 128/256/512 GB"],["Cameras","50 MP main · 12 MP ultrawide · 10 MP 3× · 12 MP selfie"],["Battery","4,000 mAh · 25 W wired"],["Size","147.0 × 70.6 × 7.6 mm · 167 g"]]},
+  {br:"Samsung",t:"Galaxy A55",d:"2024-03",rel:"Mar 2024",st:"past",lab:"PAST MAIN",ico:"punch",
+   note:"My main from Dec 31 until June 26. I hated this phone.",
+   sp:[["Display","6.6-inch Super AMOLED · 2340 × 1080 · 120 Hz"],["Chip","Exynos 1480"],["Memory","8/12 GB + 128/256 GB · microSD"],["Cameras","50 MP main (OIS) · 12 MP ultrawide · 5 MP macro · 32 MP selfie"],["Battery","5,000 mAh · 25 W wired"],["Size","161.1 × 77.4 × 8.2 mm · 213 g · IP67"]]},
+  {br:"Samsung",t:"Galaxy S21 Ultra",d:"2021-01",rel:"Jan 2021",st:"sold",lab:"SOLD",ico:"ultra",
+   note:"Sat in my collection for a while, then I sold it because it felt mid.",
+   sp:[["Display","6.8-inch Dynamic AMOLED 2X · 3200 × 1440 · 10–120 Hz"],["Chip","Exynos 2100 or Snapdragon 888"],["Memory","12/16 GB + 128/256/512 GB"],["Cameras","108 MP main · 12 MP ultrawide · 10 MP 3× · 10 MP 10× · 40 MP selfie"],["Battery","5,000 mAh · 25 W wired"],["Size","165.1 × 75.6 × 8.9 mm · 227 g"]]},
+  {br:"Samsung",t:"Galaxy S21+",d:"2021-01",rel:"Jan 2021",st:"sold",lab:"SOLD",ico:"flat",
+   note:"Bought with a broken back and sold it for a €40 profit.",
+   sp:[["Display","6.7-inch Dynamic AMOLED 2X · 2400 × 1080 · 48–120 Hz"],["Chip","Exynos 2100 or Snapdragon 888"],["Memory","8 GB + 128/256 GB"],["Cameras","12 MP main · 12 MP ultrawide · 64 MP 3× · 10 MP selfie"],["Battery","4,800 mAh · 25 W wired"],["Size","161.5 × 75.6 × 7.8 mm · 202 g"]]},
+  {br:"Samsung",t:"Galaxy A52s 5G",d:"2021-08",rel:"Aug 2021",st:"kept",lab:"KEPT",ico:"punch",
+   note:"This one is my goat. It has a broken screen though.",
+   sp:[["Display","6.5-inch Super AMOLED · 2400 × 1080 · 120 Hz"],["Chip","Snapdragon 778G 5G"],["Memory","6/8 GB + 128/256 GB · microSD"],["Cameras","64 MP main (OIS) · 12 MP ultrawide · 5 MP macro · 5 MP depth · 32 MP selfie"],["Battery","4,500 mAh · 25 W wired"],["Size","159.9 × 75.1 × 8.4 mm · 189 g · IP67"]]},
+  {br:"Samsung",t:"Galaxy S10+",d:"2019-03",rel:"Mar 2019",st:"broken",lab:"2× BROKEN",ico:"pill",
+   note:"I have two, both broken. I'll repair them soon.",
+   sp:[["Display","6.4-inch Dynamic AMOLED · 3040 × 1440 · 60 Hz"],["Chip","Exynos 9820 or Snapdragon 855"],["Memory","8/12 GB RAM · 128 GB–1 TB · microSD"],["Cameras","12 MP main · 12 MP 2× tele · 16 MP ultrawide · 10 + 8 MP dual selfie"],["Battery","4,100 mAh · 15 W wired"],["Size","157.6 × 74.1 × 7.8 mm · 175 g · headphone jack"]]},
+  {br:"Samsung",t:"Galaxy S8",d:"2017-04",rel:"Apr 2017",st:"broken",lab:"1 BROKEN",ico:"inf",
+   note:"I had two. Sold one, and the other is completely broken in my collection.",
+   sp:[["Display","5.8-inch Super AMOLED · 2960 × 1440 · 18.5:9"],["Chip","Exynos 8895 or Snapdragon 835"],["Memory","4 GB + 64 GB · microSD"],["Cameras","12 MP main · 8 MP selfie"],["Battery","3,000 mAh"],["Size","148.9 × 68.1 × 8.0 mm · 155 g · IP68 · headphone jack"]]},
+  {br:"Samsung",t:"Galaxy S6 edge+",d:"2015-08",rel:"Aug 2015",st:"sold",lab:"SOLD",ico:"edge",
+   note:"My dad's old main. I sold it recently.",
+   sp:[["Display","5.7-inch Super AMOLED · 2560 × 1440 · dual edge"],["Chip","Exynos 7420"],["Memory","4 GB + 32/64 GB · no card slot"],["Cameras","16 MP main · 5 MP selfie"],["Battery","3,000 mAh (sealed)"],["Size","154.4 × 75.8 × 6.9 mm · 153 g"]]},
+  {br:"Samsung",t:"Galaxy S6",d:"2015-04",rel:"Apr 2015",st:"broken",lab:"1 BROKEN",ico:"home",
+   note:"I had two. Sold one and kept a broken one.",
+   sp:[["Display","5.1-inch Super AMOLED · 2560 × 1440"],["Chip","Exynos 7420"],["Memory","3 GB + 32/64/128 GB · no card slot"],["Cameras","16 MP main · 5 MP selfie"],["Battery","2,550 mAh (sealed)"],["Size","143.4 × 70.5 × 6.8 mm · 138 g"]]},
+  // Apple
+  {br:"Apple",t:"iPhone 12 Pro",d:"2020-10",rel:"Oct 2020",st:"sold",lab:"SOLD",ico:"notch",
+   note:"Got it for €50. Loved it on iOS 18, then sold it later.",
+   sp:[["Display","6.1-inch Super Retina XDR OLED · 2532 × 1170 · 60 Hz"],["Chip","Apple A14 Bionic"],["Memory","6 GB + 128/256/512 GB"],["Cameras","12 MP wide · 12 MP ultrawide · 12 MP 2× tele · LiDAR · 12 MP selfie"],["Battery","2,815 mAh · MagSafe"],["Size","146.7 × 71.5 × 7.4 mm · 189 g · stainless steel"]]},
+  {br:"Apple",t:"iPhone 11 Pro",d:"2019-09",rel:"Sep 2019",st:"sold",lab:"SOLD",ico:"notch",
+   note:"It felt so mid on iOS 26. I sold it the same day I got it.",
+   sp:[["Display","5.8-inch Super Retina XDR OLED · 2436 × 1125 · 60 Hz"],["Chip","Apple A13 Bionic"],["Memory","4 GB + 64/256/512 GB"],["Cameras","12 MP wide · 12 MP ultrawide · 12 MP 2× tele · 12 MP selfie"],["Battery","3,046 mAh"],["Size","144.0 × 71.4 × 8.1 mm · 188 g"]]},
+  {br:"Apple",t:"iPhone 7 Plus",d:"2016-09",rel:"Sep 2016",st:"kept",lab:"KEPT",ico:"home",
+   note:"The red one is so pretty. I still have it.",
+   sp:[["Display","5.5-inch Retina HD LCD · 1920 × 1080"],["Chip","Apple A10 Fusion"],["Memory","3 GB + 32/128/256 GB"],["Cameras","12 MP wide · 12 MP 2× tele · 7 MP selfie"],["Battery","2,900 mAh"],["Size","158.2 × 77.9 × 7.3 mm · 188 g · IP67 · no headphone jack"]]},
+  {br:"Apple",t:"iPhone 7",d:"2016-09",rel:"Sep 2016",st:"kept",lab:"KEPT",ico:"home",
+   note:"It's iCloud locked, so I can't download anything. Still cool, I guess.",
+   sp:[["Display","4.7-inch Retina HD LCD · 1334 × 750"],["Chip","Apple A10 Fusion"],["Memory","2 GB + 32/128/256 GB"],["Cameras","12 MP main · 7 MP selfie"],["Battery","1,960 mAh"],["Size","138.3 × 67.1 × 7.1 mm · 138 g · IP67 · no headphone jack"]]},
+  // OnePlus
+  {br:"OnePlus",t:"OnePlus 15",d:"2025-10",rel:"Oct 2025",st:"loved",lab:"LOVED",ico:"punch",dot:"c",
+   note:"I loved this phone so much. I'd still main it if I hadn't bought the Find X9 Ultra.",
+   sp:[["Display","6.78-inch LTPO AMOLED · 2772 × 1272 · up to 165 Hz"],["Chip","Snapdragon 8 Elite Gen 5"],["Memory","12/16 GB + 256 GB–1 TB"],["Cameras","50 MP main · 50 MP ultrawide · 50 MP periscope · 32 MP selfie"],["Battery","7,300 mAh · 120 W wired · 50 W wireless"],["Size","8.1 mm thick · 211–215 g (depends on finish)"]]},
+  {br:"OnePlus",t:"OnePlus Open",d:"2023-10",rel:"Oct 2023",st:"want",lab:"WANT AGAIN",ico:"fold",
+   note:"Probably my favorite phone I ever used. I want to buy it again.",
+   sp:[["Display","7.82-inch inner LTPO AMOLED 2440 × 2268 + 6.31-inch cover · both 120 Hz"],["Chip","Snapdragon 8 Gen 2"],["Memory","16 GB + 512 GB"],["Cameras","48 MP main · 48 MP ultrawide · 64 MP 3× periscope · 32 MP cover + 20 MP inner selfie"],["Battery","4,805 mAh · 67 W wired"],["Size","153.4 × 143.1 × 5.8 mm open · 11.7 mm folded · 245 g · alert slider"]]},
+  // OPPO
+  {br:"OPPO",t:"Find X6",d:"2023-03",rel:"Mar 2023",st:"past",lab:"PAST",ico:"punch",
+   note:"I didn't really like this phone, but it's still a cool one.",
+   sp:[["Display","6.74-inch AMOLED · 2772 × 1240 · 120 Hz"],["Chip","MediaTek Dimensity 9200"],["Memory","12/16 GB + 256/512 GB"],["Cameras","50 MP main · 50 MP ultrawide · 50 MP 2.8× tele · 32 MP selfie"],["Battery","4,800 mAh · 100 W wired"],["Size","About 186 g"]]},
+  // vivo
+  {br:"vivo",t:"X5Max+",d:"2015-03",rel:"Mar 2015",st:"kept",lab:"KEPT",ico:"home",
+   note:"Still have it. It's very thin and comfy to hold.",
+   sp:[["Display","5.5-inch Super AMOLED · 1920 × 1080"],["Chip","MediaTek MT6752 · octa-core 1.7 GHz"],["Memory","2 GB + 16 GB · microSD"],["Cameras","13 MP main · 5 MP selfie"],["Battery","2,300 mAh"],["Size","153.9 × 78 × 5.1 mm"],["Software","Android 4.4.4 · Funtouch 2"]]}
+];
+const BRANDS=["Samsung","Apple","OnePlus","OPPO","vivo"];
+const LEDS={kept:"g",sold:"off",traded:"off",past:"off",loved:"off",broken:"a",want:"a"};
+const BCOL={Samsung:"#3d7cff",Apple:"#8e9bb5",OnePlus:"#ff3b30",OPPO:"#19c7a8",vivo:"#9c63ff"};
+
+function specCard(o){
+  const rows=o.sp.map(r=>'<div class="spec-k">'+esc(r[0])+'</div><div class="spec-v">'+esc(r[1])+'</div>').join("");
+  return '<div class="card glass xcard stg" style="--b:'+o.b+'" role="button" tabindex="0" aria-expanded="false"'+(o.dot?' data-dot="'+o.dot+'"':'')+'>'
+    +'<div class="icon">'+o.ic+'</div>'
+    +'<div class="card-content"><div class="card-title">'+esc(o.t)+'</div><div class="card-subtitle'+(o.wrap?' wrap':'')+'">'+esc(o.s)+'</div></div>'
+    +(o.tag?'<div class="tag"><span class="led '+o.tag[1]+'"></span>'+esc(o.tag[0])+'</div>':'')
+    +'<div class="arrow">›</div>'
+    +'<div class="specs"><div><div class="spec-grid">'+rows+'</div></div></div></div>';
+}
+$("carryList").innerHTML=CARRY.map(specCard).join("");
+$("orderedList").innerHTML=ORDERED.map(specCard).join("");
+(function(){
+  let html="";
+  BRANDS.forEach(br=>{
+    const list=MUSEUM.filter(p=>p.br===br).sort((a,b)=>b.d.localeCompare(a.d));
+    if(!list.length)return;
+    html+='<div class="sec dm stg" style="margin-top:'+(html?'28':'0')+'px"><span class="led off"></span>'+esc(br)+'<small>'+list.length+(list.length===1?' phone':' phones')+'</small></div><section class="links">';
+    html+=list.map(p=>specCard({b:BCOL[br],ic:PH[p.ico],t:p.t,s:p.rel+' · '+p.note,wrap:true,tag:[p.lab,LEDS[p.st]],dot:p.dot,sp:p.sp})).join("");
+    html+='</section>';
+  });
+  $("musList").innerHTML=html;
+  $("musCount").textContent=MUSEUM.length+" phones · "+BRANDS.length+" brands";
+})();
+
+/* expand / collapse a spec sheet */
+document.addEventListener("click",e=>{
+  const c=e.target.closest(".xcard");
+  if(!c||e.target.closest(".specs")||e.target.closest(".dot"))return;
+  const open=c.classList.toggle("open");
+  c.setAttribute("aria-expanded",String(open));
+  SFX.expand(open);haptic(8);
+});
+document.addEventListener("keydown",e=>{
+  if((e.key==="Enter"||e.key===" ")&&e.target.classList&&e.target.classList.contains("xcard")){e.preventDefault();e.target.click()}
+});
+
+/* My devices / Phone museum switch */
+(function(){
+  const seg=$("devSeg");
+  seg.addEventListener("click",e=>{
+    const b=e.target.closest("button");if(!b||b.classList.contains("on"))return;
+    const v=b.dataset.v;
+    seg.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));
+    seg.style.setProperty("--si",v==="museum"?1:0);
+    $("v-carry").hidden=v!=="carry";$("v-museum").hidden=v!=="museum";
+    document.querySelectorAll(".card").forEach(resetCard);
+    SFX.flip();haptic(10);
+  });
+})();
+
+/* ---------- Mascot: Dot (original character) peeks over card edges ---------- */
+let dotId=0;
+function dotSVG(){
+  const n=dotId++,g="dg"+n,c="dc"+n,bd=(-(Math.random()*5)).toFixed(2)+"s";
+  return '<svg viewBox="-2 -12 68 64" style="--bd:'+bd+'" aria-hidden="true"><defs>'
+    +'<linearGradient id="'+g+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--mb1)"/><stop offset="1" style="stop-color:var(--mb2)"/></linearGradient>'
+    +'<clipPath id="'+c+'"><rect x="-20" y="-30" width="110" height="74"/></clipPath></defs>'
+    +'<g clip-path="url(#'+c+')"><g class="head"><g class="bob">'
+    +'<rect x="31" y="-4" width="2" height="14" rx="1" style="fill:var(--mb2)"/>'
+    +'<circle class="led-top" cx="32" cy="-6" r="3.2" style="fill:var(--red);filter:drop-shadow(0 0 3px var(--red))"/>'
+    +'<path d="M8 44V24Q8 8 24 8H40Q56 8 56 24V44Z" fill="url(#'+g+')"/>'
+    +'<path d="M13 22Q13 13 22 13H30" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2.4" stroke-linecap="round"/>'
+    +'<rect x="14" y="15" width="36" height="25" rx="9" fill="#0d1222"/>'
+    +'<circle cx="19" cy="34" r="2.2" fill="#ff8fb3" opacity=".7"/><circle cx="45" cy="34" r="2.2" fill="#ff8fb3" opacity=".7"/>'
+    +'<g class="eyes" style="filter:drop-shadow(0 0 2px #7dffd5)">'
+    +'<g class="eye"><rect x="22" y="21" width="6" height="9" rx="3" fill="#7dffd5"/><circle cx="24.4" cy="23.6" r="1.2" fill="#fff"/></g>'
+    +'<g class="eye"><rect x="36" y="21" width="6" height="9" rx="3" fill="#7dffd5"/><circle cx="38.4" cy="23.6" r="1.2" fill="#fff"/></g></g>'
+    +'<path d="M29 35Q32 37.6 35 35" fill="none" stroke="#7dffd5" stroke-width="1.6" stroke-linecap="round"/>'
+    +'</g></g></g>'
+    // arms and little mittens gripping the card edge (drawn in front)
+    +'<path d="M9 33Q2 37 4 44" fill="none" stroke-width="4" stroke-linecap="round" style="stroke:var(--mb2)"/>'
+    +'<path d="M55 33Q62 37 60 44" fill="none" stroke-width="4" stroke-linecap="round" style="stroke:var(--mb2)"/>'
+    +'<g style="fill:var(--mb2)"><circle cx="4.5" cy="44.5" r="5.2"/><circle cx="2.2" cy="48.4" r="1.7"/><circle cx="4.8" cy="49.3" r="1.7"/><circle cx="7.3" cy="48.4" r="1.7"/>'
+    +'<circle cx="59.5" cy="44.5" r="5.2"/><circle cx="57.1" cy="48.4" r="1.7"/><circle cx="59.7" cy="49.3" r="1.7"/><circle cx="62.2" cy="48.4" r="1.7"/></g>'
+    +'</svg>';
+}
+const dots=[];
+document.querySelectorAll("[data-dot]").forEach(host=>{
+  const pos=host.dataset.dot||"c";
+  host.classList.add("has-dot");
+  const d=document.createElement("div");
+  d.className="dot dot-"+pos;d.setAttribute("aria-hidden","true");d.innerHTML=dotSVG();
+  host.appendChild(d);dots.push(d);
+  d.addEventListener("click",e=>{
+    e.stopPropagation();
+    if(d._busy)return;d._busy=true;
+    SFX.squeak();haptic(15);d.classList.add("shy");
+    setTimeout(()=>{d.classList.remove("shy");SFX.pop(2)},1300);
+    setTimeout(()=>{d._busy=false},1700);
+  });
+});
+(function(){
+  let q=false,px=0,py=0;
+  function look(){
+    q=false;
+    dots.forEach(d=>{
+      if(!d.offsetParent)return;
+      const r=d.getBoundingClientRect(),cx=r.left+r.width*.5,cy=r.top+r.height*.62;
+      const dx=px-cx,dy=py-cy,m=Math.hypot(dx,dy)||1,k=Math.min(1,m/160);
+      d.style.setProperty("--ex",(dx/m*k*2.4).toFixed(2));
+      d.style.setProperty("--ey",(dy/m*k*1.6).toFixed(2));
+    });
+  }
+  addEventListener("pointermove",e=>{px=e.clientX;py=e.clientY;if(!q){q=true;requestAnimationFrame(look)}},{passive:true});
+})();
+
+/* ---------- Creator stats (reads stats.json, refreshed every 24h by the updater) ---------- */
+const STATS={d:null};
+const nfull=new Intl.NumberFormat("en"),ncomp=new Intl.NumberFormat("en",{notation:"compact",maximumFractionDigits:1});
+const fmtN=n=>n==null?"—":(n>=100000?ncomp.format(n):nfull.format(n));
+function animNum(el,to,ms){
+  cancelAnimationFrame(el._r);
+  if(to==null||REDUCE){el.textContent=fmtN(to);return}
+  const t0=performance.now();
+  (function f(now){
+    const p=Math.min(1,(now-t0)/ms),e=1-Math.pow(1-p,3);
+    el.textContent=fmtN(Math.round(to*e));
+    if(p<1)el._r=requestAnimationFrame(f);
+  })(t0);
+}
+function agoText(iso){
+  if(!iso)return"";
+  const m=Math.max(0,(Date.now()-new Date(iso).getTime())/6e4);
+  if(m<2)return"just now";if(m<90)return Math.round(m)+" min ago";
+  const h=m/60;if(h<36)return Math.round(h)+" h ago";
+  return Math.round(h/24)+" days ago";
+}
+function statVals(){
+  const d=STATS.d||{};
+  return{followers:d.followers,likes:d.likes,following:d.following,videos:d.videos,
+    ratio:(d.videos&&d.likes!=null)?Math.round(d.likes/d.videos):null};
+}
+function statsPaint(){
+  const d=STATS.d,has=!!(d&&d.followers!=null),v=statVals();
+  $("stLed").className="led "+(!has?"off":((Date.now()-new Date(d.updated).getTime())<36*36e5?"g":"a"));
+  $("stUpdated").textContent=has?"Updated "+agoText(d.updated):"Waiting for first update";
+  $("stFollowers").textContent=fmtN(v.followers);$("stLikes").textContent=fmtN(v.likes);
+  $("stFollowing").textContent=fmtN(v.following);$("stVideos").textContent=fmtN(v.videos);
+  $("stRatio").textContent=v.ratio==null?"—":nfull.format(v.ratio);
+  // follower growth since the previous daily snapshot + sparkline
+  const h=(d&&d.history)||[],dl=$("stDelta"),sp=$("stSpark"),note=$("stSparkNote");
+  if(h.length>=2){
+    const diff=h[h.length-1].f-h[h.length-2].f;
+    dl.textContent=diff===0?"no change today":(diff>0?"+":"−")+nfull.format(Math.abs(diff))+" since yesterday";
+    dl.className="stat-delta"+(diff>0?" up":diff<0?" down":"");
+    const vals=h.map(x=>x.f),mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals),rg=(mx-mn)||1;
+    const pts=vals.map((y,i)=>[(i/(vals.length-1))*300,72-((y-mn)/rg)*60]);
+    const line=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join("");
+    sp.innerHTML='<defs><linearGradient id="spg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="currentColor" stop-opacity=".35"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs>'
+      +'<path d="'+line+'L300 84L0 84Z" fill="url(#spg)"/><path class="ln" d="'+line+'"/>';
+    sp.style.display="";note.textContent="Last "+h.length+" daily updates";
+  }else{
+    dl.textContent="";dl.className="stat-delta";sp.innerHTML="";sp.style.display="none";
+    note.textContent=has?"The growth chart appears after two daily updates.":"Numbers appear after the first automatic update.";
+  }
+}
+function statsAnimate(){
+  const v=statVals();
+  animNum($("stFollowers"),v.followers,1100);animNum($("stLikes"),v.likes,1000);
+  animNum($("stFollowing"),v.following,800);animNum($("stVideos"),v.videos,800);
+  animNum($("stRatio"),v.ratio,900);
+}
+function statsOnOpen(){if(STATS.d)statsAnimate()}
+async function loadStats(){
+  try{
+    const r=await fetch("stats.json?t="+Date.now(),{cache:"no-store"});
+    if(!r.ok)throw new Error("stats");
+    STATS.d=await r.json();
+  }catch(e){}
+  statsPaint();
+  if(curTab==="stats")statsAnimate();
+}
+setInterval(()=>{if(STATS.d)$("stUpdated").textContent="Updated "+agoText(STATS.d.updated)},6e4);
+setInterval(()=>{loadStats()},36e5);
+
+
 /* ---------- Tabs + dock ---------- */
-const TABS=["links","devices","about"],dock=$("dock"),dbtns=[...dock.querySelectorAll("button")];
+const TABS=["links","devices","about","stats"],dock=$("dock"),dbtns=[...dock.querySelectorAll("button")];
 let curTab="links";
-document.querySelectorAll(".tab").forEach(t=>t.querySelectorAll(".stg").forEach((e,i)=>{if(!e.style.getPropertyValue("--n"))e.style.setProperty("--n",i)}));
+document.querySelectorAll(".tab").forEach(t=>t.querySelectorAll(".stg").forEach((e,i)=>{if(!e.style.getPropertyValue("--n"))e.style.setProperty("--n",Math.min(i,9))}));
 function go(n,push){
   if(!TABS.includes(n))n="links";
   curTab=n;
@@ -470,10 +968,10 @@ function go(n,push){
   dock.style.setProperty("--i",TABS.indexOf(n));
   document.querySelectorAll(".card").forEach(resetCard);
   document.title=n==="links"?"FarlandsTech":"FarlandsTech · "+n[0].toUpperCase()+n.slice(1);
-  if(typeof wxSync==="function")wxSync();
+  if(typeof wxSync==="function")wxSync();if(n==="stats"&&typeof statsOnOpen==="function")statsOnOpen();
   if(push){scrollTo({top:0});dispatchEvent(new Event("syncscroll"));haptic(10);try{history.replaceState(null,"","#"+n)}catch(e){}}
 }
-dbtns.forEach(b=>b.addEventListener("click",()=>go(b.dataset.tab,true)));
+dbtns.forEach(b=>b.addEventListener("click",()=>{if(b.dataset.tab!==curTab)SFX.tab(TABS.indexOf(b.dataset.tab));go(b.dataset.tab,true)}));
 
 /* ---------- Email ---------- */
 const emailCard=$("emailCard"),copyButton=$("copyEmail");
@@ -482,9 +980,9 @@ async function copyEmail(){
   try{await navigator.clipboard.writeText(EMAIL)}catch(e){const i=document.createElement("input");i.value=EMAIL;document.body.appendChild(i);i.select();document.execCommand("copy");i.remove()}
   const o=copyButton.textContent;copyButton.textContent="Copied ✓";setTimeout(()=>copyButton.textContent=o,1400);
 }
-emailCard.addEventListener("click",e=>{if(!e.target.closest("#copyEmail"))openEmail()});
+emailCard.addEventListener("click",e=>{if(!e.target.closest("#copyEmail")){SFX.link();openEmail()}});
 emailCard.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openEmail()}});
-copyButton.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();copyEmail()});
+copyButton.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();SFX.ding();copyEmail()});
 
 /* ---------- Tilt ---------- */
 const cards=[...document.querySelectorAll(".card")];
@@ -631,9 +1129,9 @@ function wxLoop(){
   if(!wxRun)return;
   const W=wxc.clientWidth,H=wxc.clientHeight,b=document.body.classList;
   wxx.clearRect(0,0,W,H);
-  const col=b.contains("starry-mode")?"rgba(190,215,255,.7)":b.contains("dark")?"rgba(160,195,255,.6)":"rgba(55,100,200,.55)";
+  const gold=b.contains("starry-mode"),col=gold?"rgba(247,201,76,.92)":b.contains("dark")?"rgba(160,195,255,.6)":"rgba(55,100,200,.55)";
   if(wxFx==="snow"){
-    wxx.fillStyle=b.contains("dark")||b.contains("starry-mode")?"rgba(255,255,255,.85)":"rgba(120,150,210,.8)";
+    wxx.fillStyle=gold?"rgba(250,214,110,.95)":b.contains("dark")?"rgba(255,255,255,.85)":"rgba(120,150,210,.8)";
     wxP.forEach(p=>{p.y+=p.v;p.ph+=.03;p.x+=Math.sin(p.ph)*.8;if(p.y>H+5){p.y=-5;p.x=rnd(0,W)}
       wxx.beginPath();wxx.arc(p.x,p.y,p.r,0,6.283);wxx.fill()});
   }else{
@@ -642,7 +1140,7 @@ function wxLoop(){
       wxx.lineWidth=p.w;wxx.beginPath();wxx.moveTo(p.x,p.y);wxx.lineTo(p.x-p.l*.18,p.y+p.l);wxx.stroke()});
     if(wxFx==="storm"){
       if(Math.random()<.005)wxFlash=1;
-      if(wxFlash>0){wxx.fillStyle=`rgba(255,255,255,${wxFlash*.28})`;wxx.fillRect(0,0,W,H);wxFlash-=.06}
+      if(wxFlash>0){wxx.fillStyle=`rgba(${gold?"255,226,140":"255,255,255"},${wxFlash*.28})`;wxx.fillRect(0,0,W,H);wxFlash-=.06}
     }
   }
   requestAnimationFrame(wxLoop);
@@ -672,9 +1170,11 @@ function setWeather(code,temp,isDay){
 addEventListener("resize",()=>{if(wxRun){wxResize();wxMake()}});
 document.addEventListener("visibilitychange",wxSync);
 go(location.hash.slice(1),false);
+loadStats();
 
 /* ---------- Secret mode (Starry Night) ---------- */
 function setStarry(on){
+  SFX.reveal(on);
   document.body.classList.toggle("starry-mode",on);
   const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=on?"#05091d":"#eef2fb";
   const p=document.querySelector(".profile");
@@ -685,7 +1185,7 @@ function setStarry(on){
 /* ---------- Easter egg ---------- */
 let eggClicks=0,eggTimer;
 $("profileEgg").addEventListener("click",()=>{
-  eggClicks++;clearTimeout(eggTimer);
+  eggClicks++;clearTimeout(eggTimer);if(eggClicks<5)SFX.pop(eggClicks);
   if(eggClicks>=5){
     eggClicks=0;
     if(document.body.classList.contains("starry-mode")){setStarry(false);return}
@@ -738,7 +1238,7 @@ function animatePaint(){
 }
 function startPaint(){
   if(fwRunning)return;
-  fwRunning=true;fwT=0;new Image().src="profile1.png";
+  fwRunning=true;fwT=0;new Image().src="profile1.png";SFX.paint();
   strokes=Array.from({length:18},(_,i)=>makeStroke(i));
   ctx.globalCompositeOperation="source-over";ctx.clearRect(0,0,innerWidth,innerHeight);
   document.body.classList.add("fireworks-mode");
@@ -764,7 +1264,7 @@ themeButton.addEventListener("click",()=>{
   themeTransition.style.setProperty("--ty",(r.top+r.height/2)+"px");
   themeTransition.classList.remove("closing");themeTransition.classList.toggle("light",!toDark);
   themeButton.classList.remove("pop");void themeButton.offsetWidth;themeButton.classList.add("pop");
-  themeTransition.classList.add("active");
+  themeTransition.classList.add("active");SFX.theme(toDark);
   setTimeout(()=>{document.body.classList.toggle("dark",toDark);try{localStorage.setItem("farlands-dark",toDark?"1":"0")}catch(e){}updateThemeIcon()},280);
   setTimeout(()=>themeTransition.classList.add("closing"),780);
   setTimeout(()=>{themeTransition.classList.remove("active","closing");themeAnimating=false},1450);
@@ -773,6 +1273,7 @@ themeButton.addEventListener("click",()=>{
 /* ---------- Share ---------- */
 const shareButton=$("shareButton");
 shareButton.addEventListener("click",async()=>{
+  SFX.share();
   const data={title:"FarlandsTech",text:"Check out FarlandsTech.",url:location.href.split("#")[0]};
   if(navigator.share){try{await navigator.share(data)}catch(e){}}
   else{try{await navigator.clipboard.writeText(data.url);const o=shareButton.textContent;shareButton.textContent="✓";setTimeout(()=>shareButton.textContent=o,1300)}catch(e){}}
