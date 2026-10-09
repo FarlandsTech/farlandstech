@@ -75,6 +75,7 @@ body.starry-mode .aurora{opacity:.12}body.starry-mode .topo{opacity:.14}
 .dm{font-family:var(--dm);font-weight:700;letter-spacing:.04em}
 .led{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red),0 0 18px rgba(255,59,48,.5);flex:0 0 auto}
 .led.g{background:var(--green);box-shadow:0 0 8px var(--green),0 0 18px rgba(49,213,109,.5)}
+.led.a{background:#ffb020;box-shadow:0 0 8px #ffb020,0 0 18px rgba(255,176,32,.5)}
 .led.off{background:var(--muted);opacity:.35;box-shadow:none}
 .glyph{display:flex;gap:7px;justify-content:center;margin:16px 0 0}
 .glyph i{width:6px;height:6px;border-radius:50%;background:var(--muted);opacity:.3;animation:gl 2.4s ease-in-out infinite;animation-delay:calc(var(--k)*.18s)}
@@ -94,18 +95,20 @@ h1 span{display:block;padding-bottom:3px;background:linear-gradient(100deg,#4d7f
 
 .links{display:grid;gap:14px}
 .card{
-  --rx:0deg;--ry:0deg;--s:1;--gx:50%;--gy:50%;--mx:0px;--my:0px;--b:#6f9bff;
+  --rx:0deg;--ry:0deg;--s:1;--gx:50%;--gy:50%;--mx:0px;--my:0px;--dx:0px;--dy:0px;--sx:1;--sy:1;--b:#6f9bff;
   position:relative;isolation:isolate;min-height:74px;display:flex;align-items:center;gap:15px;padding:15px 18px;border-radius:30px;
-  color:var(--text);text-decoration:none;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s));
-  transition:transform .8s var(--spring),box-shadow .4s;will-change:transform;touch-action:pan-y}
-.card.live{transition:transform .14s ease-out,box-shadow .4s}
+  color:var(--text);text-decoration:none;transform:perspective(900px) translate(var(--dx),var(--dy)) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s)) scale(var(--sx),var(--sy));
+  transition:transform .8s var(--spring),box-shadow .9s ease;will-change:transform;touch-action:pan-y}
+.card.live{transition:transform .14s ease-out,box-shadow .3s}
+.card.drag{transition:transform .05s linear,box-shadow .3s}
+.card.release{transition:transform .9s var(--spring),box-shadow .9s ease}
 .card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;opacity:0;
-  background:radial-gradient(260px circle at var(--gx) var(--gy),rgba(255,255,255,.7),rgba(255,255,255,.12) 45%,transparent 70%);mix-blend-mode:soft-light;transition:opacity .4s}
+  background:radial-gradient(260px circle at var(--gx) var(--gy),rgba(255,255,255,.7),rgba(255,255,255,.12) 45%,transparent 70%);mix-blend-mode:soft-light;transition:opacity .9s ease}
 body.dark .card::before{background:radial-gradient(260px circle at var(--gx) var(--gy),rgba(255,255,255,.35),transparent 65%);mix-blend-mode:normal}
 .card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;pointer-events:none;z-index:2;opacity:0;
   background:radial-gradient(220px circle at var(--gx) var(--gy),var(--b),transparent 70%);
-  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;transition:opacity .4s}
-.card.live::before,.card.live::after{opacity:1}
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;transition:opacity .9s ease}
+.card.live::before,.card.live::after{opacity:1;transition:opacity .25s ease}
 .card.live{box-shadow:0 30px 60px rgba(40,60,120,.22),0 0 44px color-mix(in srgb,var(--b) 30%,transparent),inset 0 1.5px 1px var(--edge)}
 .card.touching{--s:.97}
 .icon{position:relative;z-index:3;width:46px;height:46px;flex:0 0 46px;border-radius:16px;display:grid;place-items:center;
@@ -159,12 +162,13 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
 .egg-subtitle{margin-top:8px;color:rgba(255,255,255,.7);font-size:13px}
 @keyframes float{50%{transform:translateY(-8px) scale(1.04)}}
 @media(max-width:760px){
-  .phone{width:78px;opacity:.28}.phone7,.phone8{display:none}
+  .phones{display:none}
   .page{width:min(620px,calc(100% - 22px))}
   .glass{backdrop-filter:blur(18px) saturate(1.6);-webkit-backdrop-filter:blur(18px) saturate(1.6)}
   .card{border-radius:26px;padding:14px 15px}.card-title{font-size:14px}.card-subtitle{font-size:11px}
   .icon{width:42px;height:42px;flex-basis:42px}.chip .icon{width:38px;height:38px}
 }
+@media(pointer:coarse){.phones{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
@@ -263,6 +267,14 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
         <div class="tag"><span class="led"></span>PC</div>
       </div>
     </section>
+    <div class="sec dm stg" style="margin-top:28px"><span class="led a"></span>Ordered tech<small>On the way</small></div>
+    <section class="links">
+      <div class="card glass stg" style="--b:#ffb020">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="9" width="10" height="13" rx="2.4"/><rect x="3.5" y="2.5" width="17" height="9" rx="2.4" transform="rotate(-18 12 7)"/></svg></div>
+        <div class="card-content"><div class="card-title">LG Wing</div><div class="card-subtitle">Ordered, waiting for it to arrive</div></div>
+        <div class="tag"><span class="led a"></span>ORDERED</div>
+      </div>
+    </section>
   </div>
 
   <!-- ABOUT -->
@@ -272,7 +284,7 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
     <section class="links">
       <div class="card glass stg" style="--b:#ff9f43">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
-        <div class="card-content"><div class="card-title">Based in the Netherlands</div><div class="card-subtitle">Europe</div></div>
+        <div class="card-content"><div class="card-title">Based in the Netherlands</div><div class="card-subtitle">Local time <span id="clock" class="dm"></span></div></div>
       </div>
       <div class="card glass stg" style="--b:#31d56d">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 12.5l2.6 2.6L16.5 9"/><circle cx="12" cy="12" r="9"/></svg></div>
@@ -357,7 +369,8 @@ function go(n,push){
   dbtns.forEach(b=>b.classList.toggle("on",b.dataset.tab===n));
   dock.style.setProperty("--i",TABS.indexOf(n));
   document.querySelectorAll(".card").forEach(resetCard);
-  if(push){scrollTo({top:0});try{history.replaceState(null,"","#"+n)}catch(e){}}
+  document.title=n==="links"?"FarlandsTech":"FarlandsTech · "+n[0].toUpperCase()+n.slice(1);
+  if(push){scrollTo({top:0});dispatchEvent(new Event("syncscroll"));if(navigator.vibrate)navigator.vibrate(8);try{history.replaceState(null,"","#"+n)}catch(e){}}
 }
 dbtns.forEach(b=>b.addEventListener("click",()=>go(b.dataset.tab,true)));
 go(location.hash.slice(1),false);
@@ -418,13 +431,84 @@ addEventListener("pointerdown",e=>{
 document.addEventListener("pointerleave",()=>cards.forEach(resetCard));
 addEventListener("blur",()=>cards.forEach(resetCard));
 
+/* ---------- Stretch: press, hold and drag a card ---------- */
+let drag=null,moved=false;
+const rub=(d,k)=>k*Math.tanh(d/k);
+addEventListener("pointerdown",e=>{
+  if(e.button>0||e.target.closest("button"))return;
+  const c=e.target.closest(".card");if(!c)return;
+  drag={c,x:e.clientX,y:e.clientY};moved=false;
+});
+addEventListener("pointermove",e=>{
+  if(!drag)return;
+  const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+  if(!moved&&Math.hypot(dx,dy)<7)return;
+  moved=true;const c=drag.c,st=c.style;
+  c.classList.remove("release");c.classList.add("drag");
+  const tx=rub(dx,80),ty=rub(dy,60);
+  st.setProperty("--dx",(tx*.35).toFixed(1)+"px");st.setProperty("--dy",(ty*.35).toFixed(1)+"px");
+  st.setProperty("--sx",(1+Math.abs(tx)/750).toFixed(3));
+  st.setProperty("--sy",(1+Math.abs(ty)/500-Math.abs(tx)/1400).toFixed(3));
+},{passive:true});
+function endDrag(){
+  if(!drag)return;const c=drag.c;drag=null;
+  c.classList.remove("drag");c.classList.add("release");
+  const st=c.style;st.setProperty("--dx","0px");st.setProperty("--dy","0px");st.setProperty("--sx","1");st.setProperty("--sy","1");
+  setTimeout(()=>c.classList.remove("release"),950);
+  setTimeout(()=>moved=false,60);
+}
+["pointerup","pointercancel"].forEach(t=>addEventListener(t,endDrag));
+addEventListener("blur",endDrag);
+addEventListener("click",e=>{if(moved){e.preventDefault();e.stopPropagation()}},true);
+addEventListener("dragstart",e=>e.preventDefault());
+
+/* ---------- Scroll damping: cards trail the scroll and settle softly ---------- */
+(function(){
+  let last=scrollY,off=0,run=false;
+  function frame(){
+    const y=scrollY,v=y-last;last=y;
+    const target=Math.max(-16,Math.min(16,-v*.9));
+    off+=(target-off)*.14;
+    const vis=cards.filter(c=>c.offsetParent);
+    vis.forEach((c,i)=>{c.style.translate="0 "+(off*(1+i*.07)).toFixed(2)+"px"});
+    if(Math.abs(off)>.05||Math.abs(v)>.2)requestAnimationFrame(frame);
+    else{off=0;run=false;vis.forEach(c=>c.style.translate="")}
+  }
+  addEventListener("scroll",()=>{if(!run){run=true;last=scrollY;requestAnimationFrame(frame)}},{passive:true});
+  /* Desktop: eased wheel scrolling */
+  if(matchMedia("(pointer:fine)").matches){
+    let tgt=scrollY,cur=scrollY,raf=0;
+    const step=()=>{cur+=(tgt-cur)*.12;if(Math.abs(tgt-cur)<.4){cur=tgt;raf=0}else raf=requestAnimationFrame(step);scrollTo(0,cur)};
+    addEventListener("wheel",e=>{
+      if(e.ctrlKey)return;e.preventDefault();
+      const max=document.documentElement.scrollHeight-innerHeight;
+      tgt=Math.max(0,Math.min(max,tgt+e.deltaY*(e.deltaMode===1?32:1)));
+      if(!raf)raf=requestAnimationFrame(step);
+    },{passive:false});
+    addEventListener("scroll",()=>{if(!raf)tgt=cur=scrollY},{passive:true});
+    addEventListener("syncscroll",()=>{cancelAnimationFrame(raf);raf=0;tgt=cur=scrollY});
+  }
+})();
+
+/* ---------- Local time ---------- */
+const clk=$("clock"),fmt=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/Amsterdam"});
+const tick=()=>{if(clk)clk.textContent=fmt.format(new Date())};tick();setInterval(tick,20000);
+
+/* ---------- Secret mode: swaps the profile picture ---------- */
+function setStarry(on){
+  document.body.classList.toggle("starry-mode",on);
+  const p=document.querySelector(".profile");
+  p.onerror=()=>{p.onerror=null;p.src="profile.png"};
+  p.src=on?"profile1.png":"profile.png";
+}
+
 /* ---------- Easter egg ---------- */
 let eggClicks=0,eggTimer;
 $("profileEgg").addEventListener("click",()=>{
   eggClicks++;clearTimeout(eggTimer);
   if(eggClicks>=5){
     eggClicks=0;
-    if(document.body.classList.contains("starry-mode")){document.body.classList.remove("starry-mode");return}
+    if(document.body.classList.contains("starry-mode")){setStarry(false);return}
     startFireworks();return;
   }
   eggTimer=setTimeout(()=>eggClicks=0,1800);
@@ -472,14 +556,14 @@ function animateFW(){
 }
 function startFireworks(){
   if(fwRunning)return;
-  fwRunning=true;rockets=[];sparks=[];
+  fwRunning=true;rockets=[];sparks=[];new Image().src="profile1.png";
   document.body.classList.add("fireworks-mode");
   ctx.clearRect(0,0,innerWidth,innerHeight);
   [100,450,800,1150,1500,1850].forEach(launch);
   animateFW();
   setTimeout(()=>{
     fwRunning=false;cancelAnimationFrame(fwFrame);
-    document.body.classList.remove("fireworks-mode");document.body.classList.add("starry-mode");
+    document.body.classList.remove("fireworks-mode");setStarry(true);
     setTimeout(()=>ctx.clearRect(0,0,innerWidth,innerHeight),700);
   },3600);
 }
