@@ -107,7 +107,8 @@ body.dark h1{--glow:#8fb0ff;--glow2:#b98bff}
 .hc.wv{animation:wv .8s var(--spring) both;animation-delay:calc(var(--w)*45ms)}
 @keyframes wv{40%{translate:0 -16px;scale:1.2;color:hsl(calc(var(--w)*26 + 190) 100% 72%);text-shadow:0 0 16px currentColor,0 0 38px currentColor}}
 .eyebrow{margin:8px 0 0;font-size:16px;color:var(--muted);letter-spacing:.14em}
-.intro{max-width:480px;margin:16px auto 0;color:var(--muted);font-size:14px;line-height:1.65}
+.intro{max-width:480px;min-height:1.7em;margin:16px auto 0;color:var(--muted);font-size:14px;line-height:1.65;transition:opacity .38s ease,filter .38s ease}
+.intro.out{opacity:0;filter:blur(6px)}
 
 .links{display:grid;gap:14px;grid-template-columns:minmax(0,1fr);width:100%}
 .card{
@@ -203,10 +204,11 @@ body.starry-mode .solarized-link{color:#f7e9a8;text-shadow:0 0 8px rgba(242,199,
 #fireworks{position:fixed;inset:0;width:100%;height:100%;z-index:9999;pointer-events:none;opacity:0;background:rgba(5,10,40,.55);
   backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);transition:opacity .6s}
 body.fireworks-mode #fireworks{opacity:1}
-body.fireworks-mode .page,body.fireworks-mode .top-controls,body.fireworks-mode .dock,body.fireworks-mode .rail{filter:blur(6px);transition:filter .6s}
+body.fireworks-mode .page,body.fireworks-mode .top-controls,body.fireworks-mode .dock,body.fireworks-mode .rail,body.fireworks-mode .ulog{filter:blur(6px);transition:filter .6s}
 #brush{position:fixed;left:0;top:0;z-index:10000;font-size:46px;line-height:1;pointer-events:none;opacity:0;transition:opacity .4s;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));will-change:transform}
 body.fireworks-mode #brush{opacity:1}
-.egg-message{position:fixed;left:50%;top:50%;z-index:10001;transform:translate(-50%,-50%) scale(.65);opacity:0;pointer-events:none;text-align:center;color:#f7e9a8;transition:opacity .45s,transform .8s cubic-bezier(.17,.89,.32,1.35);width:max-content;max-width:90vw}
+/* the message sits above the paint, with a soft shadow so it stays readable on top of it */
+.egg-message{position:fixed;left:50%;top:50%;z-index:10001;transform:translate(-50%,-50%) scale(.65);opacity:0;pointer-events:none;text-align:center;color:#f7e9a8;transition:opacity .45s,transform .8s cubic-bezier(.17,.89,.32,1.35);width:max-content;max-width:90vw;filter:drop-shadow(0 3px 10px rgba(0,0,25,.85))}
 body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .egg-icon{font-size:55px;margin-bottom:14px;animation:float 1.8s ease-in-out infinite;filter:drop-shadow(0 0 14px rgba(242,199,68,.9))}
 .egg-title{font-size:34px;color:#fff4c2;text-shadow:0 0 12px #f2c744,0 0 30px rgba(242,199,68,.85),0 0 64px rgba(242,199,68,.55);animation:eggGlow 1.5s ease-in-out infinite alternate}
@@ -286,7 +288,7 @@ body.starry-mode .stat-note{font-size:13px}
 @keyframes dottalk{50%{transform:translateY(-3.4px)}}
 @keyframes dblink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
 @keyframes dotled{50%{opacity:.4}}
-.say{position:absolute;bottom:calc(100% + 4px);width:max-content;max-width:168px;padding:8px 12px;border-radius:16px;background:var(--bg);color:var(--text);
+.say{position:absolute;bottom:calc(100% + 4px);width:max-content;max-width:190px;padding:8px 12px;border-radius:16px;background:var(--bg);color:var(--text);
   border:1.5px solid color-mix(in srgb,var(--mb1) 70%,transparent);box-shadow:0 10px 26px rgba(0,0,0,.22);font:600 12px/1.35 Inter,sans-serif;text-align:left;
   pointer-events:none;opacity:0;scale:.6;transform-origin:bottom center;transition:opacity .25s,scale .45s var(--spring);z-index:6}
 .say.on{opacity:1;scale:1}
@@ -374,6 +376,52 @@ html.vt-out::view-transition-new(root){animation:vtSweep 1s cubic-bezier(.76,0,.
 @keyframes vtSweep{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0 0 0 0)}}
 .wipe{position:fixed;top:-10vh;bottom:-10vh;left:0;width:70vw;z-index:9990;pointer-events:none;filter:blur(22px);translate:-80vw 0;
   background:linear-gradient(100deg,transparent,rgba(63,111,196,.6) 28%,rgba(242,199,68,.78) 60%,rgba(249,228,140,0))}
+
+/* ===== v3: LITE button, update log ===== */
+.lite-btn,.ulog-btn{display:flex;align-items:center;gap:7px;width:auto;padding:0 15px;border-radius:999px;font:800 12px/1 Inter,sans-serif;letter-spacing:.08em;white-space:nowrap}
+.ulog-btn{letter-spacing:.04em;animation-delay:.1s}
+body.starry-mode .lite-btn,body.starry-mode .ulog-btn{font-family:Kalam,cursive;font-size:15px;letter-spacing:.04em}
+
+.ulog{position:fixed;top:calc(16px + env(safe-area-inset-top));left:calc(16px + env(safe-area-inset-left));z-index:50}
+.ulog-panel{position:absolute;top:calc(100% + 10px);left:0;width:min(320px,calc(100vw - 32px));max-height:min(62vh,440px);overflow:auto;overscroll-behavior:contain;border-radius:26px;padding:16px 18px 6px;
+  opacity:0;visibility:hidden;scale:.92;translate:0 -8px;transform-origin:top left;
+  transition:opacity .25s,scale .45s var(--spring),translate .45s var(--spring),visibility 0s .45s}
+.ulog.open .ulog-panel{opacity:1;visibility:visible;scale:1;translate:0 0;transition:opacity .25s,scale .45s var(--spring),translate .45s var(--spring),visibility 0s}
+.ul-title{display:flex;align-items:center;gap:9px;margin:0 0 12px;font-size:16px}
+.ul-ver{display:flex;justify-content:space-between;align-items:baseline;font:700 12px Inter,sans-serif;color:var(--text)}
+.ul-ver span{color:var(--muted);font-weight:500}
+.ul-list{margin:6px 0 14px;padding-left:17px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.ul-list li{margin-bottom:4px}
+body.starry-mode .ul-ver{font-family:Kalam,cursive;font-size:15px}
+body.starry-mode .ul-list{font-size:14.5px}
+@media(max-width:420px){
+  .control{width:40px;height:40px}
+  .lite-btn,.ulog-btn{padding:0 11px;font-size:11px}
+  .top-controls{gap:8px}
+}
+
+/* ===== LITE MODE: no blur, no heavy effects, built for older hardware ===== */
+body.lite{--lc:#f8faff;transition:none}
+body.lite.dark{--lc:#191d2a}
+body.lite.starry-mode{--lc:#112454;background:#05091d}
+body.lite .glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--lc);box-shadow:0 2px 8px rgba(0,0,0,.14)}
+body.lite:not(.starry-mode) .glass{border-color:color-mix(in srgb,var(--text) 10%,transparent)}
+body.lite .topo,body.lite #wx,body.lite .phones{display:none}
+body.lite .aurora{opacity:.4}
+body.lite .stg,body.lite .tab.on,body.lite .control,body.lite .profile-wrap,body.lite .dock,body.lite .rail{animation:none}
+body.lite h1{animation:none;text-shadow:0 0 18px color-mix(in srgb,var(--glow) 55%,transparent)}
+body.lite :is(.glyph i,.exhibit,.crown,.solarized-link,.led-top,.eye,.bob,.egg-icon,.egg-title,.sheet,.sheet-bg,.sheet .exhibit svg){animation:none!important}
+body.lite .card{will-change:auto;transition:transform .25s ease}
+body.lite .card::before,body.lite .card::after{display:none}
+body.lite :is(.exhibit svg,.rlogo){filter:none}
+body.lite .room{box-shadow:none}
+body.lite .led{box-shadow:none}
+body.lite .intro{transition:none}
+body.lite :is(#fireworks,.sheet-bg){backdrop-filter:none;-webkit-backdrop-filter:none}
+body.lite #fireworks{background:rgba(5,10,40,.82)}
+body.lite .sheet-bg{background:rgba(5,8,20,.72)}
+body.lite.fireworks-mode :is(.page,.top-controls,.dock,.rail,.ulog){filter:none}
+body.lite .ulog-panel{transition:none}
 </style>
 </head>
 <body>
@@ -392,10 +440,16 @@ html.vt-out::view-transition-new(root){animation:vtSweep 1s cubic-bezier(.76,0,.
   <img class="phone phone8" data-n="phone8" alt="" decoding="async" fetchpriority="low">
 </div>
 
+<div class="ulog" id="ulog">
+  <button class="control glass ulog-btn" id="ulogBtn" aria-expanded="false" aria-controls="ulogPanel" type="button"><i class="led off" id="ulogLed"></i>Updates</button>
+  <div class="ulog-panel glass" id="ulogPanel" role="region" aria-label="Update log"></div>
+</div>
+
 <div class="top-controls">
   <button class="control glass" id="shareButton" aria-label="Share" type="button">↗</button>
   <button class="control glass" id="muteButton" aria-label="Mute sounds" aria-pressed="false" type="button"></button>
   <button class="control glass" id="themeButton" aria-label="Toggle dark mode" type="button">☾</button>
+  <button class="control glass lite-btn" id="liteButton" aria-pressed="false" title="Lite mode: less blur and fewer effects, faster on older devices" type="button"><i class="led off"></i>LITE</button>
 </div>
 <div id="themeTransition" aria-hidden="true"></div>
 
@@ -410,7 +464,7 @@ html.vt-out::view-transition-new(root){animation:vtSweep 1s cubic-bezier(.76,0,.
       </div>
       <h1 class="stg">FarlandsTech</h1>
       <div class="eyebrow dm stg" style="--n:1">Smartphones · Tech · Photography</div>
-      <p class="intro stg" style="--n:2">Phone content, tech experiments, photography and whatever device I'm currently obsessed with.</p>
+      <p class="intro stg" id="intro" style="--n:2" aria-live="off">I don't post on YouTube yet, I might do that later.</p>
       <div class="glyph" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i></div>
     </section>
 
@@ -560,6 +614,10 @@ html.vt-out::view-transition-new(root){animation:vtSweep 1s cubic-bezier(.76,0,.
 const EMAIL="samsungs24ultragoat@gmail.com";
 const $=id=>document.getElementById(id);
 const REDUCE=matchMedia("(prefers-reduced-motion:reduce)").matches;
+/* Lite mode is applied first so everything below can check it */
+const LITE_KEY="farlands-lite";
+try{if(localStorage.getItem(LITE_KEY)==="1")document.body.classList.add("lite")}catch(e){}
+const isLite=()=>document.body.classList.contains("lite");
 $("year").textContent=new Date().getFullYear();
 
 /* ---------- Haptics: only on real touches (taps) and while stretching a card ---------- */
@@ -600,15 +658,15 @@ addEventListener("touchstart",e=>{
       if(performance.now()-t0<ms){c.s.textContent=rs();setTimeout(f,55)}else c.s.textContent=c.o;
     })();
   }
-  chars.forEach((c,i)=>scramble(c,450+i*45));
+  if(!isLite())chars.forEach((c,i)=>scramble(c,450+i*45));
   (function loop(){setTimeout(()=>{
-    if(!document.hidden){const n=1+(Math.random()*3|0);for(let k=0;k<n;k++)scramble(chars[Math.random()*chars.length|0],110+Math.random()*180)}
+    if(!document.hidden&&!isLite()){const n=1+(Math.random()*3|0);for(let k=0;k<n;k++)scramble(chars[Math.random()*chars.length|0],110+Math.random()*180)}
     loop();
   },1500+Math.random()*2500)})();
   // hover / tap: a rainbow glow wave rolls through the letters while they re-decode
   let busy=false;
   function wave(){
-    if(busy)return;busy=true;
+    if(busy||isLite())return;busy=true;
     chars.forEach((c,i)=>{
       c.s.style.setProperty("--w",i);c.s.classList.remove("wv");void c.s.offsetWidth;c.s.classList.add("wv");
       scramble(c,200+i*38);
@@ -620,21 +678,45 @@ addEventListener("touchstart",e=>{
   h.addEventListener("click",wave);
 })();
 
-/* ---------- Side phone images: desktop only, webp first (png fallback), loaded after the page ---------- */
+/* ---------- Rotating bio line (every 5 seconds) ---------- */
 (function(){
+  const el=$("intro"),M=[
+    "I don't post on YouTube yet, I might do that later.",
+    "Join my Farcord server!",
+    "I love my Find X9 Ultra.",
+    "I love Saint Pablo by Kanye West."
+  ];
+  let i=0;
+  setInterval(()=>{
+    if(document.hidden)return;
+    i=(i+1)%M.length;
+    if(REDUCE||isLite()){el.textContent=M[i];return}
+    el.classList.add("out");
+    setTimeout(()=>{el.textContent=M[i];el.classList.remove("out")},380);
+  },5000);
+})();
+
+/* ---------- Side phone images: desktop only, webp first (png fallback), loaded after the page ---------- */
+let phonesLoaded=false;
+function loadPhones(){
+  if(phonesLoaded||isLite())return;
   if(!matchMedia("(min-width:761px) and (pointer:fine)").matches)return;
+  phonesLoaded=true;
   setTimeout(()=>document.querySelectorAll(".phone").forEach(im=>{
     const n=im.dataset.n;im.loading="lazy";
     im.onerror=()=>{im.onerror=null;im.src=n+".png"};
     im.src=n+".webp";
   }),700);
-})();
+}
+loadPhones();
 
 /* ---------- Topographic background ---------- */
+let topoDraw=()=>{};
 (function(){
   const c=$("topo"),x=c.getContext("2d");let lastW=0;
-  function draw(){
-    if(innerWidth===lastW)return;lastW=innerWidth;
+  function draw(force){
+    if(isLite())return;
+    if(!force&&innerWidth===lastW)return;lastW=innerWidth;
     const w=c.width=innerWidth,h=c.height=Math.max(innerHeight,screen.height||0,800),S=16;
     const cols=Math.ceil(w/S)+2,rows=Math.ceil(h/S)+2,F=new Float32Array(cols*rows);
     for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
@@ -656,7 +738,8 @@ addEventListener("touchstart",e=>{
       x.stroke();
     }
   }
-  draw();addEventListener("resize",draw);
+  topoDraw=draw;
+  draw();addEventListener("resize",()=>draw());
 })();
 
 /* ---------- Sound engine (Web Audio, all synthesized) ---------- */
@@ -780,7 +863,8 @@ const IC={
   fe:back("tl3"),
   buds:si('<path d="M8.2 3.5a3.2 3.2 0 0 0-3.2 3.2v2.1a3.3 3.3 0 0 0 2 3v6.7a1.5 1.5 0 0 0 3 0v-6.7a3.3 3.3 0 0 0 2-3V6.7a3.2 3.2 0 0 0-3.8-3.2z"/><path d="M15.8 3.5a3.2 3.2 0 0 1 3.2 3.2v2.1a3.3 3.3 0 0 1-2 3v6.7a1.5 1.5 0 0 1-3 0"/>'),
   pc:si('<rect x="4" y="4.5" width="16" height="12" rx="2"/><path d="M2 19.5h20"/><circle cx="8" cy="8.6" r=".9" fill="currentColor"/><path d="M10.6 8.6h4"/>'),
-  wing:back("pill3")
+  // LG Wing in its swivel "T" pose: main screen rotated landscape on top, second screen as the stem
+  wing:si('<rect x="2.5" y="3" width="19" height="9.5" rx="2.4"/><rect x="8" y="12.5" width="8" height="8.5" rx="2"/><circle cx="5.2" cy="7.75" r=".8" fill="currentColor"/><path d="M10.6 17.8h2.8"/>')
 };
 
 const CARRY=[
@@ -939,7 +1023,8 @@ function ped(p,o){
 }
 (function(){
   const by=t=>MUSEUM.find(p=>p.t===t);
-  const fame=[[by("Galaxy A52s 5G"),"★ GOAT","64px"],[by("OnePlus Open"),"★ FAVORITE","96px"],[by("OnePlus 15"),"★ LOVED","46px"]];
+  // podium, left to right: 2nd (OnePlus 15), 1st (OnePlus Open), 3rd (Galaxy A52s 5G)
+  const fame=[[by("OnePlus 15"),"★ LOVED","64px"],[by("OnePlus Open"),"★ FAVORITE","96px"],[by("Galaxy A52s 5G"),"★ GOAT","46px"]];
   const room=(id,col,logo,name,count,body,extra)=>'<section class="room stg" id="'+id+'" style="--bc:'+col+'"'+(extra||"")+'><div class="room-head"><span class="rlogo">'+logo+'</span><span class="dm rname">'+esc(name)+'</span><small>'+count+'</small></div>'+body+'</section>';
   let html=room("room-fame","#f2c744",FAME,"Hall of Fame","The ones I rate",
     '<div class="ped-grid podium">'+fame.map((f,i)=>ped(f[0],{k:i,lab:f[1],ph:f[2],star:i===1})).join("")+'</div>',' data-dot="r"');
@@ -1020,7 +1105,7 @@ document.addEventListener("keydown",e=>{
   });
 })();
 
-/* ---------- Mascot: Dot (original character) peeks over card edges and talks ---------- */
+/* ---------- Mascot: Dot (original character) peeks over card edges and tells phone & tech jokes ---------- */
 let dotId=0;
 function dotSVG(){
   const n=dotId++,g="dg"+n,c="dc"+n,bd=(-(Math.random()*5)).toFixed(2)+"s";
@@ -1045,28 +1130,38 @@ function dotSVG(){
     +'<circle cx="59.5" cy="44.5" r="5.2"/><circle cx="57.1" cy="48.4" r="1.7"/><circle cx="59.7" cy="49.3" r="1.7"/><circle cx="62.2" cy="48.4" r="1.7"/></g>'
     +'</svg>';
 }
-// Dot's voicelines are assembled from random parts, so it rarely says the same thing twice
+// Dot only tells phone and tech jokes
 const pick=a=>a[Math.random()*a.length|0];
-const DL={
-  hi:["What's up!","Hey hey!","Oh, hi!","Yo!","Heya!","Psst!","Boop!","Hello, human!","Oh! You found me!","Sup!"],
-  adj:["so hyped","weirdly obsessed","kinda emotional","dead serious","low-key jealous","completely sold","unreasonably excited"],
-  thing:["camera bumps","refresh rates","fast charging","tiny bezels","dot-matrix fonts","clicky buttons","fresh firmware","periscope lenses","unboxings","flagship launches","back glass","haptic motors"],
-  mood:["fully charged","a bit sleepy","spicy","glowing","fully optimized","on 1% but vibing","in power saving mode"],
-  joke:["Why was the phone cold? It left its Windows open.","I'm 90% pixels and 10% opinions.","My love language is a 100 W charger.","I tried to catch a cloud once. Now it's backed up.","Phones never get lost. They just lose signal."],
-  ask:["Seen the Phone museum yet?","Which phone is your main?","Thoughts on bezels?","Wanna see some specs?","What are we reviewing today?","Got any phone drama?"]
-};
+const JOKES=[
+  "Why was the phone cold? It left its Windows open.",
+  "Why did the phone go to therapy? Too many unresolved notifications.",
+  "Why did the smartphone need glasses? It lost its contacts.",
+  "Why are phones bad at hide and seek? Their location is always on.",
+  "My phone and I have a lot in common. We both die at 1%.",
+  "Why did the phone go to sleep? Its battery was drained.",
+  "What did the phone say to the charger? You complete me.",
+  "Why did the camera bump get a promotion? It really stood out.",
+  "A 120 Hz screen walks into a bar. Everyone says: smooth.",
+  "Why did the foldable go to the party? It wanted to open up.",
+  "What do phones eat for lunch? Microchips.",
+  "Why did the phone get fired? Too many dropped calls.",
+  "Bezels are like my ex. Gone, and nobody misses them.",
+  "Why did the earbud break up? It only ever heard one side of the story.",
+  "Why did the Android go to the bakery? For a KitKat.",
+  "Why was 4G jealous of 5G? It could never keep up.",
+  "I told my phone a secret. Now the whole cloud knows.",
+  "Why did the periscope lens join the call? It was just here for the zoom.",
+  "Why did the phone lose at winter sports? Its battery dropped to 20% from the cold.",
+  "Why did the app crash the party? It stopped responding.",
+  "Software update: 'about 1 minute remaining.' Narrator: it was not 1 minute.",
+  "What do you call a phone with no case? Brave.",
+  "Why was the OLED screen so confident? True blacks and nothing to hide.",
+  "Why are chargers great friends? They always give you a boost.",
+  "Why did the camera sensor stay calm? Nothing could put it out of focus."
+];
 let lastLine="";
 function dotLine(){
-  const T=[
-    ()=>pick(DL.hi),
-    ()=>pick(DL.hi)+" I'm "+pick(DL.adj)+" about "+pick(DL.thing)+".",
-    ()=>"Battery at "+(1+Math.random()*99|0)+"%. Feeling "+pick(DL.mood)+".",
-    ()=>pick(DL.joke),
-    ()=>pick(DL.hi)+" "+pick(DL.ask),
-    ()=>"Fun fact: I think "+pick(DL.thing)+" are underrated.",
-    ()=>"Ping! "+(2+Math.random()*28|0)+" ms. Not bad, huh?"
-  ];
-  let s;for(let i=0;i<6;i++){s=pick(T)();if(s!==lastLine)break}
+  let s;for(let i=0;i<6;i++){s=pick(JOKES);if(s!==lastLine)break}
   return lastLine=s;
 }
 function dotSay(d){
@@ -1080,7 +1175,7 @@ function dotSay(d){
     if(n%2===0)SFX.talk();
     if(n>=line.length){clearInterval(d._i);d.classList.remove("talk")}
   },34);
-  d._t=setTimeout(()=>{b.classList.remove("on");d.classList.remove("talk")},2800+line.length*50);
+  d._t=setTimeout(()=>{b.classList.remove("on");d.classList.remove("talk")},3200+line.length*60);
 }
 const dots=[];
 document.querySelectorAll("[data-dot]").forEach(host=>{
@@ -1103,7 +1198,7 @@ document.querySelectorAll("[data-dot]").forEach(host=>{
       d.style.setProperty("--ey",(dy/m*k*1.6).toFixed(2));
     });
   }
-  addEventListener("pointermove",e=>{px=e.clientX;py=e.clientY;if(!q){q=true;requestAnimationFrame(look)}},{passive:true});
+  addEventListener("pointermove",e=>{if(isLite())return;px=e.clientX;py=e.clientY;if(!q){q=true;requestAnimationFrame(look)}},{passive:true});
 })();
 
 /* ---------- Creator stats ---------- */
@@ -1112,7 +1207,7 @@ const nfull=new Intl.NumberFormat("en"),ncomp=new Intl.NumberFormat("en",{notati
 const fmtN=n=>n==null?"—":(n>=100000?ncomp.format(n):nfull.format(n));
 function animNum(el,to,ms){
   cancelAnimationFrame(el._r);
-  if(to==null||REDUCE){el.textContent=fmtN(to);return}
+  if(to==null||REDUCE||isLite()){el.textContent=fmtN(to);return}
   const t0=performance.now();
   (function f(now){
     const p=Math.min(1,(now-t0)/ms),e=1-Math.pow(1-p,3);
@@ -1228,16 +1323,17 @@ function resetCard(c){
 }
 function runTilt(){
   tiltQueued=false;
+  if(isLite())return;
   if(touchCard){tiltCard(touchCard,lastX,lastY,true);return}
   cards.forEach(c=>{if(c.offsetParent)tiltCard(c,lastX,lastY,false)});
 }
-const queue=(x,y)=>{lastX=x;lastY=y;if(!tiltQueued){tiltQueued=true;requestAnimationFrame(runTilt)}};
+const queue=(x,y)=>{if(isLite())return;lastX=x;lastY=y;if(!tiltQueued){tiltQueued=true;requestAnimationFrame(runTilt)}};
 addEventListener("pointermove",e=>{
   if(e.pointerType==="touch"){if(touchCard)queue(e.clientX,e.clientY);return}
   queue(e.clientX,e.clientY);
 },{passive:true});
 addEventListener("pointerdown",e=>{
-  if(e.pointerType!=="touch")return;
+  if(e.pointerType!=="touch"||isLite())return;
   const c=e.target.closest(".card");if(!c)return;
   touchCard=c;c.classList.add("touching");queue(e.clientX,e.clientY);
 },{passive:true});
@@ -1252,7 +1348,7 @@ addEventListener("blur",()=>cards.forEach(resetCard));
 let drag=null,moved=false;
 const rub=(d,k)=>k*Math.tanh(d/k);
 addEventListener("pointerdown",e=>{
-  if(e.button>0||e.target.closest("button"))return;
+  if(isLite()||e.button>0||e.target.closest("button"))return;
   const c=e.target.closest(".card");if(!c)return;
   drag={c,x:e.clientX,y:e.clientY,bk:0};moved=false;
 });
@@ -1281,7 +1377,7 @@ addEventListener("blur",endDrag);
 addEventListener("click",e=>{if(moved){e.preventDefault();e.stopPropagation()}},true);
 addEventListener("dragstart",e=>e.preventDefault());
 
-/* ---------- Scroll damping ---------- */
+/* ---------- Scroll damping (off in lite mode) ---------- */
 (function(){
   let last=scrollY,off=0,run=false;
   function frame(){
@@ -1293,12 +1389,12 @@ addEventListener("dragstart",e=>e.preventDefault());
     if(Math.abs(off)>.05||Math.abs(v)>.2)requestAnimationFrame(frame);
     else{off=0;run=false;vis.forEach(c=>c.style.translate="")}
   }
-  addEventListener("scroll",()=>{if(!run){run=true;last=scrollY;requestAnimationFrame(frame)}},{passive:true});
+  addEventListener("scroll",()=>{if(isLite()||run)return;run=true;last=scrollY;requestAnimationFrame(frame)},{passive:true});
   if(matchMedia("(pointer:fine)").matches){
     let tgt=scrollY,cur=scrollY,raf=0;
     const step=()=>{cur+=(tgt-cur)*.12;if(Math.abs(tgt-cur)<.4){cur=tgt;raf=0}else raf=requestAnimationFrame(step);scrollTo(0,cur)};
     addEventListener("wheel",e=>{
-      if(e.ctrlKey||document.body.classList.contains("sheet-open"))return;e.preventDefault();
+      if(isLite()||e.ctrlKey||document.body.classList.contains("sheet-open"))return;e.preventDefault();
       const max=document.documentElement.scrollHeight-innerHeight;
       tgt=Math.max(0,Math.min(max,tgt+e.deltaY*(e.deltaMode===1?32:1)));
       if(!raf)raf=requestAnimationFrame(step);
@@ -1342,7 +1438,7 @@ function wxMake(){
     :{x:rnd(0,W+60),y:rnd(0,H),l:rnd(11,22),v:rnd(15,24),w:rnd(.8,1.7)});
 }
 function wxSync(){
-  const on=curTab==="about"&&wxFx&&!REDUCE&&!document.hidden;
+  const on=curTab==="about"&&wxFx&&!REDUCE&&!document.hidden&&!isLite();
   if(on&&!wxRun){wxResize();wxMake();wxRun=true;requestAnimationFrame(wxLoop)}
   else if(!on){wxRun=false;wxx.clearRect(0,0,wxc.clientWidth,wxc.clientHeight)}
 }
@@ -1390,6 +1486,55 @@ function setWeather(code,temp,isDay){
 })();
 addEventListener("resize",()=>{if(wxRun){wxResize();wxMake()}});
 document.addEventListener("visibilitychange",wxSync);
+
+/* ---------- Update log (top left). Add new entries at the TOP of this list. ---------- */
+const UPDATES=[
+  {v:"1.1",d:"Oct 10, 2026",n:[
+    "Added LITE mode (top right): less blur, fewer effects, built for older devices",
+    "Dot now only tells phone and tech jokes",
+    "LG Wing icon now shows its T-pose",
+    "Hall of Fame: OnePlus 15 is 2nd, A52s is 3rd",
+    "Easter egg paint no longer leaves an oval hole around the text",
+    "Bio line now changes every 5 seconds",
+    "Added this update log"
+  ]}
+];
+(function(){
+  const box=$("ulog"),btn=$("ulogBtn"),panel=$("ulogPanel"),led=$("ulogLed"),KEY="farlands-log-seen",latest=UPDATES[0].v;
+  panel.innerHTML='<div class="ul-title dm"><span class="led"></span>Update log</div>'
+    +UPDATES.map(u=>'<div class="ul-ver"><b>v'+esc(u.v)+'</b><span>'+esc(u.d)+'</span></div><ul class="ul-list">'+u.n.map(t=>'<li>'+esc(t)+'</li>').join("")+'</ul>').join("");
+  let seen=null;try{seen=localStorage.getItem(KEY)}catch(e){}
+  if(seen!==latest)led.className="led a";
+  function setOpen(o){
+    box.classList.toggle("open",o);btn.setAttribute("aria-expanded",String(o));
+    if(o){led.className="led off";try{localStorage.setItem(KEY,latest)}catch(e){}}
+  }
+  btn.addEventListener("click",e=>{e.stopPropagation();const o=!box.classList.contains("open");setOpen(o);SFX.expand(o);haptic(8)});
+  document.addEventListener("click",e=>{if(box.classList.contains("open")&&!e.target.closest("#ulog"))setOpen(false)});
+  addEventListener("keydown",e=>{if(e.key==="Escape")setOpen(false)});
+})();
+
+/* ---------- LITE mode toggle ---------- */
+const liteBtn=$("liteButton");
+function paintLite(){
+  const on=isLite();
+  liteBtn.setAttribute("aria-pressed",String(on));
+  liteBtn.setAttribute("aria-label",on?"Lite mode is on. Switch to full mode":"Switch to lite mode, faster on older devices");
+  liteBtn.querySelector(".led").className="led "+(on?"g":"off");
+}
+paintLite();
+liteBtn.addEventListener("click",()=>{
+  const on=!isLite();
+  document.body.classList.toggle("lite",on);
+  try{localStorage.setItem(LITE_KEY,on?"1":"0")}catch(e){}
+  paintLite();
+  cards.forEach(c=>{resetCard(c);c.style.translate=""});
+  if(!on){topoDraw(true);loadPhones()}
+  wxSync();
+  SFX.pop(on?3:1);haptic(10);
+  liteBtn.classList.remove("pop");void liteBtn.offsetWidth;liteBtn.classList.add("pop");
+});
+
 go(location.hash.slice(1),false);
 loadStats();
 
@@ -1403,8 +1548,8 @@ function applyStarry(on){
 }
 // every visible element gets "painted" in, left to right, behind a brush-colored sweep
 function paintIn(){
-  if(REDUCE)return;
-  const els=[...document.querySelectorAll(".tab.on .card,.tab.on .hero>*,.tab.on .sec,.tab.on .seg,.tab.on .room,.dock,.control,.rail:not([hidden])")].filter(e=>e.getClientRects().length);
+  if(REDUCE||isLite())return;
+  const els=[...document.querySelectorAll(".tab.on .card,.tab.on .hero>*,.tab.on .sec,.tab.on .seg,.tab.on .room,.dock,.control,.ulog,.rail:not([hidden])")].filter(e=>e.getClientRects().length);
   els.forEach((el,i)=>el.animate(
     [{clipPath:"inset(0 100% 0 0)",filter:"blur(8px) brightness(1.7) saturate(2.2)",opacity:.2},{clipPath:"inset(0 0% 0 0)",filter:"blur(0) brightness(1) saturate(1)",opacity:1}],
     {duration:900,delay:Math.min(i,14)*55,easing:"cubic-bezier(.22,.8,.22,1)",fill:"backwards"}));
@@ -1412,12 +1557,12 @@ function paintIn(){
   w.animate([{translate:"-80vw 0"},{translate:"130vw 0"}],{duration:1200,easing:"cubic-bezier(.65,0,.35,1)"}).finished.then(()=>w.remove(),()=>w.remove());
 }
 function fadeIn(){
-  if(REDUCE)return;
-  document.querySelectorAll(".page,.dock,.top-controls,.rail:not([hidden])").forEach(el=>el.animate([{opacity:0,filter:"blur(10px)"},{opacity:1,filter:"blur(0)"}],{duration:700,easing:"ease-out"}));
+  if(REDUCE||isLite())return;
+  document.querySelectorAll(".page,.dock,.top-controls,.ulog,.rail:not([hidden])").forEach(el=>el.animate([{opacity:0,filter:"blur(10px)"},{opacity:1,filter:"blur(0)"}],{duration:700,easing:"ease-out"}));
 }
 function setStarry(on){
   SFX.reveal(on);
-  if(!on&&!REDUCE&&document.startViewTransition){
+  if(!on&&!REDUCE&&!isLite()&&document.startViewTransition){
     const h=document.documentElement;h.classList.add("vt-out");
     const t=document.startViewTransition(()=>applyStarry(false));
     t.finished.finally(()=>h.classList.remove("vt-out"));
@@ -1439,7 +1584,9 @@ $("profileEgg").addEventListener("click",()=>{
   eggTimer=setTimeout(()=>eggClicks=0,1800);
 });
 
-/* ---------- Paint-brush animation (never paints over the text in the middle) ---------- */
+/* ---------- Paint-brush animation ----------
+   The paint canvas sits UNDER the glowing message (z-index 9999 vs 10001), so the paint
+   flows freely across the whole screen and the text always stays on top, no cut-out needed. */
 const canvas=$("fireworks"),ctx=canvas.getContext("2d"),brush=$("brush");
 let fwRunning=false,strokes=[],fwFrame,fwT=0;
 const PAL=["#f2c744","#f9e48c","#e8a93a","#3f6fc4","#6fa6ee","#1d3a7a","#9ed0d8","#2c5aa8"];
@@ -1486,15 +1633,11 @@ function startPaint(){
   fwRunning=true;fwT=0;new Image().src="profile1.png";SFX.paint();
   strokes=Array.from({length:18},(_,i)=>makeStroke(i));
   ctx.globalCompositeOperation="source-over";ctx.clearRect(0,0,innerWidth,innerHeight);
-  // keep an oval free around the message so paint never covers the glowing text
-  const msg=document.querySelector(".egg-message"),W=innerWidth,H=innerHeight;
-  ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);
-  ctx.ellipse(W/2,H/2,msg.offsetWidth/2+40,msg.offsetHeight/2+36,0,0,Math.PI*2);ctx.clip("evenodd");
   document.body.classList.add("fireworks-mode");
   haptic(30);
   animatePaint();
   setTimeout(()=>{
-    fwRunning=false;cancelAnimationFrame(fwFrame);ctx.restore();
+    fwRunning=false;cancelAnimationFrame(fwFrame);
     document.body.classList.remove("fireworks-mode");setStarry(true);
     setTimeout(()=>ctx.clearRect(0,0,innerWidth,innerHeight),700);
   },3800);
@@ -1507,8 +1650,14 @@ const updateThemeIcon=()=>themeButton.textContent=document.body.classList.contai
 try{if(localStorage.getItem("farlands-dark")==="1")document.body.classList.add("dark")}catch(e){}
 updateThemeIcon();
 themeButton.addEventListener("click",()=>{
-  if(themeAnimating)return;themeAnimating=true;
+  if(themeAnimating)return;
   const r=themeButton.getBoundingClientRect(),toDark=!document.body.classList.contains("dark");
+  if(isLite()){ // lite: switch instantly, no circular reveal
+    document.body.classList.toggle("dark",toDark);
+    try{localStorage.setItem("farlands-dark",toDark?"1":"0")}catch(e){}
+    updateThemeIcon();SFX.theme(toDark);haptic(10);return;
+  }
+  themeAnimating=true;
   themeTransition.style.setProperty("--tx",(r.left+r.width/2)+"px");
   themeTransition.style.setProperty("--ty",(r.top+r.height/2)+"px");
   themeTransition.classList.remove("closing");themeTransition.classList.toggle("light",!toDark);
