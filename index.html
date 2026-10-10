@@ -32,6 +32,7 @@ html{scrollbar-width:none;-webkit-text-size-adjust:100%;overflow-x:hidden}
 html::-webkit-scrollbar{display:none}
 body{margin:0;min-height:100vh;width:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);background:var(--bg);
   overflow-x:hidden;overflow-x:clip;transition:background .8s ease,color .5s ease;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body.sheet-open{overflow:hidden}
 .bg{position:fixed;left:0;top:0;width:100%;height:100lvh;z-index:-3;pointer-events:none;overflow:hidden;contain:strict}
 .aurora{background:
   radial-gradient(45vmax 45vmax at 8% 6%,rgba(122,165,255,.55),transparent 70%),
@@ -71,7 +72,6 @@ body.starry-mode .aurora{opacity:.12}body.starry-mode .topo{opacity:.14}
 .tab{display:none;width:100%;min-width:0}
 .tab.on{display:block;animation:tabIn .55s var(--ease)}
 @keyframes tabIn{from{opacity:0;filter:blur(10px)}to{opacity:1;filter:none}}
-/* Bounce-in on load and on every tab open */
 .stg{animation:rise .95s ease-out backwards;animation-delay:calc(var(--n,0)*60ms + 120ms)}
 @keyframes rise{
   0%{opacity:0;translate:0 80px;scale:.55}
@@ -96,10 +96,18 @@ body.starry-mode .aurora{opacity:.12}body.starry-mode .topo{opacity:.14}
 .profile{width:100%;height:100%;display:block;object-fit:cover;border-radius:34px;box-shadow:0 18px 45px rgba(30,40,70,.2),0 0 0 3px rgba(255,255,255,.55);transition:transform .6s var(--spring)}
 .profile-wrap:hover .profile{transform:translateY(-4px) scale(1.05) rotate(-2deg)}.profile-wrap:active .profile{transform:scale(.94)}
 .status{position:absolute;right:-3px;bottom:-3px;width:22px;height:22px;border:4px solid var(--bg);border-radius:50%;background:var(--green);box-shadow:0 0 16px rgba(49,213,109,.55)}
-.eyebrow{margin-bottom:8px;font-size:15px;color:var(--muted);letter-spacing:.22em}
-h1{margin:0;padding-bottom:5px;font-size:clamp(30px,7vw,55px);line-height:1.06;letter-spacing:-.055em;font-weight:800;text-shadow:0 0 24px rgba(90,130,255,.35),0 6px 34px rgba(160,100,255,.28)}
-h1>span:not([aria-hidden="true"]){display:block;padding-bottom:3px;background:linear-gradient(100deg,#4d7fff,#9c63ff,#f36bc9);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 16px rgba(130,100,255,.42))}
-.intro{max-width:480px;margin:18px auto 0;color:var(--muted);font-size:14px;line-height:1.65}
+/* Hero: FarlandsTech is the star, the tagline is the quiet dot-matrix line under it */
+h1{margin:0;padding:0 0 4px;font-size:clamp(38px,12.5vw,80px);line-height:1.04;letter-spacing:-.05em;font-weight:800;color:var(--text);cursor:default;
+  --glow:#6f9bff;--glow2:#9c63ff;
+  text-shadow:0 0 10px color-mix(in srgb,var(--glow) 70%,transparent),0 0 28px color-mix(in srgb,var(--glow) 55%,transparent),0 0 64px color-mix(in srgb,var(--glow2) 45%,transparent);
+  animation:h1glow 3.6s ease-in-out infinite alternate}
+@keyframes h1glow{to{text-shadow:0 0 14px color-mix(in srgb,var(--glow) 90%,transparent),0 0 38px color-mix(in srgb,var(--glow) 70%,transparent),0 0 88px color-mix(in srgb,var(--glow2) 62%,transparent)}}
+body.dark h1{--glow:#8fb0ff;--glow2:#b98bff}
+.hc{display:inline-block}
+.hc.wv{animation:wv .8s var(--spring) both;animation-delay:calc(var(--w)*45ms)}
+@keyframes wv{40%{translate:0 -16px;scale:1.2;color:hsl(calc(var(--w)*26 + 190) 100% 72%);text-shadow:0 0 16px currentColor,0 0 38px currentColor}}
+.eyebrow{margin:8px 0 0;font-size:16px;color:var(--muted);letter-spacing:.14em}
+.intro{max-width:480px;margin:16px auto 0;color:var(--muted);font-size:14px;line-height:1.65}
 
 .links{display:grid;gap:14px;grid-template-columns:minmax(0,1fr);width:100%}
 .card{
@@ -144,8 +152,12 @@ body.dark .icon{background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255
 .chip .icon{width:40px;height:40px;flex-basis:40px;border-radius:14px}
 .about-p{margin:0 6px 18px;color:var(--muted);font-size:14px;line-height:1.7}
 footer{text-align:center;padding:30px 0 0;color:var(--muted);font-size:11px}
-.solarized-link{display:inline-block;margin-top:9px;color:var(--muted);opacity:.5;text-decoration:none;transition:opacity .3s,transform .4s var(--spring)}
-.solarized-link:hover{opacity:.95;transform:translateY(-2px)}
+/* "Inspired by" link: same size, now glowing */
+.solarized-link{display:inline-block;margin-top:9px;color:#3d7cff;font-weight:600;text-decoration:none;
+  text-shadow:0 0 8px rgba(61,124,255,.65),0 0 20px rgba(156,99,255,.5);animation:slPulse 3s ease-in-out infinite alternate;transition:transform .4s var(--spring)}
+@keyframes slPulse{to{text-shadow:0 0 12px rgba(61,124,255,.95),0 0 30px rgba(156,99,255,.8)}}
+body.dark .solarized-link{color:#a9c2ff}
+.solarized-link:hover{transform:translateY(-2px) scale(1.05)}
 
 .dock{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));translate:-50% 0;z-index:60;width:min(420px,calc(100% - 28px));
   display:grid;grid-template-columns:repeat(4,1fr);padding:6px;border-radius:999px;--i:0;animation:dockIn 1s var(--spring) .35s backwards}
@@ -178,27 +190,28 @@ body.starry-mode .led.g{background:#8fd3c8;box-shadow:0 0 8px #8fd3c8,0 0 18px r
 body.starry-mode .led.off{box-shadow:none}
 body.starry-mode .glyph i{background:#5b8fd8}
 body.starry-mode .profile{box-shadow:0 0 0 3px #5b8fd8,0 0 0 6px rgba(242,199,68,.35),0 0 38px rgba(242,199,68,.4)}
-body.starry-mode h1{font-family:Kalam,cursive;letter-spacing:0;font-weight:700;text-shadow:0 0 22px rgba(242,199,68,.45),0 4px 28px rgba(79,134,216,.5)}
-body.starry-mode h1>span{background:linear-gradient(100deg,#f2c744,#f9efb0,#6fa6ee);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 4px 14px rgba(242,199,68,.4))}
-body.starry-mode .eyebrow{letter-spacing:.12em}
+body.starry-mode h1{font-family:Kalam,cursive;letter-spacing:0;font-weight:700;--glow:#f2c744;--glow2:#5b9be8}
+body.starry-mode .eyebrow{letter-spacing:.1em;font-size:19px}
 body.starry-mode .card-title{font-size:18px}body.starry-mode .card-subtitle{font-size:14px}
 body.starry-mode .intro,body.starry-mode .about-p,body.starry-mode .work p{font-size:16px}
 body.starry-mode .tag{font-size:15px}
 body.starry-mode .sec small{font-family:Kalam,cursive;font-size:14px}
 body.starry-mode .control{outline:1.5px solid #5b8fd8;outline-offset:-1.5px}
+body.starry-mode .solarized-link{color:#f7e9a8;text-shadow:0 0 8px rgba(242,199,68,.8),0 0 20px rgba(242,199,68,.5)}
 
 /* Easter egg: paint backdrop */
 #fireworks{position:fixed;inset:0;width:100%;height:100%;z-index:9999;pointer-events:none;opacity:0;background:rgba(5,10,40,.55);
   backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);transition:opacity .6s}
 body.fireworks-mode #fireworks{opacity:1}
-body.fireworks-mode .page,body.fireworks-mode .top-controls,body.fireworks-mode .dock{filter:blur(6px);transition:filter .6s}
+body.fireworks-mode .page,body.fireworks-mode .top-controls,body.fireworks-mode .dock,body.fireworks-mode .rail{filter:blur(6px);transition:filter .6s}
 #brush{position:fixed;left:0;top:0;z-index:10000;font-size:46px;line-height:1;pointer-events:none;opacity:0;transition:opacity .4s;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));will-change:transform}
 body.fireworks-mode #brush{opacity:1}
 .egg-message{position:fixed;left:50%;top:50%;z-index:10001;transform:translate(-50%,-50%) scale(.65);opacity:0;pointer-events:none;text-align:center;color:#f7e9a8;transition:opacity .45s,transform .8s cubic-bezier(.17,.89,.32,1.35);width:max-content;max-width:90vw}
 body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.egg-icon{font-size:55px;margin-bottom:14px;animation:float 1.8s ease-in-out infinite}
-.egg-title{font-size:34px;text-shadow:0 0 25px rgba(242,199,68,.7)}
-.egg-subtitle{margin-top:8px;color:rgba(159,195,238,.9);font-size:13px}
+.egg-icon{font-size:55px;margin-bottom:14px;animation:float 1.8s ease-in-out infinite;filter:drop-shadow(0 0 14px rgba(242,199,68,.9))}
+.egg-title{font-size:34px;color:#fff4c2;text-shadow:0 0 12px #f2c744,0 0 30px rgba(242,199,68,.85),0 0 64px rgba(242,199,68,.55);animation:eggGlow 1.5s ease-in-out infinite alternate}
+.egg-subtitle{margin-top:8px;color:#d6e6ff;font-size:13px;text-shadow:0 0 10px rgba(111,166,238,.95),0 0 24px rgba(111,166,238,.65)}
+@keyframes eggGlow{to{text-shadow:0 0 16px #f9e48c,0 0 42px rgba(242,199,68,1),0 0 90px rgba(242,199,68,.7)}}
 @keyframes float{50%{transform:translateY(-8px) scale(1.04)}}
 @media(max-width:760px){
   .phones{display:none}
@@ -212,14 +225,13 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
 @media(pointer:coarse){.phones{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
-/* ===== v2: mute, specs, museum, stats, mascot ===== */
+/* ===== v2: mute, specs, stats, mascot ===== */
 :root{--mb1:#8fa8ff;--mb2:#c3a6ff}
 body.starry-mode{--mb1:#f2c744;--mb2:#5b9be8}
 .control svg{width:19px;height:19px;display:block}
 .view[hidden]{display:none}
 
-/* expandable spec cards */
-.xcard{flex-wrap:wrap;row-gap:0;cursor:pointer}
+.xcard{flex-wrap:wrap;row-gap:0;cursor:pointer;border:1.5px solid color-mix(in srgb,var(--b) 48%,var(--edge-low))}
 .xcard .arrow{transition:transform .5s var(--spring),color .3s}
 .xcard.open .arrow{transform:rotate(90deg)}
 .xcard.open.live .arrow{transform:rotate(90deg) scale(1.12)}
@@ -234,7 +246,6 @@ body.starry-mode{--mb1:#f2c744;--mb2:#5b9be8}
 body.starry-mode .spec-grid{font-size:14px}
 body.starry-mode .spec-note{font-size:13px}
 
-/* devices sub-switch */
 .seg{position:relative;display:grid;grid-template-columns:1fr 1fr;padding:5px;border-radius:999px;margin:0 0 24px;--si:0}
 .seg-ind{position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 10px)/2);border-radius:999px;transform:translateX(calc(var(--si)*100%));transition:transform .6s var(--spring);
   background:linear-gradient(145deg,rgba(255,255,255,.85),rgba(255,255,255,.35));box-shadow:0 6px 18px rgba(40,60,120,.18),inset 0 1px 1px #fff}
@@ -244,7 +255,6 @@ body.starry-mode .seg-ind{background:linear-gradient(145deg,rgba(242,199,68,.38)
 .seg button.on{color:var(--text)}.seg button:active{transform:scale(.95)}
 body.starry-mode .seg button{font-family:Kalam,cursive;font-size:16px}
 
-/* creator stats */
 .stat-hero{display:block;padding:22px 22px 18px;border-radius:32px;cursor:default}
 .stat-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .stat-label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em}
@@ -260,7 +270,7 @@ body.starry-mode .stat-delta{font-family:Kalam,cursive;font-size:15px}
 .stat-num{font-family:var(--dm);font-weight:900;font-size:clamp(22px,6.4vw,30px);line-height:1.1;font-variant-numeric:tabular-nums}
 body.starry-mode .stat-note{font-size:13px}
 
-/* mascot: Dot, an original little phone-sprite that peeks over card edges */
+/* mascot: Dot */
 .has-dot{margin-top:38px!important}
 .dot{position:absolute;bottom:calc(100% - 7px);width:58px;z-index:5;cursor:pointer;--ex:0;--ey:0}
 .dot-l{left:26px}.dot-r{right:30px}.dot-c{left:calc(50% - 29px)}
@@ -268,27 +278,118 @@ body.starry-mode .stat-note{font-size:13px}
 .dot .head{transition:transform .55s var(--spring)}
 .dot.shy .head{transform:translateY(60px)}
 .dot .bob{animation:dotbob 3.4s ease-in-out infinite}
+.dot.talk .bob{animation:dottalk .22s ease-in-out infinite}
 .dot .eyes{transform:translate(calc(var(--ex)*1px),calc(var(--ey)*1px));transition:transform .18s ease-out}
 .dot .eye{transform-box:fill-box;transform-origin:center;animation:dblink 5.6s infinite;animation-delay:var(--bd,0s)}
 .dot .led-top{animation:dotled 2.2s ease-in-out infinite}
 @keyframes dotbob{50%{transform:translateY(-1.6px)}}
+@keyframes dottalk{50%{transform:translateY(-3.4px)}}
 @keyframes dblink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
 @keyframes dotled{50%{opacity:.4}}
+.say{position:absolute;bottom:calc(100% + 4px);width:max-content;max-width:168px;padding:8px 12px;border-radius:16px;background:var(--bg);color:var(--text);
+  border:1.5px solid color-mix(in srgb,var(--mb1) 70%,transparent);box-shadow:0 10px 26px rgba(0,0,0,.22);font:600 12px/1.35 Inter,sans-serif;text-align:left;
+  pointer-events:none;opacity:0;scale:.6;transform-origin:bottom center;transition:opacity .25s,scale .45s var(--spring);z-index:6}
+.say.on{opacity:1;scale:1}
+.dot-l .say{left:-4px}.dot-r .say{right:-4px}.dot-c .say{left:50%;translate:-50% 0}
+.say::after{content:"";position:absolute;top:100%;margin-top:-5px;width:9px;height:9px;background:var(--bg);border:1.5px solid color-mix(in srgb,var(--mb1) 70%,transparent);border-top:0;border-left:0;rotate:45deg}
+.dot-l .say::after{left:28px}.dot-r .say::after{right:28px}.dot-c .say::after{left:calc(50% - 5px)}
+body.starry-mode .say{font-family:Kalam,cursive;font-size:14px;font-weight:700}
+
+/* ===== PHONE MUSEUM: rooms, pedestals, brand rail, detail sheet ===== */
+.room{--bc:#3d7cff;position:relative;margin-bottom:34px;padding:16px 12px 6px;border-radius:34px;
+  background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--bc) 24%,transparent),transparent 65%),
+    repeating-linear-gradient(90deg,transparent 0 46px,color-mix(in srgb,var(--text) 4%,transparent) 46px 47px),
+    linear-gradient(180deg,color-mix(in srgb,var(--text) 4%,transparent),color-mix(in srgb,var(--text) 12%,transparent));
+  border:1.5px solid color-mix(in srgb,var(--bc) 58%,var(--edge-low));
+  box-shadow:var(--shadow),inset 0 0 44px color-mix(in srgb,var(--bc) 12%,transparent),0 0 30px color-mix(in srgb,var(--bc) 16%,transparent)}
+.room-head{display:flex;align-items:center;gap:12px;margin:0 8px 4px}
+.rlogo{display:grid;place-items:center;height:26px;min-width:44px;color:var(--bc);filter:drop-shadow(0 0 8px color-mix(in srgb,var(--bc) 60%,transparent))}
+.rlogo svg{height:24px;width:auto;max-width:64px;display:block}
+.rname{font-size:18px;color:var(--text)}
+.room-head small{margin-left:auto;color:var(--muted);font-size:11px;font-weight:600}
+.ped-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:4px;padding:6px 0 16px}
+.ped-grid.podium{grid-template-columns:repeat(3,minmax(0,1fr));align-items:end}
+.ped{position:relative;display:flex;flex-direction:column;align-items:center;padding:4px 2px 0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;perspective:520px;min-width:0}
+.spot{position:absolute;left:0;right:0;top:0;height:150px;clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);pointer-events:none;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--bc) 60%,#fff),transparent 88%);opacity:.26;transition:opacity .5s}
+.ped:hover .spot,.ped:focus-visible .spot{opacity:.5}
+.exhibit{position:relative;z-index:2;height:100px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:-3px;animation:exh 4.2s ease-in-out infinite;animation-delay:calc(var(--k,0)*-.8s)}
+.exhibit svg{display:block;width:58px;height:auto;filter:drop-shadow(0 12px 12px rgba(0,0,0,.3));transition:transform .7s var(--spring)}
+.ped:hover .exhibit svg,.ped:active .exhibit svg{transform:rotateY(24deg) translateY(-6px) scale(1.06)}
+@keyframes exh{50%{translate:0 -5px}}
+.pillar{position:relative;z-index:1;width:84%;height:var(--ph,46px);border-radius:7px 7px 3px 3px;border:1.5px solid color-mix(in srgb,var(--bc) 55%,transparent);
+  background:linear-gradient(90deg,rgba(0,0,0,.22),rgba(255,255,255,.26) 24%,rgba(255,255,255,.04) 62%,rgba(0,0,0,.24)),color-mix(in srgb,var(--bc) 16%,var(--bg))}
+.pillar::before{content:"";position:absolute;left:-6%;right:-6%;top:-8px;height:12px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--bc) 55%,transparent);
+  background:linear-gradient(180deg,rgba(255,255,255,.55),color-mix(in srgb,var(--bc) 24%,var(--bg)))}
+.pillar::after{content:"";position:absolute;left:-8%;right:-8%;bottom:-5px;height:9px;border-radius:5px;background:color-mix(in srgb,var(--bc) 30%,var(--bg));border:1.5px solid color-mix(in srgb,var(--bc) 50%,transparent)}
+.plq{position:relative;z-index:2;margin-top:12px;text-align:center;font-size:12px;font-weight:700;line-height:1.25;max-width:100%}
+.plq small{display:block;color:var(--muted);font-weight:500;font-size:10.5px;margin-top:1px}
+.stl{display:inline-flex;align-items:center;gap:6px;margin-top:5px;font-size:11px;color:var(--muted);letter-spacing:.05em}
+.crown{position:absolute;top:-6px;left:50%;translate:-50% 0;z-index:4;font-size:20px;color:#f2c744;text-shadow:0 0 12px #f2c744,0 0 26px rgba(242,199,68,.7);animation:crown 2s ease-in-out infinite alternate}
+@keyframes crown{to{translate:-50% -4px;text-shadow:0 0 18px #f9e48c,0 0 38px rgba(242,199,68,.9)}}
+body.starry-mode .plq{font-size:14px}body.starry-mode .plq small{font-size:12.5px}body.starry-mode .stl{font-size:13px}
+body.starry-mode .room,body.starry-mode .sheet,body.starry-mode .rail button{--bc:#f2c744!important}
+
+.rail{position:fixed;top:50%;left:max(10px,calc(50% - 422px));translate:0 -50%;z-index:55;display:flex;flex-direction:column;gap:4px;width:96px;padding:8px;border-radius:30px;animation:railIn .8s var(--spring) backwards}
+.rail[hidden]{display:none}
+@keyframes railIn{from{opacity:0;translate:-34px -50%}}
+.rail button{--bc:#3d7cff;border:0;background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px 8px;border-radius:22px;cursor:pointer;
+  font:700 10px Inter,sans-serif;transition:background .35s,box-shadow .35s,color .3s,transform .4s var(--spring)}
+.rail button svg{display:block;width:48px;height:20px;color:var(--bc)}
+.rail button:active{transform:scale(.92)}
+.rail button.on{color:var(--text);background:color-mix(in srgb,var(--bc) 15%,transparent);box-shadow:inset 0 0 0 1.5px var(--bc),0 0 18px color-mix(in srgb,var(--bc) 38%,transparent)}
+body.starry-mode .rail button{font-family:Kalam,cursive;font-size:12px}
+@media(max-width:900px){
+  .rail{left:6px;width:56px;padding:6px;border-radius:26px}
+  .rail button span{display:none}.rail button{padding:11px 2px}.rail button svg{width:42px}
+  body.mus .page{padding-left:68px}
+}
+
+#sheetWrap{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:16px}
+#sheetWrap[hidden]{display:none}
+.sheet-bg{position:absolute;inset:0;background:rgba(5,8,20,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}}
+.sheet{--bc:#3d7cff;position:relative;width:min(460px,100%);max-height:88vh;overflow:auto;border-radius:34px;padding:20px 22px 24px;
+  border:1.5px solid color-mix(in srgb,var(--bc) 62%,var(--edge-low));text-align:center;overscroll-behavior:contain;animation:sheetIn .6s var(--spring);
+  box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 44px color-mix(in srgb,var(--bc) 28%,transparent),inset 0 1.5px 1px var(--edge)}
+.sheet.glass{background:radial-gradient(var(--dot) .9px,transparent 1.2px) 0 0/11px 11px,linear-gradient(180deg,color-mix(in srgb,var(--bc) 14%,var(--bg)),var(--bg))}
+@keyframes sheetIn{from{opacity:0;translate:0 50px;scale:.9}}
+.sheet-x{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:0;background:color-mix(in srgb,var(--text) 10%,transparent);color:var(--text);font-size:15px;cursor:pointer;z-index:5;transition:transform .4s var(--spring)}
+.sheet-x:active{transform:scale(.88)}
+.sheet .stage{position:relative;height:196px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;perspective:600px;margin-bottom:6px}
+.sheet .spot{height:170px;opacity:.5}
+.sheet .exhibit{height:140px;animation-duration:3.6s}
+.sheet .exhibit svg{width:84px;animation:spin 7s ease-in-out infinite alternate}
+@keyframes spin{from{transform:rotateY(-26deg)}to{transform:rotateY(26deg)}}
+.sheet .pillar{width:46%;height:34px}
+.sh-brand{margin-top:16px;font-size:13px;color:var(--bc)}
+.sheet h3{margin:2px 0 0;font-size:24px;letter-spacing:-.02em}
+.sh-note{margin:12px 6px 0;color:var(--muted);font-size:13.5px;line-height:1.6;font-style:italic}
+.sheet .spec-grid{opacity:1;text-align:left;margin-top:18px}
+body.starry-mode .sheet h3{font-size:28px}body.starry-mode .sh-note{font-size:16px}
+
+/* mode switch transitions */
+html.vt-out::view-transition-old(root),html.vt-out::view-transition-new(root){animation:none;mix-blend-mode:normal}
+html.vt-out::view-transition-new(root){animation:vtSweep 1s cubic-bezier(.76,0,.2,1) both}
+@keyframes vtSweep{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0 0 0 0)}}
+.wipe{position:fixed;top:-10vh;bottom:-10vh;left:0;width:70vw;z-index:9990;pointer-events:none;filter:blur(22px);translate:-80vw 0;
+  background:linear-gradient(100deg,transparent,rgba(63,111,196,.6) 28%,rgba(242,199,68,.78) 60%,rgba(249,228,140,0))}
 </style>
 </head>
 <body>
 <div class="bg aurora" aria-hidden="true"></div>
 <canvas class="bg topo" id="topo" aria-hidden="true"></canvas>
 <canvas class="bg" id="wx" aria-hidden="true"></canvas>
+<!-- phone images are loaded by script (desktop only, webp first) so mobile never downloads them -->
 <div class="bg phones" aria-hidden="true">
-  <img class="phone phone1" src="phone1.png" alt="" decoding="async">
-  <img class="phone phone2" src="phone2.png" alt="" decoding="async">
-  <img class="phone phone3" src="phone3.png" alt="" loading="lazy" decoding="async">
-  <img class="phone phone4" src="phone4.png" alt="" loading="lazy" decoding="async">
-  <img class="phone phone5" src="phone5.png" alt="" loading="lazy" decoding="async">
-  <img class="phone phone6" src="phone6.png" alt="" loading="lazy" decoding="async">
-  <img class="phone phone7" src="phone7.png" alt="" loading="lazy" decoding="async">
-  <img class="phone phone8" src="phone8.png" alt="" loading="lazy" decoding="async">
+  <img class="phone phone1" data-n="phone1" alt="" decoding="async" fetchpriority="low">
+  <img class="phone phone2" data-n="phone2" alt="" decoding="async" fetchpriority="low">
+  <img class="phone phone3" data-n="phone3" alt="" decoding="async" fetchpriority="low">
+  <img class="phone phone4" data-n="phone4" alt="" decoding="async" fetchpriority="low">
+  <img class="phone phone5" data-n="phone5" alt="" decoding="async" fetchpriority="low">
+  <img class="phone phone6" data-n="phone6" alt="" decoding="async" fetchpriority="low">
+  <img class="phone phone7" data-n="phone7" alt="" decoding="async" fetchpriority="low">
+  <img class="phone phone8" data-n="phone8" alt="" decoding="async" fetchpriority="low">
 </div>
 
 <div class="top-controls">
@@ -307,8 +408,8 @@ body.starry-mode .stat-note{font-size:13px}
         <img class="profile" src="profile.png" alt="FarlandsTech" fetchpriority="high" decoding="async">
         <div class="status"></div>
       </div>
-      <div class="eyebrow dm stg">FARLANDSTECH</div>
-      <h1 class="stg" style="--n:1">Smartphones.<br><span>Tech. Photography.</span></h1>
+      <h1 class="stg">FarlandsTech</h1>
+      <div class="eyebrow dm stg" style="--n:1">Smartphones · Tech · Photography</div>
       <p class="intro stg" style="--n:2">Phone content, tech experiments, photography and whatever device I'm currently obsessed with.</p>
       <div class="glyph" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i></div>
     </section>
@@ -363,7 +464,7 @@ body.starry-mode .stat-note{font-size:13px}
     </div>
     <div class="view" id="v-museum" hidden>
       <div class="sec dm stg"><span class="led"></span>Phone museum<small id="musCount"></small></div>
-      <p class="about-p stg">Every phone I've owned, sorted by brand. Tap one for the story and the spec sheet.</p>
+      <p class="about-p stg">Walk the halls. Every phone I've owned stands on its own pedestal, one room per brand. Tap a phone for its story and spec sheet, and use the rail to jump between rooms.</p>
       <div id="musList"></div>
     </div>
   </div>
@@ -444,6 +545,9 @@ body.starry-mode .stat-note{font-size:13px}
   <button data-tab="stats" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-9M12 20V5M19 20v-6"/></svg>Stats</button>
 </nav>
 
+<nav class="rail glass" id="rail" aria-label="Museum rooms" hidden></nav>
+<div id="sheetWrap" hidden><div class="sheet-bg" id="sheetBg"></div><div class="sheet glass" id="sheet" role="dialog" aria-modal="true" aria-label="Phone details"></div></div>
+
 <canvas id="fireworks"></canvas>
 <div id="brush" aria-hidden="true">🖌️</div>
 <div class="egg-message">
@@ -458,7 +562,7 @@ const $=id=>document.getElementById(id);
 const REDUCE=matchMedia("(prefers-reduced-motion:reduce)").matches;
 $("year").textContent=new Date().getFullYear();
 
-/* ---------- Haptics: tap + continuous while sliding ---------- */
+/* ---------- Haptics: only on real touches (taps) and while stretching a card ---------- */
 const COARSE=matchMedia("(pointer:coarse)").matches||"ontouchstart" in window;
 const canVib=typeof navigator.vibrate==="function";
 let iosSwitch=null;
@@ -472,23 +576,19 @@ function haptic(ms){
   if(!COARSE)return;
   try{if(canVib)navigator.vibrate(ms||8);else if(iosSwitch)iosSwitch.click()}catch(e){}
 }
-let hapX=0,hapY=0,hapT=0;
+// one tick when a finger lands on something tappable. Scrolling no longer vibrates.
 addEventListener("touchstart",e=>{
-  const t=e.touches[0];hapX=t.clientX;hapY=t.clientY;hapT=performance.now();haptic(12);
-},{passive:true});
-addEventListener("touchmove",e=>{ // fires during scrolling too, so it follows your finger
-  const t=e.touches[0],now=performance.now();
-  if(Math.hypot(t.clientX-hapX,t.clientY-hapY)>=10&&now-hapT>=28){hapX=t.clientX;hapY=t.clientY;hapT=now;haptic(5)}
+  if(e.target.closest&&e.target.closest(".card,button,a,.dot,.profile-wrap,.ped,.xcard"))haptic(10);
 },{passive:true});
 
-/* ---------- Title glitch: letters flicker into symbols ---------- */
+/* ---------- Title: glitch decode + hover wave ---------- */
 (function(){
   const h=document.querySelector("h1"),SYM="#!(){}[]<>/\\|@$%&*+=?~^;:",chars=[];
   h.setAttribute("aria-label",h.textContent);
   (function wrap(n){[...n.childNodes].forEach(c=>{
     if(c.nodeType===3){
       const f=document.createDocumentFragment();
-      [...c.textContent].forEach(ch=>{const s=document.createElement("span");s.setAttribute("aria-hidden","true");s.textContent=ch;f.appendChild(s);if(ch.trim())chars.push({s,o:ch})});
+      [...c.textContent].forEach(ch=>{const s=document.createElement("span");s.className="hc";s.setAttribute("aria-hidden","true");s.textContent=ch;f.appendChild(s);if(ch.trim())chars.push({s,o:ch})});
       c.replaceWith(f);
     }else if(c.nodeName!=="BR")wrap(c);
   })})(h);
@@ -500,11 +600,34 @@ addEventListener("touchmove",e=>{ // fires during scrolling too, so it follows y
       if(performance.now()-t0<ms){c.s.textContent=rs();setTimeout(f,55)}else c.s.textContent=c.o;
     })();
   }
-  chars.forEach((c,i)=>scramble(c,450+i*45));          // decode on load
-  (function loop(){setTimeout(()=>{                      // random glitches afterwards
+  chars.forEach((c,i)=>scramble(c,450+i*45));
+  (function loop(){setTimeout(()=>{
     if(!document.hidden){const n=1+(Math.random()*3|0);for(let k=0;k<n;k++)scramble(chars[Math.random()*chars.length|0],110+Math.random()*180)}
     loop();
   },1500+Math.random()*2500)})();
+  // hover / tap: a rainbow glow wave rolls through the letters while they re-decode
+  let busy=false;
+  function wave(){
+    if(busy)return;busy=true;
+    chars.forEach((c,i)=>{
+      c.s.style.setProperty("--w",i);c.s.classList.remove("wv");void c.s.offsetWidth;c.s.classList.add("wv");
+      scramble(c,200+i*38);
+    });
+    SFX.pop(2);
+    setTimeout(()=>{busy=false;chars.forEach(c=>c.s.classList.remove("wv"))},1300);
+  }
+  h.addEventListener("pointerenter",wave);
+  h.addEventListener("click",wave);
+})();
+
+/* ---------- Side phone images: desktop only, webp first (png fallback), loaded after the page ---------- */
+(function(){
+  if(!matchMedia("(min-width:761px) and (pointer:fine)").matches)return;
+  setTimeout(()=>document.querySelectorAll(".phone").forEach(im=>{
+    const n=im.dataset.n;im.loading="lazy";
+    im.onerror=()=>{im.onerror=null;im.src=n+".png"};
+    im.src=n+".webp";
+  }),700);
 })();
 
 /* ---------- Topographic background ---------- */
@@ -536,9 +659,7 @@ addEventListener("touchmove",e=>{ // fires during scrolling too, so it follows y
   draw();addEventListener("resize",draw);
 })();
 
-/* ======================= v2 additions ======================= */
-
-/* ---------- Sound engine (Web Audio, everything synthesized, no files) ---------- */
+/* ---------- Sound engine (Web Audio, all synthesized) ---------- */
 const SFX=(()=>{
   let ctx=null,master=null,noiseBuf=null,muted=false;
   try{muted=localStorage.getItem("farlands-muted")==="1"}catch(e){}
@@ -586,11 +707,11 @@ const SFX=(()=>{
       if(ctx&&master)master.gain.setTargetAtTime(m?0:.55,ctx.currentTime,.02);
       if(!m){init();setTimeout(()=>api.blip(),40)}
     },
-    // dock tap: soft thump plus a tiny click, pitched per tab
     tab(i){const f=200+(i||0)*28;noise(.035,{type:"bandpass",f0:3400,q:.9,vol:.16});tone(f,.09,{to:f*.55,vol:.32})},
     link(){tone(620,.08,{to:930,type:"triangle",vol:.2});noise(.025,{f0:3000,vol:.08})},
     pop(n){n=n||0;tone(380+n*70,.12,{to:760+n*140,vol:.26})},
     blip(){tone(740,.09,{type:"triangle",vol:.2})},
+    talk(){tone(520+Math.random()*340,.05,{type:"triangle",vol:.07})},
     ding(){tone(880,.26,{vol:.2});tone(1318.5,.38,{at:.09,vol:.2})},
     share(){tone(520,.12,{to:780,vol:.2});tone(780,.2,{at:.1,to:1040,vol:.17})},
     theme(dark){
@@ -600,7 +721,6 @@ const SFX=(()=>{
     flip(){noise(.15,{f0:1200,f1:3800,q:.6,vol:.16,attack:.03});tone(300,.07,{to:200,vol:.12})},
     expand(open){tone(open?420:520,.11,{to:open?660:330,vol:.2});noise(.04,{f0:2600,vol:.07})},
     squeak(){tone(900,.15,{to:1550,vol:.2});tone(1250,.13,{at:.13,to:1800,vol:.15});tone(1700,.1,{at:.24,to:1300,vol:.08})},
-    // easter egg: brush strokes, bristle hiss and twinkling "stars"
     paint(){
       if(!ok())return;
       for(let i=0;i<18;i++){
@@ -638,31 +758,33 @@ muteButton.addEventListener("click",()=>{
 });
 document.addEventListener("click",e=>{if(e.target.closest("a.card"))SFX.link()});
 
-/* ---------- Device data ---------- */
+/* ---------- Device data (icons show the BACK of each device) ---------- */
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
 const si=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
-const IC={
-  main:si('<rect x="6" y="2" width="12" height="20" rx="3.2"/><circle cx="12" cy="7.5" r="2.3"/><path d="M10.5 18.5h3"/>'),
-  fe:si('<rect x="6" y="2" width="12" height="20" rx="3.2"/><circle cx="12" cy="5.8" r="0.9" fill="currentColor"/><path d="M10.5 18.5h3"/>'),
-  buds:si('<path d="M8.2 3.5a3.2 3.2 0 0 0-3.2 3.2v2.1a3.3 3.3 0 0 0 2 3v6.7a1.5 1.5 0 0 0 3 0v-6.7a3.3 3.3 0 0 0 2-3V6.7a3.2 3.2 0 0 0-3.8-3.2z"/><path d="M15.8 3.5a3.2 3.2 0 0 1 3.2 3.2v2.1a3.3 3.3 0 0 1-2 3v6.7a1.5 1.5 0 0 1-3 0"/>'),
-  pc:si('<rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2 19h20"/>'),
-  wing:si('<rect x="7" y="9" width="10" height="13" rx="2.4"/><rect x="3.5" y="2.5" width="17" height="9" rx="2.4" transform="rotate(-18 12 7)"/>')
+// camera layouts seen from behind (shared by the small icons and the museum exhibits)
+const CAM={
+  circle:'<circle cx="12" cy="7.4" r="3.5"/><circle cx="12" cy="7.4" r="1.4"/>',
+  circleTL:'<circle cx="10" cy="6.6" r="3"/><circle cx="10" cy="6.6" r="1.2"/>',
+  tl3:'<rect x="7.4" y="3.4" width="6" height="7" rx="2.4"/><circle cx="10.4" cy="5.8" r=".9"/><circle cx="10.4" cy="8.4" r=".9"/>',
+  vert3:'<circle cx="9.4" cy="5" r="1.2"/><circle cx="9.4" cy="8.4" r="1.2"/><circle cx="9.4" cy="11.8" r="1.2"/>',
+  vert4:'<circle cx="9.4" cy="5" r="1.2"/><circle cx="9.4" cy="8.4" r="1.2"/><circle cx="9.4" cy="11.8" r="1.2"/><circle cx="13.2" cy="6.6" r=".8"/>',
+  sq3:'<rect x="7.2" y="3.2" width="6.8" height="6.8" rx="2"/><circle cx="9.3" cy="5.3" r=".95"/><circle cx="9.3" cy="8" r=".95"/><circle cx="12" cy="6.7" r=".95"/>',
+  dual:'<rect x="7.4" y="3.4" width="3.8" height="6.6" rx="1.9"/><circle cx="9.3" cy="5.3" r=".8"/><circle cx="9.3" cy="8.1" r=".8"/>',
+  single:'<circle cx="9.3" cy="5.4" r="1.3"/>',
+  singleC:'<circle cx="12" cy="5" r="1.4"/>',
+  pill3:'<rect x="7.6" y="3.6" width="8.8" height="3.8" rx="1.9"/><circle cx="9.9" cy="5.5" r=".7"/><circle cx="12" cy="5.5" r=".7"/><circle cx="14.1" cy="5.5" r=".7"/>'
 };
-// small phone icons that hint at each era / shape
-const PH={
-  home:si('<rect x="6" y="2" width="12" height="20" rx="2.4"/><path d="M10.5 4.7h3"/><circle cx="12" cy="19" r="1.2"/>'),
-  notch:si('<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M9.6 2.2v.9a1 1 0 0 0 1 1h2.8a1 1 0 0 0 1-1v-.9"/>'),
-  punch:si('<rect x="6" y="2" width="12" height="20" rx="3"/><circle cx="12" cy="5.4" r=".9" fill="currentColor"/>'),
-  pill:si('<rect x="6" y="2" width="12" height="20" rx="3"/><rect x="13" y="4.1" width="2.6" height="1.5" rx=".75" fill="currentColor" stroke="none"/>'),
-  flat:si('<rect x="6" y="2" width="12" height="20" rx="2.2"/><circle cx="12" cy="5.4" r=".9" fill="currentColor"/>'),
-  ultra:si('<rect x="6" y="2" width="12" height="20" rx="1.6"/><circle cx="12" cy="5.4" r=".9" fill="currentColor"/><path d="M15.5 22.4v1"/>'),
-  edge:si('<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M5.2 5.5v13M18.8 5.5v13"/><path d="M10.5 4.7h3"/>'),
-  inf:si('<rect x="6.5" y="1.5" width="11" height="21" rx="4.2"/><path d="M10.6 3.9h2.8"/>'),
-  fold:si('<rect x="3" y="4" width="18" height="16" rx="2.4"/><path d="M12 4v16"/><circle cx="7.4" cy="7.2" r=".8" fill="currentColor"/>')
+const back=k=>si('<rect x="6" y="2" width="12" height="20" rx="3"/>'+CAM[k]);
+const IC={
+  main:back("circle"),
+  fe:back("tl3"),
+  buds:si('<path d="M8.2 3.5a3.2 3.2 0 0 0-3.2 3.2v2.1a3.3 3.3 0 0 0 2 3v6.7a1.5 1.5 0 0 0 3 0v-6.7a3.3 3.3 0 0 0 2-3V6.7a3.2 3.2 0 0 0-3.8-3.2z"/><path d="M15.8 3.5a3.2 3.2 0 0 1 3.2 3.2v2.1a3.3 3.3 0 0 1-2 3v6.7a1.5 1.5 0 0 1-3 0"/>'),
+  pc:si('<rect x="4" y="4.5" width="16" height="12" rx="2"/><path d="M2 19.5h20"/><circle cx="8" cy="8.6" r=".9" fill="currentColor"/><path d="M10.6 8.6h4"/>'),
+  wing:back("pill3")
 };
 
 const CARRY=[
-  {b:"#ff6a3d",ic:IC.main,t:"OPPO Find X9 Ultra",s:"Main phone",tag:["MAIN",""],sp:[
+  {b:"#08b36b",ic:IC.main,t:"OPPO Find X9 Ultra",s:"Main phone",tag:["MAIN",""],sp:[
     ["Display","6.82-inch LTPO AMOLED · 3168 × 1440 · up to 144 Hz · 3,600 nits peak"],
     ["Chip","Snapdragon 8 Elite Gen 5 (3 nm)"],
     ["Memory","12 GB LPDDR5X + 512 GB UFS 4.1 · no card slot"],
@@ -672,7 +794,7 @@ const CARRY=[
     ["Software","Android 16 · ColorOS · 5 OS and 6 security update years"],
     ["Size","163.2 × 77.0 × 8.65–9.10 mm · 235–236 g (depends on finish)"],
     ["Launched","Spring 2026"]]},
-  {b:"#7aa5ff",ic:IC.fe,t:"Samsung Galaxy S21 FE",s:"Secondary phone",tag:["2ND","off"],sp:[
+  {b:"#2a4fe0",ic:IC.fe,t:"Samsung Galaxy S21 FE",s:"Secondary phone",tag:["2ND","off"],sp:[
     ["Display","6.4-inch Dynamic AMOLED 2X · 2340 × 1080 · 120 Hz"],
     ["Chip","Snapdragon 888 or Exynos 2100 (depends on region)"],
     ["Memory","6/8 GB RAM · 128/256 GB · no card slot"],
@@ -682,7 +804,7 @@ const CARRY=[
     ["Software","Android 11 at launch · updated up to Android 15"],
     ["Size","155.7 × 74.5 × 7.9 mm · 177 g · IP68"],
     ["Launched","January 2022"]]},
-  {b:"#c58bff",ic:IC.buds,t:"Galaxy Buds 3 Pro",s:"Earbuds",tag:["BUDS",""],sp:[
+  {b:"#2a4fe0",ic:IC.buds,t:"Galaxy Buds 3 Pro",s:"Earbuds",tag:["BUDS",""],sp:[
     ["Drivers","10.5 mm dynamic + 6.1 mm planar tweeter · dual amp"],
     ["Noise control","Adaptive ANC · ambient sound"],
     ["Battery","53 mAh per bud · 515 mAh case · up to 26 h with ANC on, 30 h off (with case)"],
@@ -691,7 +813,7 @@ const CARRY=[
     ["Durability","IP57"],
     ["Weight","5.4 g per bud · 46.5 g case"],
     ["Launched","July 2024"]]},
-  {b:"#19c7a8",ic:IC.pc,t:"Lenovo ThinkPad T490",s:"Computer",tag:["PC",""],dot:"",sp:[
+  {b:"#e2231a",ic:IC.pc,t:"Lenovo ThinkPad T490",s:"Computer",tag:["PC",""],dot:"",sp:[
     ["Display","14-inch FHD (1920 × 1080) IPS · 250–400 nits depending on config"],
     ["Processor","Intel Core i5 / i7, 8th–10th gen U-series (for example i5-8265U, i7-8665U)"],
     ["Graphics","Intel UHD 620 · optional NVIDIA MX250"],
@@ -702,7 +824,7 @@ const CARRY=[
     ["Launched","2019"]]}
 ];
 const ORDERED=[
-  {b:"#ffb020",ic:IC.wing,t:"LG Wing",s:"Ordered, waiting for it to arrive",tag:["ORDERED","a"],dot:"c",sp:[
+  {b:"#d1245a",ic:IC.wing,t:"LG Wing",s:"Ordered, waiting for it to arrive",tag:["ORDERED","a"],dot:"c",sp:[
     ["Display","6.8-inch rotating P-OLED · 2460 × 1080 + 3.9-inch G-OLED second screen"],
     ["Chip","Snapdragon 765G 5G (7 nm)"],
     ["Memory","8 GB RAM · 128/256 GB · microSD (shared SIM slot)"],
@@ -714,71 +836,77 @@ const ORDERED=[
     ["Launched","October 2020"]]}
 ];
 
-/* Phone museum. d = release month (used for sorting), st = status, lab = tag text */
+/* Phone museum. ico = camera layout on the back, st = status, lab = tag text */
 const MUSEUM=[
-  // Samsung
-  {br:"Samsung",t:"Galaxy S24 Ultra",d:"2024-01",rel:"Jan 2024",st:"past",lab:"PAST MAIN",ico:"ultra",
+  {br:"Samsung",t:"Galaxy S24 Ultra",d:"2024-01",rel:"Jan 2024",st:"past",lab:"PAST MAIN",ico:"vert4",
    note:"My main from June 26, kept for 11 months. I didn't really like it.",
    sp:[["Display","6.8-inch Dynamic LTPO AMOLED 2X · 3120 × 1440 · 1–120 Hz"],["Chip","Snapdragon 8 Gen 3 for Galaxy"],["Memory","12 GB + 256/512 GB or 1 TB"],["Cameras","200 MP main · 12 MP ultrawide · 10 MP 3× · 50 MP 5× · 12 MP selfie"],["Battery","5,000 mAh · 45 W wired"],["Size","162.3 × 79.0 × 8.6 mm · 232 g · titanium frame · S Pen"]]},
-  {br:"Samsung",t:"Galaxy S24",d:"2024-01",rel:"Jan 2024",st:"traded",lab:"TRADED",ico:"flat",
+  {br:"Samsung",t:"Galaxy S24",d:"2024-01",rel:"Jan 2024",st:"traded",lab:"TRADED",ico:"vert3",
    note:"My secondary in winter 2025. Quite comfy to hold, but I traded it.",
    sp:[["Display","6.2-inch Dynamic LTPO AMOLED 2X · 2340 × 1080 · 1–120 Hz"],["Chip","Exynos 2400 (Europe) or Snapdragon 8 Gen 3"],["Memory","8 GB + 128/256/512 GB"],["Cameras","50 MP main · 12 MP ultrawide · 10 MP 3× · 12 MP selfie"],["Battery","4,000 mAh · 25 W wired"],["Size","147.0 × 70.6 × 7.6 mm · 167 g"]]},
-  {br:"Samsung",t:"Galaxy A55",d:"2024-03",rel:"Mar 2024",st:"past",lab:"PAST MAIN",ico:"punch",
+  {br:"Samsung",t:"Galaxy A55",d:"2024-03",rel:"Mar 2024",st:"past",lab:"PAST MAIN",ico:"vert3",
    note:"My main from Dec 31 until June 26. I hated this phone.",
    sp:[["Display","6.6-inch Super AMOLED · 2340 × 1080 · 120 Hz"],["Chip","Exynos 1480"],["Memory","8/12 GB + 128/256 GB · microSD"],["Cameras","50 MP main (OIS) · 12 MP ultrawide · 5 MP macro · 32 MP selfie"],["Battery","5,000 mAh · 25 W wired"],["Size","161.1 × 77.4 × 8.2 mm · 213 g · IP67"]]},
-  {br:"Samsung",t:"Galaxy S21 Ultra",d:"2021-01",rel:"Jan 2021",st:"sold",lab:"SOLD",ico:"ultra",
+  {br:"Samsung",t:"Galaxy S21 Ultra",d:"2021-01",rel:"Jan 2021",st:"sold",lab:"SOLD",ico:"tl3",
    note:"Sat in my collection for a while, then I sold it because it felt mid.",
    sp:[["Display","6.8-inch Dynamic AMOLED 2X · 3200 × 1440 · 10–120 Hz"],["Chip","Exynos 2100 or Snapdragon 888"],["Memory","12/16 GB + 128/256/512 GB"],["Cameras","108 MP main · 12 MP ultrawide · 10 MP 3× · 10 MP 10× · 40 MP selfie"],["Battery","5,000 mAh · 25 W wired"],["Size","165.1 × 75.6 × 8.9 mm · 227 g"]]},
-  {br:"Samsung",t:"Galaxy S21+",d:"2021-01",rel:"Jan 2021",st:"sold",lab:"SOLD",ico:"flat",
+  {br:"Samsung",t:"Galaxy S21+",d:"2021-01",rel:"Jan 2021",st:"sold",lab:"SOLD",ico:"tl3",
    note:"Bought with a broken back and sold it for a €40 profit.",
    sp:[["Display","6.7-inch Dynamic AMOLED 2X · 2400 × 1080 · 48–120 Hz"],["Chip","Exynos 2100 or Snapdragon 888"],["Memory","8 GB + 128/256 GB"],["Cameras","12 MP main · 12 MP ultrawide · 64 MP 3× · 10 MP selfie"],["Battery","4,800 mAh · 25 W wired"],["Size","161.5 × 75.6 × 7.8 mm · 202 g"]]},
-  {br:"Samsung",t:"Galaxy A52s 5G",d:"2021-08",rel:"Aug 2021",st:"kept",lab:"KEPT",ico:"punch",
+  {br:"Samsung",t:"Galaxy A52s 5G",d:"2021-08",rel:"Aug 2021",st:"kept",lab:"KEPT",ico:"vert4",
    note:"This one is my goat. It has a broken screen though.",
    sp:[["Display","6.5-inch Super AMOLED · 2400 × 1080 · 120 Hz"],["Chip","Snapdragon 778G 5G"],["Memory","6/8 GB + 128/256 GB · microSD"],["Cameras","64 MP main (OIS) · 12 MP ultrawide · 5 MP macro · 5 MP depth · 32 MP selfie"],["Battery","4,500 mAh · 25 W wired"],["Size","159.9 × 75.1 × 8.4 mm · 189 g · IP67"]]},
-  {br:"Samsung",t:"Galaxy S10+",d:"2019-03",rel:"Mar 2019",st:"broken",lab:"2× BROKEN",ico:"pill",
+  {br:"Samsung",t:"Galaxy S10+",d:"2019-03",rel:"Mar 2019",st:"broken",lab:"2× BROKEN",ico:"pill3",
    note:"I have two, both broken. I'll repair them soon.",
    sp:[["Display","6.4-inch Dynamic AMOLED · 3040 × 1440 · 60 Hz"],["Chip","Exynos 9820 or Snapdragon 855"],["Memory","8/12 GB RAM · 128 GB–1 TB · microSD"],["Cameras","12 MP main · 12 MP 2× tele · 16 MP ultrawide · 10 + 8 MP dual selfie"],["Battery","4,100 mAh · 15 W wired"],["Size","157.6 × 74.1 × 7.8 mm · 175 g · headphone jack"]]},
-  {br:"Samsung",t:"Galaxy S8",d:"2017-04",rel:"Apr 2017",st:"broken",lab:"1 BROKEN",ico:"inf",
+  {br:"Samsung",t:"Galaxy S8",d:"2017-04",rel:"Apr 2017",st:"broken",lab:"1 BROKEN",ico:"singleC",
    note:"I had two. Sold one, and the other is completely broken in my collection.",
    sp:[["Display","5.8-inch Super AMOLED · 2960 × 1440 · 18.5:9"],["Chip","Exynos 8895 or Snapdragon 835"],["Memory","4 GB + 64 GB · microSD"],["Cameras","12 MP main · 8 MP selfie"],["Battery","3,000 mAh"],["Size","148.9 × 68.1 × 8.0 mm · 155 g · IP68 · headphone jack"]]},
-  {br:"Samsung",t:"Galaxy S6 edge+",d:"2015-08",rel:"Aug 2015",st:"sold",lab:"SOLD",ico:"edge",
+  {br:"Samsung",t:"Galaxy S6 edge+",d:"2015-08",rel:"Aug 2015",st:"sold",lab:"SOLD",ico:"singleC",
    note:"My dad's old main. I sold it recently.",
    sp:[["Display","5.7-inch Super AMOLED · 2560 × 1440 · dual edge"],["Chip","Exynos 7420"],["Memory","4 GB + 32/64 GB · no card slot"],["Cameras","16 MP main · 5 MP selfie"],["Battery","3,000 mAh (sealed)"],["Size","154.4 × 75.8 × 6.9 mm · 153 g"]]},
-  {br:"Samsung",t:"Galaxy S6",d:"2015-04",rel:"Apr 2015",st:"broken",lab:"1 BROKEN",ico:"home",
+  {br:"Samsung",t:"Galaxy S6",d:"2015-04",rel:"Apr 2015",st:"broken",lab:"1 BROKEN",ico:"singleC",
    note:"I had two. Sold one and kept a broken one.",
    sp:[["Display","5.1-inch Super AMOLED · 2560 × 1440"],["Chip","Exynos 7420"],["Memory","3 GB + 32/64/128 GB · no card slot"],["Cameras","16 MP main · 5 MP selfie"],["Battery","2,550 mAh (sealed)"],["Size","143.4 × 70.5 × 6.8 mm · 138 g"]]},
-  // Apple
-  {br:"Apple",t:"iPhone 12 Pro",d:"2020-10",rel:"Oct 2020",st:"sold",lab:"SOLD",ico:"notch",
+  {br:"Apple",t:"iPhone 12 Pro",d:"2020-10",rel:"Oct 2020",st:"sold",lab:"SOLD",ico:"sq3",
    note:"Got it for €50. Loved it on iOS 18, then sold it later.",
    sp:[["Display","6.1-inch Super Retina XDR OLED · 2532 × 1170 · 60 Hz"],["Chip","Apple A14 Bionic"],["Memory","6 GB + 128/256/512 GB"],["Cameras","12 MP wide · 12 MP ultrawide · 12 MP 2× tele · LiDAR · 12 MP selfie"],["Battery","2,815 mAh · MagSafe"],["Size","146.7 × 71.5 × 7.4 mm · 189 g · stainless steel"]]},
-  {br:"Apple",t:"iPhone 11 Pro",d:"2019-09",rel:"Sep 2019",st:"sold",lab:"SOLD",ico:"notch",
+  {br:"Apple",t:"iPhone 11 Pro",d:"2019-09",rel:"Sep 2019",st:"sold",lab:"SOLD",ico:"sq3",
    note:"It felt so mid on iOS 26. I sold it the same day I got it.",
    sp:[["Display","5.8-inch Super Retina XDR OLED · 2436 × 1125 · 60 Hz"],["Chip","Apple A13 Bionic"],["Memory","4 GB + 64/256/512 GB"],["Cameras","12 MP wide · 12 MP ultrawide · 12 MP 2× tele · 12 MP selfie"],["Battery","3,046 mAh"],["Size","144.0 × 71.4 × 8.1 mm · 188 g"]]},
-  {br:"Apple",t:"iPhone 7 Plus",d:"2016-09",rel:"Sep 2016",st:"kept",lab:"KEPT",ico:"home",
+  {br:"Apple",t:"iPhone 7 Plus",d:"2016-09",rel:"Sep 2016",st:"kept",lab:"KEPT",ico:"dual",
    note:"The red one is so pretty. I still have it.",
    sp:[["Display","5.5-inch Retina HD LCD · 1920 × 1080"],["Chip","Apple A10 Fusion"],["Memory","3 GB + 32/128/256 GB"],["Cameras","12 MP wide · 12 MP 2× tele · 7 MP selfie"],["Battery","2,900 mAh"],["Size","158.2 × 77.9 × 7.3 mm · 188 g · IP67 · no headphone jack"]]},
-  {br:"Apple",t:"iPhone 7",d:"2016-09",rel:"Sep 2016",st:"kept",lab:"KEPT",ico:"home",
+  {br:"Apple",t:"iPhone 7",d:"2016-09",rel:"Sep 2016",st:"kept",lab:"KEPT",ico:"single",
    note:"It's iCloud locked, so I can't download anything. Still cool, I guess.",
    sp:[["Display","4.7-inch Retina HD LCD · 1334 × 750"],["Chip","Apple A10 Fusion"],["Memory","2 GB + 32/128/256 GB"],["Cameras","12 MP main · 7 MP selfie"],["Battery","1,960 mAh"],["Size","138.3 × 67.1 × 7.1 mm · 138 g · IP67 · no headphone jack"]]},
-  // OnePlus
-  {br:"OnePlus",t:"OnePlus 15",d:"2025-10",rel:"Oct 2025",st:"loved",lab:"LOVED",ico:"punch",dot:"c",
+  {br:"OnePlus",t:"OnePlus 15",d:"2025-10",rel:"Oct 2025",st:"loved",lab:"LOVED",ico:"tl3",
    note:"I loved this phone so much. I'd still main it if I hadn't bought the Find X9 Ultra.",
    sp:[["Display","6.78-inch LTPO AMOLED · 2772 × 1272 · up to 165 Hz"],["Chip","Snapdragon 8 Elite Gen 5"],["Memory","12/16 GB + 256 GB–1 TB"],["Cameras","50 MP main · 50 MP ultrawide · 50 MP periscope · 32 MP selfie"],["Battery","7,300 mAh · 120 W wired · 50 W wireless"],["Size","8.1 mm thick · 211–215 g (depends on finish)"]]},
-  {br:"OnePlus",t:"OnePlus Open",d:"2023-10",rel:"Oct 2023",st:"want",lab:"WANT AGAIN",ico:"fold",
+  {br:"OnePlus",t:"OnePlus Open",d:"2023-10",rel:"Oct 2023",st:"want",lab:"WANT AGAIN",ico:"circleTL",
    note:"Probably my favorite phone I ever used. I want to buy it again.",
    sp:[["Display","7.82-inch inner LTPO AMOLED 2440 × 2268 + 6.31-inch cover · both 120 Hz"],["Chip","Snapdragon 8 Gen 2"],["Memory","16 GB + 512 GB"],["Cameras","48 MP main · 48 MP ultrawide · 64 MP 3× periscope · 32 MP cover + 20 MP inner selfie"],["Battery","4,805 mAh · 67 W wired"],["Size","153.4 × 143.1 × 5.8 mm open · 11.7 mm folded · 245 g · alert slider"]]},
-  // OPPO
-  {br:"OPPO",t:"Find X6",d:"2023-03",rel:"Mar 2023",st:"past",lab:"PAST",ico:"punch",
+  {br:"OPPO",t:"Find X6",d:"2023-03",rel:"Mar 2023",st:"past",lab:"PAST",ico:"circleTL",
    note:"I didn't really like this phone, but it's still a cool one.",
    sp:[["Display","6.74-inch AMOLED · 2772 × 1240 · 120 Hz"],["Chip","MediaTek Dimensity 9200"],["Memory","12/16 GB + 256/512 GB"],["Cameras","50 MP main · 50 MP ultrawide · 50 MP 2.8× tele · 32 MP selfie"],["Battery","4,800 mAh · 100 W wired"],["Size","About 186 g"]]},
-  // vivo
-  {br:"vivo",t:"X5Max+",d:"2015-03",rel:"Mar 2015",st:"kept",lab:"KEPT",ico:"home",
+  {br:"vivo",t:"X5Max+",d:"2015-03",rel:"Mar 2015",st:"kept",lab:"KEPT",ico:"singleC",
    note:"Still have it. It's very thin and comfy to hold.",
    sp:[["Display","5.5-inch Super AMOLED · 1920 × 1080"],["Chip","MediaTek MT6752 · octa-core 1.7 GHz"],["Memory","2 GB + 16 GB · microSD"],["Cameras","13 MP main · 5 MP selfie"],["Battery","2,300 mAh"],["Size","153.9 × 78 × 5.1 mm"],["Software","Android 4.4.4 · Funtouch 2"]]}
 ];
+MUSEUM.forEach((p,i)=>p.i=i);
 const BRANDS=["Samsung","Apple","OnePlus","OPPO","vivo"];
-const LEDS={kept:"g",sold:"off",traded:"off",past:"off",loved:"off",broken:"a",want:"a"};
-const BCOL={Samsung:"#3d7cff",Apple:"#8e9bb5",OnePlus:"#ff3b30",OPPO:"#19c7a8",vivo:"#9c63ff"};
+const LEDS={kept:"g",sold:"off",traded:"off",past:"off",loved:"g",broken:"a",want:"a"};
+// colors follow each brand's logo
+const BCOL={Samsung:"#2a4fe0",Apple:"#a7aebb",OnePlus:"#ff2b36",OPPO:"#08b36b",vivo:"#415fff"};
+const WM=(t,x)=>'<svg viewBox="0 0 64 24" aria-hidden="true">'+x+'</svg>';
+const LOGO={
+  Samsung:WM(0,'<text x="32" y="17" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="11.5" letter-spacing="1" fill="currentColor">SAMSUNG</text>'),
+  Apple:'<svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.200-.6 43-17.9 75.800-17.9 31.800 0 48.300 17.900 76.400 17.900 48.600-.7 90.400-82.500 102.600-119.300-65.200-30.700-61.700-90-61.700-91.900zm-56.600-164.200c27.300-32.400 24.800-61.900 24-72.500-24.100 1.400-52 16.400-67.900 34.900-17.500 19.800-27.800 44.300-25.600 71.900 26.100 2 49.900-11.400 69.500-34.300z"/></svg>',
+  OnePlus:WM(0,'<rect x="19" y="1" width="26" height="22" rx="6" fill="currentColor"/><text x="32" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="15" fill="#fff">1+</text>'),
+  OPPO:WM(0,'<text x="32" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="16" letter-spacing="1.5" fill="currentColor">OPPO</text>'),
+  vivo:WM(0,'<text x="32" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-style="italic" font-size="18" fill="currentColor">vivo</text>')
+};
+const FAME='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></svg>';
 
 function specCard(o){
   const rows=o.sp.map(r=>'<div class="spec-k">'+esc(r[0])+'</div><div class="spec-v">'+esc(r[1])+'</div>').join("");
@@ -791,18 +919,79 @@ function specCard(o){
 }
 $("carryList").innerHTML=CARRY.map(specCard).join("");
 $("orderedList").innerHTML=ORDERED.map(specCard).join("");
+
+/* --- museum: rooms with pedestals --- */
+let exId=0;
+function exhibit(kind,col,broken){
+  const k="ex"+exId++;
+  return '<svg viewBox="5 1 14 22" aria-hidden="true"><defs><linearGradient id="'+k+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+col+'"/><stop offset="1" stop-color="#141a30"/></linearGradient></defs>'
+    +'<rect x="6" y="2" width="12" height="20" rx="3" fill="url(#'+k+')" stroke="rgba(255,255,255,.35)" stroke-width=".3"/>'
+    +'<g fill="rgba(8,12,26,.88)" stroke="rgba(255,255,255,.75)" stroke-width=".45">'+CAM[kind]+'</g>'
+    +'<path d="M7.2 3.8Q7.2 2.9 8.3 2.9" stroke="rgba(255,255,255,.55)" fill="none" stroke-width=".4" stroke-linecap="round"/>'
+    +(broken?'<path d="M14.2 11l-1.6 2.6 1.4 1.4-1.8 3" fill="none" stroke="rgba(255,255,255,.85)" stroke-width=".3"/>':'')+'</svg>';
+}
+function ped(p,o){
+  o=o||{};
+  return '<button class="ped" type="button" data-i="'+p.i+'" style="--k:'+(o.k||0)+(o.ph?';--ph:'+o.ph:'')+'" aria-label="'+esc(p.t)+'">'
+    +'<span class="spot"></span>'+(o.star?'<span class="crown">★</span>':'')
+    +'<span class="exhibit">'+exhibit(p.ico,BCOL[p.br],p.st==="broken")+'</span><span class="pillar"></span>'
+    +'<span class="plq">'+esc(p.t)+'<small>'+esc(p.rel)+'</small><span class="stl dm"><i class="led '+LEDS[p.st]+'"></i>'+esc(o.lab||p.lab)+'</span></span></button>';
+}
 (function(){
-  let html="";
-  BRANDS.forEach(br=>{
-    const list=MUSEUM.filter(p=>p.br===br).sort((a,b)=>b.d.localeCompare(a.d));
+  const by=t=>MUSEUM.find(p=>p.t===t);
+  const fame=[[by("Galaxy A52s 5G"),"★ GOAT","64px"],[by("OnePlus Open"),"★ FAVORITE","96px"],[by("OnePlus 15"),"★ LOVED","46px"]];
+  const room=(id,col,logo,name,count,body,extra)=>'<section class="room stg" id="'+id+'" style="--bc:'+col+'"'+(extra||"")+'><div class="room-head"><span class="rlogo">'+logo+'</span><span class="dm rname">'+esc(name)+'</span><small>'+count+'</small></div>'+body+'</section>';
+  let html=room("room-fame","#f2c744",FAME,"Hall of Fame","The ones I rate",
+    '<div class="ped-grid podium">'+fame.map((f,i)=>ped(f[0],{k:i,lab:f[1],ph:f[2],star:i===1})).join("")+'</div>',' data-dot="r"');
+  const items=[{id:"room-fame",name:"Fame",logo:FAME,col:"#f2c744"}];
+  BRANDS.forEach(b=>{
+    const list=MUSEUM.filter(p=>p.br===b).sort((x,y)=>y.d.localeCompare(x.d));
     if(!list.length)return;
-    html+='<div class="sec dm stg" style="margin-top:'+(html?'28':'0')+'px"><span class="led off"></span>'+esc(br)+'<small>'+list.length+(list.length===1?' phone':' phones')+'</small></div><section class="links">';
-    html+=list.map(p=>specCard({b:BCOL[br],ic:PH[p.ico],t:p.t,s:p.rel+' · '+p.note,wrap:true,tag:[p.lab,LEDS[p.st]],dot:p.dot,sp:p.sp})).join("");
-    html+='</section>';
+    html+=room("room-"+b,BCOL[b],LOGO[b],b,list.length+(list.length===1?" phone":" phones"),'<div class="ped-grid">'+list.map((p,i)=>ped(p,{k:i})).join("")+'</div>');
+    items.push({id:"room-"+b,name:b,logo:LOGO[b],col:BCOL[b]});
   });
   $("musList").innerHTML=html;
   $("musCount").textContent=MUSEUM.length+" phones · "+BRANDS.length+" brands";
+  $("rail").innerHTML=items.map(it=>'<button type="button" data-room="'+it.id+'" style="--bc:'+it.col+'" aria-label="'+esc(it.name)+'">'+it.logo+'<span>'+esc(it.name)+'</span></button>').join("");
+  // jump to a room; highlight the room currently in view
+  $("rail").addEventListener("click",e=>{
+    const b=e.target.closest("button");if(!b)return;
+    const el=$(b.dataset.room);if(!el)return;
+    scrollTo({top:el.getBoundingClientRect().top+scrollY-84,behavior:REDUCE?"auto":"smooth"});
+    SFX.tab(2);haptic(10);
+  });
+  const rb=[...$("rail").querySelectorAll("button")];
+  const io=new IntersectionObserver(es=>es.forEach(en=>{
+    if(en.isIntersecting)rb.forEach(b=>b.classList.toggle("on",b.dataset.room===en.target.id));
+  }),{rootMargin:"-30% 0px -60% 0px"});
+  document.querySelectorAll(".room").forEach(r=>io.observe(r));
 })();
+function railSync(){
+  const show=curTab==="devices"&&!$("v-museum").hidden;
+  $("rail").hidden=!show;document.body.classList.toggle("mus",show);
+}
+
+/* --- detail sheet --- */
+function openSheet(p){
+  const col=BCOL[p.br],s=$("sheet");
+  const rows=p.sp.map(r=>'<div class="spec-k">'+esc(r[0])+'</div><div class="spec-v">'+esc(r[1])+'</div>').join("");
+  s.style.setProperty("--bc",col);
+  s.innerHTML='<button class="sheet-x" type="button" aria-label="Close">✕</button>'
+    +'<div class="stage"><span class="spot"></span><span class="exhibit">'+exhibit(p.ico,col,p.st==="broken")+'</span><span class="pillar"></span></div>'
+    +'<div class="sh-brand dm">'+esc(p.br)+' · '+esc(p.rel)+'</div><h3>'+esc(p.t)+'</h3>'
+    +'<div class="stl dm"><i class="led '+LEDS[p.st]+'"></i>'+esc(p.lab)+'</div>'
+    +'<p class="sh-note">“'+esc(p.note)+'”</p><div class="spec-grid">'+rows+'</div>';
+  s.scrollTop=0;$("sheetWrap").hidden=false;document.body.classList.add("sheet-open");
+  SFX.flip();haptic(10);s.querySelector(".sheet-x").focus({preventScroll:true});
+}
+function closeSheet(){
+  if($("sheetWrap").hidden)return;
+  $("sheetWrap").hidden=true;document.body.classList.remove("sheet-open");SFX.expand(false);
+}
+$("musList").addEventListener("click",e=>{const b=e.target.closest(".ped");if(b)openSheet(MUSEUM[+b.dataset.i])});
+$("sheetBg").addEventListener("click",closeSheet);
+$("sheet").addEventListener("click",e=>{if(e.target.closest(".sheet-x"))closeSheet()});
+addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet()});
 
 /* expand / collapse a spec sheet */
 document.addEventListener("click",e=>{
@@ -826,11 +1015,12 @@ document.addEventListener("keydown",e=>{
     seg.style.setProperty("--si",v==="museum"?1:0);
     $("v-carry").hidden=v!=="carry";$("v-museum").hidden=v!=="museum";
     document.querySelectorAll(".card").forEach(resetCard);
+    railSync();scrollTo({top:0});dispatchEvent(new Event("syncscroll"));
     SFX.flip();haptic(10);
   });
 })();
 
-/* ---------- Mascot: Dot (original character) peeks over card edges ---------- */
+/* ---------- Mascot: Dot (original character) peeks over card edges and talks ---------- */
 let dotId=0;
 function dotSVG(){
   const n=dotId++,g="dg"+n,c="dc"+n,bd=(-(Math.random()*5)).toFixed(2)+"s";
@@ -849,12 +1039,48 @@ function dotSVG(){
     +'<g class="eye"><rect x="36" y="21" width="6" height="9" rx="3" fill="#7dffd5"/><circle cx="38.4" cy="23.6" r="1.2" fill="#fff"/></g></g>'
     +'<path d="M29 35Q32 37.6 35 35" fill="none" stroke="#7dffd5" stroke-width="1.6" stroke-linecap="round"/>'
     +'</g></g></g>'
-    // arms and little mittens gripping the card edge (drawn in front)
     +'<path d="M9 33Q2 37 4 44" fill="none" stroke-width="4" stroke-linecap="round" style="stroke:var(--mb2)"/>'
     +'<path d="M55 33Q62 37 60 44" fill="none" stroke-width="4" stroke-linecap="round" style="stroke:var(--mb2)"/>'
     +'<g style="fill:var(--mb2)"><circle cx="4.5" cy="44.5" r="5.2"/><circle cx="2.2" cy="48.4" r="1.7"/><circle cx="4.8" cy="49.3" r="1.7"/><circle cx="7.3" cy="48.4" r="1.7"/>'
     +'<circle cx="59.5" cy="44.5" r="5.2"/><circle cx="57.1" cy="48.4" r="1.7"/><circle cx="59.7" cy="49.3" r="1.7"/><circle cx="62.2" cy="48.4" r="1.7"/></g>'
     +'</svg>';
+}
+// Dot's voicelines are assembled from random parts, so it rarely says the same thing twice
+const pick=a=>a[Math.random()*a.length|0];
+const DL={
+  hi:["What's up!","Hey hey!","Oh, hi!","Yo!","Heya!","Psst!","Boop!","Hello, human!","Oh! You found me!","Sup!"],
+  adj:["so hyped","weirdly obsessed","kinda emotional","dead serious","low-key jealous","completely sold","unreasonably excited"],
+  thing:["camera bumps","refresh rates","fast charging","tiny bezels","dot-matrix fonts","clicky buttons","fresh firmware","periscope lenses","unboxings","flagship launches","back glass","haptic motors"],
+  mood:["fully charged","a bit sleepy","spicy","glowing","fully optimized","on 1% but vibing","in power saving mode"],
+  joke:["Why was the phone cold? It left its Windows open.","I'm 90% pixels and 10% opinions.","My love language is a 100 W charger.","I tried to catch a cloud once. Now it's backed up.","Phones never get lost. They just lose signal."],
+  ask:["Seen the Phone museum yet?","Which phone is your main?","Thoughts on bezels?","Wanna see some specs?","What are we reviewing today?","Got any phone drama?"]
+};
+let lastLine="";
+function dotLine(){
+  const T=[
+    ()=>pick(DL.hi),
+    ()=>pick(DL.hi)+" I'm "+pick(DL.adj)+" about "+pick(DL.thing)+".",
+    ()=>"Battery at "+(1+Math.random()*99|0)+"%. Feeling "+pick(DL.mood)+".",
+    ()=>pick(DL.joke),
+    ()=>pick(DL.hi)+" "+pick(DL.ask),
+    ()=>"Fun fact: I think "+pick(DL.thing)+" are underrated.",
+    ()=>"Ping! "+(2+Math.random()*28|0)+" ms. Not bad, huh?"
+  ];
+  let s;for(let i=0;i<6;i++){s=pick(T)();if(s!==lastLine)break}
+  return lastLine=s;
+}
+function dotSay(d){
+  clearTimeout(d._t);clearInterval(d._i);
+  let b=d.querySelector(".say");
+  if(!b){b=document.createElement("div");b.className="say";d.appendChild(b)}
+  const line=dotLine();b.textContent="";b.classList.add("on");d.classList.add("talk");
+  let n=0;
+  d._i=setInterval(()=>{
+    b.textContent=line.slice(0,++n);
+    if(n%2===0)SFX.talk();
+    if(n>=line.length){clearInterval(d._i);d.classList.remove("talk")}
+  },34);
+  d._t=setTimeout(()=>{b.classList.remove("on");d.classList.remove("talk")},2800+line.length*50);
 }
 const dots=[];
 document.querySelectorAll("[data-dot]").forEach(host=>{
@@ -863,13 +1089,7 @@ document.querySelectorAll("[data-dot]").forEach(host=>{
   const d=document.createElement("div");
   d.className="dot dot-"+pos;d.setAttribute("aria-hidden","true");d.innerHTML=dotSVG();
   host.appendChild(d);dots.push(d);
-  d.addEventListener("click",e=>{
-    e.stopPropagation();
-    if(d._busy)return;d._busy=true;
-    SFX.squeak();haptic(15);d.classList.add("shy");
-    setTimeout(()=>{d.classList.remove("shy");SFX.pop(2)},1300);
-    setTimeout(()=>{d._busy=false},1700);
-  });
+  d.addEventListener("click",e=>{e.stopPropagation();SFX.pop(2);haptic(12);dotSay(d)});
 });
 (function(){
   let q=false,px=0,py=0;
@@ -886,7 +1106,7 @@ document.querySelectorAll("[data-dot]").forEach(host=>{
   addEventListener("pointermove",e=>{px=e.clientX;py=e.clientY;if(!q){q=true;requestAnimationFrame(look)}},{passive:true});
 })();
 
-/* ---------- Creator stats (reads stats.json, refreshed every 24h by the updater) ---------- */
+/* ---------- Creator stats ---------- */
 const STATS={d:null};
 const nfull=new Intl.NumberFormat("en"),ncomp=new Intl.NumberFormat("en",{notation:"compact",maximumFractionDigits:1});
 const fmtN=n=>n==null?"—":(n>=100000?ncomp.format(n):nfull.format(n));
@@ -919,7 +1139,6 @@ function statsPaint(){
   $("stFollowers").textContent=fmtN(v.followers);$("stLikes").textContent=fmtN(v.likes);
   $("stFollowing").textContent=fmtN(v.following);$("stVideos").textContent=fmtN(v.videos);
   $("stRatio").textContent=v.ratio==null?"—":nfull.format(v.ratio);
-  // follower growth since the previous daily snapshot + sparkline
   const h=(d&&d.history)||[],dl=$("stDelta"),sp=$("stSpark"),note=$("stSparkNote");
   if(h.length>=2){
     const diff=h[h.length-1].f-h[h.length-2].f;
@@ -955,19 +1174,19 @@ async function loadStats(){
 setInterval(()=>{if(STATS.d)$("stUpdated").textContent="Updated "+agoText(STATS.d.updated)},6e4);
 setInterval(()=>{loadStats()},36e5);
 
-
 /* ---------- Tabs + dock ---------- */
 const TABS=["links","devices","about","stats"],dock=$("dock"),dbtns=[...dock.querySelectorAll("button")];
 let curTab="links";
 document.querySelectorAll(".tab").forEach(t=>t.querySelectorAll(".stg").forEach((e,i)=>{if(!e.style.getPropertyValue("--n"))e.style.setProperty("--n",Math.min(i,9))}));
 function go(n,push){
   if(!TABS.includes(n))n="links";
-  curTab=n;
+  curTab=n;closeSheet();
   document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id==="t-"+n));
   dbtns.forEach(b=>b.classList.toggle("on",b.dataset.tab===n));
   dock.style.setProperty("--i",TABS.indexOf(n));
   document.querySelectorAll(".card").forEach(resetCard);
   document.title=n==="links"?"FarlandsTech":"FarlandsTech · "+n[0].toUpperCase()+n.slice(1);
+  railSync();
   if(typeof wxSync==="function")wxSync();if(n==="stats"&&typeof statsOnOpen==="function")statsOnOpen();
   if(push){scrollTo({top:0});dispatchEvent(new Event("syncscroll"));haptic(10);try{history.replaceState(null,"","#"+n)}catch(e){}}
 }
@@ -1029,13 +1248,13 @@ addEventListener("pointerdown",e=>{
 document.addEventListener("pointerleave",()=>cards.forEach(resetCard));
 addEventListener("blur",()=>cards.forEach(resetCard));
 
-/* ---------- Stretch drag ---------- */
+/* ---------- Stretch drag (with haptic ticks while stretching) ---------- */
 let drag=null,moved=false;
 const rub=(d,k)=>k*Math.tanh(d/k);
 addEventListener("pointerdown",e=>{
   if(e.button>0||e.target.closest("button"))return;
   const c=e.target.closest(".card");if(!c)return;
-  drag={c,x:e.clientX,y:e.clientY};moved=false;
+  drag={c,x:e.clientX,y:e.clientY,bk:0};moved=false;
 });
 addEventListener("pointermove",e=>{
   if(!drag)return;
@@ -1047,6 +1266,8 @@ addEventListener("pointermove",e=>{
   st.setProperty("--dx",(tx*.35).toFixed(1)+"px");st.setProperty("--dy",(ty*.35).toFixed(1)+"px");
   st.setProperty("--sx",(1+Math.abs(tx)/750).toFixed(3));
   st.setProperty("--sy",(1+Math.abs(ty)/500-Math.abs(tx)/1400).toFixed(3));
+  const bk=Math.floor(Math.hypot(tx,ty)/14);          // a small tick every time the stretch grows or shrinks a step
+  if(bk!==drag.bk){drag.bk=bk;haptic(4)}
 },{passive:true});
 function endDrag(){
   if(!drag)return;const c=drag.c;drag=null;
@@ -1077,7 +1298,7 @@ addEventListener("dragstart",e=>e.preventDefault());
     let tgt=scrollY,cur=scrollY,raf=0;
     const step=()=>{cur+=(tgt-cur)*.12;if(Math.abs(tgt-cur)<.4){cur=tgt;raf=0}else raf=requestAnimationFrame(step);scrollTo(0,cur)};
     addEventListener("wheel",e=>{
-      if(e.ctrlKey)return;e.preventDefault();
+      if(e.ctrlKey||document.body.classList.contains("sheet-open"))return;e.preventDefault();
       const max=document.documentElement.scrollHeight-innerHeight;
       tgt=Math.max(0,Math.min(max,tgt+e.deltaY*(e.deltaMode===1?32:1)));
       if(!raf)raf=requestAnimationFrame(step);
@@ -1155,7 +1376,7 @@ function setWeather(code,temp,isDay){
   wxSync();
 }
 (function(){
-  const force=new URLSearchParams(location.search).get("wx"); // e.g. ?wx=rain|snow|storm|clear for testing
+  const force=new URLSearchParams(location.search).get("wx");
   if(force){setWeather({rain:63,snow:73,storm:95,clear:0}[force]??0,12,true);return}
   async function load(){
     try{
@@ -1172,14 +1393,38 @@ document.addEventListener("visibilitychange",wxSync);
 go(location.hash.slice(1),false);
 loadStats();
 
-/* ---------- Secret mode (Starry Night) ---------- */
-function setStarry(on){
-  SFX.reveal(on);
+/* ---------- Secret mode (Starry Night): paint in on the way in, sweep out on the way back ---------- */
+function applyStarry(on){
   document.body.classList.toggle("starry-mode",on);
   const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=on?"#05091d":"#eef2fb";
   const p=document.querySelector(".profile");
   p.onerror=()=>{p.onerror=null;p.src="profile.png"};
   p.src=on?"profile1.png":"profile.png";
+}
+// every visible element gets "painted" in, left to right, behind a brush-colored sweep
+function paintIn(){
+  if(REDUCE)return;
+  const els=[...document.querySelectorAll(".tab.on .card,.tab.on .hero>*,.tab.on .sec,.tab.on .seg,.tab.on .room,.dock,.control,.rail:not([hidden])")].filter(e=>e.getClientRects().length);
+  els.forEach((el,i)=>el.animate(
+    [{clipPath:"inset(0 100% 0 0)",filter:"blur(8px) brightness(1.7) saturate(2.2)",opacity:.2},{clipPath:"inset(0 0% 0 0)",filter:"blur(0) brightness(1) saturate(1)",opacity:1}],
+    {duration:900,delay:Math.min(i,14)*55,easing:"cubic-bezier(.22,.8,.22,1)",fill:"backwards"}));
+  const w=document.createElement("div");w.className="wipe";document.body.appendChild(w);
+  w.animate([{translate:"-80vw 0"},{translate:"130vw 0"}],{duration:1200,easing:"cubic-bezier(.65,0,.35,1)"}).finished.then(()=>w.remove(),()=>w.remove());
+}
+function fadeIn(){
+  if(REDUCE)return;
+  document.querySelectorAll(".page,.dock,.top-controls,.rail:not([hidden])").forEach(el=>el.animate([{opacity:0,filter:"blur(10px)"},{opacity:1,filter:"blur(0)"}],{duration:700,easing:"ease-out"}));
+}
+function setStarry(on){
+  SFX.reveal(on);
+  if(!on&&!REDUCE&&document.startViewTransition){
+    const h=document.documentElement;h.classList.add("vt-out");
+    const t=document.startViewTransition(()=>applyStarry(false));
+    t.finished.finally(()=>h.classList.remove("vt-out"));
+  }else{
+    applyStarry(on);
+    if(on)paintIn();else fadeIn();
+  }
 }
 
 /* ---------- Easter egg ---------- */
@@ -1194,7 +1439,7 @@ $("profileEgg").addEventListener("click",()=>{
   eggTimer=setTimeout(()=>eggClicks=0,1800);
 });
 
-/* ---------- Paint-brush animation (replaces fireworks) ---------- */
+/* ---------- Paint-brush animation (never paints over the text in the middle) ---------- */
 const canvas=$("fireworks"),ctx=canvas.getContext("2d"),brush=$("brush");
 let fwRunning=false,strokes=[],fwFrame,fwT=0;
 const PAL=["#f2c744","#f9e48c","#e8a93a","#3f6fc4","#6fa6ee","#1d3a7a","#9ed0d8","#2c5aa8"];
@@ -1205,10 +1450,10 @@ function resizeCanvas(){
 addEventListener("resize",()=>{if(!fwRunning)resizeCanvas()});resizeCanvas();
 function makeStroke(i){
   const W=innerWidth,H=innerHeight,pts=[],col=PAL[Math.random()*PAL.length|0],w=rnd(8,18);
-  if(i%2===0){ // swirl, like the sky in the painting
+  if(i%2===0){
     const cx=rnd(W*.1,W*.9),cy=rnd(H*.12,H*.88),dir=Math.random()<.5?-1:1,r0=rnd(6,14),gr=rnd(4,8),a0=rnd(0,6.28),end=rnd(8,15);
     for(let a=0;a<end;a+=.1)pts.push([cx+Math.cos(a0+dir*a)*(r0+gr*a),cy+Math.sin(a0+dir*a)*(r0+gr*a)*.8]);
-  }else{ // long wavy sweep
+  }else{
     const y0=rnd(H*.08,H*.92),x0=rnd(-40,W*.4),len=rnd(W*.6,W*1.1),amp=rnd(14,46),f=rnd(.008,.02),ph=rnd(0,6.28),sl=rnd(-.25,.25);
     for(let s=0;s<len;s+=8)pts.push([x0+s,y0+Math.sin(s*f+ph)*amp+s*sl]);
   }
@@ -1241,11 +1486,15 @@ function startPaint(){
   fwRunning=true;fwT=0;new Image().src="profile1.png";SFX.paint();
   strokes=Array.from({length:18},(_,i)=>makeStroke(i));
   ctx.globalCompositeOperation="source-over";ctx.clearRect(0,0,innerWidth,innerHeight);
+  // keep an oval free around the message so paint never covers the glowing text
+  const msg=document.querySelector(".egg-message"),W=innerWidth,H=innerHeight;
+  ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);
+  ctx.ellipse(W/2,H/2,msg.offsetWidth/2+40,msg.offsetHeight/2+36,0,0,Math.PI*2);ctx.clip("evenodd");
   document.body.classList.add("fireworks-mode");
   haptic(30);
   animatePaint();
   setTimeout(()=>{
-    fwRunning=false;cancelAnimationFrame(fwFrame);
+    fwRunning=false;cancelAnimationFrame(fwFrame);ctx.restore();
     document.body.classList.remove("fireworks-mode");setStarry(true);
     setTimeout(()=>ctx.clearRect(0,0,innerWidth,innerHeight),700);
   },3800);
