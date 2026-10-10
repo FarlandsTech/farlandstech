@@ -422,6 +422,123 @@ body.lite #fireworks{background:rgba(5,10,40,.82)}
 body.lite .sheet-bg{background:rgba(5,8,20,.72)}
 body.lite.fireworks-mode :is(.page,.top-controls,.dock,.rail,.ulog){filter:none}
 body.lite .ulog-panel{transition:none}
+/* ===== v4: museum rail scroll + NOTHING MODE (secret) ===== */
+.rail{max-height:calc(100vh - 24px);overflow-y:auto;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.ped.nt-hit .spot,.stage.nt-hit .spot{opacity:1!important;transition:none}
+
+.ntbg{display:none;color:var(--nf);background:radial-gradient(var(--nd) 1px,transparent 1.5px) 0 0/22px 22px}
+.ntbg svg{position:absolute;inset:0;width:100%;height:100%;opacity:.32}
+.nt-glow{position:absolute;left:-25vmax;top:-30vmax;width:90vmax;height:90vmax;background:radial-gradient(closest-side,var(--ngl),transparent);animation:ntdrift 16s ease-in-out infinite alternate;will-change:transform}
+.nt-scan{position:absolute;left:0;right:0;top:0;height:160px;background:linear-gradient(180deg,transparent,var(--ngl),transparent);animation:ntscan 8s linear infinite;will-change:transform}
+@keyframes ntdrift{to{transform:translate(55vmax,45vmax)}}
+@keyframes ntscan{from{transform:translateY(-160px)}to{transform:translateY(105vh)}}
+.nt-g{opacity:.12;animation:ntg 3.6s ease-in-out infinite}
+.nt-g.g2{animation-delay:.3s}.nt-g.g3{animation-delay:.6s}.nt-g.g4{animation-delay:.9s}.nt-g.g5{animation-delay:1.2s}
+@keyframes ntg{0%,100%{opacity:.12}35%,55%{opacity:1}}
+.nt-rec{animation:ntrec 1.4s steps(1) infinite}
+@keyframes ntrec{50%{opacity:.15}}
+@keyframes ntwv{40%{translate:0 -14px;color:var(--red);text-shadow:0 0 14px var(--red)}}
+@keyframes nthit{from{opacity:1}to{opacity:1}}
+
+.nt-pill{display:none;position:fixed;left:50%;translate:-50% 0;bottom:calc(14px + env(safe-area-inset-bottom) + 78px);z-index:58;align-items:center;gap:8px;padding:0 14px;min-height:30px;border:0;
+  background:var(--bg);color:var(--text);font:800 11px Doto,monospace;letter-spacing:.06em;cursor:pointer;white-space:nowrap;box-shadow:var(--ns2),var(--nglow)}
+body.nothing-mode .nt-pill{display:flex}
+.nt-pill .led{animation:ntrec 1.4s steps(1) infinite}
+
+#ntOverlay{position:fixed;inset:0;z-index:9999;background:#000;opacity:0;pointer-events:auto;transition:opacity .35s}
+#ntOverlay[hidden]{display:none}
+#ntOverlay.on{opacity:1}
+#ntOverlay.out{opacity:0;pointer-events:none;transition:opacity .7s}
+#ntfx{position:absolute;inset:0;width:100%;height:100%;display:block}
+.nt-msg{position:absolute;left:50%;transform:translateX(-50%);text-align:center;width:max-content;max-width:90vw;font-family:Doto,"Courier New",monospace;color:#fff;
+  text-shadow:0 0 12px #fff,0 0 30px rgba(255,255,255,.6);animation:ntmsg 1s steps(8) .9s both}
+.nt-t{font-size:clamp(15px,4.4vw,24px);font-weight:900;letter-spacing:.06em}
+.nt-s{margin-top:8px;font-size:clamp(11px,3vw,13px);font-weight:700;opacity:.8;letter-spacing:.04em}
+@keyframes ntmsg{from{opacity:0}to{opacity:1}}
+
+/* the theme itself: black / white, dot-matrix font, white light on everything, pixel outlines, a few red record-light accents */
+body.nothing-mode{
+  --bg:#ececea;--text:#0a0a0a;--muted:#5c5c5c;--red:#d71921;--green:#0a0a0a;--accent:#d71921;
+  --nf:#0a0a0a;--ng:rgba(0,0,0,.16);--ngl:rgba(0,0,0,.05);--nd:rgba(0,0,0,.2);--glass-a:#f4f4f2;--glass-b:#f4f4f2;
+  --edge:transparent;--edge-low:transparent;--shadow:none;--dm:Doto,"Courier New",monospace;--mb1:#0a0a0a;--mb2:#6a6a6a;
+  --ns:0 -3px 0 0 var(--nf),0 3px 0 0 var(--nf),-3px 0 0 0 var(--nf),3px 0 0 0 var(--nf);
+  --ns2:0 -2px 0 0 var(--nf),0 2px 0 0 var(--nf),-2px 0 0 0 var(--nf),2px 0 0 0 var(--nf);
+  --nglow:0 0 24px var(--ng);
+  font-family:Doto,"Courier New",monospace;font-weight:700;font-size:15px;letter-spacing:.01em;
+  background:var(--bg);text-shadow:0 0 8px var(--ng);transition:background .5s,color .5s}
+body.nothing-mode.dark{
+  --bg:#000;--text:#f5f5f5;--muted:#a3a3a3;--nf:#f5f5f5;--ng:rgba(255,255,255,.55);--ngl:rgba(255,255,255,.09);--nd:rgba(255,255,255,.2);
+  --glass-a:#0a0a0a;--glass-b:#0a0a0a;--mb1:#f5f5f5;--mb2:#8a8a8a}
+body.nothing-mode *{font-family:Doto,"Courier New",monospace!important}
+body.nothing-mode :is(.aurora,.topo,.phones,#wx){display:none}
+body.nothing-mode .ntbg{display:block}
+
+/* pixel outlines + white light */
+body.nothing-mode :is(.glass,.card){border:0!important;border-radius:0!important;
+  background:radial-gradient(var(--nd) 1px,transparent 1.5px) 0 0/8px 8px,var(--glass-a)!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:var(--ns),var(--nglow)!important}
+body.nothing-mode .card::before,body.nothing-mode .card::after{display:none!important}
+body.nothing-mode .room{border:0;border-radius:0;background:radial-gradient(var(--nd) 1px,transparent 1.5px) 0 0/8px 8px,var(--glass-a);
+  box-shadow:0 -3px 0 0 var(--bc),0 3px 0 0 var(--bc),-3px 0 0 0 var(--bc),3px 0 0 0 var(--bc),var(--nglow)}
+body.nothing-mode :is(.room,.sheet,.rail button){--bc:var(--nf)!important}
+body.nothing-mode #room-Nothing{--bc:var(--red)!important}
+body.nothing-mode :is(.icon,.copy-button,.sheet-x,.say,.ind,.seg-ind,.seg button,.dock button,.rail button,.profile,.stat-chip .icon){border-radius:0!important}
+body.nothing-mode .icon{background:var(--glass-a);color:var(--nf);outline:none;box-shadow:var(--ns2)}
+body.nothing-mode .copy-button{background:var(--nf);color:var(--bg);box-shadow:var(--ns2);font-weight:900}
+body.nothing-mode .sheet-x{background:var(--nf);color:var(--bg);box-shadow:var(--ns2)}
+body.nothing-mode .say{border:0;background:var(--bg);box-shadow:var(--ns2)}
+body.nothing-mode :is(.ind,.seg-ind){background:transparent!important;outline:none!important;box-shadow:var(--ns2),0 0 14px var(--ng)!important}
+body.nothing-mode .ind::after{border-radius:0;width:5px;height:5px}
+body.nothing-mode .rail button.on{background:transparent;box-shadow:var(--ns2),0 0 14px var(--ng)}
+body.nothing-mode .led{border-radius:0;width:6px;height:6px}
+body.nothing-mode .led.g{background:var(--nf);box-shadow:0 0 8px var(--ng)}
+body.nothing-mode .led.a{background:var(--red);box-shadow:0 0 8px var(--red)}
+body.nothing-mode .led.off{box-shadow:none}
+body.nothing-mode .glyph i{border-radius:0}
+body.nothing-mode .status{border-radius:0;background:var(--red);box-shadow:0 0 14px var(--red);z-index:2;animation:ntrec 1.4s steps(1) infinite}
+body.nothing-mode .profile{filter:grayscale(1) contrast(1.2);box-shadow:var(--ns),0 0 26px var(--ng)}
+body.nothing-mode .profile-wrap::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(var(--bg) 38%,transparent 42%) 0 0/5px 5px;opacity:.55}
+
+/* museum */
+body.nothing-mode .pillar{border-radius:0;border:2px solid var(--bc);background:repeating-linear-gradient(0deg,var(--nd) 0 2px,transparent 2px 5px),var(--glass-a)}
+body.nothing-mode .pillar::before{border-radius:0;border:2px solid var(--bc);height:8px;top:-8px;background:var(--bc)}
+body.nothing-mode .pillar::after{border-radius:0;border:2px solid var(--bc);background:var(--glass-a)}
+body.nothing-mode .spot{background:linear-gradient(180deg,var(--ng),transparent 88%)}
+body.nothing-mode .exhibit svg{filter:grayscale(1) contrast(1.15) drop-shadow(0 0 10px var(--ng));shape-rendering:crispEdges}
+body.nothing-mode .icon svg{shape-rendering:crispEdges}
+body.nothing-mode .crown{color:var(--red);text-shadow:0 0 12px var(--red)}
+
+/* type */
+body.nothing-mode h1{--glow:#fff;--glow2:#fff;font-weight:900;letter-spacing:.02em}
+body.nothing-mode:not(.dark) h1{--glow:#9a9a9a;--glow2:#bdbdbd}
+body.nothing-mode h1::after{content:"";display:inline-block;width:.13em;height:.13em;margin-left:.1em;background:var(--red);box-shadow:0 0 14px var(--red);animation:ntrec 1.4s steps(1) infinite}
+body.nothing-mode .hc.wv{animation-name:ntwv}
+body.nothing-mode .eyebrow{letter-spacing:.1em}
+body.nothing-mode .card-title{font-size:16px}
+body.nothing-mode .card-subtitle{font-size:13px}
+body.nothing-mode :is(.spec-grid,.about-p,.intro,.work p,.ul-list,.plq,.sh-note){font-size:13.5px}
+body.nothing-mode :is(.plq small,.stl,.stat-note,.spec-note,.stat-label){font-size:12px}
+body.nothing-mode .dock button{font-size:12px}
+body.nothing-mode .solarized-link{color:var(--nf);text-shadow:0 0 8px var(--ng);animation:none}
+body.nothing-mode .spark{color:var(--red)}
+body.nothing-mode .stat-delta.up{color:var(--nf)}
+body.nothing-mode .sheet .exhibit svg{animation-duration:7s}
+@media(max-width:760px){
+  body.nothing-mode .card-title{font-size:15px}
+  body.nothing-mode .card-subtitle{font-size:12px}
+}
+/* Dot goes mono with red eyes */
+body.nothing-mode .dot .eye rect{fill:var(--red)}
+body.nothing-mode .dot circle[fill="#ff8fb3"]{display:none}
+body.nothing-mode .dot path[stroke="#7dffd5"]{stroke:var(--red)}
+body.nothing-mode .dot .eyes{filter:drop-shadow(0 0 2px var(--red))!important}
+/* lite keeps it light */
+body.lite.nothing-mode{--nglow:0 0 0 transparent;text-shadow:none}
+body.lite.nothing-mode h1{text-shadow:0 0 10px var(--ng)}
+body.lite.nothing-mode .ntbg :is(.nt-glow,.nt-scan){display:none}
+body.lite.nothing-mode .nt-g{animation:none;opacity:.5}
+body.lite.nothing-mode .exhibit svg{filter:grayscale(1)}
 </style>
 </head>
 <body>
@@ -438,6 +555,34 @@ body.lite .ulog-panel{transition:none}
   <img class="phone phone6" data-n="phone6" alt="" decoding="async" fetchpriority="low">
   <img class="phone phone7" data-n="phone7" alt="" decoding="async" fetchpriority="low">
   <img class="phone phone8" data-n="phone8" alt="" decoding="async" fetchpriority="low">
+</div>
+
+<!-- Nothing mode background: tiny inline SVG + two CSS layers, no canvas, no images -->
+<div class="bg ntbg" id="ntbg" aria-hidden="true">
+  <div class="nt-glow"></div><div class="nt-scan"></div>
+  <svg viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-linecap="round">
+      <circle cx="310" cy="170" r="120" stroke-width="1.4" stroke-dasharray="1 7"/>
+      <circle cx="310" cy="170" r="84" stroke-width="1"/>
+      <circle cx="310" cy="170" r="46" stroke-width="1.2" stroke-dasharray="2 5"/>
+      <circle cx="70" cy="640" r="150" stroke-width="1.4" stroke-dasharray="1 8"/>
+      <circle cx="70" cy="640" r="92" stroke-width="1"/>
+      <path d="M0 400H400M200 0V800" stroke-width=".7" stroke-dasharray="1 7"/>
+      <path d="M24 24h12M30 18v12M364 24h12M370 18v12M24 776h12M30 770v12M364 776h12M370 770v12" stroke-width="1"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="7">
+      <path class="nt-g g1" d="M52 330A64 64 0 0 1 116 266"/>
+      <path class="nt-g g2" d="M52 352V470"/>
+      <path class="nt-g g3" d="M300 430V530"/>
+      <path class="nt-g g4" d="M322 566H358"/>
+      <path class="nt-g g5" d="M176 706V736"/>
+    </g>
+    <circle class="nt-rec" cx="372" cy="62" r="4" fill="#d71921"/>
+    <g fill="currentColor" font-family="Doto,monospace" font-weight="700" font-size="10" letter-spacing="1">
+      <text x="46" y="768" opacity=".55">NOTHING (1) / GLYPH INTERFACE</text>
+      <text x="354" y="48" text-anchor="end" opacity=".55">REC</text>
+    </g>
+  </svg>
 </div>
 
 <div class="ulog" id="ulog">
@@ -602,6 +747,9 @@ body.lite .ulog-panel{transition:none}
 <nav class="rail glass" id="rail" aria-label="Museum rooms" hidden></nav>
 <div id="sheetWrap" hidden><div class="sheet-bg" id="sheetBg"></div><div class="sheet glass" id="sheet" role="dialog" aria-modal="true" aria-label="Phone details"></div></div>
 
+<button class="nt-pill dm" id="ntPill" type="button" aria-label="Exit Nothing mode"><i class="led"></i>NOTHING MODE · EXIT</button>
+<div id="ntOverlay" hidden aria-hidden="true"><canvas id="ntfx"></canvas><div class="nt-msg" id="ntMsg"><div class="nt-t">Nothing mode unlocked</div><div class="nt-s">Tap the (1) five times again to switch back.</div></div></div>
+
 <canvas id="fireworks"></canvas>
 <div id="brush" aria-hidden="true">🖌️</div>
 <div class="egg-message">
@@ -744,7 +892,7 @@ let topoDraw=()=>{};
 
 /* ---------- Sound engine (Web Audio, all synthesized) ---------- */
 const SFX=(()=>{
-  let ctx=null,master=null,noiseBuf=null,muted=false;
+  let ctx=null,master=null,noiseBuf=null,muted=false,ntMode=false;
   try{muted=localStorage.getItem("farlands-muted")==="1"}catch(e){}
   const AC=window.AudioContext||window.webkitAudioContext;
   function init(){
@@ -764,9 +912,9 @@ const SFX=(()=>{
   function tone(f,dur,o){
     o=o||{};const c=ok();if(!c)return;
     const t=c.currentTime+(o.at||0),osc=c.createOscillator(),g=c.createGain();
-    osc.type=o.type||"sine";osc.frequency.setValueAtTime(f,t);
+    osc.type=ntMode?"square":(o.type||"sine");osc.frequency.setValueAtTime(f,t);
     if(o.to)osc.frequency.exponentialRampToValueAtTime(o.to,t+dur);
-    const v=o.vol==null?.25:o.vol,a=o.attack||.006;
+    const v=(o.vol==null?.25:o.vol)*(ntMode?.5:1),a=o.attack||.006;
     g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
     osc.connect(g);g.connect(master);osc.start(t);osc.stop(t+dur+.05);
   }
@@ -784,6 +932,21 @@ const SFX=(()=>{
   }
   const api={
     get muted(){return muted},
+    setNothing(on){ntMode=on},
+    // Nothing-inspired: crisp dot-matrix blips, glassy pings, a thump per pulse
+    nTap(n){n=n||1;tone(880+n*190,.07,{type:"square",vol:.07});tone(1760+n*380,.05,{at:.035,type:"square",vol:.045});noise(.02,{f0:5200,vol:.05})},
+    nOff(){[1568,1175,880,587].forEach((f,i)=>tone(f,.09,{at:i*.09,type:"square",vol:.06}));noise(.7,{type:"bandpass",f0:5200,f1:500,q:2,vol:.05,attack:.04,release:.4})},
+    nBoot(){
+      if(!ok())return;
+      [.2,1.1,2].forEach((t,k)=>{
+        tone(70,.5,{at:t,to:38,vol:.3});
+        noise(.12,{at:t,type:"highpass",f0:5000,q:.6,vol:.07,attack:.002});
+        [1,1.5,2].forEach((m,j)=>tone(440*m*(1+k*.25),.7,{at:t+.02+j*.07,vol:.09}));
+        noise(1.5,{at:t,type:"bandpass",f0:600,f1:5200,q:2.2,vol:.05,attack:.05,release:.9});
+      });
+      for(let i=0;i<7;i++)tone(1760+i*110,.05,{at:.6+i*.07,type:"square",vol:.06});
+      tone(1318.5,.9,{at:3.5,vol:.12});tone(1975.5,1.1,{at:3.62,vol:.1});
+    },
     unlock(){if(!muted)init()},
     setMuted(m){
       muted=m;try{localStorage.setItem("farlands-muted",m?"1":"0")}catch(e){}
@@ -855,6 +1018,7 @@ const CAM={
   dual:'<rect x="7.4" y="3.4" width="3.8" height="6.6" rx="1.9"/><circle cx="9.3" cy="5.3" r=".8"/><circle cx="9.3" cy="8.1" r=".8"/>',
   single:'<circle cx="9.3" cy="5.4" r="1.3"/>',
   singleC:'<circle cx="12" cy="5" r="1.4"/>',
+  nothing:'<circle cx="9.3" cy="5.4" r="1.5"/><circle cx="12.2" cy="8.4" r="1.5"/><circle cx="12" cy="15.6" r="2.6" fill="none"/><path d="M8 11.4v4.6M16 12.4v6" stroke-linecap="round"/>',
   pill3:'<rect x="7.6" y="3.6" width="8.8" height="3.8" rx="1.9"/><circle cx="9.9" cy="5.5" r=".7"/><circle cx="12" cy="5.5" r=".7"/><circle cx="14.1" cy="5.5" r=".7"/>'
 };
 const back=k=>si('<rect x="6" y="2" width="12" height="20" rx="3"/>'+CAM[k]);
@@ -975,20 +1139,24 @@ const MUSEUM=[
    sp:[["Display","6.74-inch AMOLED · 2772 × 1240 · 120 Hz"],["Chip","MediaTek Dimensity 9200"],["Memory","12/16 GB + 256/512 GB"],["Cameras","50 MP main · 50 MP ultrawide · 50 MP 2.8× tele · 32 MP selfie"],["Battery","4,800 mAh · 100 W wired"],["Size","About 186 g"]]},
   {br:"vivo",t:"X5Max+",d:"2015-03",rel:"Mar 2015",st:"kept",lab:"KEPT",ico:"singleC",
    note:"Still have it. It's very thin and comfy to hold.",
-   sp:[["Display","5.5-inch Super AMOLED · 1920 × 1080"],["Chip","MediaTek MT6752 · octa-core 1.7 GHz"],["Memory","2 GB + 16 GB · microSD"],["Cameras","13 MP main · 5 MP selfie"],["Battery","2,300 mAh"],["Size","153.9 × 78 × 5.1 mm"],["Software","Android 4.4.4 · Funtouch 2"]]}
+   sp:[["Display","5.5-inch Super AMOLED · 1920 × 1080"],["Chip","MediaTek MT6752 · octa-core 1.7 GHz"],["Memory","2 GB + 16 GB · microSD"],["Cameras","13 MP main · 5 MP selfie"],["Battery","2,300 mAh"],["Size","153.9 × 78 × 5.1 mm"],["Software","Android 4.4.4 · Funtouch 2"]]},
+  {br:"Nothing",t:"Nothing Phone (1)",d:"2022-07",rel:"Jul 2022",st:"past",lab:"PAST",ico:"nothing",
+   note:"It was a very cool experience. I loved the Glyph lights, but that was the only good thing about that phone.",
+   sp:[["Display","6.55-inch flexible OLED · 2400 × 1080 · 120 Hz"],["Chip","Snapdragon 778G+ 5G"],["Memory","8/12 GB + 128/256 GB · no card slot"],["Cameras","50 MP main (OIS) · 50 MP ultrawide · 16 MP selfie"],["Battery","4,500 mAh · 33 W wired · 15 W wireless · 5 W reverse"],["Size","159.2 × 75.8 × 8.3 mm · 193.5 g · IP53 · Glyph Interface"],["Software","Nothing OS · Android 12 at launch"]]}
 ];
 MUSEUM.forEach((p,i)=>p.i=i);
-const BRANDS=["Samsung","Apple","OnePlus","OPPO","vivo"];
+const BRANDS=["Samsung","Apple","OnePlus","OPPO","vivo","Nothing"];
 const LEDS={kept:"g",sold:"off",traded:"off",past:"off",loved:"g",broken:"a",want:"a"};
 // colors follow each brand's logo
-const BCOL={Samsung:"#2a4fe0",Apple:"#a7aebb",OnePlus:"#ff2b36",OPPO:"#08b36b",vivo:"#415fff"};
+const BCOL={Samsung:"#2a4fe0",Apple:"#a7aebb",OnePlus:"#ff2b36",OPPO:"#08b36b",vivo:"#415fff",Nothing:"#a9adb5"};
 const WM=(t,x)=>'<svg viewBox="0 0 64 24" aria-hidden="true">'+x+'</svg>';
 const LOGO={
   Samsung:WM(0,'<text x="32" y="17" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="11.5" letter-spacing="1" fill="currentColor">SAMSUNG</text>'),
   Apple:'<svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.200-.6 43-17.9 75.800-17.9 31.800 0 48.300 17.900 76.400 17.900 48.600-.7 90.400-82.500 102.600-119.300-65.200-30.700-61.700-90-61.700-91.900zm-56.600-164.200c27.300-32.400 24.800-61.900 24-72.500-24.100 1.400-52 16.400-67.900 34.900-17.500 19.800-27.800 44.300-25.600 71.900 26.100 2 49.900-11.400 69.500-34.300z"/></svg>',
   OnePlus:WM(0,'<rect x="19" y="1" width="26" height="22" rx="6" fill="currentColor"/><text x="32" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="15" fill="#fff">1+</text>'),
   OPPO:WM(0,'<text x="32" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="16" letter-spacing="1.5" fill="currentColor">OPPO</text>'),
-  vivo:WM(0,'<text x="32" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-style="italic" font-size="18" fill="currentColor">vivo</text>')
+  vivo:WM(0,'<text x="32" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-style="italic" font-size="18" fill="currentColor">vivo</text>'),
+  Nothing:WM(0,'<text x="32" y="17" text-anchor="middle" font-family="Doto,monospace" font-weight="900" font-size="11" letter-spacing=".5" fill="currentColor">NOTHING</text>')
 };
 const FAME='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></svg>';
 
@@ -1057,7 +1225,9 @@ function railSync(){
 }
 
 /* --- detail sheet --- */
+let curSheet=null;
 function openSheet(p){
+  curSheet=p;
   const col=BCOL[p.br],s=$("sheet");
   const rows=p.sp.map(r=>'<div class="spec-k">'+esc(r[0])+'</div><div class="spec-v">'+esc(r[1])+'</div>').join("");
   s.style.setProperty("--bc",col);
@@ -1071,11 +1241,20 @@ function openSheet(p){
 }
 function closeSheet(){
   if($("sheetWrap").hidden)return;
-  $("sheetWrap").hidden=true;document.body.classList.remove("sheet-open");SFX.expand(false);
+  $("sheetWrap").hidden=true;curSheet=null;document.body.classList.remove("sheet-open");SFX.expand(false);
 }
-$("musList").addEventListener("click",e=>{const b=e.target.closest(".ped");if(b)openSheet(MUSEUM[+b.dataset.i])});
+$("musList").addEventListener("click",e=>{
+  const b=e.target.closest(".ped");if(!b)return;
+  const p=MUSEUM[+b.dataset.i];
+  if(p.t===NT_TITLE){nothingTap(b,p,b);return}   // secret: 5 quick taps on the Nothing Phone (1)
+  clearTimeout(ntOpen);ntCount=0;openSheet(p);
+});
 $("sheetBg").addEventListener("click",closeSheet);
-$("sheet").addEventListener("click",e=>{if(e.target.closest(".sheet-x"))closeSheet()});
+$("sheet").addEventListener("click",e=>{
+  if(e.target.closest(".sheet-x")){closeSheet();return}
+  const st=e.target.closest(".stage");
+  if(st&&curSheet&&curSheet.t===NT_TITLE)nothingTap(null,curSheet,st);
+});
 addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet()});
 
 /* expand / collapse a spec sheet */
@@ -1160,8 +1339,16 @@ const JOKES=[
   "Why did the camera sensor stay calm? Nothing could put it out of focus."
 ];
 let lastLine="";
+const NTJOKES=[
+  "What did the Glyph light say? Nothing. It just blinked.",
+  "Why is the Nothing phone so honest? You can see right through it.",
+  "I asked the Nothing phone how it feels. It said: nothing.",
+  "Why did the Glyph strip get promoted? It always lit up the room.",
+  "Dot-matrix fonts: because pixels deserve a spotlight."
+];
 function dotLine(){
-  let s;for(let i=0;i<6;i++){s=pick(JOKES);if(s!==lastLine)break}
+  const pool=isNothing()?JOKES.concat(NTJOKES):JOKES;
+  let s;for(let i=0;i<6;i++){s=pick(pool);if(s!==lastLine)break}
   return lastLine=s;
 }
 function dotSay(d){
@@ -1489,6 +1676,10 @@ document.addEventListener("visibilitychange",wxSync);
 
 /* ---------- Update log (top left). Add new entries at the TOP of this list. ---------- */
 const UPDATES=[
+  {v:"1.2",d:"Oct 10, 2026",n:[
+    "Added the Nothing Phone (1) to the Phone museum (new Nothing room)",
+    "New secret mode hidden in the museum"
+  ]},
   {v:"1.1",d:"Oct 10, 2026",n:[
     "Added LITE mode (top right): less blur, fewer effects, built for older devices",
     "Dot now only tells phone and tech jokes",
@@ -1578,6 +1769,7 @@ $("profileEgg").addEventListener("click",()=>{
   eggClicks++;clearTimeout(eggTimer);if(eggClicks<5)SFX.pop(eggClicks);
   if(eggClicks>=5){
     eggClicks=0;
+    if(isNothing()){stopNothing();return}
     if(document.body.classList.contains("starry-mode")){setStarry(false);return}
     startPaint();return;
   }
@@ -1667,6 +1859,111 @@ themeButton.addEventListener("click",()=>{
   setTimeout(()=>themeTransition.classList.add("closing"),780);
   setTimeout(()=>{themeTransition.classList.remove("active","closing");themeAnimating=false},1450);
 });
+
+/* ---------- NOTHING MODE (secret): tap the Nothing Phone (1) 5 times in a row ---------- */
+const isNothing=()=>document.body.classList.contains("nothing-mode");
+const NT_TITLE="Nothing Phone (1)";
+let ntCount=0,ntTimer=0,ntOpen=0,ntBusy=false;
+// quick taps never open the sheet; it only opens after a short pause
+function nothingTap(el,p,flash){
+  if(ntBusy)return;
+  ntCount++;clearTimeout(ntTimer);clearTimeout(ntOpen);
+  ntTimer=setTimeout(()=>ntCount=0,1600);
+  haptic(8);SFX.nTap(ntCount);
+  if(flash){flash.classList.remove("nt-hit");void flash.offsetWidth;flash.classList.add("nt-hit");setTimeout(()=>flash.classList.remove("nt-hit"),160)}
+  if(ntCount>=5){ntCount=0;clearTimeout(ntTimer);closeSheet();isNothing()?stopNothing():startNothing();return}
+  if(el)ntOpen=setTimeout(()=>openSheet(p),420);
+}
+const NTF={ // 5x7 dot-matrix letters
+  N:["10001","11001","10101","10101","10101","10011","10001"],
+  O:["01110","10001","10001","10001","10001","10001","01110"],
+  T:["11111","00100","00100","00100","00100","00100","00100"],
+  H:["10001","10001","10001","11111","10001","10001","10001"],
+  I:["01110","00100","00100","00100","00100","00100","01110"],
+  G:["01110","10001","10000","10011","10001","10001","01111"]
+};
+// glyph-matrix animation: dot pulses travel from the center to the edges (or back in), red record light in the middle
+function matrixFx(o){
+  const ov=$("ntOverlay"),c=$("ntfx"),x=c.getContext("2d"),msg=$("ntMsg");
+  const dpr=Math.min(devicePixelRatio||1,2),W=innerWidth,H=innerHeight;
+  const S=Math.max(6,Math.min(isLite()?20:14,Math.floor(W/46)));
+  c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);
+  const cols=Math.ceil(W/S),rows=Math.ceil(H/S),cx=W/2,cy=H/2,maxD=Math.hypot(cx,cy);
+  const mask=new Uint8Array(cols*rows),r0=Math.floor(rows/2)-4;
+  if(o.text){
+    const word="NOTHING",c0=Math.floor((cols-(word.length*6-1))/2);
+    [...word].forEach((ch,li)=>NTF[ch].forEach((row,ry)=>{for(let rx=0;rx<5;rx++){
+      if(row[rx]==="1"){const gx=c0+li*6+rx,gy=r0+ry;if(gx>=0&&gx<cols&&gy>=0&&gy<rows)mask[gy*cols+gx]=1}}}));
+  }
+  msg.style.display=o.text?"":"none";
+  if(o.text){msg.style.top=((r0+10)*S)+"px";msg.style.animation="none";void msg.offsetWidth;msg.style.animation=""}
+  ov.hidden=false;ov.classList.remove("out");void ov.offsetWidth;ov.classList.add("on");
+  const speed=maxD/1.5,sz0=S*.34,step=isLite()?33:16;
+  const t0=performance.now();let last=-99,sw=false,fd=false;
+  o.pulses.forEach(p=>setTimeout(()=>haptic(16),p*1000));
+  function draw(t){
+    x.globalAlpha=1;x.fillStyle="#000";x.fillRect(0,0,W,H);
+    const reds=[],reveal=o.text?Math.max(0,Math.min(1,(t-.5)/.6)):0;
+    x.fillStyle="#fff";
+    for(let j=0;j<rows;j++){
+      const y=j*S+S/2;
+      for(let i=0;i<cols;i++){
+        const px=i*S+S/2,d=Math.hypot(px-cx,y-cy);
+        let b=.07,red=0;
+        if(mask[j*cols+i])b=.07+.8*reveal;
+        for(let k=0;k<o.pulses.length;k++){
+          const tp=t-o.pulses[k];if(tp<0||tp>1.9)continue;
+          const r=o.inward?maxD-tp*speed:tp*speed;
+          const dd=(d-r)/(S*2.4),g=Math.exp(-dd*dd)*(1-Math.min(1,Math.abs(r)/maxD)*.45);
+          if(g>b){b=g;if(k===0&&g>.35)red=1}
+        }
+        const s=sz0*(.7+.9*b);
+        if(red)reds.push(px,y,Math.min(1,b),s);
+        else{x.globalAlpha=b;x.fillRect(px-s/2,y-s/2,s,s)}
+      }
+    }
+    x.fillStyle="#d71921";
+    for(let n=0;n<reds.length;n+=4){x.globalAlpha=reds[n+2];const s=reds[n+3];x.fillRect(reds[n]-s/2,reds[n+1]-s/2,s,s)}
+    x.globalAlpha=(t<.2||Math.floor(t*2.5)%2===0)?1:.25;      // record light blinks in the center
+    const cs=S*.9;x.fillRect(cx-cs/2,cy-cs/2,cs,cs);x.globalAlpha=1;
+  }
+  function frame(now){
+    const t=(now-t0)/1000;
+    if(now-last>=step){last=now;draw(t)}
+    if(!sw&&t>=o.swap){sw=true;o.onSwap()}
+    if(!fd&&t>=o.fade){fd=true;ov.classList.remove("on");ov.classList.add("out")}
+    if(t<o.total)requestAnimationFrame(frame);
+    else{ov.hidden=true;ov.classList.remove("out");o.done()}
+  }
+  requestAnimationFrame(frame);
+}
+function applyNothing(on){
+  const b=document.body.classList;
+  if(on){
+    if(b.contains("starry-mode"))applyStarry(false);
+    b.add("dark","nothing-mode");SFX.setNothing(true);
+  }else{
+    b.remove("nothing-mode");
+    let d=false;try{d=localStorage.getItem("farlands-dark")==="1"}catch(e){}
+    b.toggle("dark",d);SFX.setNothing(false);
+  }
+  const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=on?"#000":"#eef2fb";
+  updateThemeIcon();
+  document.querySelectorAll(".card").forEach(resetCard);
+}
+function startNothing(){
+  if(ntBusy||isNothing())return;ntBusy=true;
+  if(REDUCE){applyNothing(true);ntBusy=false;return}
+  SFX.nBoot();
+  matrixFx({text:true,pulses:[.2,1.1,2],total:4.4,swap:3.2,fade:3.45,inward:false,onSwap:()=>applyNothing(true),done:()=>{ntBusy=false}});
+}
+function stopNothing(){
+  if(ntBusy||!isNothing())return;ntBusy=true;
+  if(REDUCE){applyNothing(false);ntBusy=false;return}
+  SFX.nOff();
+  matrixFx({text:false,pulses:[.05,.5],total:1.9,swap:.9,fade:1.1,inward:true,onSwap:()=>applyNothing(false),done:()=>{ntBusy=false}});
+}
+$("ntPill").addEventListener("click",()=>{SFX.pop(1);stopNothing()});
 
 /* ---------- Share ---------- */
 const shareButton=$("shareButton");
