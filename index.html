@@ -539,10 +539,55 @@ body.lite.nothing-mode h1{text-shadow:0 0 10px var(--ng)}
 body.lite.nothing-mode .ntbg :is(.nt-glow,.nt-scan){display:none}
 body.lite.nothing-mode .nt-g{animation:none;opacity:.5}
 body.lite.nothing-mode .exhibit svg{filter:grayscale(1)}
+
+/* ===== v5: sun rays, lit elements, link colors, collab list ===== */
+.sunglow{z-index:-2;background:radial-gradient(75vmax 52vmax at 50% 5%,rgba(255,205,120,.36),rgba(255,226,172,.13) 46%,transparent 74%);transition:opacity .8s}
+body.dark .sunglow{opacity:.55}
+.sun{position:absolute;left:50%;top:50%;width:min(1300px,230vw);aspect-ratio:1;translate:-50% -50%;z-index:-1;pointer-events:none;
+  -webkit-mask:radial-gradient(circle closest-side,#000 8%,rgba(0,0,0,.5) 40%,transparent 92%);mask:radial-gradient(circle closest-side,#000 8%,rgba(0,0,0,.5) 40%,transparent 92%)}
+.sun::before{content:"";position:absolute;inset:0;border-radius:50%;will-change:transform;animation:sunspin 160s linear infinite;
+  background:repeating-conic-gradient(from 0deg,transparent 0 10deg,rgba(255,222,150,.34) 13deg,transparent 17deg 30deg),
+             repeating-conic-gradient(from 14deg,transparent 0 22deg,rgba(255,238,196,.22) 25deg,transparent 29deg 47deg)}
+.sun::after{content:"";position:absolute;inset:0;background:radial-gradient(circle closest-side,rgba(255,240,200,.75),rgba(255,214,140,.32) 14%,rgba(255,200,110,.10) 34%,transparent 100%);animation:sunpulse 6s ease-in-out infinite alternate}
+@keyframes sunspin{to{rotate:360deg}}
+@keyframes sunpulse{from{opacity:.75}to{opacity:1}}
+body.dark .sun{opacity:.8}
+body.lite .sun::before,body.lite .sun::after{animation:none}
+@media(prefers-reduced-motion:reduce){.sun::before,.sun::after{animation:none!important}}
+
+/* top elements catch the light: a warm glint from above */
+.lit{background:radial-gradient(135% 130% at 50% -38%,rgba(255,216,140,var(--la,.45)),transparent 62%),radial-gradient(var(--dot) .9px,transparent 1.2px) 0 0/11px 11px,linear-gradient(135deg,var(--glass-a),var(--glass-b))}
+body.dark .lit{--la:.28}
+.control.lit{--la:.6}
+.links>.lit:nth-child(2){--la:.3}
+body.dark .links>.lit:nth-child(2){--la:.2}
+
+/* link logos get their brand colors */
+.lk[href*="tiktok"]{--ic:#ff2d6f}
+.lk[href*="youtube"]{--ic:#ff0000}
+.lk[href*="discord"]{--ic:#5865f2}
+.lk[href*="vinted"]{--ic:#09b1ba}
+.lk[href^="https://x.com"]{--ic:var(--text)}
+.lk.email-card{--ic:#ea4335}
+body:not(.starry-mode):not(.nothing-mode) .lk .icon{color:var(--ic,var(--b))}
+
+/* collaboration list */
+.wl{margin:0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.6}
+.wl li{margin-bottom:4px}
+.wl li::marker{color:var(--b)}
+.work .wl-h,.collab .wl-h{margin:16px 0 6px;color:var(--text);font-weight:700;font-size:13px}
+.collab{margin-top:14px;padding:12px 2px 4px;border-top:1px solid color-mix(in srgb,var(--muted) 28%,transparent);font-size:12.5px;opacity:0;transition:opacity .35s}
+.collab .wl-h{margin-top:0}
+.collab .wl{color:var(--text)}
+.xcard.open .collab{opacity:1;transition:opacity .45s .12s}
+body.starry-mode :is(.wl,.collab){font-size:15px}
+body.nothing-mode :is(.wl,.collab){font-size:13.5px}
+body.nothing-mode :is(.sun,.sunglow){display:none}
 </style>
 </head>
 <body>
 <div class="bg aurora" aria-hidden="true"></div>
+<div class="bg sunglow" aria-hidden="true"></div>
 <canvas class="bg topo" id="topo" aria-hidden="true"></canvas>
 <canvas class="bg" id="wx" aria-hidden="true"></canvas>
 <!-- phone images are loaded by script (desktop only, webp first) so mobile never downloads them -->
@@ -586,15 +631,15 @@ body.lite.nothing-mode .exhibit svg{filter:grayscale(1)}
 </div>
 
 <div class="ulog" id="ulog">
-  <button class="control glass ulog-btn" id="ulogBtn" aria-expanded="false" aria-controls="ulogPanel" type="button"><i class="led off" id="ulogLed"></i>Updates</button>
+  <button class="control glass lit ulog-btn" id="ulogBtn" aria-expanded="false" aria-controls="ulogPanel" type="button"><i class="led off" id="ulogLed"></i>Updates</button>
   <div class="ulog-panel glass" id="ulogPanel" role="region" aria-label="Update log"></div>
 </div>
 
 <div class="top-controls">
-  <button class="control glass" id="shareButton" aria-label="Share" type="button">↗</button>
-  <button class="control glass" id="muteButton" aria-label="Mute sounds" aria-pressed="false" type="button"></button>
-  <button class="control glass" id="themeButton" aria-label="Toggle dark mode" type="button">☾</button>
-  <button class="control glass lite-btn" id="liteButton" aria-pressed="false" title="Lite mode: less blur and fewer effects, faster on older devices" type="button"><i class="led off"></i>LITE</button>
+  <button class="control glass lit" id="shareButton" aria-label="Share" type="button">↗</button>
+  <button class="control glass lit" id="muteButton" aria-label="Mute sounds" aria-pressed="false" type="button"></button>
+  <button class="control glass lit" id="themeButton" aria-label="Toggle dark mode" type="button">☾</button>
+  <button class="control glass lit lite-btn" id="liteButton" aria-pressed="false" title="Lite mode: less blur and fewer effects, faster on older devices" type="button"><i class="led off"></i>LITE</button>
 </div>
 <div id="themeTransition" aria-hidden="true"></div>
 
@@ -604,6 +649,7 @@ body.lite.nothing-mode .exhibit svg{filter:grayscale(1)}
   <div class="tab on" id="t-links">
     <section class="hero">
       <div class="profile-wrap" id="profileEgg" aria-label="Profile">
+        <div class="sun" aria-hidden="true"></div>
         <img class="profile" src="profile.png" alt="FarlandsTech" fetchpriority="high" decoding="async">
         <div class="status"></div>
       </div>
@@ -614,28 +660,33 @@ body.lite.nothing-mode .exhibit svg{filter:grayscale(1)}
     </section>
 
     <section class="links">
-      <a class="card glass stg" style="--b:#ff2d6f" href="https://www.tiktok.com/@farlandstech" target="_blank" rel="noopener">
+      <a class="card glass lit lk stg" style="--b:#ff2d6f" href="https://www.tiktok.com/@farlandstech" target="_blank" rel="noopener">
         <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.7 3c.4 2.5 1.8 4.2 4.3 4.4v3.1c-1.7.1-3.1-.4-4.3-1.3v6.1c0 4-2.8 6.7-6.7 6.7-3.6 0-6.2-2.6-6.2-5.9 0-3.6 2.9-6.2 6.8-6.2.4 0 .8 0 1.2.1v3.2c-.4-.1-.8-.2-1.2-.2-1.9 0-3.4 1.2-3.4 3 0 1.6 1.2 2.8 2.8 2.8 1.8 0 3.3-1.2 3.3-3.7V3h3.4z"/></svg></div>
         <div class="card-content"><div class="card-title">TikTok</div><div class="card-subtitle">@farlandstech · my main platform</div></div>
         <div class="arrow">›</div>
       </a>
-      <a class="card glass stg" style="--b:#ff3030" href="https://www.youtube.com/channel/UCwQjS4ojSVepIKLWliLctRw" target="_blank" rel="noopener">
+      <a class="card glass lit lk stg" style="--b:#ff3030" href="https://www.youtube.com/channel/UCwQjS4ojSVepIKLWliLctRw" target="_blank" rel="noopener">
         <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.9V8.1l6.6 3.9-6.6 3.9z"/></svg></div>
         <div class="card-content"><div class="card-title">YouTube</div><div class="card-subtitle wrap">I'm not focusing on YouTube right now, but I will later.</div></div>
         <div class="tag"><span class="led off"></span>SOON</div>
         <div class="arrow">›</div>
       </a>
-      <a class="card glass stg" style="--b:#6f7bff" href="https://discord.gg/farcord" target="_blank" rel="noopener">
+      <a class="card glass lk stg" style="--b:#6f7bff" href="https://discord.gg/farcord" target="_blank" rel="noopener">
         <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.5 4.5A16.7 16.7 0 0 0 15.4 3l-.5 1.1a15.4 15.4 0 0 0-5.8 0L8.6 3a16.7 16.7 0 0 0-4.1 1.5C1.9 8.4 1.2 12.2 1.5 15.9A16.6 16.6 0 0 0 6.6 18l1.2-1.7c-.7-.3-1.3-.6-1.9-1 .2-.2.4-.3.6-.5 3.7 1.7 7.7 1.7 11.4 0 .2.2.4.3.6.5-.6.4-1.2.7-1.9 1l1.2 1.7a16.6 16.6 0 0 0 5.1-2.1c.4-4.3-.7-8-3.4-11.4zM8.7 13.7c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z"/></svg></div>
         <div class="card-content"><div class="card-title">Discord</div><div class="card-subtitle">Join the community</div></div>
         <div class="arrow">›</div>
       </a>
-      <a class="card glass stg" style="--b:#19c7a8" href="https://www.vinted.com/member/266298289" target="_blank" rel="noopener">
+      <a class="card glass lk stg" style="--b:#19c7a8" href="https://www.vinted.com/member/266298289" target="_blank" rel="noopener">
         <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 4h5.4c1.5 0 2.7.9 3.4 2.2L16 10.6l2.7-6.6H22l-4 9.2c-.8 1.9-2 3.4-3.6 4.8L12 20H8.5l2.8-3.1L5 4zm4.3 2.8h-1l3.2 7.1 1.2-1.4-3.4-5.7z"/></svg></div>
         <div class="card-content"><div class="card-title">Vinted</div><div class="card-subtitle">Phones &amp; tech for sale</div></div>
         <div class="arrow">›</div>
       </a>
-      <div class="card glass email-card stg" style="--b:#ea4335" id="emailCard" role="button" tabindex="0" aria-label="Email FarlandsTech">
+      <a class="card glass lk stg" style="--b:#8f98ad" href="https://x.com/farlandstech" target="_blank" rel="noopener">
+        <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+        <div class="card-content"><div class="card-title">X</div><div class="card-subtitle">@farlandstech</div></div>
+        <div class="arrow">›</div>
+      </a>
+      <div class="card glass lk email-card stg" style="--b:#ea4335" id="emailCard" role="button" tabindex="0" aria-label="Email FarlandsTech">
         <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 7l7.5 6 7.5-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="card-content"><div class="card-title">Email</div><div class="card-subtitle">samsungs24ultragoat@gmail.com</div></div>
         <button class="copy-button" id="copyEmail" type="button">Copy</button>
@@ -644,6 +695,16 @@ body.lite.nothing-mode .exhibit svg{filter:grayscale(1)}
       <div class="card glass work stg" style="--b:#9c63ff" data-dot="r">
         <h2>Work with me</h2>
         <p>Interested in working together on smartphone, technology or photography content? Send me an email and let's talk.</p>
+        <p class="wl-h">I want to work with:</p>
+        <ul class="wl">
+          <li>Brands that make/sell phone accessories (cases, powerbanks, etc.)</li>
+          <li>Phone manufacturers (to review phones)</li>
+          <li>Brands that make/sell peripherals (keyboards, mice, etc.)</li>
+          <li>Audio companies</li>
+          <li>PC companies</li>
+          <li>Display companies (monitors for example)</li>
+          <li>Something that correlates to my content</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -682,10 +743,20 @@ body.lite.nothing-mode .exhibit svg{filter:grayscale(1)}
         <div class="card-content"><div class="card-title">Weather in the Netherlands</div><div class="card-subtitle" id="wxText">Checking the sky…</div></div>
         <div class="tag"><span class="led off" id="wxLed"></span>LIVE</div>
       </div>
-      <div class="card glass stg" style="--b:#31d56d">
+      <div class="card glass xcard stg" style="--b:#31d56d" role="button" tabindex="0" aria-expanded="false">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 12.5l2.6 2.6L16.5 9"/><circle cx="12" cy="12" r="9"/></svg></div>
         <div class="card-content"><div class="card-title">Open for collaborations</div><div class="card-subtitle">Phones, tech and photography</div></div>
         <div class="tag"><span class="led g"></span>OPEN</div>
+        <div class="arrow">›</div>
+        <div class="specs"><div><div class="collab"><p class="wl-h">I want to work with:</p><ul class="wl">
+          <li>Brands that make/sell phone accessories (cases, powerbanks, etc.)</li>
+          <li>Phone manufacturers (to review phones)</li>
+          <li>Brands that make/sell peripherals (keyboards, mice, etc.)</li>
+          <li>Audio companies</li>
+          <li>PC companies</li>
+          <li>Display companies (monitors for example)</li>
+          <li>Something that correlates to my content</li>
+        </ul></div></div></div>
       </div>
     </section>
     <div class="sec dm stg" style="margin-top:28px"><span class="led"></span>I love</div>
@@ -1072,16 +1143,16 @@ const CARRY=[
     ["Launched","2019"]]}
 ];
 const ORDERED=[
-  {b:"#d1245a",ic:IC.wing,t:"LG Wing",s:"Ordered, waiting for it to arrive",tag:["ORDERED","a"],dot:"c",sp:[
-    ["Display","6.8-inch rotating P-OLED · 2460 × 1080 + 3.9-inch G-OLED second screen"],
-    ["Chip","Snapdragon 765G 5G (7 nm)"],
-    ["Memory","8 GB RAM · 128/256 GB · microSD (shared SIM slot)"],
-    ["Cameras","64 MP main · 13 MP ultrawide · 12 MP gimbal ultrawide"],
-    ["Selfie","32 MP motorized pop-up"],
-    ["Battery","4,000 mAh · 25 W (Quick Charge 4+) · wireless charging"],
-    ["Software","Android 10 at launch · updated to Android 13"],
-    ["Size","169.5 × 74.5 × 10.9 mm · 260 g · IP54 · Gorilla Glass 5"],
-    ["Launched","October 2020"]]}
+  {b:"#cf0a2c",ic:IC.main,t:"Huawei Mate 60 Pro",s:"Future secondary",tag:["ORDERED","a"],dot:"c",sp:[
+    ["Display","6.82-inch LTPO OLED · 2720 × 1260 · 1–120 Hz"],
+    ["Chip","Kirin 9000S (7 nm class)"],
+    ["Memory","12 GB + 256/512 GB or 1 TB · no card slot"],
+    ["Cameras","50 MP main (variable aperture, OIS) · 12 MP ultrawide · 48 MP 5× periscope"],
+    ["Selfie","13 MP"],
+    ["Battery","5,000 mAh · 88 W wired · 50 W wireless"],
+    ["Software","HarmonyOS 4.0 at launch"],
+    ["Size","163.7 × 79.0 × 8.1 mm · about 225 g · IP68 · Kunlun Glass"],
+    ["Launched","August 2023"]]}
 ];
 
 /* Phone museum. ico = camera layout on the back, st = status, lab = tag text */
@@ -1142,20 +1213,27 @@ const MUSEUM=[
    sp:[["Display","5.5-inch Super AMOLED · 1920 × 1080"],["Chip","MediaTek MT6752 · octa-core 1.7 GHz"],["Memory","2 GB + 16 GB · microSD"],["Cameras","13 MP main · 5 MP selfie"],["Battery","2,300 mAh"],["Size","153.9 × 78 × 5.1 mm"],["Software","Android 4.4.4 · Funtouch 2"]]},
   {br:"Nothing",t:"Nothing Phone (1)",d:"2022-07",rel:"Jul 2022",st:"past",lab:"PAST",ico:"nothing",
    note:"It was a very cool experience. I loved the Glyph lights, but that was the only good thing about that phone.",
-   sp:[["Display","6.55-inch flexible OLED · 2400 × 1080 · 120 Hz"],["Chip","Snapdragon 778G+ 5G"],["Memory","8/12 GB + 128/256 GB · no card slot"],["Cameras","50 MP main (OIS) · 50 MP ultrawide · 16 MP selfie"],["Battery","4,500 mAh · 33 W wired · 15 W wireless · 5 W reverse"],["Size","159.2 × 75.8 × 8.3 mm · 193.5 g · IP53 · Glyph Interface"],["Software","Nothing OS · Android 12 at launch"]]}
+   sp:[["Display","6.55-inch flexible OLED · 2400 × 1080 · 120 Hz"],["Chip","Snapdragon 778G+ 5G"],["Memory","8/12 GB + 128/256 GB · no card slot"],["Cameras","50 MP main (OIS) · 50 MP ultrawide · 16 MP selfie"],["Battery","4,500 mAh · 33 W wired · 15 W wireless · 5 W reverse"],["Size","159.2 × 75.8 × 8.3 mm · 193.5 g · IP53 · Glyph Interface"],["Software","Nothing OS · Android 12 at launch"]]},
+  {br:"LG",t:"LG Wing",d:"2020-10",rel:"Oct 2020",st:"kept",lab:"KEPT",ico:"vert3",
+   note:"It is a very cool phone however it feels that they only focused on the swivel mechanism as the rest is unpolished.",
+   sp:[["Display","6.8-inch rotating P-OLED · 2460 × 1080 + 3.9-inch G-OLED second screen"],["Chip","Snapdragon 765G 5G (7 nm)"],["Memory","8 GB + 128/256 GB · microSD (shared SIM slot)"],["Cameras","64 MP main · 13 MP ultrawide · 12 MP gimbal ultrawide · 32 MP motorized pop-up selfie"],["Battery","4,000 mAh · 25 W wired · wireless charging"],["Size","169.5 × 74.5 × 10.9 mm · 260 g · IP54 · Gorilla Glass 5"],["Software","Android 10 at launch · updated to Android 13"]]},
+  {br:"LG",t:"LG G5",d:"2016-02",rel:"Feb 2016",st:"broken",lab:"BROKEN",ico:"dual",
+   note:"This phone was another banger from LG, however the battery on this phone is the worst battery I ever experienced.",
+   sp:[["Display","5.3-inch IPS LCD · 2560 × 1440 · always-on display"],["Chip","Snapdragon 820"],["Memory","4 GB + 32 GB · microSD"],["Cameras","16 MP main · 8 MP 135° ultrawide · 8 MP selfie"],["Battery","2,800 mAh removable · Quick Charge 3.0"],["Size","149.4 × 73.9 × 7.7 mm · 159 g · metal body · headphone jack"],["Special","Modular bottom, swap in LG Friends (CAM Plus, Hi-Fi Plus)"]]}
 ];
 MUSEUM.forEach((p,i)=>p.i=i);
-const BRANDS=["Samsung","Apple","OnePlus","OPPO","vivo","Nothing"];
+const BRANDS=["Samsung","Apple","OnePlus","OPPO","vivo","LG","Nothing"];
 const LEDS={kept:"g",sold:"off",traded:"off",past:"off",loved:"g",broken:"a",want:"a"};
 // colors follow each brand's logo
-const BCOL={Samsung:"#2a4fe0",Apple:"#a7aebb",OnePlus:"#ff2b36",OPPO:"#08b36b",vivo:"#415fff",Nothing:"#a9adb5"};
+const BCOL={Samsung:"#2a4fe0",Apple:"#a7aebb",OnePlus:"#ff2b36",OPPO:"#08b36b",vivo:"#415fff",Nothing:"#a9adb5",LG:"#d1245a"};
 const WM=(t,x)=>'<svg viewBox="0 0 64 24" aria-hidden="true">'+x+'</svg>';
 const LOGO={
   Samsung:WM(0,'<text x="32" y="17" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="11.5" letter-spacing="1" fill="currentColor">SAMSUNG</text>'),
-  Apple:'<svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.200-.6 43-17.9 75.800-17.9 31.800 0 48.300 17.900 76.400 17.900 48.600-.7 90.400-82.500 102.600-119.300-65.200-30.700-61.700-90-61.700-91.900zm-56.600-164.200c27.300-32.400 24.800-61.900 24-72.500-24.100 1.400-52 16.400-67.900 34.900-17.500 19.800-27.800 44.300-25.600 71.900 26.100 2 49.900-11.400 69.500-34.300z"/></svg>',
+  Apple:'<svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>',
   OnePlus:WM(0,'<rect x="19" y="1" width="26" height="22" rx="6" fill="currentColor"/><text x="32" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="15" fill="#fff">1+</text>'),
   OPPO:WM(0,'<text x="32" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="16" letter-spacing="1.5" fill="currentColor">OPPO</text>'),
   vivo:WM(0,'<text x="32" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-style="italic" font-size="18" fill="currentColor">vivo</text>'),
+  LG:WM(0,'<circle cx="32" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="2"/><text x="32" y="16.4" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="11.5" fill="currentColor">LG</text>'),
   Nothing:WM(0,'<text x="32" y="17" text-anchor="middle" font-family="Doto,monospace" font-weight="900" font-size="11" letter-spacing=".5" fill="currentColor">NOTHING</text>')
 };
 const FAME='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></svg>';
@@ -1676,6 +1754,14 @@ document.addEventListener("visibilitychange",wxSync);
 
 /* ---------- Update log (top left). Add new entries at the TOP of this list. ---------- */
 const UPDATES=[
+  {v:"1.3",d:"Nov 1, 2026",n:[
+    "Sun rays now shine from behind my profile picture and light up the top of the site",
+    "Added my X profile to Links (x.com/farlandstech)",
+    "Link logos now have their brand colors",
+    "LG Wing moved from Ordered to the Phone museum, plus the LG G5 (broken). New LG room",
+    "Ordered: Huawei Mate 60 Pro, my future secondary",
+    "Work with me now lists who I want to work with. Same list is in About, under Open for collaborations"
+  ]},
   {v:"1.2",d:"Oct 10, 2026",n:[
     "Added the Nothing Phone (1) to the Phone museum (new Nothing room)",
     "New secret mode hidden in the museum"
