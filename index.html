@@ -44,7 +44,6 @@ body.dark .topo{opacity:.75}
 body.starry-mode{background:linear-gradient(rgba(4,8,28,.5),rgba(3,7,22,.65)),url("starry-night.webp") center/cover fixed #05091d}
 body.starry-mode .aurora{opacity:.12}body.starry-mode .topo{opacity:.14}
 .phones{z-index:-1}
-#wx{z-index:-1}
 .phone{position:absolute;width:clamp(90px,13vw,180px);height:auto;opacity:.42;transform:rotate(var(--r)) translateZ(0);backface-visibility:hidden}
 .phone1{left:2%;top:8%;--r:-13deg}.phone2{right:2%;top:15%;--r:14deg}
 .phone3{left:6%;top:42%;--r:-18deg}.phone4{right:5%;top:48%;--r:17deg}
@@ -53,7 +52,7 @@ body.starry-mode .aurora{opacity:.12}body.starry-mode .topo{opacity:.14}
 
 .glass{
   background:var(--gridbg),linear-gradient(135deg,var(--glass-a),var(--glass-b));
-  backdrop-filter:blur(26px) saturate(1.8);-webkit-backdrop-filter:blur(26px) saturate(1.8);
+  backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);
   border:1px solid var(--edge-low);box-shadow:var(--shadow),0 0 36px -8px var(--gl,rgba(47,191,113,.22)),inset 0 1.5px 1px var(--edge),inset 0 -1px 1px var(--edge-low)}
 .top-controls{position:fixed;top:calc(16px + env(safe-area-inset-top));right:calc(16px + env(safe-area-inset-right));display:flex;gap:10px;z-index:50}
 .control{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--text);font-size:18px;font-family:inherit;transition:transform .5s var(--spring);animation:popIn .9s var(--spring) .1s backwards}
@@ -99,9 +98,7 @@ body.starry-mode .aurora{opacity:.12}body.starry-mode .topo{opacity:.14}
 /* Hero: FarlandsTech is the star, the tagline is the quiet dot-matrix line under it */
 h1{margin:0;padding:0 0 4px;font-size:clamp(38px,12.5vw,80px);line-height:1.04;letter-spacing:-.05em;font-weight:800;color:var(--text);cursor:default;
   --glow:#6f9bff;--glow2:#9c63ff;
-  text-shadow:0 0 10px color-mix(in srgb,var(--glow) 70%,transparent),0 0 28px color-mix(in srgb,var(--glow) 55%,transparent),0 0 64px color-mix(in srgb,var(--glow2) 45%,transparent);
-  animation:h1glow 3.6s ease-in-out infinite alternate}
-@keyframes h1glow{to{text-shadow:0 0 14px color-mix(in srgb,var(--glow) 90%,transparent),0 0 38px color-mix(in srgb,var(--glow) 70%,transparent),0 0 88px color-mix(in srgb,var(--glow2) 62%,transparent)}}
+  text-shadow:0 0 10px color-mix(in srgb,var(--glow) 70%,transparent),0 0 28px color-mix(in srgb,var(--glow) 55%,transparent),0 0 64px color-mix(in srgb,var(--glow2) 45%,transparent);}
 body.dark h1{--glow:#8fb0ff;--glow2:#b98bff}
 .hc{display:inline-block}
 .hc.wv{animation:wv .8s var(--spring) both;animation-delay:calc(var(--w)*45ms)}
@@ -115,7 +112,8 @@ body.dark h1{--glow:#8fb0ff;--glow2:#b98bff}
   --rx:0deg;--ry:0deg;--s:1;--gx:50%;--gy:50%;--mx:0px;--my:0px;--dx:0px;--dy:0px;--sx:1;--sy:1;--b:#6f9bff;--gl:color-mix(in srgb,var(--b) 34%,transparent);
   position:relative;isolation:isolate;min-height:74px;min-width:0;max-width:100%;display:flex;align-items:center;gap:15px;padding:15px 18px;border-radius:30px;
   color:var(--text);text-decoration:none;transform:perspective(900px) translate(var(--dx),var(--dy)) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s)) scale(var(--sx),var(--sy));
-  transition:transform .8s var(--spring),box-shadow .9s ease;will-change:transform;touch-action:pan-y}
+  transition:transform .8s var(--spring),box-shadow .9s ease;touch-action:pan-y}
+.card.live,.card.drag{will-change:transform}
 .card.live{transition:transform .14s ease-out,box-shadow .3s}
 .card.drag{transition:transform .05s linear,box-shadow .3s}
 .card.release{transition:transform .9s var(--spring),box-shadow .9s ease}
@@ -148,21 +146,17 @@ body.dark .icon{background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255
 .work{margin-top:14px;padding:26px;border-radius:32px;display:block}
 .work h2{margin:0 0 8px;font-size:19px;letter-spacing:-.02em}
 .work p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{flex:1 1 30%;min-height:84px;flex-direction:column;justify-content:center;gap:10px;padding:14px;border-radius:26px;text-align:center;font-size:17px}
-.chip .icon{width:40px;height:40px;flex-basis:40px;border-radius:14px}
 .about-p{margin:0 6px 18px;color:var(--muted);font-size:14px;line-height:1.7}
 footer{text-align:center;padding:30px 0 0;color:var(--muted);font-size:11px}
 /* "Inspired by" link: same size, now glowing */
 .solarized-link{display:inline-block;margin-top:9px;color:#3d7cff;font-weight:600;text-decoration:none;
-  text-shadow:0 0 8px rgba(61,124,255,.65),0 0 20px rgba(156,99,255,.5);animation:slPulse 3s ease-in-out infinite alternate;transition:transform .4s var(--spring)}
-@keyframes slPulse{to{text-shadow:0 0 12px rgba(61,124,255,.95),0 0 30px rgba(156,99,255,.8)}}
+  text-shadow:0 0 8px rgba(61,124,255,.65),0 0 20px rgba(156,99,255,.5);transition:transform .4s var(--spring)}
 body.dark .solarized-link{color:#a9c2ff}
 .solarized-link:hover{transform:translateY(-2px) scale(1.05)}
 
-.dock{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));translate:-50% 0;z-index:60;width:min(480px,calc(100% - 28px));
-  display:grid;grid-template-columns:repeat(5,1fr);padding:6px;border-radius:999px;--i:0;animation:dockIn 1s var(--spring) .35s backwards}
-.ind{position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/5);border-radius:999px;transform:translateX(calc(var(--i)*100%));
+.dock{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));translate:-50% 0;z-index:60;width:min(440px,calc(100% - 28px));
+  display:grid;grid-template-columns:repeat(4,1fr);padding:6px;border-radius:999px;--i:0;animation:dockIn 1s var(--spring) .35s backwards}
+.ind{position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/4);border-radius:999px;transform:translateX(calc(var(--i)*100%));
   transition:transform .6s var(--spring);background:linear-gradient(145deg,rgba(255,255,255,.85),rgba(255,255,255,.35));box-shadow:0 6px 18px rgba(40,60,120,.18),inset 0 1px 1px #fff}
 body.dark .ind{background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.07));box-shadow:0 6px 18px rgba(0,0,0,.35),inset 0 1px 1px rgba(255,255,255,.3)}
 .ind::after{content:"";position:absolute;left:50%;top:5px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red)}
@@ -218,9 +212,9 @@ body.fireworks-mode .egg-message{opacity:1;transform:translate(-50%,-50%) scale(
 @media(max-width:760px){
   .phones{display:none}
   .page{width:min(620px,calc(100% - 28px));margin-left:auto;margin-right:auto}
-  .glass{backdrop-filter:blur(18px) saturate(1.6);-webkit-backdrop-filter:blur(18px) saturate(1.6)}
+  .glass{backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4)}
   .card{border-radius:26px;padding:14px 15px;gap:12px}.card-title{font-size:14px}.card-subtitle{font-size:11px}
-  .icon{width:42px;height:42px;flex-basis:42px}.chip .icon{width:38px;height:38px}
+  .icon{width:42px;height:42px;flex-basis:42px}
   .copy-button{min-width:64px;padding:0 10px}
   body.starry-mode .card-title{font-size:16px}body.starry-mode .card-subtitle{font-size:12.5px}
 }
@@ -315,10 +309,9 @@ body.starry-mode .say{font-family:Kalam,cursive;font-size:14px;font-weight:700}
 .spot{position:absolute;left:0;right:0;top:0;height:150px;clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);pointer-events:none;
   background:linear-gradient(180deg,color-mix(in srgb,var(--bc) 60%,#fff),transparent 88%);opacity:.26;transition:opacity .5s}
 .ped:hover .spot,.ped:focus-visible .spot{opacity:.5}
-.exhibit{position:relative;z-index:2;height:100px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:-3px;animation:exh 4.2s ease-in-out infinite;animation-delay:calc(var(--k,0)*-.8s)}
+.exhibit{position:relative;z-index:2;height:100px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:-3px}
 .exhibit svg{display:block;width:58px;height:auto;filter:drop-shadow(0 12px 12px rgba(0,0,0,.3));transition:transform .7s var(--spring)}
 .ped:hover .exhibit svg,.ped:active .exhibit svg{transform:rotateY(24deg) translateY(-6px) scale(1.06)}
-@keyframes exh{50%{translate:0 -5px}}
 .pillar{position:relative;z-index:1;width:84%;height:var(--ph,46px);border-radius:7px 7px 3px 3px;border:1.5px solid color-mix(in srgb,var(--bc) 55%,transparent);
   background:linear-gradient(90deg,rgba(0,0,0,.22),rgba(255,255,255,.26) 24%,rgba(255,255,255,.04) 62%,rgba(0,0,0,.24)),color-mix(in srgb,var(--bc) 16%,var(--bg))}
 .pillar::before{content:"";position:absolute;left:-6%;right:-6%;top:-8px;height:12px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--bc) 55%,transparent);
@@ -360,7 +353,7 @@ body.starry-mode .rail button{font-family:Kalam,cursive;font-size:12px}
 .sheet-x:active{transform:scale(.88)}
 .sheet .stage{position:relative;height:196px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;perspective:600px;margin-bottom:6px}
 .sheet .spot{height:170px;opacity:.5}
-.sheet .exhibit{height:140px;animation-duration:3.6s}
+.sheet .exhibit{height:140px}
 .sheet .exhibit svg{width:84px;animation:spin 7s ease-in-out infinite alternate}
 @keyframes spin{from{transform:rotateY(-26deg)}to{transform:rotateY(26deg)}}
 .sheet .pillar{width:46%;height:34px}
@@ -406,7 +399,7 @@ body.lite.dark{--lc:#191d2a}
 body.lite.starry-mode{--lc:#112454;background:#05091d}
 body.lite .glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--lc);box-shadow:0 2px 8px rgba(0,0,0,.14)}
 body.lite:not(.starry-mode) .glass{border-color:color-mix(in srgb,var(--text) 10%,transparent)}
-body.lite .topo,body.lite #wx,body.lite .phones{display:none}
+body.lite .topo,body.lite .phones{display:none}
 body.lite .aurora{opacity:.4}
 body.lite .stg,body.lite .tab.on,body.lite .control,body.lite .profile-wrap,body.lite .dock,body.lite .rail{animation:none}
 body.lite h1{animation:none;text-shadow:0 0 18px color-mix(in srgb,var(--glow) 55%,transparent)}
@@ -471,7 +464,7 @@ body.nothing-mode.dark{
   --bg:#000;--text:#f5f5f5;--muted:#a3a3a3;--nf:#f5f5f5;--ng:rgba(255,255,255,.55);--ngl:rgba(255,255,255,.09);--nd:rgba(255,255,255,.2);
   --glass-a:#0a0a0a;--glass-b:#0a0a0a;--mb1:#f5f5f5;--mb2:#8a8a8a}
 body.nothing-mode *{font-family:Doto,"Courier New",monospace!important}
-body.nothing-mode :is(.aurora,.topo,.phones,#wx){display:none}
+body.nothing-mode :is(.aurora,.topo,.phones){display:none}
 body.nothing-mode .ntbg{display:block}
 
 /* pixel outlines + white light */
@@ -545,15 +538,11 @@ body.lite.nothing-mode .exhibit svg{filter:grayscale(1)}
 body.dark .sunglow{opacity:.55}
 .sun{position:absolute;left:50%;top:50%;width:min(1300px,230vw);aspect-ratio:1;translate:-50% -50%;z-index:-1;pointer-events:none;
   -webkit-mask:radial-gradient(circle closest-side,#000 8%,rgba(0,0,0,.5) 40%,transparent 92%);mask:radial-gradient(circle closest-side,#000 8%,rgba(0,0,0,.5) 40%,transparent 92%)}
-.sun::before{content:"";position:absolute;inset:0;border-radius:50%;will-change:transform;animation:sunspin 160s linear infinite;
+.sun::before{content:"";position:absolute;inset:0;border-radius:50%;
   background:repeating-conic-gradient(from 0deg,transparent 0 10deg,rgba(255,222,150,.34) 13deg,transparent 17deg 30deg),
              repeating-conic-gradient(from 14deg,transparent 0 22deg,rgba(255,238,196,.22) 25deg,transparent 29deg 47deg)}
-.sun::after{content:"";position:absolute;inset:0;background:radial-gradient(circle closest-side,rgba(255,240,200,.75),rgba(255,214,140,.32) 14%,rgba(255,200,110,.10) 34%,transparent 100%);animation:sunpulse 6s ease-in-out infinite alternate}
-@keyframes sunspin{to{rotate:360deg}}
-@keyframes sunpulse{from{opacity:.75}to{opacity:1}}
+.sun::after{content:"";position:absolute;inset:0;background:radial-gradient(circle closest-side,rgba(255,240,200,.75),rgba(255,214,140,.32) 14%,rgba(255,200,110,.10) 34%,transparent 100%)}
 body.dark .sun{opacity:.8}
-body.lite .sun::before,body.lite .sun::after{animation:none}
-@media(prefers-reduced-motion:reduce){.sun::before,.sun::after{animation:none!important}}
 
 /* top elements catch the light: a warm glint from above */
 .lit{background:radial-gradient(135% 130% at 50% -38%,rgba(255,216,140,var(--la,.45)),transparent 62%),var(--gridbg),linear-gradient(135deg,var(--glass-a),var(--glass-b))}
@@ -575,13 +564,9 @@ body:not(.starry-mode):not(.nothing-mode) .lk .icon{color:var(--ic,var(--b))}
 .wl{margin:0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.6}
 .wl li{margin-bottom:4px}
 .wl li::marker{color:var(--b)}
-.work .wl-h,.collab .wl-h{margin:16px 0 6px;color:var(--text);font-weight:700;font-size:13px}
-.collab{margin-top:14px;padding:12px 2px 4px;border-top:1px solid color-mix(in srgb,var(--muted) 28%,transparent);font-size:12.5px;opacity:0;transition:opacity .35s}
-.collab .wl-h{margin-top:0}
-.collab .wl{color:var(--text)}
-.xcard.open .collab{opacity:1;transition:opacity .45s .12s}
-body.starry-mode :is(.wl,.collab){font-size:15px}
-body.nothing-mode :is(.wl,.collab){font-size:13.5px}
+.work .wl-h{margin:16px 0 6px;color:var(--text);font-weight:700;font-size:13px}
+body.starry-mode .wl{font-size:15px}
+body.nothing-mode .wl{font-size:13.5px}
 body.nothing-mode :is(.sun,.sunglow){display:none}
 
 /* ===== v6: portfolio, ambient audio, toasts, grid texture + soft glow ===== */
@@ -715,7 +700,6 @@ body.lite .pf-img{transition:none}
 <div class="bg aurora" aria-hidden="true"></div>
 <div class="bg sunglow" aria-hidden="true"></div>
 <canvas class="bg topo" id="topo" aria-hidden="true"></canvas>
-<canvas class="bg" id="wx" aria-hidden="true"></canvas>
 <!-- phone images are loaded by script (desktop only, webp first) so mobile never downloads them -->
 <div class="bg phones" aria-hidden="true">
   <img class="phone phone1" data-n="phone1" alt="" decoding="async" fetchpriority="low">
@@ -927,50 +911,6 @@ body.lite .pf-img{transition:none}
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <div class="tab" id="t-about">
-    <div class="sec dm stg"><span class="led"></span>About me</div>
-    <p class="about-p stg">I'm FarlandsTech, a tech creator making phone content, experiments and photography.</p>
-    <section class="links">
-      <div class="card glass stg" style="--b:#ff9f43">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
-        <div class="card-content"><div class="card-title">Based in the Netherlands</div><div class="card-subtitle">Local time <span id="clock" class="dm"></span></div></div>
-      </div>
-      <div class="card glass stg" style="--b:#5b9be8" id="wxCard">
-        <div class="icon" id="wxIcon"></div>
-        <div class="card-content"><div class="card-title">Weather in the Netherlands</div><div class="card-subtitle" id="wxText">Checking the sky…</div></div>
-        <div class="tag"><span class="led off" id="wxLed"></span>LIVE</div>
-      </div>
-      <div class="card glass xcard stg" style="--b:#31d56d" role="button" tabindex="0" aria-expanded="false">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 12.5l2.6 2.6L16.5 9"/><circle cx="12" cy="12" r="9"/></svg></div>
-        <div class="card-content"><div class="card-title">Open for collaborations</div><div class="card-subtitle">Phones, tech and photography</div></div>
-        <div class="tag"><span class="led g"></span>OPEN</div>
-        <div class="arrow">›</div>
-        <div class="specs"><div><div class="collab"><p class="wl-h">I want to work with:</p><ul class="wl">
-          <li>Brands that make/sell phone accessories (cases, powerbanks, etc.)</li>
-          <li>Phone manufacturers (to review phones)</li>
-          <li>Brands that make/sell peripherals (keyboards, mice, etc.)</li>
-          <li>Audio companies</li>
-          <li>PC companies</li>
-          <li>Display companies (monitors for example)</li>
-          <li>Something that correlates to my content</li>
-        </ul></div></div></div>
-      </div>
-    </section>
-    <div class="sec dm stg" style="margin-top:28px"><span class="led"></span>I love</div>
-    <section class="chips">
-      <div class="card glass chip dm stg" style="--b:#3d7cff"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3.2"/><path d="M10.5 18.5h3"/></svg></div>Tech</div>
-      <div class="card glass chip dm stg" style="--b:#f36bc9"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.5h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.4"/></svg></div>Photo</div>
-      <div class="card glass chip dm stg" style="--b:#9c63ff"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l3.5-1 12-12-2.5-2.5-12 12z"/><path d="M14.5 5.5L17 8"/></svg></div>Design</div>
-    </section>
-    <section class="links" style="margin-top:14px">
-      <div class="card glass work stg" style="--b:#ff3b30" data-dot="l">
-        <h2>Let's make something</h2>
-        <p>Got an idea or a product to feature? Get in touch by email from the Links tab.</p>
-      </div>
-    </section>
-  </div>
-
   <!-- STATS -->
   <div class="tab" id="t-stats">
     <div class="sec dm stg"><span class="led off" id="stLed"></span>Creator stats<small id="stUpdated">Waiting for first update</small></div>
@@ -1010,7 +950,6 @@ body.lite .pf-img{transition:none}
   <button class="on" data-tab="links" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Links</button>
   <button data-tab="portfolio" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M3.5 15l4.5-4.5 4 4 3-3 5.5 5.5"/><circle cx="9" cy="9" r="1.2"/></svg>Portfolio</button>
   <button data-tab="devices" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3.2"/><path d="M10.5 18.5h3"/></svg>Devices</button>
-  <button data-tab="about" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.6-3.6 3.5-5.5 7-5.5s6.4 1.9 7 5.5"/></svg>About</button>
   <button data-tab="stats" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-9M12 20V5M19 20v-6"/></svg>Stats</button>
 </nav>
 
@@ -1162,8 +1101,8 @@ let topoDraw=()=>{};
 
 /* ---------- Sound engine (Web Audio, all synthesized) ---------- */
 const SFX=(()=>{
-  let ctx=null,master=null,noiseBuf=null,muted=true,ntMode=false,vol=.6,last=0;
-  try{muted=localStorage.getItem("farlands-sfx")!=="1"}catch(e){}
+  let ctx=null,master=null,noiseBuf=null,muted=false,ntMode=false,vol=.6,last=0;
+  try{muted=localStorage.getItem("farlands-sfx")==="0"}catch(e){}
   try{const v=parseFloat(localStorage.getItem("farlands-sfxvol"));if(v>=0&&v<=1)vol=v}catch(e){}
   const AC=window.AudioContext||window.webkitAudioContext;
   function init(){
@@ -1984,7 +1923,7 @@ setInterval(()=>{if(STATS.d)$("stUpdated").textContent="Updated "+agoText(STATS.
 setInterval(()=>{loadStats()},36e5);
 
 /* ---------- Tabs + dock ---------- */
-const TABS=["links","portfolio","devices","about","stats"],dock=$("dock"),dbtns=[...dock.querySelectorAll("button")];
+const TABS=["links","portfolio","devices","stats"],dock=$("dock"),dbtns=[...dock.querySelectorAll("button")];
 let curTab="links";
 document.querySelectorAll(".tab").forEach(t=>t.querySelectorAll(".stg").forEach((e,i)=>{if(!e.style.getPropertyValue("--n"))e.style.setProperty("--n",Math.min(i,9))}));
 function go(n,push){
@@ -1997,7 +1936,7 @@ function go(n,push){
   document.querySelectorAll(".card").forEach(resetCard);
   document.title=n==="links"?"FarlandsTech":"FarlandsTech · "+n[0].toUpperCase()+n.slice(1);
   railSync();
-  if(typeof wxSync==="function")wxSync();if(n==="stats"&&typeof statsOnOpen==="function")statsOnOpen();
+  if(n==="stats"&&typeof statsOnOpen==="function")statsOnOpen();
   if(push){scrollTo({top:0});dispatchEvent(new Event("syncscroll"));haptic(10);try{history.replaceState(null,"","#"+n)}catch(e){}}
 }
 dbtns.forEach(b=>b.addEventListener("click",()=>{if(b.dataset.tab!==curTab)SFX.tab(TABS.indexOf(b.dataset.tab));go(b.dataset.tab,true)}));
@@ -2015,6 +1954,8 @@ copyButton.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();S
 
 /* ---------- Tilt ---------- */
 const cards=[...document.querySelectorAll(".card")];
+const seen=new Set(),tio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)seen.add(en.target);else{seen.delete(en.target);resetCard(en.target)}}),{rootMargin:"120px"});
+cards.forEach(c=>tio.observe(c));
 const MAX_TILT=8,RANGE=90;
 let tiltQueued=false,lastX=-9999,lastY=-9999,touchCard=null;
 function tiltCard(c,x,y,force){
@@ -2040,7 +1981,7 @@ function runTilt(){
   tiltQueued=false;
   if(isLite())return;
   if(touchCard){tiltCard(touchCard,lastX,lastY,true);return}
-  cards.forEach(c=>{if(c.offsetParent)tiltCard(c,lastX,lastY,false)});
+  seen.forEach(c=>tiltCard(c,lastX,lastY,false));
 }
 const queue=(x,y)=>{if(isLite())return;lastX=x;lastY=y;if(!tiltQueued){tiltQueued=true;requestAnimationFrame(runTilt)}};
 addEventListener("pointermove",e=>{
@@ -2092,122 +2033,19 @@ addEventListener("blur",endDrag);
 addEventListener("click",e=>{if(moved){e.preventDefault();e.stopPropagation()}},true);
 addEventListener("dragstart",e=>e.preventDefault());
 
-/* ---------- Scroll damping (off in lite mode) ---------- */
-(function(){
-  let last=scrollY,off=0,run=false;
-  function frame(){
-    const y=scrollY,v=y-last;last=y;
-    const target=Math.max(-16,Math.min(16,-v*.9));
-    off+=(target-off)*.14;
-    const vis=cards.filter(c=>c.offsetParent);
-    vis.forEach((c,i)=>{c.style.translate="0 "+(off*(1+i*.07)).toFixed(2)+"px"});
-    if(Math.abs(off)>.05||Math.abs(v)>.2)requestAnimationFrame(frame);
-    else{off=0;run=false;vis.forEach(c=>c.style.translate="")}
-  }
-  addEventListener("scroll",()=>{if(isLite()||run)return;run=true;last=scrollY;requestAnimationFrame(frame)},{passive:true});
-  if(matchMedia("(pointer:fine)").matches){
-    let tgt=scrollY,cur=scrollY,raf=0;
-    const step=()=>{cur+=(tgt-cur)*.12;if(Math.abs(tgt-cur)<.4){cur=tgt;raf=0}else raf=requestAnimationFrame(step);scrollTo(0,cur)};
-    addEventListener("wheel",e=>{
-      if(isLite()||e.ctrlKey||document.body.classList.contains("sheet-open")||(e.target.closest&&e.target.closest(".ulog-panel,.audio-menu")))return;e.preventDefault();
-      const max=document.documentElement.scrollHeight-innerHeight;
-      tgt=Math.max(0,Math.min(max,tgt+e.deltaY*(e.deltaMode===1?32:1)));
-      if(!raf)raf=requestAnimationFrame(step);
-    },{passive:false});
-    addEventListener("scroll",()=>{if(!raf)tgt=cur=scrollY},{passive:true});
-    addEventListener("syncscroll",()=>{cancelAnimationFrame(raf);raf=0;tgt=cur=scrollY});
-  }
-})();
-
-/* ---------- Local time ---------- */
-const clk=$("clock"),fmt=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/Amsterdam"});
-const tick=()=>{if(clk)clk.textContent=fmt.format(new Date())};tick();setInterval(tick,20000);
-
-/* ---------- Weather (Open-Meteo, Netherlands) + About-page effects ---------- */
-const S_=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
-const CL_="M7 14.5a4 4 0 0 1-.5-7.97 5.5 5.5 0 0 1 10.6 1.4A3.3 3.3 0 0 1 17 14.5z";
-const WXI={
-  sun:S_('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
-  moon:S_('<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>'),
-  cloud:S_('<path d="M7 18a4 4 0 0 1-.5-7.97 5.5 5.5 0 0 1 10.6 1.4A3.3 3.3 0 0 1 17 18z"/>'),
-  rain:S_(`<path d="${CL_}"/><path d="M8 17.5l-1 2.5M12 17.5l-1 2.5M16 17.5l-1 2.5"/>`),
-  snow:S_(`<path d="${CL_}"/><path d="M8 18h.01M12 19.5h.01M16 18h.01M10 21.5h.01M14 21.5h.01"/>`),
-  fog:S_('<path d="M4 8h16M6 12h12M4 16h16M7 20h10"/>'),
-  storm:S_(`<path d="${CL_}"/><path d="M12.5 14.5l-2 3h3l-2 3"/>`)
-};
-function wxKindOf(c){
-  if(c===0)return["clear","Clear sky"];if(c<=2)return["cloud","Partly cloudy"];if(c===3)return["cloud","Overcast"];
-  if(c<=48)return["fog","Foggy"];if(c<=55)return["rain","Drizzle"];if(c<=57)return["rain","Freezing drizzle"];
-  if(c<=65)return["rain","Rain"];if(c<=67)return["rain","Freezing rain"];if(c<=77)return["snow","Snow"];
-  if(c<=82)return["rain","Rain showers"];if(c<=86)return["snow","Snow showers"];return["storm","Thunderstorm"];
-}
-const wxc=$("wx"),wxx=wxc.getContext("2d");
-let wxFx=null,wxCode=0,wxP=[],wxRun=false,wxFlash=0;
 const rnd=(a,b)=>Math.random()*(b-a)+a;
-function wxResize(){const d=Math.min(devicePixelRatio||1,2);wxc.width=wxc.clientWidth*d;wxc.height=wxc.clientHeight*d;wxx.setTransform(d,0,0,d,0,0)}
-function wxMake(){
-  const W=wxc.clientWidth,H=wxc.clientHeight,snow=wxFx==="snow";
-  const n=snow?90:wxCode>=95?200:(wxCode>=51&&wxCode<=55)?70:150;
-  wxP=Array.from({length:n},()=>snow
-    ?{x:rnd(0,W),y:rnd(0,H),r:rnd(1.3,3.6),v:rnd(.7,2),ph:rnd(0,6.28)}
-    :{x:rnd(0,W+60),y:rnd(0,H),l:rnd(11,22),v:rnd(15,24),w:rnd(.8,1.7)});
-}
-function wxSync(){
-  const on=curTab==="about"&&wxFx&&!REDUCE&&!document.hidden&&!isLite();
-  if(on&&!wxRun){wxResize();wxMake();wxRun=true;requestAnimationFrame(wxLoop)}
-  else if(!on){wxRun=false;wxx.clearRect(0,0,wxc.clientWidth,wxc.clientHeight)}
-}
-function wxLoop(){
-  if(!wxRun)return;
-  const W=wxc.clientWidth,H=wxc.clientHeight,b=document.body.classList;
-  wxx.clearRect(0,0,W,H);
-  const gold=b.contains("starry-mode"),col=gold?"rgba(247,201,76,.92)":b.contains("dark")?"rgba(160,195,255,.6)":"rgba(55,100,200,.55)";
-  if(wxFx==="snow"){
-    wxx.fillStyle=gold?"rgba(250,214,110,.95)":b.contains("dark")?"rgba(255,255,255,.85)":"rgba(120,150,210,.8)";
-    wxP.forEach(p=>{p.y+=p.v;p.ph+=.03;p.x+=Math.sin(p.ph)*.8;if(p.y>H+5){p.y=-5;p.x=rnd(0,W)}
-      wxx.beginPath();wxx.arc(p.x,p.y,p.r,0,6.283);wxx.fill()});
-  }else{
-    wxx.strokeStyle=col;wxx.lineCap="round";
-    wxP.forEach(p=>{p.y+=p.v;p.x-=p.v*.18;if(p.y>H+20){p.y=-20;p.x=rnd(0,W+60)}if(p.x<-20)p.x+=W+60;
-      wxx.lineWidth=p.w;wxx.beginPath();wxx.moveTo(p.x,p.y);wxx.lineTo(p.x-p.l*.18,p.y+p.l);wxx.stroke()});
-    if(wxFx==="storm"){
-      if(Math.random()<.005)wxFlash=1;
-      if(wxFlash>0){wxx.fillStyle=`rgba(${gold?"255,226,140":"255,255,255"},${wxFlash*.28})`;wxx.fillRect(0,0,W,H);wxFlash-=.06}
-    }
-  }
-  requestAnimationFrame(wxLoop);
-}
-function setWeather(code,temp,isDay){
-  const[k,label]=wxKindOf(code);
-  wxCode=code;wxFx=k==="rain"||k==="snow"||k==="storm"?k:null;
-  const icon=k==="clear"?(isDay?"sun":"moon"):k;
-  $("wxIcon").innerHTML=WXI[icon]||WXI.cloud;
-  $("wxText").textContent=(temp!=null?Math.round(temp)+"°C · ":"")+label;
-  $("wxLed").className="led "+(wxFx?"a":"g");
-  wxSync();
-}
-(function(){
-  const force=new URLSearchParams(location.search).get("wx");
-  if(force){setWeather({rain:63,snow:73,storm:95,clear:0}[force]??0,12,true);return}
-  async function load(){
-    try{
-      const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),8000);
-      const r=await fetch("https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.90&current=temperature_2m,weather_code,is_day&timezone=Europe%2FAmsterdam",{signal:ctl.signal});
-      clearTimeout(t);const j=await r.json(),c=j.current;
-      setWeather(c.weather_code,c.temperature_2m,c.is_day===1);
-    }catch(e){$("wxText").textContent="Weather unavailable right now"}
-  }
-  load();setInterval(load,15*60*1000);
-})();
-addEventListener("resize",()=>{if(wxRun){wxResize();wxMake()}});
-document.addEventListener("visibilitychange",wxSync);
 
 /* ---------- Update log (top left). Add new entries at the TOP of this list. ---------- */
 const UPDATES=[
+  {v:"1.5",d:"Nov 9, 2026",n:[
+    "Removed the About page. Everything about me lives in Portfolio now",
+    "Sound effects are on by default (you can switch them off in the audio menu)",
+    "Smoother full version: removed the weather effects and scroll smoothing, calmed always-running animations, lighter blur"
+  ]},
   {v:"1.4",d:"Nov 9, 2026",n:[
     "New Portfolio tab: big profile picture, about me, what I do, favorite videos and socials",
     "Ambient music: Lo-fi or Nature, from the new music button next to the speaker",
-    "Sound effects are off by default now, with their own switch and volume in the same menu",
+    "Sound effects get their own switch and volume in the same menu",
     "Little confirmations everywhere: toasts with a check, soft ring flashes, smoother feedback",
     "The dotted texture is gone, replaced with a clean grid",
     "Soft glow behind every card",
@@ -2266,7 +2104,6 @@ liteBtn.addEventListener("click",()=>{
   paintLite();
   cards.forEach(c=>{resetCard(c);c.style.translate=""});
   if(!on){topoDraw(true);loadPhones()}
-  wxSync();
   SFX.pop(on?3:1);toast(on?"Lite mode on":"Lite mode off","ok");haptic(10);
   liteBtn.classList.remove("pop");void liteBtn.offsetWidth;liteBtn.classList.add("pop");
 });
